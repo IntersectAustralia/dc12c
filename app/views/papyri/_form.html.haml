@@ -1,0 +1,25 @@
+= form_for @papyrus do |f|
+  -if @papyrus.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@papyrus.errors.count, "error")} prohibited this papyrus from being saved:"
+      %ul
+        - @papyrus.errors.full_messages.each do |msg|
+          %li= msg
+
+  = render_field('Inventory ID', f.text_field(:inventory_id))
+  = render_field('Width', f.text_field(:width))
+  = render_field('Height', f.text_field(:height))
+  = render_field('General Note', f.text_field(:general_note))
+  = render_field('Note', f.text_field(:note))
+  = render_field('Paleographic Description', f.text_field(:paleographic_description))
+  = render_field('Recto Note', f.text_field(:recto_note))
+  = render_field('Verso Note', f.text_field(:verso_note))
+  = render_field('Origin Details', f.text_field(:origin_details))
+  = render_field('Source of Acquisition', f.text_field(:source_of_acquisition))
+  = render_field('Preservation Note', f.text_field(:preservation_note))
+  = render_field('Language Note', f.text_field(:language_note))
+  = render_field('Summary', f.text_field(:summary))
+  = render_field('Original Text', f.text_field(:original_text))
+  = render_field('Translated Text', f.text_field(:translated_text))
+  .actions
+    = f.submit 'Save'

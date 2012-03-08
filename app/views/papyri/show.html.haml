@@ -1,0 +1,22 @@
+%p#notice= notice
+
+
+= render_field('Inventory ID', @papyrus.inventory_id)
+= render_field('Width', @papyrus.width)
+= render_field('Height', @papyrus.height)
+= render_field('General Note', @papyrus.general_note)
+= render_field('Note', @papyrus.note)
+= render_field('Paleographic Description', @papyrus.paleographic_description)
+= render_field('Recto Note', @papyrus.recto_note)
+= render_field('Verso Note', @papyrus.verso_note)
+= render_field('Origin Details', @papyrus.origin_details)
+= render_field('Source of Acquisition', @papyrus.source_of_acquisition)
+= render_field('Preservation Note', @papyrus.preservation_note)
+= render_field('Language Note', @papyrus.language_note)
+= render_field('Summary', @papyrus.summary)
+= render_field('Original Text', @papyrus.original_text)
+= render_field('Translated Text', @papyrus.translated_text)
+
+= link_to 'Edit', edit_papyrus_path(@papyrus)
+\|
+= link_to 'Back', papyri_path
