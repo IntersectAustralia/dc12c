@@ -20,7 +20,7 @@ Then /^I should see fields displayed$/ do |table|
     field = row[:field]
     value = row[:value]
     div_id = field.tr(" ,", "_").downcase
-    div_scope = "div#display_#{div_id}"
+    div_scope = '"div#display_' + div_id + '"'
     with_scope(div_scope) do
       page.should have_content(field)
       page.should have_content(value)

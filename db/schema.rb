@@ -11,7 +11,25 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120306044503) do
+ActiveRecord::Schema.define(:version => 20120308004954) do
+
+  create_table "papyri", :force => true do |t|
+    t.string  "inventory_id"
+    t.integer "width"
+    t.integer "height"
+    t.string  "general_note"
+    t.string  "note"
+    t.string  "paleographic_description"
+    t.string  "recto_note"
+    t.string  "verso_note"
+    t.string  "origin_details"
+    t.string  "source_of_acquisition"
+    t.string  "preservation_note"
+    t.string  "language_note"
+    t.string  "summary"
+    t.string  "original_text"
+    t.string  "translated_text"
+  end
 
   create_table "permissions", :force => true do |t|
     t.string   "entity"

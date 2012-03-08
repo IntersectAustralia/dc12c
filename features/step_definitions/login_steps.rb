@@ -22,9 +22,10 @@ Given /^I have a user "([^"]*)" with an expired lock$/ do |email|
   Factory(:user, :email => email, :password => "Pas$w0rd", :status => 'A', :locked_at => Time.now - 1.hour - 1.second, :failed_attempts => 3)
 end
 
-Given /^I have a user "([^"]*)" with role "([^"]*)"$/ do |email, role|
+Given /^I have a user "([^"]*)" with role "([^"]*)"$/ do |email, role_name|
   user            = Factory(:user, :email => email, :password => "Pas$w0rd", :status => 'A')
-  role         = Role.where(:name => role).first
+  role         = Role.where(:name => role_name).first
+  role = Role.create!(name: role_name) unless role
   user.role_id = role.id
   user.save!
 end
