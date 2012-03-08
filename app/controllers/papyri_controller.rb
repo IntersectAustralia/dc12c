@@ -1,9 +1,8 @@
 class PapyriController < ApplicationController
+  load_and_authorize_resource
   # GET /papyri
   # GET /papyri.json
   def index
-    @papyri = Papyrus.all
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @papyri }
@@ -13,8 +12,6 @@ class PapyriController < ApplicationController
   # GET /papyri/1
   # GET /papyri/1.json
   def show
-    @papyrus = Papyrus.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @papyrus }
@@ -24,8 +21,6 @@ class PapyriController < ApplicationController
   # GET /papyri/new
   # GET /papyri/new.json
   def new
-    @papyrus = Papyrus.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @papyrus }
@@ -34,14 +29,11 @@ class PapyriController < ApplicationController
 
   # GET /papyri/1/edit
   def edit
-    @papyrus = Papyrus.find(params[:id])
   end
 
   # POST /papyri
   # POST /papyri.json
   def create
-    @papyrus = Papyrus.new(params[:papyrus])
-
     respond_to do |format|
       if @papyrus.save
         format.html { redirect_to @papyrus, notice: 'Your Papyrus record has been created.' }
@@ -56,8 +48,6 @@ class PapyriController < ApplicationController
   # PUT /papyri/1
   # PUT /papyri/1.json
   def update
-    @papyrus = Papyrus.find(params[:id])
-
     respond_to do |format|
       if @papyrus.update_attributes(params[:papyrus])
         format.html { redirect_to @papyrus, notice: 'Papyrus was successfully updated.' }

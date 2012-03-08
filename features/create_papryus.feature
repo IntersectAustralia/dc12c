@@ -4,10 +4,11 @@ Feature: Create Papyrus
 
   Background:
     Given I have a user "admin@intersect.org.au" with role "Administrator"
-    And I am logged in as "admin@intersect.org.au"
+    And I have a user "researcher@intersect.org.au" with role "Researcher"
 
   Scenario: Creating Papyrus
-    Given I am on the home page
+    Given I am logged in as "admin@intersect.org.au"
+    And I am on the home page
     When I follow "Create Papyrus"
     Then I should see fields displayed
       | field                    | value |
@@ -46,8 +47,7 @@ Feature: Create Papyrus
     And I press "Save"
     Then I should see "Your Papyrus record has been created."
     And I should be on the "24gac" papyrus page
-    Then show me the page
-    Then I should see the following papyrus details
+    And I should see the following papyrus details
       | field                    | value                     |
       | Inventory ID             | 24gac                     |
       | Width                    | 50                        |
@@ -65,4 +65,17 @@ Feature: Create Papyrus
       | Original Text            | περιοχής για να τιμήσουμε |
       | Translated Text          | area to honor             |
 
+  Scenario: Researcher cannot create a papyrus record
+    Given I am logged in as "researcher@intersect.org.au"
+    When I am on the homepage
+    Then I should not see "Create Papyrus"
+    When I am on the new papyrus page
+    Then I should be on the home page
+    And I should see "You are not authorized to access this page"
 
+  Scenario: If not logged in I cannot create a papyrus record
+    When I am on the homepage
+    Then I should not see "Create Papyrus"
+    When I am on the new papyrus page
+    Then I should be on the home page
+    And I should see "You are not authorized to access this page"

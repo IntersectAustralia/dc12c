@@ -6,4 +6,5 @@
     = link_to "Sign Up", new_user_registration_path, :class => "button"
     = link_to "Forgot your password?", new_user_password_path, :class => "button"
   - else
-    %p= link_to "Create Papyrus", new_papyrus_path, :class => "button"
+    - if can? :create, Papyrus
+      %p= link_to "Create Papyrus", new_papyrus_path, :class => "button"
