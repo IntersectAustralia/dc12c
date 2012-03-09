@@ -34,6 +34,7 @@ class PapyriController < ApplicationController
   # POST /papyri
   # POST /papyri.json
   def create
+    @papyrus.date_era = nil if @papyrus.date_era.blank?
     respond_to do |format|
       if @papyrus.save
         format.html { redirect_to @papyrus, notice: 'Your Papyrus record has been created.' }

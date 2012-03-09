@@ -1,6 +1,11 @@
 def set_papyrus_field(field_id, value)
-	input = find("#papyrus_#{field_id}")
-	input.set value
+  id = "#papyrus_#{field_id}"
+	input = find(id)
+  if input.tag_name == 'select'
+    select value, from: id.slice(1..-1)
+  else
+    input.set value
+  end
 end
 
 When /^I enter the following papyrus details$/ do |table|

@@ -82,3 +82,49 @@ Feature: Create Papyrus
     When I am on the new papyrus page
     Then I should be on the home page
     And I should see "You are not authorized to access this page"
+
+  Scenario: Creating Papyrus with only mandatory fields
+    Given I am logged in as "admin@intersect.org.au"
+    And I am on the home page
+    When I follow "Create Papyrus"
+    When I enter the following papyrus details
+      | field        | value |
+      | Inventory ID | 24gac |
+    And I press "Save"
+    Then I should see "Your Papyrus record has been created."
+    And I should be on the "24gac" papyrus page
+    And I should see the following papyrus details
+      | field                    | value |
+      | Inventory ID             | 24gac |
+      | Width                    |       |
+      | Height                   |       |
+      | Date                     |       |
+      | General Note             |       |
+      | Note                     |       |
+      | Paleographic Description |       |
+      | Recto Note               |       |
+      | Verso Note               |       |
+      | Origin Details           |       |
+      | Source of Acquisition    |       |
+      | Preservation Note        |       |
+      | Language Note            |       |
+      | Summary                  |       |
+      | Original Text            |       |
+      | Translated Text          |       |
+
+  Scenario: Creating Papyrus with wrong fields
+    Given I am logged in as "admin@intersect.org.au"
+    And I am on the home page
+    When I follow "Create Papyrus"
+    When I enter the following papyrus details
+      | field                    | value                     |
+      | Inventory ID             |                           |
+      | Width                    | -1                        |
+      | Height                   | 0                         |
+      | Date                     | -2 CE                     |
+    And I press "Save"
+    Then I should not see "Your Papyrus record has been created."
+    And I should see "Date year must be greater than 0"
+    And I should see "Inventory ID can't be blank"
+    And I should see "Width must be greater than 0"
+    And I should see "Height must be greater than 0"
