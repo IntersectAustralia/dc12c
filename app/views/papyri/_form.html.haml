@@ -9,6 +9,9 @@
   = render_field('Inventory ID', f.text_field(:inventory_id))
   = render_field('Width', f.text_field(:width))
   = render_field('Height', f.text_field(:height))
+  = render_field_with_block('Date') do
+    = f.text_field(:date_year)
+    = f.select(:date_era, [['CE', 'CE'], ['BCE', 'BCE']])
   = render_field('General Note', f.text_field(:general_note))
   = render_field('Note', f.text_field(:note))
   = render_field('Paleographic Description', f.text_field(:paleographic_description))

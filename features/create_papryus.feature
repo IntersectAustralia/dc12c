@@ -15,6 +15,7 @@ Feature: Create Papyrus
       | Inventory ID             |       |
       | Width                    |       |
       | Height                   |       |
+      | Date                     |       |
       | General Note             |       |
       | Note                     |       |
       | Paleographic Description |       |
@@ -32,6 +33,7 @@ Feature: Create Papyrus
       | Inventory ID             | 24gac                     |
       | Width                    | 50                        |
       | Height                   | 40                        |
+      | Date                     | 234 CE                    |
       | General Note             | this is a papyrus         |
       | Note                     | same as general           |
       | Paleographic Description | sydney                    |
@@ -52,6 +54,7 @@ Feature: Create Papyrus
       | Inventory ID             | 24gac                     |
       | Width                    | 50                        |
       | Height                   | 40                        |
+      | Date                     | 234 CE                    |
       | General Note             | this is a papyrus         |
       | Note                     | same as general           |
       | Paleographic Description | sydney                    |

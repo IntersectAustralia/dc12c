@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120308004954) do
+ActiveRecord::Schema.define(:version => 20120309005845) do
 
   create_table "papyri", :force => true do |t|
     t.string  "inventory_id"
@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(:version => 20120308004954) do
     t.string  "summary"
     t.string  "original_text"
     t.string  "translated_text"
+    t.integer "date_year"
+    t.string  "date_era"
   end
 
   create_table "permissions", :force => true do |t|
