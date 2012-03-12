@@ -50,6 +50,7 @@ class PapyriController < ApplicationController
   # PUT /papyri/1.json
   def update
     respond_to do |format|
+      params[:papyrus][:language_ids] ||= []
       if @papyrus.update_attributes(params[:papyrus])
         format.html { redirect_to @papyrus, notice: 'Papyrus was successfully updated.' }
         format.json { head :no_content }

@@ -47,6 +47,9 @@ module NavigationHelpers
         p = Papyrus.find_by_inventory_id! $1
         papyrus_path p
 
+      when /the "(.*)" edit papyrus page/
+        p = Papyrus.find_by_inventory_id! $1
+        edit_papyrus_path p
 # Add more mappings here.
 # Here is an example that pulls values out of the Regexp:
 #

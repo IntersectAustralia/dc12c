@@ -9,8 +9,8 @@
   = render_field('Inventory ID', f.text_field(:inventory_id))
   = render_field_with_block('Languages') do
     - Language.all.each do |l|
-      = check_box_tag "papyrus[language_ids][]", l.id, @papyrus.languages.include?(l), id: "papyrus_language_ids_#{l.id}"
-      = l.name
+      = check_box_tag "papyrus[language_ids][]", l.id, @papyrus.languages.include?(l), id: "papyrus_language_ids_#{l.id}", class: 'papyrus_language_checkbox'
+      = label_tag "papyrus_language_ids_#{l.id}", l.name
   = render_field('Width', f.text_field(:width))
   = render_field('Height', f.text_field(:height))
   = render_field_with_block('Date') do

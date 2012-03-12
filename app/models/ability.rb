@@ -18,7 +18,11 @@ class Ability
 
     can :read, Papyrus
     return unless user and user.role
-    can :create, Papyrus if Role.superuser_roles.include? user.role
+    if Role.superuser_roles.include? user.role
+      can :create, Papyrus
+      can :update, Papyrus
+    end
+
 
     user.role.permissions.each do |permission| # TODO revisit
       action = permission.action.to_sym

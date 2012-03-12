@@ -19,6 +19,7 @@
 = render_field('Original Text', @papyrus.original_text)
 = render_field('Translated Text', @papyrus.translated_text)
 
-= link_to 'Edit', edit_papyrus_path(@papyrus)
-\|
+- if can? :update, @papyrus
+  = link_to 'Edit this record', edit_papyrus_path(@papyrus)
+  \|
 = link_to 'Back', papyri_path
