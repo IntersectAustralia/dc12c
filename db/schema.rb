@@ -11,7 +11,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120309005845) do
+ActiveRecord::Schema.define(:version => 20120311235613) do
+
+  create_table "countries", :force => true do |t|
+    t.string "name"
+  end
+
+  create_table "genres", :force => true do |t|
+    t.string "name"
+  end
+
+  create_table "languages", :force => true do |t|
+    t.string "name"
+  end
+
+  create_table "languages_papyri", :force => true do |t|
+    t.integer "language_id"
+    t.integer "papyrus_id"
+  end
 
   create_table "papyri", :force => true do |t|
     t.string  "inventory_id"
@@ -31,6 +48,8 @@ ActiveRecord::Schema.define(:version => 20120309005845) do
     t.string  "translated_text"
     t.integer "date_year"
     t.string  "date_era"
+    t.integer "country_of_origin_id"
+    t.integer "genre_id"
   end
 
   create_table "permissions", :force => true do |t|

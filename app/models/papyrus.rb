@@ -1,4 +1,9 @@
 class Papyrus < ActiveRecord::Base
+
+  belongs_to :country_of_origin, class_name: 'Country'
+  belongs_to :genre
+  has_and_belongs_to_many :languages
+
   validates :inventory_id, presence: true, uniqueness: true
 
   validate :date_less_than_current_year
@@ -12,6 +17,10 @@ class Papyrus < ActiveRecord::Base
 
   def formatted_date
     "#{date_year} #{date_era}" if date_year and date_era
+  end
+
+  def languages_csv
+    languages.order("name").map(&:name).join(", ")
   end
 
   private

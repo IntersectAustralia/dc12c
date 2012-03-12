@@ -12,6 +12,11 @@ describe Papyrus do
       papyrus.formatted_date.should be_nil
     end
   end
+  describe "associations" do
+    it { should belong_to :country_of_origin }
+    it { should belong_to :genre }
+    it { should have_and_belong_to_many :languages }
+  end
   describe "validations" do
     it { should validate_presence_of :inventory_id }
     it "should validate inventory id is unique" do
@@ -70,6 +75,16 @@ describe Papyrus do
       Factory.build(:papyrus, height: 10).should be_valid
     end
 
+  end
+  describe "languages_csv" do
+    it "should return the languages in alphabetical order" do
+      p = Factory(:papyrus)
+      p.languages.create(name: 'B')
+      p.languages.create(name: 'A')
+      p.languages.create(name: 'C')
+
+      p.languages_csv.should eq 'A, B, C'
+    end
   end
 
 end

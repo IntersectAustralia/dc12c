@@ -7,6 +7,10 @@
           %li= msg
 
   = render_field('Inventory ID', f.text_field(:inventory_id))
+  = render_field_with_block('Languages') do
+    - Language.all.each do |l|
+      = check_box_tag "papyrus[language_ids][]", l.id, @papyrus.languages.include?(l), id: "papyrus_language_ids_#{l.id}"
+      = l.name
   = render_field('Width', f.text_field(:width))
   = render_field('Height', f.text_field(:height))
   = render_field_with_block('Date') do
@@ -17,9 +21,11 @@
   = render_field('Paleographic Description', f.text_field(:paleographic_description))
   = render_field('Recto Note', f.text_field(:recto_note))
   = render_field('Verso Note', f.text_field(:verso_note))
+  = render_field('Country of Origin', f.select(:country_of_origin_id, Country.all.map{|c| [c.name, c.id]}, {include_blank: true}, id: 'papyrus_country_of_origin'))
   = render_field('Origin Details', f.text_field(:origin_details))
   = render_field('Source of Acquisition', f.text_field(:source_of_acquisition))
   = render_field('Preservation Note', f.text_field(:preservation_note))
+  = render_field('Genre', f.select(:genre_id, Genre.all.map{|g| [g.name, g.id]}, {include_blank: true}, id: 'papyrus_genre'))
   = render_field('Language Note', f.text_field(:language_note))
   = render_field('Summary', f.text_field(:summary))
   = render_field('Original Text', f.text_field(:original_text))
