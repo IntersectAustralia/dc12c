@@ -254,6 +254,7 @@ Feature: Manage Papyrus
       | Summary                  | very old papyrus          |
       | Original Text            | περιοχής για να τιμήσουμε |
       | Translated Text          | area to honor             |
+    And I should be on the "24gac" papyrus page
 
 
   Scenario: Editing a Papyrus record and unchecking all languages (logged in as administrator)
@@ -286,6 +287,7 @@ Feature: Manage Papyrus
     And I uncheck "Greek"
     And I press "Save"
     Then I should see "Papyrus was successfully updated."
+    And I should be on the "p.macq2" papyrus page
     And I should see the following papyrus details
       | field     | value |
       | Languages |       |
