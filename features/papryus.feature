@@ -352,3 +352,11 @@ Feature: Manage Papyrus
       | hidden.macq  | Specific stuff |                   | No          |
       | p.macq2      | Specific blah  | Greece            | Yes         |
       | visible.macq | Specific stuff | Turkey            | No          |
+    When I follow "hidden.macq"
+    Then I should be on the "hidden.macq" papyrus page
+    When I am on the papyri page
+    And I follow "p.macq2"
+    Then I should be on the "p.macq2" papyrus page
+    When I am on the papyri page
+    And I follow "visible.macq"
+    Then I should be on the "visible.macq" papyrus page

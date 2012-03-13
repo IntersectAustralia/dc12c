@@ -95,4 +95,29 @@ describe Papyrus do
     end
   end
 
+  describe "has_translation?" do
+    it "should return true for a translation present" do
+      p = Papyrus.new(translated_text: 'some translation')
+      p.human_readable_has_translation.should eq 'Yes'
+    end
+    it "should return false for a blank translation" do
+      p = Papyrus.new(translated_text: '')
+      p.human_readable_has_translation.should eq 'No'
+    end
+    it "should return false for a nil translation" do
+      p = Papyrus.new(translated_text: nil)
+      p.human_readable_has_translation.should eq 'No'
+    end
+  end
+
+  it "should order by inventory_id by default" do
+    Factory(:papyrus, inventory_id: 'B')
+    Factory(:papyrus, inventory_id: 'D')
+    Factory(:papyrus, inventory_id: 'A')
+    Factory(:papyrus, inventory_id: 'C')
+
+    Papyrus.pluck(:inventory_id).should eq %w{A B C D}
+
+  end
+
 end

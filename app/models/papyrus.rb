@@ -20,12 +20,18 @@ class Papyrus < ActiveRecord::Base
   validates_numericality_of :width, greater_than: 0, allow_nil: true
   validates_numericality_of :height, greater_than: 0, allow_nil: true
 
+  default_scope order: 'inventory_id'
+
   def formatted_date
     "#{date_year} #{date_era}" if date_year and date_era
   end
 
   def languages_csv
     languages.order("name").map(&:name).join(", ")
+  end
+
+  def human_readable_has_translation
+    translated_text.present? ? 'Yes' : 'No'
   end
 
   private
