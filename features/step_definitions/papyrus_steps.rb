@@ -67,10 +67,10 @@ And /^I have a papyrus$/ do |table|
   genre = attrs.delete 'genre'
 
   year, era = date.split ' '
-  country = Country.find_by_name! country_of_origin
+  country = Country.find_by_name! country_of_origin if country_of_origin
   languages = languages.split ', '
   languages = languages.map { |name| Language.find_by_name! name }
-  genre = Genre.find_by_name! genre
+  genre = Genre.find_by_name! genre if genre
 
   papyrus = Papyrus.new(attrs)
   papyrus.date_year = year
@@ -111,4 +111,8 @@ Then /^I should see papyrus fields displayed$/ do |table|
       get_papyrus_field(field_id).should eq value.to_s
     end
   end
+end
+And /^"([^"]*)" should have a visibility of "([^"]*)"$/ do |inventory_id, visibility|
+  papyrus = Papyrus.find_by_inventory_id! inventory_id
+  papyrus.visibility.should eq visibility
 end

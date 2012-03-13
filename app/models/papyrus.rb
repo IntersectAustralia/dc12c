@@ -1,10 +1,15 @@
 class Papyrus < ActiveRecord::Base
 
+  VISIBLE = 'VISIBLE'
+  PUBLIC = 'PUBLIC'
+  HIDDEN = 'HIDDEN'
+
   belongs_to :country_of_origin, class_name: 'Country'
   belongs_to :genre
   has_and_belongs_to_many :languages
 
   validates :inventory_id, presence: true, uniqueness: true
+  validates :visibility, presence: true, inclusion: [HIDDEN, VISIBLE, PUBLIC]
 
   validate :date_less_than_current_year
   validates_inclusion_of :date_era, in: ['BCE', 'CE'], allow_nil: true

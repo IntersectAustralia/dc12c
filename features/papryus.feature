@@ -24,8 +24,14 @@ Feature: Manage Papyrus
       | Cyprus |
       | Turkey |
     And I have a papyrus
-      | inventory_id | languages     | width | height | date  | general_note | note          | paleographic_description | recto_note | verso_note | country_of_origin | origin_details | source_of_acquisition | preservation_note | genre | language_note | summary             | original_text | translated_text |
-      | p.macq2      | Coptic, Greek | 30    | 77     | 88 CE | General Blah | Specific blah | Paleo Diet               | Rectangle  | Verses     | Greece            | It's Greek.    | Got it from Greece    | poorly preserved  | Book  | Fancy Greek   | don't understand it | περιοχής      | area            |
+      | inventory_id | languages     | width | height | date  | general_note | note          | paleographic_description | recto_note | verso_note | country_of_origin | origin_details | source_of_acquisition | preservation_note | genre | language_note | summary             | original_text | translated_text | visibility |
+      | p.macq2      | Coptic, Greek | 30    | 77     | 88 CE | General Blah | Specific blah | Paleo Diet               | Rectangle  | Verses     | Greece            | It's Greek.    | Got it from Greece    | poorly preserved  | Book  | Fancy Greek   | don't understand it | περιοχής      | area            | PUBLIC     |
+    And I have a papyrus
+      | inventory_id | languages       | width | height | date   | general_note  | note           | visibility |
+      | hidden.macq  | Coptic, Demotic | 60    | 177    | 488 CE | General stuff | Specific stuff | HIDDEN     |
+    And I have a papyrus
+      | inventory_id | languages       | width | height | date   | general_note  | note           | visibility |
+      | visible.macq  | Coptic, Demotic | 60    | 177    | 488 CE | General stuff | Specific stuff | VISIBLE     |
 
   Scenario: Creating Papyrus
     Given I am logged in as "admin@intersect.org.au"
@@ -99,6 +105,7 @@ Feature: Manage Papyrus
       | Summary                  | very old papyrus          |
       | Original Text            | περιοχής για να τιμήσουμε |
       | Translated Text          | area to honor             |
+    And "24gac" should have a visibility of "HIDDEN"
 
   Scenario: Researcher cannot create a papyrus record
     Given I am logged in as "researcher@intersect.org.au"
@@ -304,4 +311,33 @@ Feature: Manage Papyrus
     Then I should not see "Papyrus was successfully updated."
     And I should see "Date year must be greater than 0"
 
+  Scenario: Viewing a Papyrus record (logged in as administrator)
+    Given I am logged in as "admin@intersect.org.au"
+    And I am on the "hidden.macq" papyrus page
+    Then I should see "Record is hidden"
+    And I am on the "p.macq2" papyrus page
+    Then I should see "Record is public"
+    And I am on the "visible.macq" papyrus page
+    Then I should see "Record is visible"
 
+  Scenario: Viewing a Papyrus record (logged in as Researcher)
+    Given I am logged in as "researcher@intersect.org.au"
+    And I am on the "hidden.macq" papyrus page
+    Then I should not see "Record is hidden"
+    And I am on the "p.macq2" papyrus page
+    Then I should not see "Record is public"
+    And I am on the "visible.macq" papyrus page
+    Then I should not see "Record is visible"
+
+  Scenario: Anonymous user should only see public papyri records
+    When I am on the "hidden.macq" papyrus page
+    Then I should be on the home page
+    And I should see "You are not authorized to access this page"
+
+    When I am on the "p.macq2" papyrus page
+    Then I should be on the "p.macq2" papyrus page
+    And I should not see "You are not authorized to access this page"
+
+    When I am on the "visible.macq" papyrus page
+    Then I should be on the "visible.macq" papyrus page
+    And I should not see "You are not authorized to access this page"

@@ -74,6 +74,14 @@ describe Papyrus do
       Factory.build(:papyrus, height: nil).should be_valid
       Factory.build(:papyrus, height: 10).should be_valid
     end
+    it { should validate_presence_of :visibility }
+    it "should only accept either hidden, visible or public" do
+      Factory.build(:papyrus, visibility: Papyrus::HIDDEN).should be_valid
+      Factory.build(:papyrus, visibility: Papyrus::VISIBLE).should be_valid
+      Factory.build(:papyrus, visibility: Papyrus::PUBLIC).should be_valid
+      Factory.build(:papyrus, visibility: "RANDOM").should_not be_valid
+      Factory.build(:papyrus, visibility: "public").should_not be_valid
+    end
 
   end
   describe "languages_csv" do

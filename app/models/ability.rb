@@ -16,13 +16,14 @@ class Ability
     # alias reject_as_spam to reject so they are considered the same
     alias_action :reject_as_spam, :to => :reject
 
-    can :read, Papyrus
+    can :read, Papyrus, visibility: [Papyrus::PUBLIC, Papyrus::VISIBLE]
     return unless user and user.role
     if Role.superuser_roles.include? user.role
       can :create, Papyrus
       can :update, Papyrus
+      can :view_visibility, Papyrus
+      can :read, Papyrus
     end
-
 
     user.role.permissions.each do |permission| # TODO revisit
       action = permission.action.to_sym

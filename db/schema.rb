@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120311235613) do
+ActiveRecord::Schema.define(:version => 20120313012214) do
 
   create_table "countries", :force => true do |t|
     t.string "name"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(:version => 20120311235613) do
     t.string  "date_era"
     t.integer "country_of_origin_id"
     t.integer "genre_id"
+    t.string  "visibility",               :default => "HIDDEN"
   end
 
   create_table "permissions", :force => true do |t|

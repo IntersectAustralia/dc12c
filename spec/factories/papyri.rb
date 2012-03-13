@@ -5,3 +5,4 @@ FactoryGirl.define do
     sequence(:inventory_id){|n| n.to_s}
   end
 end
+
