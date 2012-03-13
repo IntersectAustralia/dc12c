@@ -30,8 +30,8 @@ Feature: Manage Papyrus
       | inventory_id | languages       | width | height | date   | general_note  | note           | visibility |
       | hidden.macq  | Coptic, Demotic | 60    | 177    | 488 CE | General stuff | Specific stuff | HIDDEN     |
     And I have a papyrus
-      | inventory_id | languages       | width | height | date   | general_note  | note           | visibility |
-      | visible.macq  | Coptic, Demotic | 60    | 177    | 488 CE | General stuff | Specific stuff | VISIBLE     |
+      | inventory_id | languages       | width | height | date   | general_note  | note           | visibility | country_of_origin |
+      | visible.macq | Coptic, Demotic | 60    | 177    | 488 CE | General stuff | Specific stuff | VISIBLE    | Turkey            |
 
   Scenario: Creating Papyrus
     Given I am logged in as "admin@intersect.org.au"
@@ -341,3 +341,14 @@ Feature: Manage Papyrus
     When I am on the "visible.macq" papyrus page
     Then I should be on the "visible.macq" papyrus page
     And I should not see "You are not authorized to access this page"
+
+  Scenario: Admin should see a list of all the papyri
+    Given I am logged in as "admin@intersect.org.au"
+    And I am on the home page
+    When I follow "List all papyri records"
+    Then I should be on the papyri page
+    And I should see the list papyri table
+      | Inventory ID | Note           | Country of Origin | Translation |
+      | hidden.macq  | Specific stuff |                   | No          |
+      | p.macq2      | Specific blah  | Greece            | Yes         |
+      | visible.macq | Specific stuff | Turkey            | No          |

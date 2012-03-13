@@ -116,3 +116,9 @@ And /^"([^"]*)" should have a visibility of "([^"]*)"$/ do |inventory_id, visibi
   papyrus = Papyrus.find_by_inventory_id! inventory_id
   papyrus.visibility.should eq visibility
 end
+And /^I should see the list papyri table$/ do |expected_table|
+  pending
+  actual = find("table#papyri_table").all('tr').map { |row| row.all('th, td').map { |cell| cell.text.strip } }
+  expected_table.diff!(actual)
+end
+
