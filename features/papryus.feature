@@ -360,3 +360,22 @@ Feature: Manage Papyrus
     When I am on the papyri page
     And I follow "visible.macq"
     Then I should be on the "visible.macq" papyrus page
+
+  Scenario: Researcher should see list of visible and public papyri
+    Given I am logged in as "researcher@intersect.org.au"
+    And I am on the home page
+    When I follow "List all papyri records"
+    Then I should be on the papyri page
+    And I should see the list papyri table
+      | Inventory ID | Note           | Country of Origin | Translation |
+      | p.macq2      | Specific blah  | Greece            | Yes         |
+      | visible.macq | Specific stuff | Turkey            | No          |
+
+  Scenario: Anonymous user should see list of visible and public papyri
+    Given I am on the home page
+    When I follow "List all papyri records"
+    Then I should be on the papyri page
+    And I should see the list papyri table
+      | Inventory ID | Note           | Country of Origin | Translation |
+      | p.macq2      | Specific blah  | Greece            | Yes         |
+      | visible.macq | Specific stuff | Turkey            | No          |
