@@ -59,28 +59,31 @@ And /^I have countries$/ do |table|
   end
 end
 
-And /^I have a papyrus$/ do |table|
-  attrs = table.hashes.first
-  languages = attrs.delete 'languages'
-  date = attrs.delete 'date'
-  country_of_origin = attrs.delete 'country_of_origin'
-  genre = attrs.delete 'genre'
+And /^I have (a papyrus|papyri)$/ do |_, table|
+  table.hashes.each do |attrs|
+    languages = attrs.delete 'languages'
+    date = attrs.delete 'date'
+    country_of_origin = attrs.delete 'country_of_origin'
+    genre = attrs.delete 'genre'
 
-  year, era = date.split ' '
-  country = Country.find_by_name! country_of_origin if country_of_origin
-  languages = languages.split ', '
-  languages = languages.map { |name| Language.find_by_name! name }
-  genre = Genre.find_by_name! genre if genre
+    year, era = date.split ' ' if date
+    country = Country.find_by_name! country_of_origin if country_of_origin
 
-  papyrus = Papyrus.new(attrs)
-  papyrus.date_year = year
-  papyrus.date_era = era
-  papyrus.country_of_origin = country
-  papyrus.languages = languages
-  papyrus.genre = genre
+    papyrus = Papyrus.new(attrs)
+    papyrus.date_year = year
+    papyrus.date_era = era
+    papyrus.country_of_origin = country
+    if languages
+      languages = languages.split ', ' if languages
+      languages = languages.map { |name| Language.find_by_name! name }
+      papyrus.languages = languages
+    end
+    papyrus.genre = Genre.find_by_name! genre if genre
 
-  papyrus.save!
+    papyrus.save!
+  end
 end
+
 Then /^I should see papyrus fields displayed$/ do |table|
   table.hashes.each do |row|
 

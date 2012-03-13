@@ -50,6 +50,11 @@ module NavigationHelpers
       when /the "(.*)" edit papyrus page/
         p = Papyrus.find_by_inventory_id! $1
         edit_papyrus_path p
+
+      when /page (\d+) of the papyri index/
+        page_num = $1
+        pending
+
 # Add more mappings here.
 # Here is an example that pulls values out of the Regexp:
 #
