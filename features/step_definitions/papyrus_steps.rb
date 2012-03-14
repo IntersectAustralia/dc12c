@@ -124,3 +124,10 @@ And /^I should see the list papyri table$/ do |expected_table|
   expected_table.diff!(actual)
 end
 
+And /^I should (not )?see the pagination controls$/ do |not_see|
+  if not_see
+    page.should_not have_css('div.pagination')
+  else
+    page.should have_css('div.pagination')
+  end
+end
