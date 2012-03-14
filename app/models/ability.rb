@@ -16,6 +16,9 @@ class Ability
     # alias reject_as_spam to reject so they are considered the same
     alias_action :reject_as_spam, :to => :reject
 
+    # alias search to read so they are considered the same
+    alias_action :search, to: :read
+
     can :read, Papyrus, visibility: [Papyrus::PUBLIC, Papyrus::VISIBLE]
     return unless user and user.role
     if Role.superuser_roles.include? user.role

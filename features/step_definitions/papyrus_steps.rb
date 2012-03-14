@@ -67,7 +67,7 @@ And /^I have (a papyrus|papyri)$/ do |_, table|
     genre = attrs.delete 'genre'
 
     year, era = date.split ' ' if date
-    country = Country.find_by_name! country_of_origin if country_of_origin
+    country = Country.find_by_name! country_of_origin if country_of_origin.present?
 
     papyrus = Papyrus.new(attrs)
     papyrus.date_year = year
@@ -78,7 +78,7 @@ And /^I have (a papyrus|papyri)$/ do |_, table|
       languages = languages.map { |name| Language.find_by_name! name }
       papyrus.languages = languages
     end
-    papyrus.genre = Genre.find_by_name! genre if genre
+    papyrus.genre = Genre.find_by_name! genre if genre.present?
 
     papyrus.save!
   end
@@ -120,8 +120,7 @@ And /^"([^"]*)" should have a visibility of "([^"]*)"$/ do |inventory_id, visibi
   papyrus.visibility.should eq visibility
 end
 And /^I should see the list papyri table$/ do |expected_table|
-  actual = find("table#papyri_table").all('tr').map { |row| row.all('th, td').map { |cell| cell.text.strip } }
-  expected_table.diff!(actual)
+  diff_tables!(expected_table, 'papyri_table')
 end
 
 And /^I should (not )?see the pagination controls$/ do |not_see|
@@ -130,4 +129,23 @@ And /^I should (not )?see the pagination controls$/ do |not_see|
   else
     page.should have_css('div.pagination')
   end
+end
+
+Then /^I should see search results "([^"]*)"$/ do |inventory_ids|
+  ids = inventory_ids.split ", "
+  papyri = Papyrus.order('inventory_id').where(inventory_id: ids)
+  rows = papyri.map do |papyrus|
+    [papyrus.inventory_id, papyrus.note, papyrus.country_of_origin.try(:name) || '', papyrus.human_readable_has_translation]
+  end
+  expected_table = [
+    ['Inventory ID', 'Note', 'Country of Origin', 'Translation'],
+    *rows
+  ]
+  actual = find("table#search_results").all('tr').map { |row| row.all('th, td').map { |cell| cell.text.strip } }
+  expected_table.should eq actual
+end
+
+def diff_tables!(expected_table, actual_id)
+  actual = find("table##{actual_id}").all('tr').map { |row| row.all('th, td').map { |cell| cell.text.strip } }
+  expected_table.diff!(actual)
 end

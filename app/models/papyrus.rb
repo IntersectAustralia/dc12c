@@ -34,6 +34,10 @@ class Papyrus < ActiveRecord::Base
     translated_text.present? ? 'Yes' : 'No'
   end
 
+  def self.search search_terms
+    Papyrus.where(visibility: [HIDDEN, VISIBLE, PUBLIC])
+  end
+
   private
 
   def date_less_than_current_year

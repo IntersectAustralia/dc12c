@@ -8,5 +8,8 @@
   - else
     - if can? :create, Papyrus
       %p= link_to "Create Papyrus", new_papyrus_path, :class => "button"
-
+  = form_tag search_papyri_path, method: :get do
+    = label_tag :search
+    = search_field_tag :search
+    = submit_tag "Search"
   %p= link_to "List all papyri records", papyri_path, class: "button"

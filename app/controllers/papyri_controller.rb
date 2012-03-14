@@ -3,8 +3,7 @@ class PapyriController < ApplicationController
   # GET /papyri
   # GET /papyri.json
   def index
-    page = params[:page]
-    page = page.to_i <= 0 ? 1 : page
+    page = make_page(params[:page])
     @papyri = @papyri.paginate(page: page, per_page: APP_CONFIG['number_of_papyri_per_page'])
     respond_to do |format|
       format.html # index.html.erb
@@ -63,5 +62,20 @@ class PapyriController < ApplicationController
       end
     end
   end
+
+  def search
+    page = make_page(params[:page])
+    search_query = params[:search]
+    search_terms = search_query.split /\s+/
+    search_results = Papyrus.search(search_terms)
+    @papyri = search_results.accessible_by(current_ability).paginate(page: page, per_page: APP_CONFIG['number_of_papyri_per_page'])
+  end
+
+  private
+
+  def make_page(page)
+    page.to_i < 1 ? 1 : page
+  end
+
 
 end

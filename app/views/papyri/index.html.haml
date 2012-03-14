@@ -1,18 +1,6 @@
 %h1 Listing papyri
 
-%table#papyri_table
-  %tr
-    %th Inventory ID
-    %th Note
-    %th Country of Origin
-    %th Translation
-
-  - @papyri.each do |papyrus|
-    %tr
-      %td= link_to papyrus.inventory_id, papyrus
-      %td= papyrus.note
-      %td= papyrus.country_of_origin.try :name
-      %td= papyrus.human_readable_has_translation
+= render partial: 'table', locals: {table_id: 'papyri_table'}
 
 %br
 

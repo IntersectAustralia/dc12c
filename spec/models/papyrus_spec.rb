@@ -120,4 +120,24 @@ describe Papyrus do
 
   end
 
+  describe "search" do
+    before :each do
+      Factory(:papyrus, inventory_id: "k")
+      Factory(:papyrus, languages: "")
+      Factory(:papyrus, general_note: "")
+      Factory(:papyrus, note: "")
+      Factory(:papyrus, paleographic_description: "")
+      Factory(:papyrus, recto_note: "")
+      Factory(:papyrus, verso_note: "")
+      Factory(:papyrus, country_of_origin: "")
+      Factory(:papyrus, origin_details: "")
+      Factory(:papyrus, source_of_acquisition: "")
+      Factory(:papyrus, preservation_note: "")
+      Factory(:papyrus, genre: "")
+      Factory(:papyrus, language_note: "")
+      Factory(:papyrus, summary: "")
+      Factory(:papyrus, translated_text: "")
+    end
+  end
+
 end
