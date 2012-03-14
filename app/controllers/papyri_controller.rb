@@ -5,7 +5,7 @@ class PapyriController < ApplicationController
   def index
     page = params[:page]
     page = page.to_i <= 0 ? 1 : page
-    @papyri = @papyri.paginate(page: page, per_page: 20)
+    @papyri = @papyri.paginate(page: page, per_page: APP_CONFIG['number_of_papyri_per_page'])
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @papyri }
