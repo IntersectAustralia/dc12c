@@ -1,6 +1,17 @@
 require 'spec_helper'
 
 describe Role do
+  describe "researcher?" do
+    it "should return true for researcher" do
+      Role.create!(name: 'Researcher').should be_researcher
+    end
+    it "should return true for anything else" do
+      names = ['Superuser', 'Admin', 'Administrator']
+      names.each do |name|
+        Role.create!(name: name).should_not be_researcher
+      end
+    end
+  end
   describe "Associations" do
     it { should have_and_belong_to_many(:permissions) }
     it { should have_many(:users) }

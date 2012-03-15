@@ -20,11 +20,16 @@ class Ability
     alias_action :search, to: :read
 
     can :read, Papyrus, visibility: [Papyrus::PUBLIC, Papyrus::VISIBLE]
+
     return unless user and user.role
+
     if Role.superuser_roles.include? user.role
       can :create, Papyrus
       can :update, Papyrus
       can :view_visibility, Papyrus
+      can :read, Papyrus
+
+    elsif user.role.researcher?
       can :read, Papyrus
     end
 

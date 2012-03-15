@@ -14,8 +14,8 @@ class Papyrus < ActiveRecord::Base
   validate :date_less_than_current_year
   validates_inclusion_of :date_era, in: ['BCE', 'CE'], allow_nil: true
   validates_numericality_of :date_year, greater_than: 0, allow_nil: true
-  validates_presence_of :date_year, if: Proc.new {|papyrus| papyrus.date_era}
-  validates_presence_of :date_era, if: Proc.new {|papyrus| papyrus.date_year}
+  validates_presence_of :date_year, if: Proc.new { |papyrus| papyrus.date_era }
+  validates_presence_of :date_era, if: Proc.new { |papyrus| papyrus.date_year }
 
   validates_numericality_of :width, greater_than: 0, allow_nil: true
   validates_numericality_of :height, greater_than: 0, allow_nil: true
@@ -35,7 +35,23 @@ class Papyrus < ActiveRecord::Base
   end
 
   def self.search search_terms
-    Papyrus.where(visibility: [HIDDEN, VISIBLE, PUBLIC])
+    search_terms = search_terms.map {|term| "%#{term}%"}
+    Papyrus.joins { languages.outer }.joins{country_of_origin.outer}.joins{genre.outer}.where { inventory_id.like_any(search_terms)  \
+    | languages.name.like_any(search_terms)                                         \
+    | general_note.like_any(search_terms)                                            \
+    | note.like_any(search_terms)                                                     \
+    | paleographic_description.like_any(search_terms)                                  \
+    | recto_note.like_any(search_terms)                                                 \
+    | verso_note.like_any(search_terms)                                                  \
+    | country_of_origin.name.like_any(search_terms)                                       \
+    | origin_details.like_any(search_terms)                                                \
+    | source_of_acquisition.like_any(search_terms)                                          \
+    | preservation_note.like_any(search_terms)                                               \
+    | genre.name.like_any(search_terms)                                                       \
+    | language_note.like_any(search_terms)                                                     \
+    | summary.like_any(search_terms)                                                            \
+    | translated_text.like_any(search_terms) }
+
   end
 
   private

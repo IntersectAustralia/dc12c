@@ -77,5 +77,4 @@ class PapyriController < ApplicationController
     page.to_i < 1 ? 1 : page
   end
 
-
 end

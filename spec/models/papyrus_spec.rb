@@ -122,22 +122,90 @@ describe Papyrus do
 
   describe "search" do
     before :each do
-      Factory(:papyrus, inventory_id: "k")
-      Factory(:papyrus, languages: "")
-      Factory(:papyrus, general_note: "")
-      Factory(:papyrus, note: "")
-      Factory(:papyrus, paleographic_description: "")
-      Factory(:papyrus, recto_note: "")
-      Factory(:papyrus, verso_note: "")
-      Factory(:papyrus, country_of_origin: "")
-      Factory(:papyrus, origin_details: "")
-      Factory(:papyrus, source_of_acquisition: "")
-      Factory(:papyrus, preservation_note: "")
-      Factory(:papyrus, genre: "")
-      Factory(:papyrus, language_note: "")
-      Factory(:papyrus, summary: "")
-      Factory(:papyrus, translated_text: "")
+      latin = Factory(:language, name: 'Latin')
+      england = Factory(:country, name: 'England')
+      drama = Factory(:genre, name: 'Drama')
+      @p1 = Factory(:papyrus, inventory_id: "l23")
+      @p2 = Factory(:papyrus, languages: [latin])
+      @p3 = Factory(:papyrus, general_note: "screen wipe")
+      @p4 = Factory(:papyrus, note: "light bulb")
+      @p5 = Factory(:papyrus, paleographic_description: "Sydney")
+      @p6 = Factory(:papyrus, recto_note: "staedtler")
+      @p7 = Factory(:papyrus, verso_note: "uniball")
+      @p8 = Factory(:papyrus, country_of_origin: england)
+      @p9 = Factory(:papyrus, origin_details: "best ever")
+      @p10 = Factory(:papyrus, source_of_acquisition: "eBay")
+      @p11 = Factory(:papyrus, preservation_note: "no biro allowed")
+      @p12 = Factory(:papyrus, genre: drama)
+      @p13 = Factory(:papyrus, language_note: "it looks funny")
+      @p14 = Factory(:papyrus, summary: "it's all greek to me")
+      @p15 = Factory(:papyrus, translated_text: "These strike me as Chinese")
     end
+    it "should find by inventory id" do
+      results = Papyrus.search(['l23'])
+      results.should eq [@p1]
+    end
+    it "should find by languages and be case-insensitive" do
+      results = Papyrus.search(['latin'])
+      results.should eq [@p2]
+    end
+    it "should find by general note" do
+      results = Papyrus.search(['screen'])
+      results.should eq [@p3]
+    end
+    it "should find by note" do
+      results = Papyrus.search(['light bulb'])
+      results.should eq [@p4]
+    end
+    it "should find by paleographic description" do
+      results = Papyrus.search(['sydney'])
+      results.should eq [@p5]
+    end
+    it "should find by recto note" do
+      results = Papyrus.search(['staedtler'])
+      results.should eq [@p6]
+    end
+    it "should find by verso note" do
+      results = Papyrus.search(['uniball'])
+      results.should eq [@p7]
+    end
+    it "should find by country of origin" do
+      results = Papyrus.search(['England'])
+      results.should eq [@p8]
+    end
+    it "should find by origin details" do
+      results = Papyrus.search(['ever'])
+      results.should eq [@p9]
+    end
+    it "should find by source of acquisition" do
+      results = Papyrus.search(['ebay'])
+      results.should eq [@p10]
+    end
+    it "should find by preservation note" do
+      results = Papyrus.search(['no', 'biro', 'please'])
+      results.should eq [@p11]
+    end
+    it "should find by genre" do
+      results = Papyrus.search(['drama'])
+      results.should eq [@p12]
+    end
+    it "should find by language note" do
+      results = Papyrus.search(['funny'])
+      results.should eq [@p13]
+    end
+    it "should find by summary" do
+      results = Papyrus.search(["it's all greek to me"])
+      results.should eq [@p14]
+    end
+    it "should find by translated text" do
+      results = Papyrus.search(['Chinese', 'strike'])
+      results.should eq [@p15]
+    end
+    it "should find across multiple fields" do
+      results = Papyrus.search(['EnglanD', 'Bulb', 'aLl'])
+      results.should eq [@p4, @p7, @p8, @p11, @p14]
+    end
+
   end
 
 end

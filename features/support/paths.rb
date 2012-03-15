@@ -55,6 +55,9 @@ module NavigationHelpers
         page_num = $1
         papyri_path page: page_num
 
+      when /the search results page/
+        search_papyri_path
+
 # Add more mappings here.
 # Here is an example that pulls values out of the Regexp:
 #

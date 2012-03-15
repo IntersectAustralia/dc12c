@@ -27,8 +27,8 @@ Feature: Manage Papyrus
       | inventory_id | languages     | width | height | date  | general_note | note          | paleographic_description | recto_note | verso_note | country_of_origin | origin_details | source_of_acquisition | preservation_note | genre | language_note | summary             | original_text | translated_text | visibility |
       | p.macq2      | Coptic, Greek | 30    | 77     | 88 CE | General Blah | Specific blah | Paleo Diet               | Rectangle  | Verses     | Greece            | It's Greek.    | Got it from Greece    | poorly preserved  | Book  | Fancy Greek   | don't understand it | περιοχής      | area            | PUBLIC     |
     And I have a papyrus
-      | inventory_id | languages       | width | height | date   | general_note  | note           | visibility |
-      | hidden.macq  | Coptic, Demotic | 60    | 177    | 488 CE | General stuff | Specific stuff | HIDDEN     |
+      | inventory_id | languages       | width | height | date   | general_note  | note           | visibility | country_of_origin |
+      | hidden.macq  | Coptic, Demotic | 60    | 177    | 488 CE | General stuff | Specific stuff | HIDDEN     | Turkey            |
     And I have a papyrus
       | inventory_id | languages       | width | height | date   | general_note  | note           | visibility | country_of_origin |
       | visible.macq | Coptic, Demotic | 60    | 177    | 488 CE | General stuff | Specific stuff | VISIBLE    | Turkey            |
@@ -349,7 +349,7 @@ Feature: Manage Papyrus
     Then I should be on the papyri page
     And I should see the list papyri table
       | Inventory ID | Note           | Country of Origin | Translation |
-      | hidden.macq  | Specific stuff |                   | No          |
+      | hidden.macq  | Specific stuff | Turkey            | No          |
       | p.macq2      | Specific blah  | Greece            | Yes         |
       | visible.macq | Specific stuff | Turkey            | No          |
     When I follow "hidden.macq"
@@ -368,6 +368,7 @@ Feature: Manage Papyrus
     Then I should be on the papyri page
     And I should see the list papyri table
       | Inventory ID | Note           | Country of Origin | Translation |
+      | hidden.macq  | Specific stuff | Turkey            | No          |
       | p.macq2      | Specific blah  | Greece            | Yes         |
       | visible.macq | Specific stuff | Turkey            | No          |
 
