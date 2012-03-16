@@ -71,6 +71,10 @@ class PapyriController < ApplicationController
     @papyri = search_results.accessible_by(current_ability).paginate(page: page, per_page: APP_CONFIG['number_of_papyri_per_page'])
   end
 
+  def advanced_search
+    Papyrus.accessible_by(current_ability, :advanced_search)
+  end
+
   private
 
   def make_page(page)

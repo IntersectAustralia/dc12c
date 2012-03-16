@@ -19,6 +19,9 @@ class Ability
     # alias search to read so they are considered the same
     alias_action :search, to: :read
 
+    # alias advanced search to read so they are considered the same
+    alias_action :advanced_search, to: :read
+
     can :read, Papyrus, visibility: [Papyrus::PUBLIC, Papyrus::VISIBLE]
 
     return unless user and user.role

@@ -38,19 +38,23 @@ class Papyrus < ActiveRecord::Base
     search_terms = search_terms.map {|term| "%#{term}%"}
     Papyrus.joins { languages.outer }.joins{country_of_origin.outer}.joins{genre.outer}.where { inventory_id.like_any(search_terms)  \
     | languages.name.like_any(search_terms)                                         \
-    | general_note.like_any(search_terms)                                            \
-    | note.like_any(search_terms)                                                     \
-    | paleographic_description.like_any(search_terms)                                  \
-    | recto_note.like_any(search_terms)                                                 \
-    | verso_note.like_any(search_terms)                                                  \
-    | country_of_origin.name.like_any(search_terms)                                       \
-    | origin_details.like_any(search_terms)                                                \
-    | source_of_acquisition.like_any(search_terms)                                          \
-    | preservation_note.like_any(search_terms)                                               \
-    | genre.name.like_any(search_terms)                                                       \
-    | language_note.like_any(search_terms)                                                     \
-    | summary.like_any(search_terms)                                                            \
+    | general_note.like_any(search_terms)                                           \
+    | note.like_any(search_terms)                                                   \
+    | paleographic_description.like_any(search_terms)                               \
+    | recto_note.like_any(search_terms)                                             \
+    | verso_note.like_any(search_terms)                                             \
+    | country_of_origin.name.like_any(search_terms)                                 \
+    | origin_details.like_any(search_terms)                                         \
+    | source_of_acquisition.like_any(search_terms)                                  \
+    | preservation_note.like_any(search_terms)                                      \
+    | genre.name.like_any(search_terms)                                             \
+    | language_note.like_any(search_terms)                                          \
+    | summary.like_any(search_terms)                                                \
     | translated_text.like_any(search_terms) }
+
+  end
+
+  def self.advanced_search field_name
 
   end
 

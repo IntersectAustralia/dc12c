@@ -2,6 +2,7 @@ Dc12c::Application.routes.draw do
   resources :papyri, only: [:new, :create, :show, :edit, :update, :index] do
     collection do
       get :search
+      get :advanced_search
     end
   end
 

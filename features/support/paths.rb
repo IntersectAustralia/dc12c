@@ -58,6 +58,9 @@ module NavigationHelpers
       when /the search results page/
         search_papyri_path
 
+      when /the advanced search page/
+        advanced_search_papyri_path
+
 # Add more mappings here.
 # Here is an example that pulls values out of the Regexp:
 #

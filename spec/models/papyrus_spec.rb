@@ -1,3 +1,4 @@
+# coding: utf-8
 require 'spec_helper'
 
 
@@ -140,71 +141,125 @@ describe Papyrus do
       @p13 = Factory(:papyrus, language_note: "it looks funny")
       @p14 = Factory(:papyrus, summary: "it's all greek to me")
       @p15 = Factory(:papyrus, translated_text: "These strike me as Chinese")
+      @p16 = Factory(:papyrus, original_text: "Έμπασυ στο Κολωνάκι")
     end
-    it "should find by inventory id" do
-      results = Papyrus.search(['l23'])
-      results.should eq [@p1]
+    describe "simple" do
+      it "should find by inventory id" do
+        results = Papyrus.search(['l23'])
+        results.should eq [@p1]
+      end
+      it "should find by languages and be case-insensitive" do
+        results = Papyrus.search(['latin'])
+        results.should eq [@p2]
+      end
+      it "should find by general note" do
+        results = Papyrus.search(['screen'])
+        results.should eq [@p3]
+      end
+      it "should find by note" do
+        results = Papyrus.search(['light bulb'])
+        results.should eq [@p4]
+      end
+      it "should find by paleographic description" do
+        results = Papyrus.search(['sydney'])
+        results.should eq [@p5]
+      end
+      it "should find by recto note" do
+        results = Papyrus.search(['staedtler'])
+        results.should eq [@p6]
+      end
+      it "should find by verso note" do
+        results = Papyrus.search(['uniball'])
+        results.should eq [@p7]
+      end
+      it "should find by country of origin" do
+        results = Papyrus.search(['England'])
+        results.should eq [@p8]
+      end
+      it "should find by origin details" do
+        results = Papyrus.search(['ever'])
+        results.should eq [@p9]
+      end
+      it "should find by source of acquisition" do
+        results = Papyrus.search(['ebay'])
+        results.should eq [@p10]
+      end
+      it "should find by preservation note" do
+        results = Papyrus.search(['no', 'biro', 'please'])
+        results.should eq [@p11]
+      end
+      it "should find by genre" do
+        results = Papyrus.search(['drama'])
+        results.should eq [@p12]
+      end
+      it "should find by language note" do
+        results = Papyrus.search(['funny'])
+        results.should eq [@p13]
+      end
+      it "should find by summary" do
+        results = Papyrus.search(["it's all greek to me"])
+        results.should eq [@p14]
+      end
+      it "should find by translated text" do
+        results = Papyrus.search(['Chinese', 'strike'])
+        results.should eq [@p15]
+      end
+      it "should find across multiple fields" do
+        results = Papyrus.search(['EnglanD', 'Bulb', 'aLl'])
+        results.should eq [@p4, @p7, @p8, @p11, @p14]
+      end
     end
-    it "should find by languages and be case-insensitive" do
-      results = Papyrus.search(['latin'])
-      results.should eq [@p2]
-    end
-    it "should find by general note" do
-      results = Papyrus.search(['screen'])
-      results.should eq [@p3]
-    end
-    it "should find by note" do
-      results = Papyrus.search(['light bulb'])
-      results.should eq [@p4]
-    end
-    it "should find by paleographic description" do
-      results = Papyrus.search(['sydney'])
-      results.should eq [@p5]
-    end
-    it "should find by recto note" do
-      results = Papyrus.search(['staedtler'])
-      results.should eq [@p6]
-    end
-    it "should find by verso note" do
-      results = Papyrus.search(['uniball'])
-      results.should eq [@p7]
-    end
-    it "should find by country of origin" do
-      results = Papyrus.search(['England'])
-      results.should eq [@p8]
-    end
-    it "should find by origin details" do
-      results = Papyrus.search(['ever'])
-      results.should eq [@p9]
-    end
-    it "should find by source of acquisition" do
-      results = Papyrus.search(['ebay'])
-      results.should eq [@p10]
-    end
-    it "should find by preservation note" do
-      results = Papyrus.search(['no', 'biro', 'please'])
-      results.should eq [@p11]
-    end
-    it "should find by genre" do
-      results = Papyrus.search(['drama'])
-      results.should eq [@p12]
-    end
-    it "should find by language note" do
-      results = Papyrus.search(['funny'])
-      results.should eq [@p13]
-    end
-    it "should find by summary" do
-      results = Papyrus.search(["it's all greek to me"])
-      results.should eq [@p14]
-    end
-    it "should find by translated text" do
-      results = Papyrus.search(['Chinese', 'strike'])
-      results.should eq [@p15]
-    end
-    it "should find across multiple fields" do
-      results = Papyrus.search(['EnglanD', 'Bulb', 'aLl'])
-      results.should eq [@p4, @p7, @p8, @p11, @p14]
-    end
+
+   # describe "advanced" do
+   #   it "should find by general note" do
+   #     results = Papyrus.search(general_note: 'screen')
+   #     results.should eq [@p3]
+   #   end
+   #   it "should find by note" do
+   #     results = Papyrus.search(note: 'light bulb')
+   #     results.should eq [@p4]
+   #   end
+   #   it "should find by paleographic description" do
+   #     results = Papyrus.advanced_search(paleographic_description: 'sydney')
+   #     results.should eq [@p5]
+   #   end
+   #   it "should find by recto note" do
+   #     results = Papyrus.advanced_search(recto_note: 'staedtler')
+   #     results.should eq [@p6]
+   #   end
+   #   it "should find by verso note" do
+   #     results = Papyrus.advanced_search(verso_note: 'uniball')
+   #     results.should eq [@p7]
+   #   end
+   #   it "should find by origin details" do
+   #     results = Papyrus.advanced_search(origin_details: 'ever')
+   #     results.should eq [@p9]
+   #   end
+   #   it "should find by source of acquisition" do
+   #     results = Papyrus.advanced_search(source_of_acquisition: 'ebay')
+   #     results.should eq [@p10]
+   #   end
+   #   it "should find by preservation note" do
+   #     results = Papyrus.advanced_search(preservation_note: ['no', 'biro', 'please'])
+   #     results.should eq [@p11]
+   #   end
+   #   it "should find by language note" do
+   #     results = Papyrus.advanced_search(language_note: 'funny')
+   #     results.should eq [@p13]
+   #   end
+   #   it "should find by summary" do
+   #     results = Papyrus.advanced_search(summary: "it's all greek to me")
+   #     results.should eq [@p14]
+   #   end
+   #   it "should find by original text" do
+   #     results = Papyrus.advanced_search(original_text: 'Κολωνάκι')
+   #     results.should eq [@p16]
+   #   end
+   #   it "should find by translated text" do
+   #     results = Papyrus.advanced_search(translated_text: ['Chinese', 'strike'])
+   #     results.should eq [@p15]
+   #   end
+   # end
 
   end
 
