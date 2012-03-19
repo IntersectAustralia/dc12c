@@ -1,7 +1,7 @@
-%h1 Search Results
-
-= render partial: 'table', locals: {table_id: 'search_results'}
-
-%br
-
-= will_paginate @papyri
+.page-inner
+  .page-header
+    %h2 Search Results
+  .page-content
+    = render partial: 'table', locals: {table_id: 'search_results'}
+    %br
+    = will_paginate @papyri

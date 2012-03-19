@@ -1,10 +1,14 @@
-.container
-  %h2 Please enter your email and password to log in
-  .field
-    = f.label :email
-    = f.text_field :email
-  .field
-    = f.label :password
-    = f.password_field :password
-  .actions
-    = f.submit "Log in", :class => "blue floatright"
+.page-header
+  %h2 Log In to DC.12C
+  %small Please enter your email and password to log in
+.page-content
+  .control-group
+    = f.label :email, :class => "control-label"
+    .controls
+      = f.text_field :email
+  .control-group
+    = f.label :password, :class => "control-label"
+    .controls
+      = f.password_field :password
+  .form-actions
+    = f.submit "Log in", :class => "btn"

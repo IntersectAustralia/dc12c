@@ -1,0 +1,603 @@
+@charset "UTF-8"
+
+@import master
+
+// !LAYOUT ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// !LAYOUT - HEADER
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+#header
+  .header-inner
+    .logo
+      background: url("../images/logo-csu.png") right top no-repeat
+
+// GENERAL ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+
+.page-inner .page-header, .container_centered h2
+  +m-p-w-h-p-t-b-l-r-f(0, 20px)
+  +border(1px, solid, $light0, 0 0 1px 0)
+  background: #EFF2EA
+  +font("", bold, 2rem, 1rem)
+  small
+    +font("", normal, 0.75rem, 1rem)
+
+.page-content
+  +m-p-w-h-p-t-b-l-r-f(0, 20px)
+  border-top: 1px solid #C3C8BD
+  
+
+// GENERAL ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+
+#content .container input[type="password"], #content .container input[type="text"], #content .container textarea
+  width: 408px
+
+#content .container_centered input[type="password"], #content .container_centered input[type="text"]
+  width: 408px
+
+
+.container label, .container_centered label
+  +m-p-w-h-p-t-b-l-r-f("", 10px 16px 10px 0)
+
+// LAYOUT - PAGE STRUCTURE
+/*///////////////////////////////////////////////////////////////////////////////////////////////*/
+
+.pageactions
+  +m-p-w-h-p-t-b-l-r-f(10px 0)
+
+
+// PAGE ACTIONS //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+
+.searchcontainer
+  +inlineblock
+  float: right
+  .searchbox, .search
+    +inlineblock
+  .searchbox
+    +m-p-w-h-p-t-b-l-r-f("", "", 861px, 32px)
+    +inlineblock
+    display: none
+    form
+      +inlineblock
+    input[type=text]
+      +m-p-w-h-p-t-b-l-r-f(0, "", 560px)
+    input
+      
+
+.searchactions
+  +m-p-w-h-p-t-b-l-r-f("")
+  +inlineblock
+  .options, .close
+    +m-p-w-h-p-t-b-l-r-f("", 6px 10px)
+
+
+// DASHBOARD /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+
+// DASHBOARD - USER PANNELS
+/*///////////////////////////////////////////////////////////////////////////////////////////////*/
+
+.userpannel
+  +m-p-w-h-p-t-b-l-r-f(0 20px 0 0)
+  +inlineblock
+
+.userpannel h3
+  +m-p-w-h-p-t-b-l-r-f("", 5px 10px 5px 15px)
+  +border(1px, solid, #E1E1E1, 0 0 1px 0)
+  color: $dark3
+  +gradient-light-1
+
+.myprojects, .recentuploads
+  +m-p-w-h-p-t-b-l-r-f(0 0 20px 0, "", 260px, 300px)
+  background: #FAFAFA
+  +border(1px, solid, #DCDCDC, "", 2px)
+
+.recentactivity
+  margin: 0
+  +inlineblock
+
+.need_action
+  +m-p-w-h-p-t-b-l-r-f(0 0 20px 0 , 8px 35px 8px 14px)
+  background: #FCF8E3
+  +border(1px, solid, #FBEED5, "", 4px)
+  h3
+    color: #C09853
+  
+
+// TABLES ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+
+/* Specific cell types to balance width - List Users
+th.view, td.view
+  +width(60px, 60px, 60px)
+  text-align: center
+
+th.role, td.role, th.status, td.status
+  +width(60px, 60px, 60px)
+
+th.email, td.email
+  +width(160px, 160px, 160px)
+
+th.date, td.date
+  +width(140px, 140px, 140px)
+
+th.actions, td.actions
+  +width(40px, 40px, 40px)
+
+// EXPLORE ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+
+// EXPLORE - FACETED SEARCH
+/*///////////////////////////////////////////////////////////////////////////////////////////////*/
+
+.facetedsearch.search
+  +inlineblock
+.facetedsearch
+  +m-p-w-h-p-t-b-l-r-f(0 20px 20px 0, "", "", 100%)
+  min-width: 20px
+  display: none
+  +border(1px, solid, #DCDCDC, 0px 1px 1px 1px, 2px)
+  background: #FAFAFA
+  .searchbox
+    +m-p-w-h-p-t-b-l-r-f("", "", 260px)
+
+    .searchcategory
+      +m-p-w-h-p-t-b-l-r-f(0, 0, auto)
+
+      h4
+        +m-p-w-h-p-t-b-l-r-f("", 10px 40px 9px 40px)
+        +border(1px, solid, #E1E1E1, 1px 0 0px 0)
+        color: $dark2
+        +gradient-light-1
+        cursor: pointer
+        background: url("../images/icon_arrow_right_light.png") 15px center no-repeat
+        -moz-background-size: 6px
+        background-size: 6px
+        &:hover
+          background: url("../images/icon_arrow_down_dark.png") 15px center no-repeat
+          -moz-background-size: 12px
+          background-size: 12px
+      h4.current
+        background: url("../images/icon_arrow_down_blue.png") 15px center no-repeat
+        -moz-background-size: 12px
+        background-size: 12px
+        &:hover
+          background: url("../images/icon_arrow_right_light.png") 15px center no-repeat
+          -moz-background-size: 6px
+          background-size: 6px
+
+    .date, .time, .facility, .variable
+      +m-p-w-h-p-t-b-l-r-f(10px 0)
+
+      label
+        +m-p-w-h-p-t-b-l-r-f("", 10px 10px 10px 20px, 100px)
+        +font("", bold, 0.813em, 18px, $dark3, "", left)
+
+      input[type=text]
+        +m-p-w-h-p-t-b-l-r-f("", "", 80px)
+        +font("", normal, 0.813em, 18px)
+      input[type=text].year
+        +m-p-w-h-p-t-b-l-r-f("", "", 30px)
+
+      input[type=checkbox]
+        +m-p-w-h-p-t-b-l-r-f(10px 0)
+
+      h4
+        +m-p-w-h-p-t-b-l-r-f("", 15px 0)
+
+    .variable, .facility
+      label
+        +m-p-w-h-p-t-b-l-r-f("", 5px 10px 0 20px, 190px)
+        +inlineblock
+      input[type=checkbox]
+        +m-p-w-h-p-t-b-l-r-f(7px 0)
+        +inlineblock
+
+    .actions
+      +m-p-w-h-p-t-b-l-r-f("", 0 0 10px 0)
+      text-align: center
+
+.recentactivity
+  margin: 0
+  +inlineblock
+
+.pageactions
+  .bluebutton
+    +m-p-w-h-p-t-b-l-r-f("", 6px 10px)
+
+.close.reset
+  +m-p-w-h-p-t-b-l-r-f(0 -435px 0 0, "", "", "", absolute, 167px, "", "", 50%)
+  cursor: pointer
+
+input#datasearch
+  +inlineblock
+  +m-p-w-h-p-t-b-l-r-f(0 -10px 0 0, "", 660px)
+
+input.datasearchsubmit
+  +m-p-w-h-p-t-b-l-r-f(0 0 0 -144px, "", "", 32px, "", "", "", "", "", right)
+
+// EXPLORE - DATA TABLE
+/*///////////////////////////////////////////////////////////////////////////////////////////////*/
+
+.datacontroll
+  +m-p-w-h-p-t-b-l-r-f("", "", "", 40px)
+
+  h3.filter
+    +m-p-w-h-p-t-b-l-r-f("", 0 20px 0 0, 265px)
+    +font("", normal, 13px)
+    float: left
+  h3.results
+    +m-p-w-h-p-t-b-l-r-f("")
+    +inlineblock
+    +font("", normal, 13px)
+
+  #downloadtoggle, .facility.new.whitebutton
+    float: right
+    a
+      font-weight: normal
+
+
+#exploredata, .exploredata
+.exploredata.search, #exploredata.search, #exploredata.search tbody
+  +inlineblock
+  +width(770px, 770px, 770px)
+
+
+th.sortable 
+  a
+    +m-p-w-h-p-t-b-l-r-f("", 0 20px 0 0, "", "")
+    +inlineblock
+    cursor: pointer
+    background: url("../images/icon_arrow_right_light.png") center right no-repeat
+    -moz-background-size: 6px
+    background-size: 6px
+    &:hover
+      background: url("../images/icon_arrow_down_dark.png") center right no-repeat
+      -moz-background-size: 12px
+      background-size: 12px
+  a.current.asc
+    background: url("../images/icon_arrow_up_blue.png") center right no-repeat
+    -moz-background-size: 12px
+    background-size: 12px
+    &:hover
+      background: url("../images/icon_arrow_down_dark.png") center right no-repeat
+      -moz-background-size: 12px
+      background-size: 12px
+  a.current.desc
+    background: url("../images/icon_arrow_down_blue.png") center right no-repeat
+    -moz-background-size: 12px
+    background-size: 12px
+    &:hover
+      background: url("../images/icon_arrow_up_dark.png") center right no-repeat
+      -moz-background-size: 12px
+      background-size: 12px
+form
+  .select
+    display: none
+
+
+// SHOW DATA /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+
+
+.description
+  .rowform
+    white-space: normal
+    overflow: visible
+    text-overflow: ellipsis
+
+    span
+      width: 880px
+
+// TABLES ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+
+h3.upload
+  +m-p-w-h-p-t-b-l-r-f("", 20px 0 10px 0)
+
+.failedexistance
+  margin: 0
+  padding: 0 0 0 30px
+  height: 18px
+  max-width: 520px
+  top: 2px
+  position: relative
+  line-height: 15px
+  background: url('/images/icon_delete_16px.png') no-repeat
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
+  +inlineblock
+
+
+.file_status .success, .file_status .failed, .file_status .working
+  width: 630px
+  height: 18px
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
+  +inlineblock
+
+
+.file_status .working
+  margin: 0
+  padding: 0 0 0 30px
+  height: 18px
+  width: 630px
+  top: 2px
+  position: relative
+  background: url('/images/indicator.gif') no-repeat
+  +inlineblock
+
+.failed
+  margin: 0
+  padding: 0 0 0 30px
+  height: 16px /* width: 16px */
+  top: 2px
+  position: relative
+  background: url('/images/icon_delete_16px.png') no-repeat
+  +inlineblock
+
+
+.success
+  margin: 0
+  padding: 0 0 0 30px
+  height: 16px /* width: 16px */
+  top: 2px
+  position: relative
+  background: url('/images/icon_approve_16_by_16.png') no-repeat
+  +inlineblock
+
+.alert-message, .flash
+  position: relative
+  padding: 7px 15px
+  margin-bottom: 18px
+  color: #404040
+  background-color: #eedc94
+  background-repeat: repeat-x
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#fceec1), to(#eedc94))
+  background-image: -moz-linear-gradient(top, #fceec1, #eedc94)
+  background-image: -ms-linear-gradient(top, #fceec1, #eedc94)
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fceec1), color-stop(100%, #eedc94))
+  background-image: -webkit-linear-gradient(top, #fceec1, #eedc94)
+  background-image: -o-linear-gradient(top, #fceec1, #eedc94)
+  background-image: linear-gradient(top, #fceec1, #eedc94)
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fceec1', endColorstr='#eedc94', GradientType=0)
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25)
+  border-color: #eedc94 #eedc94 #e4c652
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25)
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5)
+  border-width: 1px
+  border-style: solid
+  -webkit-border-radius: 4px
+  -moz-border-radius: 4px
+  border-radius: 4px
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25)
+  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25)
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25)
+
+
+.alert-message .close
+  margin-top: 1px
+  *margin-top: 0
+
+.alert-message a
+  font-weight: bold
+  color: #404040
+
+.alert-message.danger p a,
+.alert-message.error p a,
+.alert-message.success p a,
+.alert-message.info p a 
+  color: #ffffff
+
+.alert-message h5
+  line-height: 18px
+
+.alert-message p, .flash p
+  margin-bottom: 0
+
+.alert-message div
+  margin-top: 5px
+  margin-bottom: 2px
+  line-height: 28px
+
+.alert-message .btn
+  -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.25)
+  -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.25)
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.25)
+
+.alert-message.block-message
+  background-image: none
+  background-color: #fdf5d9
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false)
+  padding: 14px
+  border-color: #fceec1
+  -webkit-box-shadow: none
+  -moz-box-shadow: none
+  box-shadow: none
+
+.alert-message.block-message ul, .alert-message.block-message p
+  margin-right: 30px
+  padding-l
+
+.alert-message.block-message ul
+  margin-bottom: 0
+
+.alert-message.block-message li
+  +m-p-w-h-p-t-b-l-r-f(0 0 0 15px)
+  color: #B94A48
+
+.alert-message.block-message .alert-actions
+  margin-top: 5px
+
+.alert-message.block-message.error, .alert-message.block-message.success, .alert-message.block-message.info
+  color: #404040
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5)
+
+.alert-message.block-message.error
+  background-color: #fddfde
+  border-color: #fbc7c6
+
+.alert-message.block-message.success
+  background-color: #d1eed1
+  border-color: #bfe7bf
+
+.alert-message.block-message.info
+  background-color: #ddf4fb
+  border-color: #c6edf9
+
+.alert-message.block-message.danger p a,
+.alert-message.block-message.error p a,
+.alert-message.block-message.success p a,
+.alert-message.block-message.info p a
+  color: #404040
+
+.close
+  float: right
+  color: #000000
+  font-size: 20px
+  font-weight: bold
+  line-height: 13.5px
+  text-shadow: 0 1px 0 #ffffff
+  filter: alpha(opacity=25)
+  -khtml-opacity: 0.25
+  -moz-opacity: 0.25
+  opacity: 0.25
+
+.close:hover
+  color: #000000
+  text-decoration: none
+  filter: alpha(opacity=40)
+  -khtml-opacity: 0.4
+  -moz-opacity: 0.4
+  opacity: 0.4
+
+.hidden
+  display: none
+
+
+// FORMS /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+
+.formerror
+  margin: 0 0 20px 0
+
+button.ui-datepicker-trigger
+  +m-p-w-h-p-t-b-l-r-f(4px 0 4px -31px)
+  +font("", bold, "")
+  +border("", "", "", 0 0 0 1px)
+
+#second_level, #third_level
+  +m-p-w-h-p-t-b-l-r-f(0 0 0 170px)
+
+#selected_for_codes, #contacts_list
+  +m-p-w-h-p-t-b-l-r-f(10px 0 0 170px, 10px 0 0 0)
+  +border(1px, solid, #D9D9D9, 1px 0 0 0)
+  input[type="radio"]
+    +m-p-w-h-p-t-b-l-r-f(0 10px 0 0)
+
+.delete_for_code
+  float: right
+
+.delete_link
+  float: right
+
+.for.add
+  +m-p-w-h-p-t-b-l-r-f(0 0 0 170px)
+
+// DATEPICKER ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+
+#ui-datepicker-div.ui-datepicker
+  +m-p-w-h-p-t-b-l-r-f("", 5px 10px 5px 5px)
+  +boxshadow-2
+  background: #333
+  +border(0px, solid, #D9D9D9)
+
+  table, tbody
+    +width(299px, 299px, 299px)
+    +width(299px, 299px, 299px)
+
+
+  .ui-widget-header
+    +border(0px, solid, #D9D9D9)
+    background: none
+    .ui-datepicker-next, .ui-date-picker-prev
+      &:hover
+        background: none
+        border: none
+    span.ui-icon-circle-triangle-w
+      background: url(http://twitter.github.com/bootstrap/assets/img/glyphicons-halflings-white.png)
+      background-position: -240px -96px
+      &:hover
+        background: url(http://twitter.github.com/bootstrap/assets/img/glyphicons-halflings-white.png)
+        
+    span.ui-icon-circle-triangle-e
+      background: url(http://twitter.github.com/bootstrap/assets/img/glyphicons-halflings-white.png)
+      background-position: -264px -96px
+
+  .ui-state-default
+    background: none
+    color: #EEE
+    +border(0px, solid, #D9D9D9)
+  .ui-widget-content
+    +border(0px, solid, #D9D9D9)
+  button
+    +m-p-w-h-p-t-b-l-r-f(0, 5px 10px)
+    cursor: pointer
+    +inlineblock
+    +font("", "", 0.875em, 20px, $dark3, none, center)
+    +gradient-light-1
+    +border(1px, solid, #dcdcdc, "", 2px)
+    &:hover
+      +font("", bold, "", "", #FFF)
+      color: #FFF
+  .ui-datepicker-calendar
+    th
+      +font("", "", "", "", "", "", right)
+      span
+        +font("", normal, 0.75em, "", "", "", right)
+        font-weight: normal 
+        color: #666
+    td
+      color: #999
+      &:hover
+        a
+          +font("", bold)
+          color: #FFF

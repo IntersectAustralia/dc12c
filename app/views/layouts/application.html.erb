@@ -8,43 +8,48 @@
 </head>
 <body>
 
-<div id="content_wrapper">
+<% if alert %>
+  <div class="alert" ><p><%= alert %></p></div>
+<% end %>
 
-  <% if alert %>
-      <div class="alert" ><%= alert %></div>
-  <% end %>
+<% if notice %>
+  <div class="notice" ><p><%= notice %></p></div>
+<% end %>
 
-  <% if notice %>
-      <div class="notice" ><%= notice %></div>
-  <% end %>
-
-  <div id="header">
-    <div class="container">
-      <div class="logo">Logo</div>
-      <div class="menu">
-        <%= tabs_tag(:builder => MenuTabBuilder) do |tab| %>
-            <%= tab.home 'Home', root_url %>
-            <%= tab.about 'About', root_url %>            <% if user_signed_in? %>
-              <%= tab.admin 'Admin', admin_users_path %>
-              <%= tab.editaccount current_user.email, users_profile_path, :class => "user" %>
-              <%= tab.logout "Logout", destroy_user_session_path, :class => "logout" %>
+<div id="header">
+<div class="header-inner">
+  <div class="logo"><a href="/"><strong>Papyri</strong>.dc12c</a></div>
+  <div class="navbar">
+    <div class="navbar-inner">
+      <div class="container">
+      <%= tabs_tag(:builder => MenuTabBuilder) do |tab| %>
+        <ul class="nav">
+          <%= tab.home 'Home', root_url %>
+          <%= tab.about 'About', root_url %> 
+        </ul>
+        <% if user_signed_in? %>
+          <ul class="nav pull-right">
+            <%= tab.admin 'Admin', admin_users_path %>
+            <%= tab.editaccount current_user.email, users_profile_path, :class => "user" %>
+            <%= tab.logout "Logout", destroy_user_session_path, :class => "logout" %>
             <% else %>
-              <%= tab.signup "Sign Up", new_user_registration_path, :class => "signup" %>
+              <ul class="nav pull-right">
+                <%= tab.signup "Sign Up", new_user_registration_path, :class => "signup" %>
+              </ul>
             <% end %>
-
-
+          </ul>
         <% end %>
+      </div>
       </div>
     </div>
   </div>
-
-  <div id='content'>
-<h1><%= yield :title %></h1>
-
-    <%= yield %>
-  </div>
-
 </div>
+
+<div id='page'>
+  <%#<%= yield :title %>
+  <%= yield %>
+</div>
+
 
 <div id="footer"><a target="_about" href="http://www.intersect.org.au/attribution-policy" class="logo"></a>Developed by
   Intersect Australia Ltd

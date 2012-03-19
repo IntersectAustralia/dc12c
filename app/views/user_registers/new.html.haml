@@ -1,9 +1,12 @@
-.container
-  %h2 User Sign Up
-  = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
-    .formerror= render "shared/error_messages", :target => @user
-    = render :partial => 'personal_details', :locals  => {:f => f}
-    = render :partial => 'account_details', :locals  => {:f => f}
-    .actions
-      = f.submit "Submit Request", :class => "blue floatright"
-      = link_to 'Cancel', root_path, :class => "button"
+.page-inner
+  .page-header
+    %h2 Sign up
+    %small Please enter user details
+  .page-content
+    = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+      .formerror= render "shared/error_messages", :target => @user
+      = render :partial => 'personal_details', :locals  => {:f => f}
+      = render :partial => 'account_details', :locals  => {:f => f}
+      .form-actions
+        = f.submit "Submit Request", :class => "btn"
+        = link_to 'Cancel', root_path, :class => "btn"

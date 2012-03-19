@@ -1,16 +1,18 @@
-.container
+.page-inner
   - title 'Home'
   - if !user_signed_in?
     = form_for("user", :url => user_session_path) do |f|
       = render(:partial => 'devise/sessions/form', :locals => { :f => f })
-    = link_to "Sign Up", new_user_registration_path, :class => "button"
-    = link_to "Forgot your password?", new_user_password_path, :class => "button"
+    = link_to "Sign Up", new_user_registration_path, :class => ""
+    = link_to "Forgot your password?", new_user_password_path, :class => ""
   - else
     - if can? :create, Papyrus
       %p= link_to "Create Papyrus", new_papyrus_path, :class => "button"
-  = form_tag search_papyri_path, method: :get do
-    = label_tag :search
-    = search_field_tag :search
-    = submit_tag "Search"
-  %p= link_to "Advanced", advanced_search_papyri_path
-  %p= link_to "List all papyri records", papyri_path, class: "button"
+  .page-header
+    = form_tag search_papyri_path, method: :get do
+      -#= label_tag :search
+      = search_field_tag :search
+      = submit_tag "Search"
+  .page-content
+  = link_to "Advanced", advanced_search_papyri_path, class: "btn"
+  = link_to "List all papyri records", papyri_path, class: "btn"
