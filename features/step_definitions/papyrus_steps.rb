@@ -131,6 +131,12 @@ And /^I should (not )?see the pagination controls$/ do |not_see|
   end
 end
 
+And /^I should not see the search results table$/ do
+
+    page.should_not have_css('#search_results')
+
+end
+
 Then /^I should see search results "([^"]*)"$/ do |inventory_ids|
   ids = inventory_ids.split ", "
   papyri = Papyrus.order('inventory_id').where(inventory_id: ids)

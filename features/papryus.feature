@@ -311,6 +311,18 @@ Feature: Manage Papyrus
     Then I should not see "Papyrus was successfully updated."
     And I should see "Date year must be greater than 0"
 
+  Scenario: Date field can be blank on edit
+    Given I am logged in as "admin@intersect.org.au"
+    And I am on the home page
+    And I follow "Create Papyrus"
+    And I enter the following papyrus details
+      | field        | value   |
+      | Inventory ID | poiuytg |
+    And I press "Save"
+    When I follow "Edit this record"
+    And I press "Save"
+    Then I should see "Papyrus was successfully updated."
+
   Scenario: Viewing a Papyrus record (logged in as administrator)
     Given I am logged in as "admin@intersect.org.au"
     And I am on the "hidden.macq" papyrus page

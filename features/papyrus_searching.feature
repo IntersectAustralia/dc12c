@@ -104,9 +104,9 @@ Feature: Searching Papyri
     When I follow "2"
     Then I should see search results "pmac42, pmac43"
 
-    @wip
   Scenario Outline: advanced search on text fields
-    Given I am on the home page
+    Given I am logged in as "admin@intersect.org.au"
+    And I am on the home page
     And I follow "Advanced"
     Then I should be on the advanced search page
     And I fill in "<field>" with "<term>"
@@ -123,12 +123,47 @@ Feature: Searching Papyri
     | origin_details           | very      | pmac27 |
     | source_of_acquisition    | brought   | pmac28 |
     | preservation_note        | atter     | pmac29 |
-    | language_note            | Book      | pmac31 |
-    | summary                  | Carlos    | pmac32 |
+    | language_note            | Carlos    | pmac31 |
+    | summary                  | Bryan     | pmac32 |
     | original_text            | Κολωνάκι  | pmac34 |
     | translated_text          | Ryan      | pmac33 |
 
 
-    #scanario for when you first click on the advanced link
-    #scenario to check the results table is not present before making a search
-    #check pagination for advanced search
+  Scenario: to check the results table is not present before making a search
+    Given I am logged in as "admin@intersect.org.au"
+    And I am on the home page
+    And I follow "Advanced"
+    Then I should not see the search results table
+
+  Scenario: check pagination for advanced search results
+    Given I am logged in as "researcher@intersect.org.au"
+    And I have papyri
+      | inventory_id | general_note |
+      | pmac51       | window       |
+      | pmac52       | window       |
+      | pmac53       | window       |
+      | pmac54       | window       |
+      | pmac55       | window       |
+      | pmac56       | window       |
+      | pmac57       | window       |
+      | pmac58       | window       |
+      | pmac59       | window       |
+      | pmac60       | window       |
+      | pmac61       | window       |
+      | pmac62       | window       |
+      | pmac63       | window       |
+      | pmac64       | window       |
+      | pmac65       | window       |
+      | pmac66       | window       |
+      | pmac67       | window       |
+      | pmac68       | window       |
+      | pmac69       | window       |
+      | pmac70       | window       |
+      | pmac71       | window       |
+      | pmac72       | window       |
+      | pmac73       | window       |
+      | pmac74       | window       |
+    And I am on the advanced search page
+    And I fill in "general_note" with "window"
+    And I press "Search"
+    Then I should see the pagination controls

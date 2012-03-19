@@ -1,21 +1,24 @@
 = form_tag advanced_search_papyri_path, method: :get do
 
-  = render_field('General Note', text_field_tag(:general_note))
-  = render_field('Note', text_field_tag(:note))
-  = render_field('Paleographic Description', text_field_tag(:paleographic_description))
-  = render_field('Recto Note', text_field_tag(:recto_note))
-  = render_field('Verso Note', text_field_tag(:verso_note))
-  = render_field('Origin Details', text_field_tag(:origin_details))
-  = render_field('Source of Acquisition', text_field_tag(:source_of_acquisition))
-  = render_field('Preservation Note', text_field_tag(:preservation_note))
-  = render_field('Language Note', text_field_tag(:language_note))
-  = render_field('Summary', text_field_tag(:summary))
-  = render_field('Original Text', text_field_tag(:original_text))
-  = render_field('Translated Text', text_field_tag(:translated_text))
+  = render_field('General Note', search_field_tag(:general_note))
+  = render_field('Note', search_field_tag(:note))
+  = render_field('Paleographic Description', search_field_tag(:paleographic_description))
+  = render_field('Recto Note', search_field_tag(:recto_note))
+  = render_field('Verso Note', search_field_tag(:verso_note))
+  = render_field('Origin Details', search_field_tag(:origin_details))
+  = render_field('Source of Acquisition', search_field_tag(:source_of_acquisition))
+  = render_field('Preservation Note', search_field_tag(:preservation_note))
+  = render_field('Language Note', search_field_tag(:language_note))
+  = render_field('Summary', search_field_tag(:summary))
+  = render_field('Original Text', search_field_tag(:original_text))
+  = render_field('Translated Text', search_field_tag(:translated_text))
   .actions
     = submit_tag 'Search'
+-if @papyri.present?
+  %h1 Search Results
 
-%h1 Search Results
+  = render partial: 'table', locals: {table_id: 'search_results'}
+  %br
 
-= render partial: 'table', locals: {table_id: 'search_results'}
+  = will_paginate @papyri
 

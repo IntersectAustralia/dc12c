@@ -54,8 +54,24 @@ class Papyrus < ActiveRecord::Base
 
   end
 
-  def self.advanced_search field_name
+  def self.advanced_search search_fields
 
+    search_fields = search_fields.reduce({}) do |acc, (k, v)|
+      acc.merge k => v.split(/\s+/).map{|term| "%#{term}%"}
+    end
+
+    Papyrus.where do |p|
+      clauses = search_fields.map do |field_name, search_terms|
+        p.__send__(field_name).like_any search_terms
+      end
+      clauses_orred_together = clauses.first
+      clauses.each.with_index do |clause, index|
+        if index != 0
+          clauses_orred_together |= clause
+        end
+      end
+      clauses_orred_together
+    end
   end
 
   private

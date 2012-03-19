@@ -52,6 +52,7 @@ class PapyriController < ApplicationController
   # PUT /papyri/1.json
   def update
     respond_to do |format|
+      params[:papyrus][:date_era] = nil if params[:papyrus][:date_era].blank?
       params[:papyrus][:language_ids] ||= []
       if @papyrus.update_attributes(params[:papyrus])
         format.html { redirect_to @papyrus, notice: 'Papyrus was successfully updated.' }
@@ -72,7 +73,16 @@ class PapyriController < ApplicationController
   end
 
   def advanced_search
-    Papyrus.accessible_by(current_ability, :advanced_search)
+    page = make_page(params[:page])
+    fields = ['general_note', 'note', 'paleographic_description', 'recto_note', 'verso_note', 'origin_details', 'source_of_acquisition', 'preservation_note', 'language_note', 'summary', 'original_text', 'translated_text']
+    search_fields = params.keep_if do |name, value|
+      value.present? && fields.include?(name.to_s)
+    end
+    if !search_fields.empty?
+      @papyri = Papyrus.advanced_search(search_fields).accessible_by(current_ability, :advanced_search).paginate(page: page, per_page: APP_CONFIG['number_of_papyri_per_page'])
+    else
+      @papyri = []
+    end
   end
 
   private
