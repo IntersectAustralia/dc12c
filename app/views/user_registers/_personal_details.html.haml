@@ -1,8 +1,10 @@
-.field
-  = f.label :first_name , "First Name:"
-  = f.text_field :first_name
-  = required
-.field
-  = f.label :last_name  , "Last Name:"
-  = f.text_field :last_name
-  = required
+.control-group
+  = f.label :first_name , "First Name:", :class => "control-label"
+  .controls
+    = f.text_field :first_name
+    = required
+.control-group
+  = f.label :last_name  , "Last Name:", :class => "control-label"
+  .controls
+    = f.text_field :last_name
+    = required

@@ -1,8 +1,9 @@
-%h1 Listing papyri
-
-= render partial: 'table', locals: {table_id: 'papyri_table'}
-
-%br
-
-= will_paginate @papyri
-= link_to 'New Papyrus', new_papyrus_path
+.page-inner
+  .page-header
+    %h2 Search results
+    %small Listing Papyri...
+  .page-content
+    = render partial: 'table', locals: {table_id: 'papyri_table'}
+    %br
+    = will_paginate @papyri
+    = link_to 'New Papyrus', new_papyrus_path

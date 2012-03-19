@@ -1,12 +1,15 @@
-.field
-  = f.label :email, "Email Address:"
-  = f.text_field :email
-  = required
-.field
-  = f.label :password, "Password:"
-  = f.password_field :password
-  = required
-.field
-  = f.label :password_confirmation, "Confirm Password:"
-  = f.password_field :password_confirmation
-  = required
+.control-group
+  = f.label :email, "Email Address:", :class => "control-label"
+  .controls
+    = f.text_field :email
+    = required
+.control-group
+  = f.label :password, "Password:", :class => "control-label"
+  .controls
+    = f.password_field :password
+    = required
+.control-group
+  = f.label :password_confirmation, "Confirm Password:", :class => "control-label"
+  .controls
+    = f.password_field :password_confirmation
+    = required
