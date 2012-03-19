@@ -14,4 +14,5 @@
       = search_field_tag :search
       = submit_tag "Search"
   .page-content
-  .btn= link_to "List all papyri records", papyri_path, class: "button"
+  = link_to "List all papyri records", papyri_path, class: "btn"
+  = link_to "Advanced", advanced_search_papyri_path, class: "btn"
