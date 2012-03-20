@@ -32,14 +32,14 @@ ActiveRecord::Schema.define(:version => 20120320044210) do
   end
 
   create_table "languages_papyri", :force => true do |t|
-    t.integer "language_id"
-    t.integer "papyrus_id"
+    t.integer "language_id", :precision => 38, :scale => 0
+    t.integer "papyrus_id",  :precision => 38, :scale => 0
   end
 
   create_table "papyri", :force => true do |t|
     t.string  "inventory_id"
-    t.integer "width"
-    t.integer "height"
+    t.integer "width",                    :precision => 38, :scale => 0
+    t.integer "height",                   :precision => 38, :scale => 0
     t.string  "general_note"
     t.string  "note"
     t.string  "paleographic_description"
@@ -52,11 +52,11 @@ ActiveRecord::Schema.define(:version => 20120320044210) do
     t.string  "summary"
     t.string  "original_text"
     t.string  "translated_text"
-    t.integer "date_year"
+    t.integer "date_year",                :precision => 38, :scale => 0
     t.string  "date_era"
-    t.integer "country_of_origin_id"
-    t.integer "genre_id"
-    t.string  "visibility",               :default => "HIDDEN"
+    t.integer "country_of_origin_id",     :precision => 38, :scale => 0
+    t.integer "genre_id",                 :precision => 38, :scale => 0
+    t.string  "visibility",                                              :default => "HIDDEN"
   end
 
   create_table "permissions", :force => true do |t|
@@ -73,32 +73,32 @@ ActiveRecord::Schema.define(:version => 20120320044210) do
   end
 
   create_table "roles_permissions", :id => false, :force => true do |t|
-    t.integer "role_id"
-    t.integer "permission_id"
+    t.integer "role_id",       :precision => 38, :scale => 0
+    t.integer "permission_id", :precision => 38, :scale => 0
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                  :default => "", :null => false
-    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "email",                                                 :default => "", :null => false
+    t.string   "encrypted_password",                                    :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          :default => 0
+    t.integer  "sign_in_count",          :precision => 38, :scale => 0, :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.integer  "failed_attempts",        :default => 0
+    t.integer  "failed_attempts",        :precision => 38, :scale => 0, :default => 0
     t.datetime "locked_at"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "status"
-    t.integer  "role_id"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+    t.integer  "role_id",                :precision => 38, :scale => 0
+    t.datetime "created_at",                                                            :null => false
+    t.datetime "updated_at",                                                            :null => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+  add_index "users", ["reset_password_token"], :name => "i_users_reset_password_token", :unique => true
 
 end

@@ -7,6 +7,7 @@ gem 'rails', '3.2.2'
 
 gem 'sqlite3'
 gem 'ruby-oci8', '~> 2.1.0'
+gem 'activerecord-oracle_enhanced-adapter', '~> 1.4.1'
 
 gem 'will_paginate'
 gem 'squeel'
