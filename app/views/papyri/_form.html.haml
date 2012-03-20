@@ -14,7 +14,7 @@
   = render_field('Width', f.text_field(:width))
   = render_field('Height', f.text_field(:height))
   = render_field_with_block('Date') do
-    = f.text_field(:date_year)
+    = f.text_field(:date_year, class: 'input-mini')
     = f.select(:date_era, [['CE', 'CE'], ['BCE', 'BCE']], include_blank: true)
   = render_field('General Note', f.text_field(:general_note))
   = render_field('Note', f.text_field(:note))
@@ -30,5 +30,5 @@
   = render_field('Summary', f.text_field(:summary))
   = render_field('Original Text', f.text_field(:original_text))
   = render_field('Translated Text', f.text_field(:translated_text))
-  .actions
-    = f.submit 'Save'
+  .form-actions
+    = f.submit 'Save', class: "btn"

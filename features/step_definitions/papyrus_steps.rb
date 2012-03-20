@@ -39,7 +39,7 @@ Then /^I should see the following papyrus details$/ do |table|
     field = row[:field]
     value = row[:value]
     field_id = field.downcase.gsub ' ', '_'
-    display_value = find("#display_#{field_id}>span:last-child")
+    display_value = find("#display_#{field_id}>div:last-child")
     display_value.text.should eq value
   end
 end
