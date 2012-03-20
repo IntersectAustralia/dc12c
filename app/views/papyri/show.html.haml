@@ -1,6 +1,14 @@
 - if can? :view_visibility, @papyrus
   %p= "Record is #{@papyrus.visibility.downcase}"
 
+- if can? :request_access, @papyrus
+  = form_tag request_access_papyrus_path(@papyrus) do
+    = submit_tag 'Request Access'
+
+- if can? :cancel_access_request, @papyrus
+  = form_tag cancel_access_request_papyrus_path(@papyrus) do
+    = submit_tag 'Cancel Access'
+
 = render_field('Inventory ID', @papyrus.inventory_id)
 = render_field('Languages', @papyrus.languages_csv)
 = render_field('Width', @papyrus.width)

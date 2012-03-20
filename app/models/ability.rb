@@ -26,14 +26,18 @@ class Ability
 
     return unless user and user.role
 
+    can :request_access, Papyrus do |papyrus|
+      papyrus.access_requests.where(user_id: user.id).empty?
+    end
+    can :cancel_access_request, Papyrus do |papyrus|
+      papyrus.access_requests.where(user_id: user.id).present?
+    end
+    can :read, Papyrus
+
     if Role.superuser_roles.include? user.role
       can :create, Papyrus
       can :update, Papyrus
       can :view_visibility, Papyrus
-      can :read, Papyrus
-
-    elsif user.role.researcher?
-      can :read, Papyrus
     end
 
     user.role.permissions.each do |permission| # TODO revisit

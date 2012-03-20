@@ -4,6 +4,10 @@ Dc12c::Application.routes.draw do
       get :search
       get :advanced_search
     end
+    member do
+      post :request_access
+      post :cancel_access_request
+    end
   end
 
   devise_for :users, controllers: {registrations: "user_registers", passwords: "user_passwords"}

@@ -85,6 +85,16 @@ class PapyriController < ApplicationController
     end
   end
 
+  def request_access
+    AccessRequest.create!(user: current_user, papyrus: @papyrus, status: AccessRequest::CREATED)
+    redirect_to @papyrus, notice: 'Your request has been received.'
+  end
+
+  def cancel_access_request
+    AccessRequest.find_by_user_id_and_papyrus_id!(current_user, @papyrus).destroy
+    redirect_to @papyrus, notice: 'Your request has been cancelled.'
+  end
+
   private
 
   def make_page(page)
