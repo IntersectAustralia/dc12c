@@ -6,6 +6,7 @@ gem 'rails', '3.2.2'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
+gem 'ruby-oci8', '~> 2.1.0'
 
 gem 'will_paginate'
 gem 'squeel'
@@ -43,6 +44,8 @@ gem "therubyracer" # TODO should this be in group :assets ?
 group :development, :test do
   gem "rspec-rails"
   gem "factory_girl_rails"
+  gem "ruby-ldapserver", '~> 0.4.0', :git => 'git://github.com/IntersectAustralia/ruby-ldapserver.git'
+  gem "net-ldap"
 
   # cucumber gems
   gem "cucumber"
