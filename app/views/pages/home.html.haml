@@ -10,7 +10,7 @@
       = link_to "Create Papyrus", new_papyrus_path, :class => "btn"
   .page-header
     = form_tag search_papyri_path, method: :get do
-      = label_tag :search, ""
+      = label_tag :search
       = search_field_tag :search
       = submit_tag "Search", class: 'btn'
   .page-content
