@@ -199,8 +199,11 @@ task :generate_database_yml, :roles => :app do
   buffer.delete('spec')
 
   # Populate production password
-  buffer['production']['password'] = production_database_password.to_s
+  buffer[rails_env]['password'] = production_database_password.to_s
 
   put YAML::dump(buffer), "#{release_path}/config/database.yml", :mode => 0664
 end
 
+after 'multistage:ensure' do
+  set (:rails_env) {"#{defined?(rails_env) ? rails_env : stage.to_s}" }
+end
