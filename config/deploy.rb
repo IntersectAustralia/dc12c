@@ -116,6 +116,7 @@ namespace :deploy do
   desc "Additional Symlinks to shared_path"
   task :additional_symlinks do
     run "rm -rf #{release_path}/tmp/shared_config"
+    run "mkdir -p #{shared_path}/env_config"
     run "ln -nfs #{shared_path}/env_config #{release_path}/tmp/env_config"
   end
 
