@@ -72,3 +72,4 @@ gem "capistrano"
 gem "capistrano_colors"
 gem "metrical"
 gem "simplecov", ">=0.3.8", :require => false, :group => :test
+gem 'colorize'
