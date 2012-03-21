@@ -19,10 +19,16 @@ test: &test
   timeout: 5000
 
 production:
-  adapter: sqlite3
-  database: db/production.sqlite3
-  pool: 5
-  timeout: 5000
+  adapter: oracle_enhanced
+  database: //localhost/XE
+  username: ruby
+  password: placeholdertext
 
 cucumber:
   <<: *test
+
+qa:
+  <<: *production
+
+staging:
+  <<: *production
