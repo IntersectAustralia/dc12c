@@ -5,7 +5,6 @@ gem 'rails', '3.2.2'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
 gem 'ruby-oci8', '~> 2.1.0'
 gem 'activerecord-oracle_enhanced-adapter', '~> 1.4.1'
 
@@ -43,6 +42,7 @@ gem 'jquery-rails'
     
 gem "therubyracer" # TODO should this be in group :assets ?
 group :development, :test do
+  gem 'sqlite3'
   gem "rspec-rails"
   gem "factory_girl_rails"
   gem "ruby-ldapserver", '~> 0.4.0', :git => 'git://github.com/IntersectAustralia/ruby-ldapserver.git'
