@@ -1,5 +1,6 @@
 require 'rubygems'
 
+ENV['NLS_LANG'] = 'American_America.UTF8'
 # Set up gems listed in the Gemfile.
 ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../../Gemfile', __FILE__)
 
