@@ -311,6 +311,24 @@ Feature: Manage Papyrus
     Then I should not see "Papyrus was successfully updated."
     And I should see "Date year must be greater than 0"
 
+  Scenario: clicking cancel on the edit page takes you back to the view page for that papyrus
+    Given I am logged in as "admin@intersect.org.au"
+    And I am on the "p.macq2" papyrus page
+    When I follow "Edit this record"
+    And I follow "Cancel"
+    Then I should be on the "p.macq2" papyrus page
+
+  Scenario: clicking cancel should dismiss any changes
+    Given I am logged in as "admin@intersect.org.au"
+    And I am on the "p.macq2" papyrus page
+    When I follow "Edit this record"
+    And I enter the following papyrus details
+      | field      | value      |
+      | recto_note | Sponge-bob |
+    And I follow "Cancel"
+    Then I should not see "Sponge-bob"
+    And I should see "Rectangle"
+
   Scenario: Date field can be blank on edit
     Given I am logged in as "admin@intersect.org.au"
     And I am on the home page
