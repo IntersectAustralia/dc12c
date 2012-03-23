@@ -51,6 +51,9 @@ module NavigationHelpers
         p = Papyrus.find_by_inventory_id! $1
         edit_papyrus_path p
 
+      when /the list papyri page/
+        papyri_path
+
       when /page (.*) of the papyri index/
         page_num = $1
         papyri_path page: page_num

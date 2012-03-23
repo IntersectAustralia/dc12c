@@ -171,6 +171,13 @@ Feature: Manage Papyrus
     And I should see "Width must be greater than 0"
     And I should see "Height must be greater than 0"
 
+  Scenario: Clicking cancel on the create page should take you to the list papyri page
+    Given I am logged in as "admin@intersect.org.au"
+    And I am on the home page
+    Then I follow "Create Papyrus"
+    And I follow "Cancel"
+    Then I should be on the list papyri page
+
   Scenario: Editing a Papyrus record (logged in as researcher)
     Given I am logged in as "researcher@intersect.org.au"
     And I am on the "p.macq2" papyrus page
