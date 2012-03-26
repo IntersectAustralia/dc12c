@@ -11,11 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120320044210) do
+ActiveRecord::Schema.define(:version => 20120326064714) do
 
   create_table "access_requests", :force => true do |t|
-    t.integer "user_id"
-    t.integer "papyrus_id"
+    t.integer "user_id",    :precision => 38, :scale => 0
+    t.integer "papyrus_id", :precision => 38, :scale => 0
     t.string  "status"
   end
 
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(:version => 20120320044210) do
     t.string "name"
   end
 
-  create_table "languages_papyri", :force => true do |t|
+  create_table "languages_papyri", :id => false, :force => true do |t|
     t.integer "language_id", :precision => 38, :scale => 0
     t.integer "papyrus_id",  :precision => 38, :scale => 0
   end

@@ -13,10 +13,10 @@ development:
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test: &test
-  adapter: sqlite3
-  database: db/test.sqlite3
-  pool: 5
-  timeout: 5000
+  adapter: oracle_enhanced
+  database: //192.168.56.2/XE
+  username: ruby
+  password: ruby123
 
 production: &production
   adapter: oracle_enhanced
