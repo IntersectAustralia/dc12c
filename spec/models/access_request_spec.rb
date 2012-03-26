@@ -14,15 +14,15 @@ describe AccessRequest do
       u = Factory(:user)
       p = Factory(:papyrus)
       Factory(:access_request, user: u, papyrus: p).should be_valid
-      Factory.build(:access_request, user: u, papyrus: p).should_not be_valid
+      FactoryGirl.build(:access_request, user: u, papyrus: p).should_not be_valid
     end
     it "should have it's status as one of the allowed values" do
-      Factory.build(:access_request, status: "CREATED").should be_valid
-      Factory.build(:access_request, status: "APPROVED").should be_valid
-      Factory.build(:access_request, status: "REJECTED").should be_valid
-      Factory.build(:access_request, status: "RANDOM").should_not be_valid
-      Factory.build(:access_request, status: "created").should_not be_valid
-      Factory.build(:access_request, status: nil).should_not be_valid
+      FactoryGirl.build(:access_request, status: "CREATED").should be_valid
+      FactoryGirl.build(:access_request, status: "APPROVED").should be_valid
+      FactoryGirl.build(:access_request, status: "REJECTED").should be_valid
+      FactoryGirl.build(:access_request, status: "RANDOM").should_not be_valid
+      FactoryGirl.build(:access_request, status: "created").should_not be_valid
+      FactoryGirl.build(:access_request, status: nil).should_not be_valid
     end
   end
 end
