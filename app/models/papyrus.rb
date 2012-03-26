@@ -36,42 +36,37 @@ class Papyrus < ActiveRecord::Base
   end
 
   def self.search search_terms
-    search_terms = search_terms.map {|term| "%#{term}%"}
-    Papyrus.joins { languages.outer }.joins{country_of_origin.outer}.joins{genre.outer}.where { inventory_id.like_any(search_terms)  \
-    | languages.name.like_any(search_terms)                                         \
-    | general_note.like_any(search_terms)                                           \
-    | note.like_any(search_terms)                                                   \
-    | paleographic_description.like_any(search_terms)                               \
-    | recto_note.like_any(search_terms)                                             \
-    | verso_note.like_any(search_terms)                                             \
-    | country_of_origin.name.like_any(search_terms)                                 \
-    | origin_details.like_any(search_terms)                                         \
-    | source_of_acquisition.like_any(search_terms)                                  \
-    | preservation_note.like_any(search_terms)                                      \
-    | genre.name.like_any(search_terms)                                             \
-    | language_note.like_any(search_terms)                                          \
-    | summary.like_any(search_terms)                                                \
-    | translated_text.like_any(search_terms) }
-
+    search_terms = search_terms.map {|term| "%#{term.upcase}%"}
+    Papyrus.joins { languages.outer }.joins{country_of_origin.outer}.joins{genre.outer}.where do
+      upper(inventory_id).like_any(search_terms)             \
+    | upper(languages.name).like_any(search_terms)           \
+    | upper(general_note).like_any(search_terms)             \
+    | upper(note).like_any(search_terms)                     \
+    | upper(paleographic_description).like_any(search_terms) \
+    | upper(recto_note).like_any(search_terms)               \
+    | upper(verso_note).like_any(search_terms)               \
+    | upper(country_of_origin.name).like_any(search_terms)   \
+    | upper(origin_details).like_any(search_terms)           \
+    | upper(source_of_acquisition).like_any(search_terms)    \
+    | upper(preservation_note).like_any(search_terms)        \
+    | upper(genre.name).like_any(search_terms)               \
+    | upper(language_note).like_any(search_terms)            \
+    | upper(summary).like_any(search_terms)                  \
+    | upper(translated_text).like_any(search_terms)
+    end
   end
 
   def self.advanced_search search_fields
 
     search_fields = search_fields.reduce({}) do |acc, (k, v)|
-      acc.merge k => v.split(/\s+/).map{|term| "%#{term}%"}
+      acc.merge k => v.split(/\s+/).map{|term| "%#{term.upcase}%"}
     end
 
-    Papyrus.where do |p|
+    Papyrus.where do
       clauses = search_fields.map do |field_name, search_terms|
-        p.__send__(field_name).like_any search_terms
+        upper(__send__(field_name)).like_any search_terms
       end
-      clauses_orred_together = clauses.first
-      clauses.each.with_index do |clause, index|
-        if index != 0
-          clauses_orred_together |= clause
-        end
-      end
-      clauses_orred_together
+      clauses.reduce {|a, b| a | b }
     end
   end
 
