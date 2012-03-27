@@ -167,3 +167,10 @@ Feature: Searching Papyri
     And I fill in "general_note" with "window"
     And I press "Search"
     Then I should see the pagination controls
+
+  Scenario: searching for blank should give no results (and not an error)
+    Given I am on the home page
+    And I press "Search"
+    Then show me the page
+    Then I should not see the search results table
+    And I should see "Please enter a search query."
