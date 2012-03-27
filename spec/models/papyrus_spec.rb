@@ -164,6 +164,7 @@ describe Papyrus do
       @p14 = Factory(:papyrus, summary: "it's all greek to me")
       @p15 = Factory(:papyrus, inventory_id: 'p.macq1234', translated_text: "These strike me as Chinese")
       @p16 = Factory(:papyrus, original_text: "Έμπασυ στο Κολωνάκι")
+      @p17 = Factory(:papyrus, summary: "Έμπασυ στο Κολωνάκι")
     end
     describe "simple" do
       it "should find by inventory id" do
@@ -229,6 +230,10 @@ describe Papyrus do
       it "should find across multiple fields" do
         results = Papyrus.search(['EnglanD', 'Bulb', 'aLl'])
         results.should eq [@p4, @p7, @p8, @p11, @p14]
+      end
+      it "should find prefix of words in utf8 searches" do
+        results = Papyrus.search(['Έμ'])
+        results.should eq [@p17]
       end
     end
 

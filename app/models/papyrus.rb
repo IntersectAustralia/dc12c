@@ -54,7 +54,7 @@ class Papyrus < ActiveRecord::Base
   end
 
   def self.search search_terms
-    search_terms = search_terms.map {|term| "%#{term.upcase}%"}
+    search_terms = search_terms.map {|term| "%#{UnicodeUtils.upcase(term)}%"}
     Papyrus.joins { languages.outer }.joins{country_of_origin.outer}.joins{genre.outer}.where do
       upper(inventory_id).like_any(search_terms)             \
     | upper(languages.name).like_any(search_terms)           \
