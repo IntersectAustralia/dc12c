@@ -127,6 +127,7 @@ Feature: Searching Papyri
     | summary                  | Bryan     | pmac32 |
     | original_text            | Κολωνάκι  | pmac34 |
     | translated_text          | Ryan      | pmac33 |
+    | inventory_id             | pmac20    | pmac20 |
 
 
   Scenario: to check the results table is not present before making a search

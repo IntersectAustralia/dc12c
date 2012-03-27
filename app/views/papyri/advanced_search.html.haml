@@ -4,6 +4,7 @@
   .page-content
     = form_tag advanced_search_papyri_path, method: :get do
 
+      = render_field('Inventory ID', search_field_tag(:inventory_id))
       = render_field('General Note', search_field_tag(:general_note))
       = render_field('Note', search_field_tag(:note))
       = render_field('Paleographic Description', search_field_tag(:paleographic_description))
