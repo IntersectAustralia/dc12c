@@ -1,3 +1,5 @@
+require "unicode_utils/upcase"
+
 class Papyrus < ActiveRecord::Base
 
   VISIBLE = 'VISIBLE'
@@ -59,7 +61,7 @@ class Papyrus < ActiveRecord::Base
   def self.advanced_search search_fields
 
     search_fields = search_fields.reduce({}) do |acc, (k, v)|
-      acc.merge k => v.split(/\s+/).map{|term| "%#{term.upcase}%"}
+      acc.merge k => v.split(/\s+/).map{|term| "%#{UnicodeUtils.upcase(term)}%"}
     end
 
     Papyrus.where do

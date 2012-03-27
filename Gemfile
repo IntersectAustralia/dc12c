@@ -10,6 +10,7 @@ gem 'activerecord-oracle_enhanced-adapter', '~> 1.4.1'
 
 gem 'will_paginate'
 gem 'squeel'
+gem 'unicode_utils'
 
 # Gems used only for assets and not required
 # in production environments by default.

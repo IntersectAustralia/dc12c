@@ -253,7 +253,7 @@ describe Papyrus do
         results.should eq [@p14]
       end
       it "should find by original text" do
-        results = Papyrus.advanced_search(original_text: 'Κολωνάκι')
+        results = Papyrus.advanced_search(original_text: "ΚοΛωνάκι")
         results.should eq [@p16]
       end
       it "should find by translated text" do
