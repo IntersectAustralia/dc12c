@@ -10,4 +10,9 @@ class AccessRequest < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :papyrus
+
+  def self.place_request(user, papyrus)
+    Notifier.notify_superusers_of_papyrus_access_request(user, papyrus)
+    create!(user: user, papyrus: papyrus, status: CREATED)
+  end
 end

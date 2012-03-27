@@ -38,5 +38,22 @@ describe Notifier do
     email.subject.should eq("Papyri Data Capture - There has been a new access request")
     email.to.should eq(["super1@intersect.org.au", "super2@intersect.org.au"])
   end
+
+  describe "Notification to superusers when access to papyrus requested"
+  it "should send the right email" do
+    u = Factory(:user)
+    p = Factory(:papyrus)
+    super_role = Factory(:role, name: Role::SUPERUSER_ROLE_NAME)
+    su = Factory(:user, role: super_role, status: "A")
+    su2 = Factory(:user, role: super_role, status: "A")
+    Notifier.notify_superusers_of_papyrus_access_request(u, p).deliver
+
+    deliveries = ActionMailer::Base.deliveries
+    deliveries.should_not be_empty
+    email = deliveries[0]
+    email.subject.should eq("Papyri Data Capture - Papyrus access request")
+    email.to.should eq([su.email, su2.email])
+    #user = Factory(:user, :status => "U", :email => ')
+  end
  
 end

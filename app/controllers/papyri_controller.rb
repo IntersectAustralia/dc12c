@@ -91,7 +91,7 @@ class PapyriController < ApplicationController
   end
 
   def request_access
-    AccessRequest.create!(user: current_user, papyrus: @papyrus, status: AccessRequest::CREATED)
+    AccessRequest.place_request(current_user, @papyrus)
     redirect_to @papyrus, notice: 'Your request has been received.'
   end
 

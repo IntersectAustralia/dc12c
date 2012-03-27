@@ -1,4 +1,6 @@
 Dc12c::Application.routes.draw do
+  resources :access_requests, only: [:index]
+
   resources :papyri, only: [:new, :create, :show, :edit, :update, :index] do
     collection do
       get :search

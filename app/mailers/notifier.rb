@@ -36,4 +36,14 @@ class Notifier < ActionMailer::Base
           :subject => PREFIX + "Reset password instructions")
   end
 
+  def notify_superusers_of_papyrus_access_request(user, papyrus)
+    superusers_emails = User.get_superuser_emails
+    @user = user
+    mail( :to => superusers_emails,
+          :from => APP_CONFIG['papyrus_access_request_email_sender'],
+          :reply_to => APP_CONFIG['papyrus_access_request_email_sender'],
+          :subject => PREFIX + "Papyrus access request")
+   
+  end
+
 end
