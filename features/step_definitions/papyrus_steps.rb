@@ -141,7 +141,7 @@ Then /^I should see search results "([^"]*)"$/ do |inventory_ids|
   ids = inventory_ids.split ", "
   papyri = Papyrus.order('inventory_id').where(inventory_id: ids)
   rows = papyri.map do |papyrus|
-    [papyrus.inventory_id, papyrus.note, papyrus.country_of_origin.try(:name) || '', papyrus.human_readable_has_translation]
+    [papyrus.inventory_id, papyrus.note || '', papyrus.country_of_origin.try(:name) || '', papyrus.human_readable_has_translation]
   end
   expected_table = [
     ['Inventory ID', 'Note', 'Country of Origin', 'Translation'],

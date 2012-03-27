@@ -68,8 +68,13 @@ class PapyriController < ApplicationController
     page = make_page(params[:page])
     search_query = params[:search]
     search_terms = search_query.split /\s+/
-    search_results = Papyrus.search(search_terms)
-    @papyri = search_results.accessible_by(current_ability).paginate(page: page, per_page: APP_CONFIG['number_of_papyri_per_page'])
+    if search_terms.empty?
+      @simple_search_error = 'Please enter a search query.'
+      render 'pages/home'
+    else
+      search_results = Papyrus.search(search_terms)
+      @papyri = search_results.accessible_by(current_ability).paginate(page: page, per_page: APP_CONFIG['number_of_papyri_per_page'])
+    end
   end
 
   def advanced_search

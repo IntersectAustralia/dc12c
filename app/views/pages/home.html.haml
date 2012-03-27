@@ -9,9 +9,10 @@
     - if can? :create, Papyrus
       = link_to "Create Papyrus", new_papyrus_path, :class => "btn"
   .page-header
+    = @simple_search_error
     = form_tag search_papyri_path, method: :get do
       = label_tag :search
-      = search_field_tag :search
+      = search_field_tag :search, nil, maxlength: 50, class: (@simple_search_error ? 'simple_search_error' : '')
       = submit_tag "Search", class: 'btn'
   .page-content
     = link_to "Advanced", advanced_search_papyri_path, class: "btn"
