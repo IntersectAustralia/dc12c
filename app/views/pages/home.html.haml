@@ -11,7 +11,7 @@
   .page-header
     = form_tag search_papyri_path, method: :get do
       = label_tag :search
-      = search_field_tag :search
+      = search_field_tag :search, nil, maxlength: 50
       = submit_tag "Search", class: 'btn'
   .page-content
     = link_to "Advanced", advanced_search_papyri_path, class: "btn"
