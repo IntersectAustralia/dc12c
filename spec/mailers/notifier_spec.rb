@@ -46,7 +46,8 @@ describe Notifier do
     super_role = Factory(:role, name: Role::SUPERUSER_ROLE_NAME)
     su = Factory(:user, role: super_role, status: "A")
     su2 = Factory(:user, role: super_role, status: "A")
-    Notifier.notify_superusers_of_papyrus_access_request(u, p).deliver
+    ar = Factory(:access_request, user: u, papyrus: p)
+    Notifier.notify_superusers_of_papyrus_access_request(ar).deliver
 
     deliveries = ActionMailer::Base.deliveries
     deliveries.should_not be_empty

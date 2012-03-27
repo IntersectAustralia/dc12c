@@ -14,7 +14,7 @@ describe AccessRequest do
       super_role = Factory(:role, name: Role::SUPERUSER_ROLE_NAME)
       su = Factory(:user, role: super_role, status:"A")
       su2 = Factory(:user, role: super_role, status:"A")
-      Notifier.should_receive(:notify_superusers_of_papyrus_access_request).with(u, p)
+      Notifier.should_receive(:notify_superusers_of_papyrus_access_request)
       AccessRequest.place_request(u, p)
       AccessRequest.find_by_user_id_and_papyrus_id_and_status!(u, p, AccessRequest::CREATED)
     end

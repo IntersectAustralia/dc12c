@@ -1,8 +1,8 @@
 %p A papyrus access request has been made with the following details:
 %p
+  Requested by: #{@user.full_name}
+  %br/
   Email: #{@user.email}
   %br/
-  First name: #{@user.first_name}
-  %br/
-  Last name: #{@user.last_name}
-%p You can view unapproved access requests here: #{access_requests_url}
+  Requesting access to: #{@papyrus.inventory_id}
+%p You can view unapproved access requests here: #{access_request_url(@access_request)}
