@@ -21,6 +21,27 @@ describe Papyrus do
   end
   describe "validations" do
     it { should validate_presence_of :inventory_id }
+    it { should ensure_length_of(:inventory_id).is_at_most(32) }
+    it { should ensure_length_of(:general_note).is_at_most(255) }
+    it { should ensure_length_of(:note).is_at_most(255) }
+    it { should ensure_length_of(:paleographic_description).is_at_most(255) }
+    it { should ensure_length_of(:recto_note).is_at_most(255) }
+    it { should ensure_length_of(:verso_note).is_at_most(255) }
+    it { should ensure_length_of(:origin_details).is_at_most(255) }
+    it { should ensure_length_of(:source_of_acquisition).is_at_most(255) }
+    it { should ensure_length_of(:preservation_note).is_at_most(255) }
+    it { should ensure_length_of(:paleographic_description).is_at_most(255) }
+    it { should ensure_length_of(:summary).is_at_most(255) }
+    it { should ensure_length_of(:language_note).is_at_most(255) }
+    it { should ensure_length_of(:original_text).is_at_most(4096) }
+    it { should ensure_length_of(:translated_text).is_at_most(4096) }
+
+    it "should not be able to be greater than 4 digits long" do
+      papyrus = FactoryGirl.build(:papyrus, date_year: 10000, date_era: 'BCE')
+      papyrus.should_not be_valid
+      papyrus.errors[:date_year].should include("is too long (maximum is 4 characters)")
+    end
+
     it "should validate inventory id is unique" do
       Factory(:papyrus)
       should validate_uniqueness_of :inventory_id

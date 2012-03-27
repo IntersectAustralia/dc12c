@@ -23,6 +23,22 @@ class Papyrus < ActiveRecord::Base
   validates_numericality_of :width, greater_than: 0, allow_nil: true
   validates_numericality_of :height, greater_than: 0, allow_nil: true
 
+  validates_length_of :inventory_id, maximum: 32
+  validates_length_of :date_year, maximum: 4
+  validates_length_of :general_note, maximum: 255
+  validates_length_of :note, maximum: 255
+  validates_length_of :paleographic_description, maximum: 255
+  validates_length_of :recto_note, maximum: 255
+  validates_length_of :verso_note, maximum: 255
+  validates_length_of :origin_details, maximum: 255
+  validates_length_of :source_of_acquisition, maximum: 255
+  validates_length_of :preservation_note, maximum: 255
+  validates_length_of :paleographic_description, maximum: 255
+  validates_length_of :summary, maximum: 255
+  validates_length_of :language_note, maximum: 255
+  validates_length_of :original_text, maximum: 4096
+  validates_length_of :translated_text, maximum: 4096
+
   default_scope order: 'inventory_id'
 
   def formatted_date
