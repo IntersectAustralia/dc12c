@@ -171,6 +171,12 @@ Feature: Searching Papyri
   Scenario: searching for blank should give no results (and not an error)
     Given I am on the home page
     And I press "Search"
-    Then show me the page
     Then I should not see the search results table
     And I should see "Please enter a search query."
+
+  Scenario: searching finds nothing should give "No Results Found" message
+    Given I am on the home page
+    And I fill in "Search" with "zpmacnothinghere"
+    And I press "Search"
+    Then I should not see the search results table
+    And I should see "No Results Found"

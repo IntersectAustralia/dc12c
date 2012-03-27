@@ -2,6 +2,9 @@
   .page-header
     %h2 Search Results
   .page-content
-    = render partial: 'table', locals: {table_id: 'search_results'}
-    %br
-    = will_paginate @papyri
+    - if @papyri.empty?
+      No Results Found
+    - else
+      = render partial: 'table', locals: {table_id: 'search_results'}
+      %br
+      = will_paginate @papyri
