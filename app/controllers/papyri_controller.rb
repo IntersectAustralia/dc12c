@@ -79,13 +79,16 @@ class PapyriController < ApplicationController
 
   def advanced_search
     page = make_page(params[:page])
+    @with_params = params.include?(:utf8)
     fields = ['inventory_id', 'general_note', 'note', 'paleographic_description', 'recto_note', 'verso_note', 'origin_details', 'source_of_acquisition', 'preservation_note', 'language_note', 'summary', 'original_text', 'translated_text']
     search_fields = params.keep_if do |name, value|
       value.present? && fields.include?(name.to_s)
     end
     if !search_fields.empty?
+      @search_fields = search_fields
       @papyri = Papyrus.advanced_search(search_fields).accessible_by(current_ability, :advanced_search).paginate(page: page, per_page: APP_CONFIG['number_of_papyri_per_page'])
     else
+      @search_fields = {}
       @papyri = []
     end
   end

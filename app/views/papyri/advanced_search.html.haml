@@ -4,23 +4,24 @@
   .page-content
     = form_tag advanced_search_papyri_path, method: :get do
 
-      = render_field('Inventory ID', search_field_tag(:inventory_id))
-      = render_field('General Note', search_field_tag(:general_note))
-      = render_field('Note', search_field_tag(:note))
-      = render_field('Paleographic Description', search_field_tag(:paleographic_description))
-      = render_field('Recto Note', search_field_tag(:recto_note))
-      = render_field('Verso Note', search_field_tag(:verso_note))
-      = render_field('Origin Details', search_field_tag(:origin_details))
-      = render_field('Source of Acquisition', search_field_tag(:source_of_acquisition))
-      = render_field('Preservation Note', search_field_tag(:preservation_note))
-      = render_field('Language Note', search_field_tag(:language_note))
-      = render_field('Summary', search_field_tag(:summary))
-      = render_field('Original Text', search_field_tag(:original_text))
-      = render_field('Translated Text', search_field_tag(:translated_text))
+      = render_field('Inventory ID', search_field_tag(:inventory_id, @search_fields[:inventory_id], maxlength: 50))
+      = render_field('General Note', search_field_tag(:general_note,  @search_fields[:general_note], maxlength: 50))
+      = render_field('Note', search_field_tag(:note,  @search_fields[:note], maxlength: 50))
+      = render_field('Paleographic Description', search_field_tag(:paleographic_description, @search_fields[:paleographic_description], maxlength: 50))
+      = render_field('Recto Note', search_field_tag(:recto_note, @search_fields[:recto_note], maxlength: 50))
+      = render_field('Verso Note', search_field_tag(:verso_note, @search_fields[:verso_note], maxlength: 50))
+      = render_field('Origin Details', search_field_tag(:origin_details, @search_fields[:origin_details], maxlength: 50))
+      = render_field('Source of Acquisition', search_field_tag(:source_of_acquisition, @search_fields[:source_of_acquisition], maxlength: 50))
+      = render_field('Preservation Note', search_field_tag(:preservation_note, @search_fields[:preservation_note], maxlength: 50))
+      = render_field('Language Note', search_field_tag(:language_note, @search_fields[:language_note], maxlength: 50))
+      = render_field('Summary', search_field_tag(:summary, @search_fields[:summary], maxlength: 50))
+      = render_field('Original Text', search_field_tag(:original_text, @search_fields[:original_text], maxlength: 50))
+      = render_field('Translated Text', search_field_tag(:translated_text, @search_fields[:translated_text], maxlength: 50))
       .form-actions
         = submit_tag 'Search'
     -if @papyri.empty?
-      No Results Found
+      -if @with_params
+        No Results Found
     -else
       %h1 Search Results
       = render partial: 'table', locals: {table_id: 'search_results'}
