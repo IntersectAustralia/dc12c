@@ -23,18 +23,15 @@ Given /^I have a user "([^"]*)" with an expired lock$/ do |email|
 end
 
 Given /^I have a user "([^"]*)" with role "([^"]*)"$/ do |email, role_name|
-  user            = Factory(:user, :email => email, :password => "Pas$w0rd", :status => 'A')
-  role         = Role.where(:name => role_name).first
+  user = Factory(:user, :email => email, :password => "Pas$w0rd", :status => 'A')
+  role = Role.where(:name => role_name).first
   role = Role.create!(name: role_name) unless role
   user.role_id = role.id
   user.save!
 end
 
 Given /^I am logged in as "([^"]*)"$/ do |email|
-  visit path_to("the login page")
-  fill_in("user_email", :with => email)
-  fill_in("user_password", :with => "Pas$w0rd")
-  click_button("Log in")
+  login(email)
 end
 
 Given /^I have no users$/ do
@@ -42,7 +39,7 @@ Given /^I have no users$/ do
 end
 
 Then /^I should be able to log in with "([^"]*)" and "([^"]*)"$/ do |email, password|
-  visit path_to("the logout page")
+  logout
   visit path_to("the login page")
   fill_in("user_email", :with => email)
   fill_in("user_password", :with => password)
@@ -70,3 +67,13 @@ And /^I request a reset for "([^"]*)"$/ do |email|
   click_button "Send me reset password instructions"
 end
 
+def login(email)
+  visit path_to("the login page")
+  fill_in("user_email", :with => email)
+  fill_in("user_password", :with => "Pas$w0rd")
+  click_button("Log in")
+end
+
+def logout
+  visit destroy_user_session_path
+end

@@ -10,7 +10,13 @@ Dc12c::Application.routes.draw do
       post :request_access
       post :cancel_access_request
     end
+
+    resources :images, only: [:new, :create]
   end
+
+  match 'papyrus/:papyrus_id/image/:id/low_res(/:filename)' => 'Images#low_res'
+  match 'papyrus/:papyrus_id/image/:id/original(/:filename)' => 'Images#high_res'
+
 
   devise_for :users, controllers: {registrations: "user_registers", passwords: "user_passwords"}
   devise_scope :user do

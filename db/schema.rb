@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120326064714) do
+ActiveRecord::Schema.define(:version => 20120328003218) do
 
   create_table "access_requests", :force => true do |t|
     t.integer "user_id",    :precision => 38, :scale => 0
@@ -25,6 +25,15 @@ ActiveRecord::Schema.define(:version => 20120326064714) do
 
   create_table "genres", :force => true do |t|
     t.string "name"
+  end
+
+  create_table "images", :force => true do |t|
+    t.string   "caption"
+    t.integer  "papyrus_id",         :precision => 38, :scale => 0
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size",    :precision => 38, :scale => 0
+    t.datetime "image_updated_at"
   end
 
   create_table "languages", :force => true do |t|

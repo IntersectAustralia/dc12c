@@ -1,0 +1,8 @@
+
+= form_for([@papyrus, @image]) do |f|
+  = render_field f.label(:image, 'Image'), f.file_field(:image)
+  = render_field f.label(:caption, 'Caption'), f.text_area(:caption, max_length: 255)
+  = f.submit 'Upload'
+
+.form_actions
+  = link_to 'Cancel', papyrus_path(@papyrus)

@@ -17,7 +17,8 @@ describe Papyrus do
     it { should belong_to :country_of_origin }
     it { should belong_to :genre }
     it { should have_and_belong_to_many :languages }
-    it {should have_many :access_requests}
+    it { should have_many :access_requests }
+    it { should have_many :images }
   end
   describe "validations" do
     it { should validate_presence_of :inventory_id }

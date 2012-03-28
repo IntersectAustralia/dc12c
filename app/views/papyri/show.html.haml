@@ -9,6 +9,15 @@
   = form_tag cancel_access_request_papyrus_path(@papyrus) do
     = submit_tag 'Cancel Access'
 
+- if can? :create, Image
+  = link_to 'Upload', new_papyrus_image_path(@papyrus)
+
+- @papyrus.images.each do |image|
+  = image_tag image.image.url(:low_res), title: image.caption
+  = image.caption
+  - if can? :high_res, image
+    = link_to 'Download in high resolution', image.image.url(:original), id: "download_high_res_#{image.id}"
+
 = render_field('Inventory ID', @papyrus.inventory_id)
 = render_field('Languages', @papyrus.languages_csv)
 = render_field('Width', @papyrus.width)

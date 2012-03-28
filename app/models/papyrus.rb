@@ -10,6 +10,7 @@ class Papyrus < ActiveRecord::Base
   belongs_to :genre
   has_and_belongs_to_many :languages
   has_many :access_requests
+  has_many :images
 
   validates :inventory_id, presence: true, uniqueness: true
   validates :visibility, presence: true, inclusion: [HIDDEN, VISIBLE, PUBLIC]

@@ -24,6 +24,14 @@ class Ability
 
     can :read, Papyrus, visibility: [Papyrus::PUBLIC, Papyrus::VISIBLE]
 
+    can :low_res, Image do |image|
+      [Papyrus::PUBLIC, Papyrus::VISIBLE].include? image.papyrus.visibility
+    end
+
+    can :high_res, Image do |image|
+      image.papyrus.visibility == Papyrus::PUBLIC
+    end
+
     return unless user and user.role
 
     can :request_access, Papyrus do |papyrus|
@@ -38,6 +46,9 @@ class Ability
       can :create, Papyrus
       can :update, Papyrus
       can :view_visibility, Papyrus
+      can :create, Image
+      can :low_res, Image
+      can :high_res, Image
     end
 
     user.role.permissions.each do |permission| # TODO revisit

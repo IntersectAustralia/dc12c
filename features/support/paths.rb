@@ -64,6 +64,14 @@ module NavigationHelpers
       when /the advanced search page/
         advanced_search_papyri_path
 
+      when /the upload image page for "(.*)"/
+        new_papyrus_image_path(Papyrus.find_by_inventory_id!($1))
+      when /the papyrus "(.*)" image "(.*)" "(.*)" page/
+        papyrus = Papyrus.find_by_inventory_id!($1)
+        image = papyrus.images.find_by_image_file_name!($2)
+        style = $3
+        image.image.url(style.to_sym)
+
 # Add more mappings here.
 # Here is an example that pulls values out of the Regexp:
 #

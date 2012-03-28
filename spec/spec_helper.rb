@@ -1,4 +1,5 @@
 require 'simplecov'
+require 'paperclip/matchers'
 SimpleCov.start 'rails'
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
@@ -11,6 +12,7 @@ require 'rspec/autorun'
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
+  config.include Paperclip::Shoulda::Matchers
   # ## Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
