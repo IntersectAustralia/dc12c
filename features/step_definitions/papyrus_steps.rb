@@ -1,16 +1,22 @@
-def get_papyrus_field(field_id)
+def find_papyrus_field(field_id)
   id = "#papyrus_#{field_id}"
-  input = find(id)
-  input.value
+  find(id)
+end
+def get_papyrus_field(field_id)
+  find_papyrus_field(field_id).value
 end
 def set_papyrus_field(field_id, value)
-  id = "#papyrus_#{field_id}"
-  input = find(id)
+  input = find_papyrus_field(field_id)
   if input.tag_name == 'select'
-    select value, from: id.slice(1..-1)
+    select value, from: input[:id]
   else
     input.set value
   end
+end
+def papyrus_field_should_be_in_error(field_id)
+  input = find_papyrus_field(field_id)
+  classes = input.find(:xpath, '..')[:class].split(' ')
+  classes.should include("field_with_errors")
 end
 
 When /^I enter the following papyrus details$/ do |table|
@@ -20,7 +26,7 @@ When /^I enter the following papyrus details$/ do |table|
     if field == 'Date'
       year, era = value.split ' '
       set_papyrus_field('date_year', year)
-      set_papyrus_field('date_era', era)
+      set_papyrus_field('date_era', era) unless era.nil?
     elsif field == 'Languages'
       languages = value.split(', ')
       languages.each do |l|
@@ -115,6 +121,17 @@ Then /^I should see papyrus fields displayed$/ do |table|
     end
   end
 end
+
+And /^I should see the following fields with errors$/ do |table|
+  table.hashes.each do |row|
+    field = row[:field]
+    if field == 'Date'
+      papyrus_field_should_be_in_error('date_year')
+      papyrus_field_should_be_in_error('date_era')
+    end
+  end
+end
+
 And /^"([^"]*)" should have a visibility of "([^"]*)"$/ do |inventory_id, visibility|
   papyrus = Papyrus.find_by_inventory_id! inventory_id
   papyrus.visibility.should eq visibility

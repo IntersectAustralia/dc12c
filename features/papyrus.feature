@@ -163,13 +163,19 @@ Feature: Manage Papyrus
       | Inventory ID |       |
       | Width        | -1    |
       | Height       | 0     |
-      | Date         | -2 CE |
+      | Date         | -2    |
     And I press "Save"
     Then I should not see "Your Papyrus record has been created."
     And I should see "Date year must be greater than 0"
     And I should see "Inventory ID can't be blank"
     And I should see "Width must be greater than 0"
     And I should see "Height must be greater than 0"
+    And I should see the following fields with errors
+      | field        |
+      | Inventory ID |
+      | Width        |
+      | Height       |
+      | Date         |
 
   Scenario: Clicking cancel on the create page should take you to the list papyri page
     Given I am logged in as "admin@intersect.org.au"
