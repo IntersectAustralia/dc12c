@@ -181,3 +181,9 @@ Feature: Searching Papyri
     And I press "Search"
     Then I should not see the search results table
     And I should see "No Results Found"
+
+  Scenario: advanced search finds nothing should give "No Results Found" message
+    Given I am on the advanced search page
+    And I press "Search"
+    Then I should not see the search results table
+    And I should see "No Results Found"

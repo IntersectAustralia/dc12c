@@ -19,11 +19,11 @@
       = render_field('Translated Text', search_field_tag(:translated_text))
       .form-actions
         = submit_tag 'Search'
-    -if @papyri.present?
+    -if @papyri.empty?
+      No Results Found
+    -else
       %h1 Search Results
-
       = render partial: 'table', locals: {table_id: 'search_results'}
       %br
-
       = will_paginate @papyri
 
