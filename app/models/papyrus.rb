@@ -33,7 +33,6 @@ class Papyrus < ActiveRecord::Base
   validates_length_of :origin_details, maximum: 255
   validates_length_of :source_of_acquisition, maximum: 255
   validates_length_of :preservation_note, maximum: 255
-  validates_length_of :paleographic_description, maximum: 255
   validates_length_of :summary, maximum: 255
   validates_length_of :language_note, maximum: 255
   validates_length_of :original_text, maximum: 4096
