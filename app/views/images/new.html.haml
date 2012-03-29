@@ -1,3 +1,4 @@
+= render partial: 'shared/error_messages', locals: {target: @image}
 
 = form_for([@papyrus, @image]) do |f|
   = render_field f.label(:image, 'Image'), f.file_field(:image)

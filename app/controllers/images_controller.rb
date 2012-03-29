@@ -6,9 +6,10 @@ class ImagesController < ApplicationController
   end
 
   def create
-    if @papyrus.save
+    if @image.save
       redirect_to papyrus_path(@papyrus), notice: 'Your image was successfully uploaded.'
     else
+      render :new
     end
   end
 

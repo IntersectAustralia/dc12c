@@ -39,6 +39,22 @@ Feature: In order to associate new images with papyri records
     When I follow "Cancel"
     Then I should be on the "p.macq1" papyrus page
 
+  Scenario: Add image without caption
+    Given I am logged in as "admin@intersect.org.au"
+    And I am on the upload image page for "p.macq1"
+    When I attach image "test.tiff"
+    And I press "Upload"
+    Then I should not see "Your image was successfully uploaded."
+    And I should see "Caption can't be blank"
+
+  Scenario: Add image without image
+    Given I am logged in as "admin@intersect.org.au"
+    And I am on the upload image page for "p.macq1"
+    When I fill in "Caption" with "some caption"
+    And I press "Upload"
+    Then I should not see "Your image was successfully uploaded."
+    And I should see "Image can't be blank"
+
   Scenario: Uploading an image
     Given I am logged in as "admin@intersect.org.au"
     When I am on the "p.macq1" papyrus page
@@ -111,5 +127,3 @@ Feature: In order to associate new images with papyri records
     When I follow "Download in high resolution" for "test2.tiff" for "public"
     Then I should not see "You are not authorized to access this page."
 
-  @wip
-  Scenario: Add image with errors

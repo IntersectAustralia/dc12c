@@ -14,4 +14,5 @@ class Image < ActiveRecord::Base
   validates_attachment :image, presence: true, content_type: {content_type: ->(xtn){['image/gif', 'image/png', 'image/jpeg', 'image/tiff'].include?(xtn)}}, size: {in: (1..(200.megabytes)) }
 
   validates_presence_of :papyrus_id
+  validates_presence_of :caption
 end
