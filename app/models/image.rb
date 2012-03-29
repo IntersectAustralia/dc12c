@@ -1,9 +1,11 @@
 class Image < ActiveRecord::Base
+  IMAGE_ROOT = APP_CONFIG.fetch 'image_root'
+
   belongs_to :papyrus
 
   has_attached_file :image,
     url: '/papyrus/:papyrus_id/image/:id/:style/:filename',
-    path: '/tmp/:id-:style.:extension',
+    path: "#{IMAGE_ROOT}/:id-:style.:extension",
     styles: {
       low_res: {
         geometry: '450x300>',
