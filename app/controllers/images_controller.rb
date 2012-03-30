@@ -18,6 +18,6 @@ class ImagesController < ApplicationController
   end
 
   def high_res
-    send_file @image.image.path(:original)
+    send_file @image.image.path(:original), filename: @image.high_res_filename
   end
 end

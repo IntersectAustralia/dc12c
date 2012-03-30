@@ -17,4 +17,16 @@ class Image < ActiveRecord::Base
 
   validates_presence_of :papyrus_id
   validates_presence_of :caption
+
+  def high_res_filename
+    "p.macq.#{id}.#{original_extension}"
+  end
+
+  private
+
+  def original_extension
+    dot_index = image_file_name.rindex('.') || -1
+    first_extension_char_index = dot_index + 1
+    image_file_name.slice (first_extension_char_index..-1)
+  end
 end
