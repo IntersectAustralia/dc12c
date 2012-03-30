@@ -183,14 +183,14 @@ Then /^the "([^"]*)" field should have the error "([^"]*)"$/ do |field, error_me
       error_paragraph = element.find(:xpath, '../*[@class="inline-errors"][1]')
       error_paragraph.should have_content(error_message)
     else
-      page.should have_content("#{field.titlecase} #{error_message}")
+      page.should have_content("#{error_message}")
     end
   else
     if using_formtastic
       error_paragraph = element.find(:xpath, '../*[@class="inline-errors"][1]')
       assert error_paragraph.has_content?(error_message)
     else
-      assert page.has_content?("#{field.titlecase} #{error_message}")
+      assert page.has_content?("#{error_message}")
     end
   end
 end

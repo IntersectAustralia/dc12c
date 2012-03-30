@@ -125,9 +125,19 @@ end
 And /^I should see the following fields with errors$/ do |table|
   table.hashes.each do |row|
     field = row[:field]
+    message = row[:message]
     if field == 'Date'
-      papyrus_field_should_be_in_error('date_year')
-      papyrus_field_should_be_in_error('date_era')
+      date_year_field = find_papyrus_field(:date_year)
+      date_era_field = find_papyrus_field(:date_era)
+      year_message, era_message = message.split ';' 
+      step "the \"#{date_year_field[:id]}\" field should have the error \"#{year_message}\""
+      step "the \"#{date_era_field[:id]}\" field should have the error \"#{era_message}\""
+    elsif field == 'Languages'
+      language_field = find_papyrus_field(:languages)
+      step "the \"#{language_field[:id]}\" field should have the error \"#{message}\""
+    else
+      a_field = find_papyrus_field(field.downcase.gsub(' ', '_'))
+      step "the \"#{a_field[:id]}\" field should have the error \"#{message}\""
     end
   end
 end

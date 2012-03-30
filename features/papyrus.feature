@@ -170,12 +170,13 @@ Feature: Manage Papyrus
     And I should see "Inventory ID can't be blank"
     And I should see "Width must be greater than 0"
     And I should see "Height must be greater than 0"
+    Then show me the page
     And I should see the following fields with errors
-      | field        |
-      | Inventory ID |
-      | Width        |
-      | Height       |
-      | Date         |
+      | field        | message                                                   |
+      | Inventory ID | Inventory ID can't be blank                               |
+      | Width        | Width must be greater than 0                              |
+      | Height       | Height must be greater than 0                             |
+      | Date         | Date year must be greater than 0; Date era can't be blank |
 
   Scenario: Clicking cancel on the create page should take you to the list papyri page
     Given I am logged in as "admin@intersect.org.au"
