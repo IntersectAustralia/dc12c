@@ -16,6 +16,8 @@ production:
 
 qa:
   <<: *defaults
+  image_root: /home/devel
 
 staging:
   <<: *defaults
+  image_root: /home/devel
