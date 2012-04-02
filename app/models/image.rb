@@ -4,7 +4,7 @@ class Image < ActiveRecord::Base
   belongs_to :papyrus
 
   has_attached_file :image,
-    url: '/papyrus/:papyrus_id/image/:id/:style/:filename',
+    url: '/papyrus/:papyrus_id/image/:id/:style',
     path: "#{IMAGE_ROOT}/:id-:style.:extension",
     styles: {
       low_res: {

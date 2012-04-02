@@ -14,8 +14,8 @@ Dc12c::Application.routes.draw do
     resources :images, only: [:new, :create]
   end
 
-  match 'papyrus/:papyrus_id/image/:id/low_res(/:filename)' => 'Images#low_res'
-  match 'papyrus/:papyrus_id/image/:id/original(/:filename)' => 'Images#high_res'
+  match 'papyrus/:papyrus_id/image/:id/low_res' => 'Images#low_res'
+  match 'papyrus/:papyrus_id/image/:id/original' => 'Images#high_res'
 
 
   devise_for :users, controllers: {registrations: "user_registers", passwords: "user_passwords"}
