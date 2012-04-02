@@ -67,11 +67,9 @@ Feature: In order to associate new images with papyri records
     Then I should be on the "p.macq1" papyrus page
     Then I should see "Your image was successfully uploaded."
     And "p.macq1" should have 1 image
-    And I should see papyrus image "test.jpg"
-
+    And I should see low res image for "test.tiff" of papyrus "p.macq1"
     When I am on the papyrus "p.macq1" image "test.tiff" "low_res" page
     Then I should not see "You are not authorized to access this page."
-
     When I am on the "p.macq1" papyrus page
     Then I should see "Download in high resolution" for "test.tiff" for "p.macq1"
     And I should see "This is my fancy picture"

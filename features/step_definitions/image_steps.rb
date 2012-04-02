@@ -6,8 +6,10 @@ And /^"(.*)" should have (\d+) image(s)?$/ do |inventory_id, num_images, _|
   Papyrus.find_by_inventory_id!(inventory_id).images.count.should eq num_images.to_i
 end
 
-And /^I should see papyrus image "(.*)"$/ do |image_name|
-  page.should have_css(%Q{img[src*="#{image_name}"]})
+And /^I should see low res image for "(.*)" of papyrus "(.*)"$/ do |image_name, papyrus_name|
+  papyrus = Papyrus.find_by_inventory_id!(papyrus_name)
+  image = papyrus.images.find_by_image_file_name!(image_name)
+  page.should have_css(%Q{img[src*="/image/#{image.id}/low_res"]})
 end
 Then /^I should (not )?see "(.*)" for "(.*)" for "(.*)"$/ do |not_see, link_text, image_filename, inventory_id|
   papyrus = Papyrus.find_by_inventory_id!(inventory_id)
