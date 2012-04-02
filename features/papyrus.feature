@@ -170,7 +170,6 @@ Feature: Manage Papyrus
     And I should see "Inventory ID can't be blank"
     And I should see "Width must be greater than 0"
     And I should see "Height must be greater than 0"
-    Then show me the page
     And I should see the following fields with errors
       | field        | message                                                   |
       | Inventory ID | Inventory ID can't be blank                               |
