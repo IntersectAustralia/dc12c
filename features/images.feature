@@ -97,9 +97,9 @@ Feature: In order to associate new images with papyri records
     When I am on the papyrus "<inventory_id>" image "<filename>" "original" page
     Then I should see "You are not authorized to access this page."
   Examples:
-    | inventory_id | filename   |
-    | hidden       | test.tiff  |
-    | visible      | test.tiff  |
+    | inventory_id | filename  |
+    | hidden       | test.tiff |
+    | visible      | test.tiff |
 
   Scenario Outline: researcher can't download high res image of HIDDEN or VISIBLE
     Given I am logged in as "researcher@intersect.org.au"
@@ -108,9 +108,9 @@ Feature: In order to associate new images with papyri records
     When I am on the papyrus "<inventory_id>" image "<filename>" "original" page
     Then I should see "You are not authorized to access this page."
   Examples:
-    | inventory_id | filename   |
-    | hidden       | test.tiff  |
-    | visible      | test.tiff  |
+    | inventory_id | filename  |
+    | hidden       | test.tiff |
+    | visible      | test.tiff |
 
   Scenario: Anonymous can download high res image of PUBLIC
     Given I am on the "public" papyrus page
@@ -124,4 +124,34 @@ Feature: In order to associate new images with papyri records
     Then I should see "Download in high resolution" for "test2.tiff" for "public"
     When I follow "Download in high resolution" for "test2.tiff" for "public"
     Then I should not see "You are not authorized to access this page."
+
+  Scenario Outline: Anonymous users can download public & visible low res images
+    Given I am on the "<visibility>" papyrus page
+    Then I should see "Download in low resolution" for "<image>" for "<visibility>"
+    When I follow "Download in low resolution" for "<image>" for "<visibility>"
+    Then I should not see "You are not authorized to access this page."
+  Examples:
+    | visibility | image      |
+    | public     | test2.tiff |
+    | visible    | test.tiff  |
+
+  Scenario: Anonymous users can't download low res images for hidden papyrus records
+    Given I am on the "hidden" papyrus page
+    Then I should see "You are not authorized to access this page."
+
+  Scenario Outline: researchers & admin users can download all low res images
+    Given I am logged in as "<username>@intersect.org.au"
+    Given I am on the "<visibility>" papyrus page
+    Then I should see "Download in low resolution" for "<image>" for "<visibility>"
+    When I follow "Download in low resolution" for "<image>" for "<visibility>"
+    Then I should not see "You are not authorized to access this page."
+  Examples:
+    | username   | visibility | image      |
+    | admin      | public     | test2.tiff |
+    | admin      | visible    | test.tiff  |
+    | admin      | hidden     | test.tiff  |
+    | researcher | public     | test2.tiff |
+    | researcher | visible    | test.tiff  |
+    | researcher | hidden     | test.tiff  |
+
 

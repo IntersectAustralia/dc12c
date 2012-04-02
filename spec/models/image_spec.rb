@@ -28,4 +28,21 @@ describe Image do
       image.high_res_filename.should eq "p.macq.#{image.id}.nodotshere"
     end
   end
+  describe "low res filename" do
+    before :each do
+      @papyrus = Factory(:papyrus)
+    end
+    it "should return unchanged caption" do
+      image = Factory(:image, image_file_name: 'blah.jpg', caption: 'hello123', papyrus: @papyrus)
+    image.low_res_filename.should eq "#{@papyrus.id}-hello123-low.jpeg"
+    end
+    it "should return downcased caption" do
+      image = Factory(:image, image_file_name: 'blah.jpg', caption: 'hElLo123', papyrus: @papyrus)
+      image.low_res_filename.should eq "#{@papyrus.id}-hello123-low.jpeg"
+    end
+    it "should remove non-alphanumeric characters" do
+      image = Factory(:image, image_file_name: 'blah.jpg', caption: "!hE+_)(*&^`~\rlL o1!@$%^23\n\t", papyrus: @papyrus)
+      image.low_res_filename.should eq "#{@papyrus.id}-hello123-low.jpeg"
+    end
+  end
 end

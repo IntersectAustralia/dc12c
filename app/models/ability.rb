@@ -41,13 +41,13 @@ class Ability
       papyrus.access_requests.where(user_id: user.id).present?
     end
     can :read, Papyrus
+    can :low_res, Image
 
     if Role.superuser_roles.include? user.role
       can :create, Papyrus
       can :update, Papyrus
       can :view_visibility, Papyrus
       can :create, Image
-      can :low_res, Image
       can :high_res, Image
     end
 

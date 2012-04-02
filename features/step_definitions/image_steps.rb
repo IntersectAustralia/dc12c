@@ -11,23 +11,23 @@ And /^I should see low res image for "(.*)" of papyrus "(.*)"$/ do |image_name, 
   image = papyrus.images.find_by_image_file_name!(image_name)
   page.should have_css(%Q{img[src*="/image/#{image.id}/low_res"]})
 end
-Then /^I should (not )?see "(.*)" for "(.*)" for "(.*)"$/ do |not_see, link_text, image_filename, inventory_id|
+Then /^I should (not )?see "Download in (high|low) resolution" for "(.*)" for "(.*)"$/ do |not_see, high_or_low, image_filename, inventory_id|
   papyrus = Papyrus.find_by_inventory_id!(inventory_id)
   image = papyrus.images.find_by_image_file_name!(image_filename)
 
-  link = find_or_nil("#download_high_res_#{image.id}")
+  link = find_or_nil("#download_#{high_or_low}_res_#{image.id}")
   if not_see
     link.should_not be
   else
-    link.text.should eq link_text
+    link.text.should eq "Download in #{high_or_low} resolution"
   end
 end
 
-When /^I follow "Download in high resolution" for "(.*)" for "(.*)"$/ do |image_filename, inventory_id|
+When /^I follow "Download in (high|low) resolution" for "(.*)" for "(.*)"$/ do |high_or_low, image_filename, inventory_id|
   papyrus = Papyrus.find_by_inventory_id!(inventory_id)
   image = papyrus.images.find_by_image_file_name!(image_filename)
 
-  link = find("#download_high_res_#{image.id}")
+  link = find("#download_#{high_or_low}_res_#{image.id}")
   link.click
 end
 

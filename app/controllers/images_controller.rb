@@ -14,7 +14,7 @@ class ImagesController < ApplicationController
   end
 
   def low_res
-    send_file @image.image.path(:low_res)
+    send_file @image.image.path(:low_res), filename: @image.low_res_filename
   end
 
   def high_res
