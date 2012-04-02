@@ -118,7 +118,7 @@ namespace :deploy do
     run "rm -rf #{release_path}/tmp/shared_config"
     run "mkdir -p #{shared_path}/env_config"
     run "ln -nfs #{shared_path}/env_config #{release_path}/tmp/env_config"
-    run "mkdir -p /home/devel"
+    run "mkdir -p /home/devel/images"
   end
 
   # Load the schema
