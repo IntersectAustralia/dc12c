@@ -32,3 +32,7 @@ qa:
 
 staging:
   <<: *production
+
+jenkins:
+  <<: *test
+  database: //knt1-int-oracle-xe-vm.intersect.org.au/XE
