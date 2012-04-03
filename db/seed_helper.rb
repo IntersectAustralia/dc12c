@@ -13,15 +13,6 @@ def create_roles_and_permissions
   superuser = "Administrator"
   Role.create!(:name => superuser)
 
-  #TODO: set your own permissions here
-  create_permission("User", "read", [superuser])
-  create_permission("User", "update_role", [superuser])
-  create_permission("User", "activate_deactivate", [superuser])
-  create_permission("User", "admin", [superuser])
-  create_permission("User", "reject", [superuser])
-  create_permission("User", "approve", [superuser])
-
-  #TODO: create more permissions here
 end
 
 def create_permission(entity, action, roles)

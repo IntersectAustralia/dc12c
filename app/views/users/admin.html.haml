@@ -1,9 +1,0 @@
-.page-inner
-  - title 'User Management'
-  .page-header
-    %h2 User Management
-  .page-content
-    - if can?(:read, User)
-      = link_to "List Approved Users", users_path, :class => "btn"
-    - if can?(:access_requests, User)
-      = link_to "View Access Requests", access_requests_users_path, :class => "btn"

@@ -11,10 +11,6 @@ class UsersController < ApplicationController
   def show
   end
 
-  def admin
-
-  end
-
   def access_requests
     @users = User.pending_approval
   end

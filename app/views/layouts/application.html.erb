@@ -29,7 +29,7 @@
         </ul>
         <% if user_signed_in? %>
           <ul class="nav pull-right">
-            <%= tab.admin 'Admin', admin_users_path %>
+            <%= tab.admin 'Admin', admin_index_path %>
             <%= tab.editaccount current_user.email, users_profile_path, :class => "user" %>
             <%= tab.logout "Logout", destroy_user_session_path, :class => "logout" %>
             <% else %>

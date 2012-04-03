@@ -49,12 +49,19 @@ class Ability
       can :view_visibility, Papyrus
       can :create, Image
       can :high_res, Image
+      can :accept_or_reject, AccessRequest
+      can :read, User
+      can :update_role, User
+      can :activate_deactivate, User
+      can :admin, User
+      can :reject, User
+      can :approve, User
     end
 
-    user.role.permissions.each do |permission| # TODO revisit
-      action = permission.action.to_sym
-      can action, permission.entity.constantize
-    end
+
+
+
+
 
     # Define abilities for the passed in user here. For example:
     #
