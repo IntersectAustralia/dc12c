@@ -18,6 +18,8 @@ class Image < ActiveRecord::Base
   validates_presence_of :papyrus_id
   validates_presence_of :caption
 
+  validates_length_of :caption, maximum: 255
+
   def high_res_filename
     "p.macq.#{id}.#{original_extension}"
   end

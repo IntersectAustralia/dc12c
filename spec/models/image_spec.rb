@@ -12,6 +12,7 @@ describe Image do
     it { should validate_attachment_size(:image).greater_than(1.byte).less_than(200.megabytes) }
     it { should validate_presence_of :papyrus_id }
     it { should validate_presence_of :caption }
+    it { should ensure_length_of(:caption).is_at_most(255) }
   end
 
   describe "high res filename" do
