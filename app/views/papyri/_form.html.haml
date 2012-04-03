@@ -1,7 +1,7 @@
 = form_for @papyrus do |f|
   -if @papyrus.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@papyrus.errors.count, "error")} prohibited this papyrus from being saved:"
+    #error_explanation.alert.alert-error
+      %h3= "#{pluralize(@papyrus.errors.count, "error")} prohibited this papyrus from being saved:"
       %ul
         - @papyrus.errors.full_messages.each do |msg|
           %li= msg
@@ -9,8 +9,9 @@
   = render_field('Inventory ID', f.text_field(:inventory_id))
   = render_field_with_block('Languages') do
     - Language.all.each do |l|
-      = check_box_tag "papyrus[language_ids][]", l.id, @papyrus.languages.include?(l), id: "papyrus_language_ids_#{l.id}", class: 'papyrus_language_checkbox'
-      = label_tag "papyrus_language_ids_#{l.id}", l.name
+      .checkbox
+        = check_box_tag "papyrus[language_ids][]", l.id, @papyrus.languages.include?(l), id: "papyrus_language_ids_#{l.id}", class: 'papyrus_language_checkbox'
+        = label_tag "papyrus_language_ids_#{l.id}", l.name
   = render_field('Width', f.text_field(:width))
   = render_field('Height', f.text_field(:height))
   = render_field_with_block('Date') do
@@ -32,3 +33,4 @@
   = render_field('Translated Text', f.text_field(:translated_text))
   .form-actions
     = f.submit 'Save', class: "btn"
+    = link_to 'Cancel', papyri_path, class: "btn"

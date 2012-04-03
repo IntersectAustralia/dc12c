@@ -1,7 +1,10 @@
-%h1 Editing papyrus
+.page-inner
+  .page-header.record
+    %h2 Editing papyrus
+  .page-content
 
-= render 'form'
+    = render 'form'
 
-= link_to 'Show', @papyrus
-\|
-= link_to 'Cancel', @papyrus
+    = link_to 'Show', @papyrus
+    \|
+    = link_to 'Cancel', @papyrus

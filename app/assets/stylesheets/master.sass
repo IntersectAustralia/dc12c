@@ -247,10 +247,11 @@ html, body
   vertical-align: baseline
 
 body
-  background: $background
+  //background: $background
+  +font("", "", 0.875rem)
 
-label, input, button, select, textarea
-  +font("", normal, 1rem, 1rem)
+label, input, button, select, textarea, .control-label
+  +font("", normal, 0.875rem, 0.875rem)
 
 label input, label textarea, label select
   display: block
@@ -259,11 +260,11 @@ label input, label textarea, label select
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 input, textarea, select, .uneditable-input
-  +m-p-w-h-p-t-b-l-r-f(0 0 9px 0, 4px 9px, 210px, 18px)
+  +m-p-w-h-p-t-b-l-r-f(0 0 9px 0, 4px 9px, auto, 18px)
   +inlineblock
   +border(1px, solid, #d9d9d9, "", 2px, "", "", #C0C0C0)
   resize: none
-  +font("", "", 1.25rem, 1)
+  +font("", "", 0.875rem, 1rem)
   line-height: 18px
   &:hover
     +border(1px, solid, #B9B9B9)
@@ -329,7 +330,7 @@ input[type="file"]
   line-height: 18px \9
 
 select
-  +m-p-w-h-p-t-b-l-r-f("", "", 220px)
+  +m-p-w-h-p-t-b-l-r-f("", "", auto)
   background: #FFF
 
 select[multiple], select[size]
@@ -345,14 +346,18 @@ input[type="hidden"]
   display: none
 
 .radio, .checkbox
-  +m-p-w-h-p-t-b-l-r-f(0 0 0 18px)
+  +m-p-w-h-p-t-b-l-r-f(0 0 5px 0, 5px 0 0 0, auto)
+  text-align: left
+  display: block
+  label
+    +m-p-w-h-p-t-b-l-r-f(0, 0 0 0 18px, auto)
+    +font("", normal, "", "", "", "", left)
 
 .radio input[type="radio"], .checkbox input[type="checkbox"]
-  +m-p-w-h-p-t-b-l-r-f("", 0 0 0 -18px)
   float: left
 
 .controls > .radio:first-child, .controls > .checkbox:first-child
-  +m-p-w-h-p-t-b-l-r-f("", 0 5px 0 0)
+  +m-p-w-h-p-t-b-l-r-f("", 5px 5px 0 0)
 
 .radio.inline, .checkbox.inline
   +m-p-w-h-p-t-b-l-r-f(0, 0 5px 0 0)
@@ -641,8 +646,8 @@ h1
   +font("", normal, 1.5em, 40px)
 
 h2
-  +m-p-w-h-p-t-b-l-r-f(0 0 20px 0, 0 0 10px 0)
-  +font("", bold, 1.25em, 30px)
+  +m-p-w-h-p-t-b-l-r-f()
+  +font("", bold, 1.5rem, 2rem)
 
 h3
   +font("", bold, 1em, 30px, $dark2)
@@ -724,22 +729,24 @@ label
     cursor: pointer
 
 .formerror
-  +m-p-w-h-p-t-b-l-r-f(0 0 20px 0)
+  +m-p-w-h-p-t-b-l-r-f(0 0 18px 0, 8px 35px 8px 14px)
+  +clearfix
   color: $red4
+  +border(1px, solid, $red5)
   h3, li
     color: #B94A48
   h3
     overflow: hidden
     word-wrap: break-word
+  li
+    display:block
+  p
+    text-align: left
 
 .field_with_errors
-  +m-p-w-h-p-t-b-l-r-f("", "")
-  +inlineblock
+  display: inline
 
-.field_with_errors input
-  +border(1px, solid, $red4)
-
-.field_with_errors select
+.field_with_errors input, .field_with_errors select, .field_with_errors textarea
   +border(1px, solid, $red4)
 
 .formerror
@@ -748,6 +755,59 @@ label
 .asterisk
   +m-p-w-h-p-t-b-l-r-f( 0 0 0 -14px, 0, 10px)
   color: $red4
+
+// !NOTIFICATIONS - ALERTS
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+form
+  .alert
+    +m-p-w-h-p-t-b-l-r-f(0 0 18px 160px)
+    h3
+      +m-p-w-h-p-t-b-l-r-f(0, 0 0 10px 0)
+      +border(0, solid, $red5)
+
+
+ul
+  li.alert
+    display: block
+
+.alert-heading
+  color: inherit
+
+.alert .close
+  position: relative
+  top: -2px
+  right: -21px
+  line-height: 18px
+
+.alert-success, alert.success
+  background-color: #DFF0D8
+  border-color: #D6E9C6
+  color: #468847
+
+.alert-danger, .alert-error, .alert.error
+  background-color: #F2DEDE
+  border-color: #EED3D7
+  color: #B94A48
+  h3
+    color: #B94A48
+
+.alert-info, .alert.info
+  background-color: #D9EDF7
+  border-color: #BCE8F1
+  color: #3A87AD
+
+.alert-block
+  padding-top: 14px
+  padding-bottom: 14px
+
+.alert-block > p,
+.alert-block > ul
+  margin-bottom: 0
+
+.alert-block p + p
+  margin-top: 5px
+
 
 
 // MODULES ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1134,7 +1194,7 @@ td
   +truncate
 
 tbody tr.field_bg
-  background-color: #f9f9f9
+  background-color: #EFF2EA
 
 /* Specific cell types to balance width - View Access Requests
 
@@ -1188,6 +1248,215 @@ a.approve
     color: $light0
     +border(1px, solid, $blue5)
     +gradient-blue-2
+
+table
+  max-width: 100%
+  border-collapse: collapse
+  border-spacing: 0
+  background-color: transparent
+
+.table
+  width: 100%
+  margin-bottom: 18px
+
+.table th,
+.table td
+  padding: 8px
+  line-height: 18px
+  text-align: left
+  vertical-align: top
+  border-top: 1px solid #dddddd
+
+.table th
+  font-weight: bold
+
+.table thead th
+  vertical-align: bottom
+
+.table colgroup + thead tr:first-child th,
+.table colgroup + thead tr:first-child td,
+.table thead:first-child tr:first-child th,
+.table thead:first-child tr:first-child td
+  border-top: 0
+
+.table tbody + tbody
+  border-top: 2px solid #dddddd
+
+.table-condensed th,
+.table-condensed td
+  padding: 4px 5px
+
+.table-bordered
+  border: 1px solid #dddddd
+  border-left: 0
+  border-collapse: separate
+  *border-collapse: collapsed
+  -webkit-border-radius: 4px
+  -moz-border-radius: 4px
+  border-radius: 4px
+
+.table-bordered th,
+.table-bordered td
+  border-left: 1px solid #dddddd
+
+.table-bordered thead:first-child tr:first-child th,
+.table-bordered tbody:first-child tr:first-child th,
+.table-bordered tbody:first-child tr:first-child td
+  border-top: 0
+
+.table-bordered thead:first-child tr:first-child th:first-child,
+.table-bordered tbody:first-child tr:first-child td:first-child
+  -webkit-border-radius: 4px 0 0 0
+  -moz-border-radius: 4px 0 0 0
+  border-radius: 4px 0 0 0
+
+.table-bordered thead:first-child tr:first-child th:last-child,
+.table-bordered tbody:first-child tr:first-child td:last-child
+  -webkit-border-radius: 0 4px 0 0
+  -moz-border-radius: 0 4px 0 0
+  border-radius: 0 4px 0 0
+
+.table-bordered thead:last-child tr:last-child th:first-child,
+.table-bordered tbody:last-child tr:last-child td:first-child
+  -webkit-border-radius: 0 0 0 4px
+  -moz-border-radius: 0 0 0 4px
+  border-radius: 0 0 0 4px
+
+.table-bordered thead:last-child tr:last-child th:last-child,
+.table-bordered tbody:last-child tr:last-child td:last-child
+  -webkit-border-radius: 0 0 4px 0
+  -moz-border-radius: 0 0 4px 0
+  border-radius: 0 0 4px 0
+
+.table-striped tbody tr:nth-child(odd) td,
+.table-striped tbody tr:nth-child(odd) th
+  background-color: #f9f9f9
+
+.table tbody tr:hover td,
+.table tbody tr:hover th
+  background-color: #f5f5f5
+
+table .span1
+  float: none
+  width: 44px
+  margin-left: 0
+
+table .span2
+  float: none
+  width: 124px
+  margin-left: 0
+
+table .span3
+  float: none
+  width: 204px
+  margin-left: 0
+
+table .span4
+  float: none
+  width: 284px
+  margin-left: 0
+
+table .span5
+  float: none
+  width: 364px
+  margin-left: 0
+
+table .span6
+  float: none
+  width: 444px
+  margin-left: 0
+
+table .span7
+  float: none
+  width: 524px
+  margin-left: 0
+
+table .span8
+  float: none
+  width: 604px
+  margin-left: 0
+
+table .span9
+  float: none
+  width: 684px
+  margin-left: 0
+
+table .span10
+  float: none
+  width: 764px
+  margin-left: 0
+
+table .span11
+  float: none
+  width: 844px
+  margin-left: 0
+
+table .span12
+  float: none
+  width: 924px
+  margin-left: 0
+
+table .span13
+  float: none
+  width: 1004px
+  margin-left: 0
+
+table .span14
+  float: none
+  width: 1084px
+  margin-left: 0
+
+table .span15
+  float: none
+  width: 1164px
+  margin-left: 0
+
+table .span16
+  float: none
+  width: 1244px
+  margin-left: 0
+
+table .span17
+  float: none
+  width: 1324px
+  margin-left: 0
+
+table .span18
+  float: none
+  width: 1404px
+  margin-left: 0
+
+table .span19
+  float: none
+  width: 1484px
+  margin-left: 0
+
+table .span20
+  float: none
+  width: 1564px
+  margin-left: 0
+
+table .span21
+  float: none
+  width: 1644px
+  margin-left: 0
+
+table .span22
+  float: none
+  width: 1724px
+  margin-left: 0
+
+table .span23
+  float: none
+  width: 1804px
+  margin-left: 0
+
+table .span24
+  float: none
+  width: 1884px
+  margin-left: 0
+
+
 
 // TABLES - ACTIVITY
 /*///////////////////////////////////////////////////////////////////////////////////////////////*/
@@ -1249,7 +1518,7 @@ table.activity, table.activity tbody
       overflow: visible
       a
         +m-p-w-h-p-t-b-l-r-f("", "", "", 80px)
-        +font("", normal, 3em, 1.35em, $dark2)
+        +font("", normal, 2rem, 4rem, $dark2)
         +inlineblock
         &:hover
           text-decoration: none
@@ -1284,7 +1553,7 @@ table.activity, table.activity tbody
       +inlineblock
       cursor: pointer
       a, span
-        +m-p-w-h-p-t-b-l-r-f("", 10px)
+        +m-p-w-h-p-t-b-l-r-f("", 7px 10px)
         +inlineblock
         +font("", normal, 0.75rem, "", $light0)
         +border(1px, solid, #CCC, 0 1px 0 1px)
@@ -1411,11 +1680,9 @@ table.activity, table.activity tbody
   +m-p-w-h-p-t-b-l-r-f(0 auto, "", "", "", relative)
   +font("", normal, 0.813em, "", $dark3, none, center)
 
-  .footerwrapper
+  .footer-inner
     +m-p-w-h-p-t-b-l-r-f("", 10px 0 0 0, "", 26px, "", 0, 0, "", 0)
     min-width: 600px
-    background: #F5F5F5
-    +border(1px, solid, #dfdfdf)
     p
       +inlineblock
 
@@ -1460,6 +1727,9 @@ table.activity, table.activity tbody
     text-align: right
   .controls
     +m-p-w-h-p-t-b-l-r-f(0 0 0 160px)
+    .record
+      +m-p-w-h-p-t-b-l-r-f("", 5px 0 0 0)
+      +clearfix
 
 .form-actions
   +m-p-w-h-p-t-b-l-r-f(18px 0, 18px 20px 18px 160px)
