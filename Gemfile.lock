@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/IntersectAustralia/ruby-ldapserver.git
+  remote: http://github.com/IntersectAustralia/ruby-ldapserver.git
   revision: 0298144c547ccd92bccc983e9d6a4d0f1cc056c6
   specs:
     ruby-ldapserver (0.4.0)
