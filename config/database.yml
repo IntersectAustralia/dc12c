@@ -33,6 +33,7 @@ qa:
 staging:
   <<: *production
 
+# using localhost - reverse tunneling from knt1-int-oracle-xe-vm
 jenkins:
   <<: *test
-  database: //knt1-int-oracle-xe-vm.intersect.org.au/XE
+  database: //localhost/XE
