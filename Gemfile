@@ -43,7 +43,7 @@ gem 'jquery-rails'
 # gem 'ruby-debug19', :require => 'ruby-debug'
     
 gem "therubyracer" # TODO should this be in group :assets ?
-group :development, :test do
+group :development, :test, :jenkins do
   gem "rspec-rails"
   gem "factory_girl_rails"
   gem "ruby-ldapserver", '~> 0.4.0', :git => 'git://github.com/IntersectAustralia/ruby-ldapserver.git'
@@ -57,7 +57,7 @@ group :development, :test do
   gem "launchy"    # So you can do Then show me the page
 end
 
-group :test do
+group :test, :jenkins do
   gem "cucumber-rails", require: false
   gem "shoulda"
 end
@@ -66,11 +66,11 @@ gem "haml"
 gem "haml-rails"
 gem "tabs_on_rails"
 gem "devise"
-gem "email_spec", :group => :test
+gem "email_spec", :groups => [:test, :jenkins]
 gem "cancan"
 gem "capistrano-ext"
 gem "capistrano"
 gem "capistrano_colors"
 gem "metrical"
-gem "simplecov", ">=0.3.8", :require => false, :group => :test
+gem "simplecov", ">=0.3.8", :require => false, :groups => [:test, :jenkins]
 gem 'colorize'
