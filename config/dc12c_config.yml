@@ -21,3 +21,6 @@ qa:
 staging:
   <<: *defaults
   image_root: /home/devel/images
+
+jenkins:
+  <<: *defaults
