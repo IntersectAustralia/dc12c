@@ -3,7 +3,7 @@
     %h2 Search results
     %small Listing Papyri...
   .page-content
+    .control-group
+      = link_to 'New Papyrus', new_papyrus_path, class: 'btn'
     = render partial: 'table', locals: {table_id: 'papyri_table'}
-    %br
     = will_paginate @papyri
-    = link_to 'New Papyrus', new_papyrus_path, class: 'btn'

@@ -1,0 +1,4 @@
+= form_for(@access_request, url: approve_access_request_path(@access_request)) do |f|
+  = f.submit 'Approve'
+= form_for(@access_request, url: reject_access_request_path(@access_request)) do |f|
+  = f.submit 'Reject'

@@ -4,7 +4,7 @@ class Image < ActiveRecord::Base
   belongs_to :papyrus
 
   has_attached_file :image,
-    url: '/papyrus/:papyrus_id/image/:id/:style/:filename',
+    url: '/papyrus/:papyrus_id/image/:id/:style',
     path: "#{IMAGE_ROOT}/:id-:style.:extension",
     styles: {
       low_res: {
@@ -18,8 +18,15 @@ class Image < ActiveRecord::Base
   validates_presence_of :papyrus_id
   validates_presence_of :caption
 
+  validates_length_of :caption, maximum: 255
+
   def high_res_filename
     "p.macq.#{id}.#{original_extension}"
+  end
+
+  def low_res_filename
+    sanitized_caption = caption.downcase.gsub(/[^[a-z][0-9]]/, '')
+    "#{papyrus_id}-#{sanitized_caption}-low.jpeg"
   end
 
   private

@@ -1,9 +1,15 @@
-- title "Forgot Your Password?"
+.page-inner
+  - title "Forgot Your Password?"
+  .page-header.record
+    %h2 Reset password
+    %small Please enter and submit your email to recieve a reset password
 
-= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => {:method => :post}) do |f|
-  = render "shared/error_messages", :target => @user
-  .field
-    = f.label :email
-    = f.text_field :email
-  .actions
-    = f.submit "Send me reset password instructions"
+  .page-content
+    = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => {:method => :post}) do |f|
+      = render "shared/error_messages", :target => @user
+      .control-group
+        = f.label :email, class: "control-label"
+        .controls
+          = f.text_field :email
+      .form-actions
+        = f.submit "Send me reset password instructions", class: "btn btn-blue"

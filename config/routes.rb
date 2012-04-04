@@ -1,5 +1,15 @@
 Dc12c::Application.routes.draw do
-  resources :access_requests, only: [:index, :show]
+  resources :access_requests, only: [:index, :show] do
+    member do
+      put :approve
+      put :reject
+    end
+    collection do
+      get :pending
+      get :approved
+      get :rejected
+    end
+  end
 
   resources :papyri, only: [:new, :create, :show, :edit, :update, :index] do
     collection do
@@ -14,9 +24,9 @@ Dc12c::Application.routes.draw do
     resources :images, only: [:new, :create]
   end
 
-  match 'papyrus/:papyrus_id/image/:id/low_res(/:filename)' => 'Images#low_res'
-  match 'papyrus/:papyrus_id/image/:id/original(/:filename)' => 'Images#high_res'
-
+  match 'papyrus/:papyrus_id/image/:id/low_res' => 'Images#low_res'
+  match 'papyrus/:papyrus_id/image/:id/original' => 'Images#high_res'
+  match 'admin/index' => 'Admin#index'
 
   devise_for :users, controllers: {registrations: "user_registers", passwords: "user_passwords"}
   devise_scope :user do
@@ -30,7 +40,6 @@ Dc12c::Application.routes.draw do
     collection do
       get :access_requests
       get :index
-      get :admin
     end
 
     member do

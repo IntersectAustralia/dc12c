@@ -423,3 +423,4 @@ Feature: Manage Papyrus
       | Inventory ID | Note           | Country of Origin | Translation |
       | p.macq2      | Specific blah  | Greece            | Yes         |
       | visible.macq | Specific stuff | Turkey            | No          |
+

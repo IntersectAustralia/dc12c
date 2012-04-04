@@ -3,17 +3,20 @@
   - if !user_signed_in?
     = form_for("user", :url => user_session_path) do |f|
       = render(:partial => 'devise/sessions/form', :locals => { :f => f })
-    = link_to "Sign Up", new_user_registration_path, :class => ""
-    = link_to "Forgot your password?", new_user_password_path, :class => ""
+    .form-actions
+      = link_to "Sign Up", new_user_registration_path, :class => "btn"
+      = link_to "Forgot your password?", new_user_password_path, :class => "btn"
   - else
     - if can? :create, Papyrus
-      = link_to "Create Papyrus", new_papyrus_path, :class => "btn"
-  .page-header
-    = @simple_search_error
+      .page-header
+        = link_to "Create Papyrus", new_papyrus_path, :class => "btn"
+  .page-content
+    - if @simple_search_error
+      .formerror.alert.alert-error= @simple_search_error
+    - else
     = form_tag search_papyri_path, method: :get do
       = label_tag :search
-      = search_field_tag :search, nil, maxlength: 50, class: (@simple_search_error ? 'simple_search_error' : '')
+      = search_field_tag :search, nil, maxlength: 50, placeholder: "Please enter a search query...", class: (@simple_search_error ? 'simple_search_error span8' : 'span8')
       = submit_tag "Search", class: 'btn'
-  .page-content
-    = link_to "Advanced", advanced_search_papyri_path, class: "btn"
-    = link_to "List all papyri records", papyri_path, class: "btn"
+      = link_to "Advanced", advanced_search_papyri_path, class: "btn"
+      = link_to "List all papyri records", papyri_path, class: "btn"

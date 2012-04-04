@@ -1,5 +1,5 @@
 .page-inner
-  .page-header
+  .page-header.record
     %h2 Advanced Search
   .page-content
     = form_tag advanced_search_papyri_path, method: :get do
@@ -18,7 +18,7 @@
       = render_field('Original Text', search_field_tag(:original_text, @search_fields[:original_text], maxlength: 50))
       = render_field('Translated Text', search_field_tag(:translated_text, @search_fields[:translated_text], maxlength: 50))
       .form-actions
-        = submit_tag 'Search'
+        = submit_tag 'Search', class: "btn btn-blue"
     -if @papyri.empty?
       -if @with_params
         No Results Found

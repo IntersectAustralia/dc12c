@@ -20,29 +20,6 @@ And /^I have role "([^"]*)"$/ do |name|
   Factory(:role, :name => name)
 end
 
-
-Given /^I have permissions$/ do |table|
-  table.hashes.each do |hash|
-    create_permission_from_hash(hash)
-  end
-end
-
-def create_permission_from_hash(hash)
-  roles = hash[:roles].split(",")
-  create_permission(hash[:entity], hash[:action], roles)
-#  create_permission(hash[:entity], hash[:action], hash[:roles])
-end
-
-def create_permission(entity, action, roles)
-  permission = Permission.new(:entity => entity, :action => action)
-  permission.save!
-  roles.each do |role_name|
-    role = Role.where(:name => role_name).first
-    role.permissions << permission
-    role.save!
-  end
-end
-
 Given /^"([^"]*)" has role "([^"]*)"$/ do |email, role|
   user = User.where(:email => email).first 
   role = Role.where(:name => role).first

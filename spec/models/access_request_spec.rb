@@ -7,6 +7,34 @@ describe AccessRequest do
     it { should belong_to :user }
     it { should belong_to :papyrus }
   end
+  describe "approve!" do
+    it "sets the status to APPROVED" do
+      a = Factory(:access_request, status: AccessRequest::CREATED)
+      a.approve!
+      a.status.should eq AccessRequest::APPROVED
+    end
+    it "saves the access request" do
+      a = Factory(:access_request, status: AccessRequest::CREATED)
+      a.approve!
+      a.reload
+
+      a.status.should eq AccessRequest::APPROVED
+    end
+  end
+  describe "reject!" do
+    it "sets the status to REJECTED" do
+      a = Factory(:access_request, status: AccessRequest::CREATED)
+      a.reject!
+      a.status.should eq AccessRequest::REJECTED
+    end
+    it "saves the access request" do
+      a = Factory(:access_request, status: AccessRequest::CREATED)
+      a.reject!
+
+      a.reload
+      a.status.should eq AccessRequest::REJECTED
+    end
+  end
   describe "place request" do
     it "sends email to super users and creates an access request" do
       u = Factory(:user)
@@ -17,6 +45,22 @@ describe AccessRequest do
       Notifier.should_receive(:notify_superusers_of_papyrus_access_request)
       AccessRequest.place_request(u, p)
       AccessRequest.find_by_user_id_and_papyrus_id_and_status!(u, p, AccessRequest::CREATED)
+    end
+  end
+  describe "scopes" do
+    before :each do
+      @created = Factory(:access_request, status: AccessRequest::CREATED)
+      @approved = Factory(:access_request, status: AccessRequest::APPROVED)
+      @rejected = Factory(:access_request, status: AccessRequest::REJECTED)
+    end
+    it "pending requests" do
+      AccessRequest.pending_requests.should eq [@created]
+    end
+    it "approved requests" do
+      AccessRequest.approved_requests.should eq [@approved]
+    end
+    it "rejected requests" do
+      AccessRequest.rejected_requests.should eq [@rejected]
     end
   end
   describe "validations" do

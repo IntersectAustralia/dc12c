@@ -13,7 +13,6 @@ describe Role do
     end
   end
   describe "Associations" do
-    it { should have_and_belong_to_many(:permissions) }
     it { should have_many(:users) }
   end
   
