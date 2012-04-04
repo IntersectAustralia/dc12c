@@ -12,7 +12,7 @@
         = link_to "Create Papyrus", new_papyrus_path, :class => "btn"
   .page-content
     - if @simple_search_error
-      .alert.alert-error= @simple_search_error
+      .formerror.alert.alert-error= @simple_search_error
     - else
     = form_tag search_papyri_path, method: :get do
       = label_tag :search

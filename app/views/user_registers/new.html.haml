@@ -4,7 +4,7 @@
     %small Please enter user details
   .page-content
     = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
-      .formerror.alert.alert-error= render "shared/error_messages", :target => @user
+      = render "shared/error_messages", :target => @user
       = render :partial => 'personal_details', :locals  => {:f => f}
       = render :partial => 'account_details', :locals  => {:f => f}
       .form-actions
