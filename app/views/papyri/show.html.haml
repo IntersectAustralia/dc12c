@@ -15,43 +15,47 @@
     - if can? :create, Image
       = link_to 'Upload', new_papyrus_image_path(@papyrus), class: "btn"
 
-    %ul(class="image-list")
-      - @papyrus.images.each do |image|
-        -if can? :low_res, image
-          %li
-            %div
-              %div
-              = image_tag image.image.url(:low_res), title: image.caption
-              %div
-                = image.caption
-                = link_to 'Download in low resolution', image.image.url(:low_res), id: "download_low_res_#{image.id}"
-                - if can? :high_res, image
-                  = link_to 'Download in high resolution', image.image.url(:original), id: "download_high_res_#{image.id}"
-
     - if can? :update, @papyrus
       = link_to 'Edit this record', edit_papyrus_path(@papyrus), class: "btn"
 
   .page-content
-    
-    = render_field('Inventory ID', @papyrus.inventory_id)
-    = render_field('Languages', @papyrus.languages_csv)
-    = render_field('Width', @papyrus.width)
-    = render_field('Height', @papyrus.height)
-    = render_field('Date', @papyrus.formatted_date)
-    = render_field('General Note', @papyrus.general_note)
-    = render_field('Note', @papyrus.note)
-    = render_field('Paleographic Description', @papyrus.paleographic_description)
-    = render_field('Recto Note', @papyrus.recto_note)
-    = render_field('Verso Note', @papyrus.verso_note)
-    = render_field('Country of Origin', @papyrus.country_of_origin.try(:name))
-    = render_field('Origin Details', @papyrus.origin_details)
-    = render_field('Source of Acquisition', @papyrus.source_of_acquisition)
-    = render_field('Preservation Note', @papyrus.preservation_note)
-    = render_field('Genre', @papyrus.genre.try(:name))
-    = render_field('Language Note', @papyrus.language_note)
-    = render_field('Summary', @papyrus.summary)
-    = render_field('Original Text', @papyrus.original_text)
-    = render_field('Translated Text', @papyrus.translated_text)
+    .page-content-record 
+      %h3 Papyrus details
+      = render_field('Inventory ID', @papyrus.inventory_id)
+      = render_field('Languages', @papyrus.languages_csv)
+      = render_field('Width', @papyrus.width)
+      = render_field('Height', @papyrus.height)
+      = render_field('Date', @papyrus.formatted_date)
+      = render_field('General Note', @papyrus.general_note)
+      = render_field('Note', @papyrus.note)
+      = render_field('Paleographic Description', @papyrus.paleographic_description)
+      = render_field('Recto Note', @papyrus.recto_note)
+      = render_field('Verso Note', @papyrus.verso_note)
+      = render_field('Country of Origin', @papyrus.country_of_origin.try(:name))
+      = render_field('Origin Details', @papyrus.origin_details)
+      = render_field('Source of Acquisition', @papyrus.source_of_acquisition)
+      = render_field('Preservation Note', @papyrus.preservation_note)
+      = render_field('Genre', @papyrus.genre.try(:name))
+      = render_field('Language Note', @papyrus.language_note)
+      = render_field('Summary', @papyrus.summary)
+      = render_field('Original Text', @papyrus.original_text)
+      = render_field('Translated Text', @papyrus.translated_text)
+
+    .page-content-images
+      %h3 Papyrus Images
+      %ul(class="image-list")
+        - @papyrus.images.each do |image|
+          -if can? :low_res, image
+            %li
+              %div
+                = image_tag image.image.url(:low_res), title: image.caption
+                %div
+                  = image.caption
+                  = link_to 'Download in low resolution', image.image.url(:low_res), id: "download_low_res_#{image.id}", class: "btn"
+                  - if can? :high_res, image
+                    = link_to 'Download in high resolution', image.image.url(:original), id: "download_high_res_#{image.id}", class: "btn"
+
+
 
     .form-actions
       = link_to 'Back', papyri_path, class: "btn"

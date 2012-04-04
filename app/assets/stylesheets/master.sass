@@ -251,7 +251,7 @@ body
   +font("", "", 0.875rem)
 
 label, input, button, select, textarea, .control-label
-  +font("", normal, 0.875rem, 0.875rem)
+  +font("", normal, 0.875rem, 1.25rem)
 
 label input, label textarea, label select
   display: block
@@ -271,6 +271,13 @@ input, textarea, select, .uneditable-input
   &:focus
     +border(1px, solid, #3079ED)
     outline: none
+
+form
+  input, textarea, select, .uneditable-input
+    +m-p-w-h-p-t-b-l-r-f(-4px 0 9px 0)
+  input[type=search]
+    +m-p-w-h-p-t-b-l-r-f(0 0 9px 0)
+  
 
 input[type=password]
   +font("", "", 0.875rem, 1rem, $dark1)
@@ -650,7 +657,7 @@ h2
   +font("", bold, 1.5rem, 2rem)
 
 h3
-  +font("", bold, 1em, 30px, $dark2)
+  +font("", bold, 1.25rem, 30px, $dark2)
   padding: 0 0 10px 0
 
 h4
@@ -1004,7 +1011,7 @@ a.delete
 /*///////////////////////////////////////////////////////////////////////////////////////////////*/
 
 .btn, input[type=button], button
-  +m-p-w-h-p-t-b-l-r-f("", 5px 10px)
+  +m-p-w-h-p-t-b-l-r-f(0, 5px 10px)
   cursor: pointer
   +inlineblock
   +font("", "", 0.875em, 20px, $dark3, none, center)
@@ -1720,16 +1727,16 @@ table.activity, table.activity tbody
 
 .control-group
   +m-p-w-h-p-t-b-l-r-f(0 0 9px 0)
+  +clearfix
   .control-label
     float: left
     width: 140px
     padding-top: 5px
     text-align: right
   .controls
-    +m-p-w-h-p-t-b-l-r-f(0 0 0 160px)
+    +m-p-w-h-p-t-b-l-r-f(0 0 0 160px, 4px 0 0 0)
     .record
-      +m-p-w-h-p-t-b-l-r-f("", 5px 0 0 0)
-      +clearfix
+      +m-p-w-h-p-t-b-l-r-f("", 4px 0 0 0)
 
 .form-actions
   +m-p-w-h-p-t-b-l-r-f(18px 0, 18px 20px 18px 160px)

@@ -1,9 +1,17 @@
-= render partial: 'shared/error_messages', locals: {target: @image}
-
-= form_for([@papyrus, @image]) do |f|
-  = render_field f.label(:image, 'Image'), f.file_field(:image)
-  = render_field f.label(:caption, 'Caption'), f.text_area(:caption, max_length: 255)
-  = f.submit 'Upload'
-
-.form_actions
-  = link_to 'Cancel', papyrus_path(@papyrus)
+.page-inner
+  .page-header.record
+    %h2 Upload Images
+  .page-content
+    = render partial: 'shared/error_messages', locals: {target: @image}
+    = form_for([@papyrus, @image]) do |f|
+      .control-group
+        = f.label(:image, 'Image', class: "control-label")
+        .controls
+          = f.file_field(:image)
+      .control-group
+        = f.label(:caption, 'Caption', class: "control-label")
+        .controls
+          = f.text_area(:caption, max_length: 255)
+      .form-actions
+        = f.submit 'Upload', class: "btn btn-blue"
+        = link_to 'Cancel', papyrus_path(@papyrus), class: "btn"
