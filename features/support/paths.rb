@@ -78,6 +78,12 @@ module NavigationHelpers
       when /the list requests page/
         access_requests_path
 
+      when /the papyrus access request page for "(.*)" and papyrus "(.*)"/
+        user = User.find_by_email! $1
+        papyrus = Papyrus.find_by_inventory_id! $2
+        access_request = AccessRequest.find_by_user_id_and_papyrus_id!(user.id, papyrus.id)
+        access_request_path(access_request)
+
 
 # Add more mappings here.
 # Here is an example that pulls values out of the Regexp:

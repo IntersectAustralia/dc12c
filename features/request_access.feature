@@ -31,15 +31,29 @@ Feature: Requesting access
   Scenario: researchers should have a request access button on view papyrus pages
     Given I am logged in as "researcher@intersect.org.au"
     And I am on the "v.macq2" papyrus page
-    And I should see button "Request Access"
+    Then I should see button "Request Access"
     And I should not see button "Cancel Access"
+
     When I press "Request Access"
     Then I should see "Your request has been received."
     And I should not see button "Request Access"
     And I should see button "Cancel Access"
+
     When I press "Cancel Access"
     Then I should see "Your request has been cancelled."
     And I should see button "Request Access"
+
+  Scenario: check email
+    Given I am logged in as "researcher@intersect.org.au"
+    And I am on the "v.macq2" papyrus page
+    When I press "Request Access"
+    Then "admin@intersect.org.au" should receive an email with subject "Papyri Data Capture - Papyrus access request"
+
+    Given I follow "Logout"
+    And I am logged in as "admin@intersect.org.au"
+    When I open the email
+    And I click the first link in the email
+    Then I should be on the papyrus access request page for "researcher@intersect.org.au" and papyrus "v.macq2"
 
   Scenario: general public should not see the request link
     Given I am on the "v.macq2" papyrus page
