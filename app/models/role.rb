@@ -1,6 +1,9 @@
 class Role < ActiveRecord::Base
 
   SUPERUSER_ROLE_NAME = 'Administrator'
+  RESEARCHER_ROLE_NAME = 'Researcher'
+
+  ALL_ROLE_NAMES = [SUPERUSER_ROLE_NAME, RESEARCHER_ROLE_NAME]
 
   has_many :users
 
@@ -10,7 +13,7 @@ class Role < ActiveRecord::Base
   scope :superuser_roles, where(name: SUPERUSER_ROLE_NAME)
 
   def researcher?
-    name == 'Researcher'
+    name == RESEARCHER_ROLE_NAME
   end
 
 end
