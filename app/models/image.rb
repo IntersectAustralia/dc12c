@@ -25,7 +25,7 @@ class Image < ActiveRecord::Base
   end
 
   def low_res_filename
-    sanitized_caption = caption.downcase.gsub(/[^[a-z][0-9]]/, '')
+    sanitized_caption = caption.downcase.gsub(/[^[a-z][0-9]]/, '').slice(0,254-"#{papyrus_id}--low.jpeg".length)
     "#{papyrus_id}-#{sanitized_caption}-low.jpeg"
   end
 

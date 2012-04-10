@@ -45,5 +45,9 @@ describe Image do
       image = Factory(:image, image_file_name: 'blah.jpg', caption: "!hE+_)(*&^`~\rlL o1!@$%^23\n\t", papyrus: @papyrus)
       image.low_res_filename.should eq "#{@papyrus.id}-hello123-low.jpeg"
     end
+    it "should be less than 255 characters total" do
+      image = Factory(:image, image_file_name: 'a.jpg', caption: "a" * 255, papyrus: @papyrus)
+      image.low_res_filename.length.should < 255
+    end
   end
 end
