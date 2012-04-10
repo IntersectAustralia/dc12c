@@ -71,6 +71,7 @@ And /^I have (a papyrus|papyri)$/ do |_, table|
     date = attrs.delete 'date'
     country_of_origin = attrs.delete 'country_of_origin'
     genre = attrs.delete 'genre'
+    visibility = attrs.delete 'visibility'
 
     year, era = date.split ' ' if date
     country = Country.find_by_name! country_of_origin if country_of_origin.present?
@@ -85,6 +86,8 @@ And /^I have (a papyrus|papyri)$/ do |_, table|
       papyrus.languages = languages
     end
     papyrus.genre = Genre.find_by_name! genre if genre.present?
+
+    papyrus.visibility = visibility
 
     papyrus.save!
   end
