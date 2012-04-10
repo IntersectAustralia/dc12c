@@ -82,22 +82,6 @@ describe Papyrus do
       papyrus.should_not be_valid
       papyrus.should be_valid
     end
-    it "should reject width less than or equal to zero when provided" do
-      FactoryGirl.build(:papyrus, width: 0).should_not be_valid
-      FactoryGirl.build(:papyrus, width: -10).should_not be_valid
-    end
-    it "should accept nil or positive width" do
-      FactoryGirl.build(:papyrus, width: nil).should be_valid
-      FactoryGirl.build(:papyrus, width: 10).should be_valid
-    end
-    it "should reject height less than or equal to zero when provided" do
-      FactoryGirl.build(:papyrus, height: 0).should_not be_valid
-      FactoryGirl.build(:papyrus, height: -10).should_not be_valid
-    end
-    it "should accept nil or positive height" do
-      FactoryGirl.build(:papyrus, height: nil).should be_valid
-      FactoryGirl.build(:papyrus, height: 10).should be_valid
-    end
     it { should validate_presence_of :visibility }
     it "should only accept either hidden, visible or public" do
       FactoryGirl.build(:papyrus, visibility: Papyrus::HIDDEN).should be_valid

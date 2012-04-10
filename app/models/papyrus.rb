@@ -21,9 +21,6 @@ class Papyrus < ActiveRecord::Base
   validates_presence_of :date_year, if: Proc.new { |papyrus| papyrus.date_era }
   validates_presence_of :date_era, if: Proc.new { |papyrus| papyrus.date_year }
 
-  validates_numericality_of :width, greater_than: 0, allow_nil: true
-  validates_numericality_of :height, greater_than: 0, allow_nil: true
-
   validates_length_of :inventory_id, maximum: 32
   validates_length_of :date_year, maximum: 4
   validates_length_of :general_note, maximum: 255
