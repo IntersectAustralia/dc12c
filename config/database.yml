@@ -15,8 +15,8 @@ development:
 test: &test
   adapter: oracle_enhanced
   database: //192.168.56.2/XE
-  username: ruby
-  password: ruby123
+  username: rubytest
+  password: rubytest
 
 production: &production
   adapter: oracle_enhanced
@@ -35,5 +35,7 @@ staging:
 
 # using localhost - reverse tunneling from knt1-int-oracle-xe-vm
 jenkins:
-  <<: *test
+  adapter: oracle_enhanced
   database: //localhost/XE
+  username: ruby
+  password: ruby123

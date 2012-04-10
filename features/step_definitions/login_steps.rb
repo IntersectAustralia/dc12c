@@ -25,7 +25,7 @@ end
 Given /^I have a user "([^"]*)" with role "([^"]*)"$/ do |email, role_name|
   user = Factory(:user, :email => email, :password => "Pas$w0rd", :status => 'A')
   role = Role.where(:name => role_name).first
-  role = Role.create!(name: role_name) unless role
+  role = Role.new.tap{|r|r.name = role_name}.tap{|r|r.save!} unless role
   user.role_id = role.id
   user.save!
 end

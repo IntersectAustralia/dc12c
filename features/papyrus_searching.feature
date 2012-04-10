@@ -139,31 +139,31 @@ Feature: Searching Papyri
   Scenario: check pagination for advanced search results
     Given I am logged in as "researcher@intersect.org.au"
     And I have papyri
-      | inventory_id | general_note |
-      | pmac51       | window       |
-      | pmac52       | window       |
-      | pmac53       | window       |
-      | pmac54       | window       |
-      | pmac55       | window       |
-      | pmac56       | window       |
-      | pmac57       | window       |
-      | pmac58       | window       |
-      | pmac59       | window       |
-      | pmac60       | window       |
-      | pmac61       | window       |
-      | pmac62       | window       |
-      | pmac63       | window       |
-      | pmac64       | window       |
-      | pmac65       | window       |
-      | pmac66       | window       |
-      | pmac67       | window       |
-      | pmac68       | window       |
-      | pmac69       | window       |
-      | pmac70       | window       |
-      | pmac71       | window       |
-      | pmac72       | window       |
-      | pmac73       | window       |
-      | pmac74       | window       |
+      | inventory_id | general_note | visibility |
+      | pmac51       | window       | HIDDEN     |
+      | pmac52       | window       | HIDDEN     |
+      | pmac53       | window       | HIDDEN     |
+      | pmac54       | window       | HIDDEN     |
+      | pmac55       | window       | HIDDEN     |
+      | pmac56       | window       | HIDDEN     |
+      | pmac57       | window       | HIDDEN     |
+      | pmac58       | window       | HIDDEN     |
+      | pmac59       | window       | HIDDEN     |
+      | pmac60       | window       | HIDDEN     |
+      | pmac61       | window       | HIDDEN     |
+      | pmac62       | window       | HIDDEN     |
+      | pmac63       | window       | HIDDEN     |
+      | pmac64       | window       | HIDDEN     |
+      | pmac65       | window       | HIDDEN     |
+      | pmac66       | window       | HIDDEN     |
+      | pmac67       | window       | HIDDEN     |
+      | pmac68       | window       | HIDDEN     |
+      | pmac69       | window       | HIDDEN     |
+      | pmac70       | window       | HIDDEN     |
+      | pmac71       | window       | HIDDEN     |
+      | pmac72       | window       | HIDDEN     |
+      | pmac73       | window       | HIDDEN     |
+      | pmac74       | window       | HIDDEN     |
     And I am on the advanced search page
     And I fill in "general_note" with "window"
     And I press "Search"

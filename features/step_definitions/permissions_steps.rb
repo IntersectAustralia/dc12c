@@ -17,10 +17,10 @@ Then /^I should get the following security outcomes$/ do |table|
 end
 
 Given /^I have the usual roles and permissions$/ do
-  
-  super_role = "Administrator"
-  # TODO: adjust roles here
-  Role.create!(:name => super_role)
-  Role.create!(:name => "Researcher")
+  Role::ALL_ROLE_NAMES.each do |role_name|
+    r = Role.new
+    r.name = role_name
+    r.save!
+  end
 end
 

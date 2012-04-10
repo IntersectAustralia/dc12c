@@ -1,4 +1,5 @@
 class Image < ActiveRecord::Base
+  attr_accessible :image, :caption
   IMAGE_ROOT = APP_CONFIG.fetch 'image_root'
 
   belongs_to :papyrus
