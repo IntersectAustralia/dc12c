@@ -27,6 +27,6 @@ class AccessRequest < ActiveRecord::Base
 
   def self.place_request(user, papyrus)
     access_request = create!(user: user, papyrus: papyrus, status: CREATED)
-    Notifier.notify_superusers_of_papyrus_access_request(access_request)
+    Notifier.notify_superusers_of_papyrus_access_request(access_request).deliver
   end
 end
