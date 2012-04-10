@@ -16,13 +16,16 @@ def create_test_users
   create_user(:email => "shuqian@intersect.org.au", :first_name => "Shuqian", :last_name => "Hon")
   create_unapproved_user(:email => "unapproved1@intersect.org.au", :first_name => "Unapproved", :last_name => "One")
   create_unapproved_user(:email => "unapproved2@intersect.org.au", :first_name => "Unapproved", :last_name => "Two")
-  set_role("sean@intersect.org.au", "Administrator")
-  set_role("georgina@intersect.org.au", "Administrator")
-  set_role("veronica@intersect.org.au", "Administrator")
-  set_role("marc@intersect.org.au", "Administrator")
-  set_role("diego@intersect.org.au", "Administrator")
-  set_role("shuqian@intersect.org.au", "Administrator")
-  set_role("jake@intersect.org.au", "Administrator")
+
+
+  set_role("sean@intersect.org.au", Role::RESEARCHER_ROLE_NAME)
+  set_role("georgina@intersect.org.au", Role::RESEARCHER_ROLE_NAME)
+  set_role("veronica@intersect.org.au", Role::RESEARCHER_ROLE_NAME)
+  set_role("marc@intersect.org.au", Role::RESEARCHER_ROLE_NAME)
+  set_role("diego@intersect.org.au", Role::RESEARCHER_ROLE_NAME)
+  set_role("shuqian@intersect.org.au", Role::RESEARCHER_ROLE_NAME)
+
+  set_role("jake@intersect.org.au", Role::SUPERUSER_ROLE_NAME)
 
 end
 
