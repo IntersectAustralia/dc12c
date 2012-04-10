@@ -161,20 +161,14 @@ Feature: Manage Papyrus
     When I enter the following papyrus details
       | field        | value |
       | Inventory ID |       |
-      | Width        | -1    |
-      | Height       | 0     |
       | Date         | -2    |
     And I press "Save"
     Then I should not see "Your Papyrus record has been created."
     And I should see "Date year must be greater than 0"
     And I should see "Inventory ID can't be blank"
-    And I should see "Width must be greater than 0"
-    And I should see "Height must be greater than 0"
     And I should see the following fields with errors
       | field        | message                                                   |
       | Inventory ID | Inventory ID can't be blank                               |
-      | Width        | Width must be greater than 0                              |
-      | Height       | Height must be greater than 0                             |
       | Date         | Date year must be greater than 0; Date era can't be blank |
 
   Scenario: Clicking cancel on the create page should take you to the list papyri page
