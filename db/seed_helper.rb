@@ -2,7 +2,7 @@ def create_roles_and_permissions
   Role.delete_all
 
   Role::ALL_ROLE_NAMES.each do |name|
-    Role.create! name: name
+    Role.new.tap {|r| r.name = name }.save!
   end
 end
 
