@@ -20,8 +20,8 @@ Background:
     | Cyprus |
     | Turkey |
   And I have a papyrus
-    | inventory_id | languages       | width | height | date   | general_note  | note           | visibility | country_of_origin |
-    | visible.macq | Coptic, Demotic | 60    | 177    | 488 CE | General stuff | Specific stuff | VISIBLE    | Turkey            |
+    | inventory_id | languages       | dimensions   | date   | general_note  | note           | visibility | country_of_origin |
+    | visible.macq | Coptic, Demotic | 5 x 6 cm     | 488 CE | General stuff | Specific stuff | VISIBLE    | Turkey            |
   And I have an access request for "visible.macq" from "researcher@intersect.org.au"
 
 

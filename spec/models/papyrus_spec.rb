@@ -23,6 +23,7 @@ describe Papyrus do
   describe "validations" do
     it { should validate_presence_of :inventory_id }
     it { should ensure_length_of(:inventory_id).is_at_most(32) }
+    it { should ensure_length_of(:dimensions).is_at_most(511) }
     it { should ensure_length_of(:general_note).is_at_most(255) }
     it { should ensure_length_of(:note).is_at_most(255) }
     it { should ensure_length_of(:paleographic_description).is_at_most(255) }

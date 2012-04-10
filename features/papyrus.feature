@@ -24,14 +24,14 @@ Feature: Manage Papyrus
       | Cyprus |
       | Turkey |
     And I have a papyrus
-      | inventory_id | languages     | width | height | date  | general_note | note          | paleographic_description | recto_note | verso_note | country_of_origin | origin_details | source_of_acquisition | preservation_note | genre | language_note | summary             | original_text | translated_text | visibility |
-      | p.macq2      | Coptic, Greek | 30    | 77     | 88 CE | General Blah | Specific blah | Paleo Diet               | Rectangle  | Verses     | Greece            | It's Greek.    | Got it from Greece    | poorly preserved  | Book  | Fancy Greek   | don't understand it | περιοχής      | area            | PUBLIC     |
+      | inventory_id | languages     | dimensions     | date  | general_note | note          | paleographic_description | recto_note | verso_note | country_of_origin | origin_details | source_of_acquisition | preservation_note | genre | language_note | summary             | original_text | translated_text | visibility |
+      | p.macq2      | Coptic, Greek | 5 x 6 cm       | 88 CE | General Blah | Specific blah | Paleo Diet               | Rectangle  | Verses     | Greece            | It's Greek.    | Got it from Greece    | poorly preserved  | Book  | Fancy Greek   | don't understand it | περιοχής      | area            | PUBLIC     |
     And I have a papyrus
-      | inventory_id | languages       | width | height | date   | general_note  | note           | visibility | country_of_origin |
-      | hidden.macq  | Coptic, Demotic | 60    | 177    | 488 CE | General stuff | Specific stuff | HIDDEN     | Turkey            |
+      | inventory_id | languages       | dimensions     | date   | general_note  | note           | visibility | country_of_origin |
+      | hidden.macq  | Coptic, Demotic | 5 x 7 cm       | 488 CE | General stuff | Specific stuff | HIDDEN     | Turkey            |
     And I have a papyrus
-      | inventory_id | languages       | width | height | date   | general_note  | note           | visibility | country_of_origin |
-      | visible.macq | Coptic, Demotic | 60    | 177    | 488 CE | General stuff | Specific stuff | VISIBLE    | Turkey            |
+      | inventory_id | languages       | dimensions     | date   | general_note  | note           | visibility | country_of_origin |
+      | visible.macq | Coptic, Demotic | 5 x 8 cm       | 488 CE | General stuff | Specific stuff | VISIBLE    | Turkey            |
 
   Scenario: Creating Papyrus
     Given I am logged in as "admin@intersect.org.au"
@@ -41,8 +41,7 @@ Feature: Manage Papyrus
       | field                    | value |
       | Inventory ID             |       |
       | Languages                |       |
-      | Width                    |       |
-      | Height                   |       |
+      | Dimensions               |       |
       | Date                     |       |
       | General Note             |       |
       | Note                     |       |
@@ -63,8 +62,7 @@ Feature: Manage Papyrus
       | field                    | value                     |
       | Inventory ID             | 24gac                     |
       | Languages                | Greek, Coptic             |
-      | Width                    | 50                        |
-      | Height                   | 40                        |
+      | Dimensions               | (a) 2 x 3cm, (b) same     |
       | Date                     | 234 CE                    |
       | General Note             | this is a papyrus         |
       | Note                     | same as general           |
@@ -88,8 +86,7 @@ Feature: Manage Papyrus
       | field                    | value                     |
       | Inventory ID             | 24gac                     |
       | Languages                | Coptic, Greek             |
-      | Width                    | 50                        |
-      | Height                   | 40                        |
+      | Dimensions               | (a) 2 x 3cm, (b) same     |
       | Date                     | 234 CE                    |
       | General Note             | this is a papyrus         |
       | Note                     | same as general           |
@@ -136,8 +133,7 @@ Feature: Manage Papyrus
       | field                    | value |
       | Inventory ID             | 24gac |
       | Languages                |       |
-      | Width                    |       |
-      | Height                   |       |
+      | Dimensions               |       |
       | Date                     |       |
       | General Note             |       |
       | Note                     |       |
@@ -204,8 +200,7 @@ Feature: Manage Papyrus
       | field                    | value               |
       | Inventory ID             | p.macq2             |
       | Languages                | Coptic, Greek       |
-      | Width                    | 30                  |
-      | Height                   | 77                  |
+      | Dimensions               | 5 x 6 cm            |
       | Date                     | 88 CE               |
       | General Note             | General Blah        |
       | Note                     | Specific blah       |
@@ -224,8 +219,7 @@ Feature: Manage Papyrus
     When I enter the following papyrus details
       | field                    | value                     |
       | Inventory ID             | 24gac                     |
-      | Width                    | 50                        |
-      | Height                   | 40                        |
+      | Dimensions               | (a) 2x3cm, (b) 3x3cm      |
       | Date                     | 234 CE                    |
       | General Note             | this is a papyrus         |
       | Note                     | same as general           |
@@ -251,8 +245,7 @@ Feature: Manage Papyrus
       | field                    | value                     |
       | Inventory ID             | 24gac                     |
       | Languages                | Egyptian, Latin           |
-      | Width                    | 50                        |
-      | Height                   | 40                        |
+      | Dimensions               | (a) 2x3cm, (b) 3x3cm      |
       | Date                     | 234 CE                    |
       | General Note             | this is a papyrus         |
       | Note                     | same as general           |
@@ -280,8 +273,7 @@ Feature: Manage Papyrus
       | field                    | value               |
       | Inventory ID             | p.macq2             |
       | Languages                | Coptic, Greek       |
-      | Width                    | 30                  |
-      | Height                   | 77                  |
+      | Dimensions               | 5 x 6 cm            |
       | Date                     | 88 CE               |
       | General Note             | General Blah        |
       | Note                     | Specific blah       |

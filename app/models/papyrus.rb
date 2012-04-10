@@ -23,6 +23,7 @@ class Papyrus < ActiveRecord::Base
 
   validates_length_of :inventory_id, maximum: 32
   validates_length_of :date_year, maximum: 4
+  validates_length_of :dimensions, maximum: 511
   validates_length_of :general_note, maximum: 255
   validates_length_of :note, maximum: 255
   validates_length_of :paleographic_description, maximum: 255
