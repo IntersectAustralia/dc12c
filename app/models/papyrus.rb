@@ -6,7 +6,7 @@ class Papyrus < ActiveRecord::Base
   PUBLIC = 'PUBLIC'
   HIDDEN = 'HIDDEN'
 
-  attr_accessible :inventory_id, :date_year, :date_era, :general_note, :note, :paleographic_description, :recto_note, :origin_details, :source_of_acquisition, :preservation_note, :summary, :language_note, :original_text, :translated_text, :verso_note, :width, :height, :country_of_origin_id, :genre_id, :language_ids
+  attr_accessible :inventory_id, :date_year, :date_era, :general_note, :note, :paleographic_description, :recto_note, :origin_details, :source_of_acquisition, :preservation_note, :summary, :language_note, :original_text, :translated_text, :verso_note, :dimensions, :country_of_origin_id, :genre_id, :language_ids
 
   belongs_to :country_of_origin, class_name: 'Country'
   belongs_to :genre
