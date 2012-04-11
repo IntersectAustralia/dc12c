@@ -84,6 +84,13 @@ module NavigationHelpers
         access_request = AccessRequest.find_by_user_id_and_papyrus_id!(user.id, papyrus.id)
         access_request_path(access_request)
 
+      when /the list pending requests page/
+        pending_access_requests_path
+
+      when /page (.*) of the list approved requests index/
+        page_num = $1
+        approved_access_requests_path page: page_num
+
 
 # Add more mappings here.
 # Here is an example that pulls values out of the Regexp:

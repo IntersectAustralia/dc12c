@@ -23,7 +23,11 @@ class AccessRequestsController < ApplicationController
   end
 
   def approved
+    page = params[:page]
+    page = page.to_i <= 0 ? 1 : page
     @approved_access_requests = AccessRequest.approved_requests
+    @approved_access_requests.sort_by(&:date_approved)
+    @approved_access_requests = @approved_access_requests.paginate(page: page, per_page: APP_CONFIG['number_of_papyri_per_page'])
   end
 
   def rejected
