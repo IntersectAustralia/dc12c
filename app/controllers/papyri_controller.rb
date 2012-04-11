@@ -36,7 +36,7 @@ class PapyriController < ApplicationController
   # POST /papyri
   # POST /papyri.json
   def create
-    @papyrus.date_era = nil if @papyrus.date_era.blank?
+    set_dates(@papyrus, params)
     respond_to do |format|
       if @papyrus.save
         format.html { redirect_to @papyrus, notice: 'Your Papyrus record has been created.' }
@@ -51,8 +51,8 @@ class PapyriController < ApplicationController
   # PUT /papyri/1
   # PUT /papyri/1.json
   def update
+    set_dates(@papyrus, params)
     respond_to do |format|
-      params[:papyrus][:date_era] = nil if params[:papyrus][:date_era].blank?
       params[:papyrus][:language_ids] ||= []
       if @papyrus.update_attributes(params[:papyrus])
         format.html { redirect_to @papyrus, notice: 'Papyrus was successfully updated.' }
@@ -107,6 +107,21 @@ class PapyriController < ApplicationController
 
   def make_page(page)
     page.to_i < 1 ? 1 : page
+  end
+
+  def set_dates(papyrus, params)
+    if ['BCE', 'CE'].include? params[:papyrus_date_from_era]
+      multiplier = 'CE' == params[:papyrus_date_from_era] ? 1 : -1
+      papyrus.date_from = params[:papyrus_date_from_year].to_i * multiplier
+    else
+      papyrus.date_from = nil
+    end
+    if ['BCE', 'CE'].include? params[:papyrus_date_to_era]
+      multiplier = 'CE' == params[:papyrus_date_to_era] ? 1 : -1
+      papyrus.date_to = params[:papyrus_date_to_year].to_i * multiplier
+    else
+      papyrus.date_to = nil
+    end
   end
 
 end

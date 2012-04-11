@@ -14,9 +14,14 @@
         = check_box_tag "papyrus[language_ids][]", l.id, @papyrus.languages.include?(l), id: "papyrus_language_ids_#{l.id}", class: 'papyrus_language_checkbox'
         = label_tag "papyrus_language_ids_#{l.id}", l.name
   = render_field('Dimensions', f.text_area(:dimensions, :class => "medium"))
-  = render_field_with_block('Date') do
-    = f.text_field(:date_year, class: 'input-mini')
-    = f.select(:date_era, [['CE', 'CE'], ['BCE', 'BCE']], include_blank: true)
+  = render_field_with_block('Date From') do
+    = text_field_tag(:papyrus_date_from_year, @papyrus.date_from_year || '', class: 'input-mini')
+    - from_options = options_for_select([[''], ['CE'], ['BCE']], selected = @papyrus.date_from_era)
+    = select_tag(:papyrus_date_from_era, from_options, include_blank: true)
+  = render_field_with_block('Date To') do
+    = text_field_tag(:papyrus_date_to_year, @papyrus.date_to_year || '', class: 'input-mini')
+    - to_options = options_for_select([[''], ['CE'], ['BCE']], selected = @papyrus.date_to_era)
+    = select_tag(:papyrus_date_to_era, to_options, include_blank: true)
   = render_field('General Note', f.text_field(:general_note))
   = render_field('Note', f.text_field(:note))
   = render_field('Paleographic Description', f.text_field(:paleographic_description))

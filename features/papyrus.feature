@@ -24,14 +24,46 @@ Feature: Manage Papyrus
       | Cyprus |
       | Turkey |
     And I have a papyrus
-      | mqt_number | inventory_id   | languages     | dimensions     | date  | general_note | note          | paleographic_description | recto_note | verso_note | country_of_origin | origin_details | source_of_acquisition | preservation_note | genre | language_note | summary             | original_text | translated_text | visibility |
-      | 2          | p.macq.2       | Coptic, Greek | 5 x 6 cm       | 88 CE | General Blah | Specific blah | Paleo Diet               | Rectangle  | Verses     | Greece            | It's Greek.    | Got it from Greece    | poorly preserved  | Book  | Fancy Greek   | don't understand it | περιοχής      | area            | PUBLIC     |
+      | mqt_number | inventory_id | languages     | dimensions     | date_from  | general_note | note          | paleographic_description | recto_note | verso_note | country_of_origin | origin_details | source_of_acquisition | preservation_note | genre | language_note | summary             | original_text | translated_text | visibility |
+      | 2          | p.macq2      | Coptic, Greek | 5 x 6 cm       | 88 CE | General Blah | Specific blah | Paleo Diet               | Rectangle  | Verses     | Greece            | It's Greek.    | Got it from Greece    | poorly preserved  | Book  | Fancy Greek   | don't understand it | περιοχής      | area            | PUBLIC     |
+    And I have papyri
+      | mqt_number | inventory_id | languages       | dimensions     | date_from   | general_note  | note           | visibility | country_of_origin |
+      | 3          | hidden.macq  | Coptic, Demotic | 5 x 7 cm       | 488 CE      | General stuff | Specific stuff | HIDDEN     | Turkey            |
+      | 4          | visible.macq | Coptic, Demotic | 5 x 8 cm       | 488 CE      | General stuff | Specific stuff | VISIBLE    | Turkey            |
+
+  Scenario: half-clearing date
+    Given I am logged in as "admin@intersect.org.au"
     And I have a papyrus
-      | mqt_number | inventory_id   | languages       | dimensions     | date   | general_note  | note           | visibility | country_of_origin |
-      | 3          | hidden.macq    | Coptic, Demotic | 5 x 7 cm       | 488 CE | General stuff | Specific stuff | HIDDEN     | Turkey            |
+      | mqt_number | inventory_id | date_from | date_to | visibility |
+      | 6          | dateful      | 488 CE    | 1234 CE | HIDDEN     |
+    And I am on the "MQT 6" edit papyrus page
+    When I enter the following papyrus details
+      | field     | value |
+      | Date From | 123   |
+      | Date To   | 234   |
+    And I press "Save"
+    Then I should see "Papyrus was successfully updated."
+    Then I should see fields displayed
+      | field        | value   |
+      | Inventory ID | dateful |
+    And Date should be empty
+
+  Scenario: Deleting date
+    Given I am logged in as "admin@intersect.org.au"
     And I have a papyrus
-      | mqt_number | inventory_id   | languages       | dimensions     | date   | general_note  | note           | visibility | country_of_origin |
-      | 4          | visible.macq   | Coptic, Demotic | 5 x 8 cm       | 488 CE | General stuff | Specific stuff | VISIBLE    | Turkey            |
+      | mqt_number | inventory_id | date_from | date_to | visibility |
+      | 6          | dateful      | 488 CE    | 1234 CE | HIDDEN     |
+    And I am on the "MQT 6" edit papyrus page
+    When I enter the following papyrus details
+      | field     | value |
+      | Date From |       |
+      | Date To   |       |
+    And I press "Save"
+    Then I should see "Papyrus was successfully updated."
+    Then I should see fields displayed
+      | field        | value   |
+      | Inventory ID | dateful |
+    And Date should be empty
 
   Scenario: Creating Papyrus
     Given I am logged in as "admin@intersect.org.au"
@@ -43,7 +75,8 @@ Feature: Manage Papyrus
       | Inventory ID             |       |
       | Languages                |       |
       | Dimensions               |       |
-      | Date                     |       |
+      | Date From                |       |
+      | Date To                  |       |
       | General Note             |       |
       | Note                     |       |
       | Paleographic Description |       |
@@ -65,7 +98,8 @@ Feature: Manage Papyrus
       | Inventory ID             | 24gac                     |
       | Languages                | Greek, Coptic             |
       | Dimensions               | (a) 2 x 3cm, (b) same     |
-      | Date                     | 234 CE                    |
+      | Date From                | 234 BCE                   |
+      | Date To                  | 233 CE                    |
       | General Note             | this is a papyrus         |
       | Note                     | same as general           |
       | Paleographic Description | sydney                    |
@@ -90,7 +124,7 @@ Feature: Manage Papyrus
       | Inventory ID             | 24gac                     |
       | Languages                | Coptic, Greek             |
       | Dimensions               | (a) 2 x 3cm, (b) same     |
-      | Date                     | 234 CE                    |
+      | Date                     | 234 BCE - 233 CE          |
       | General Note             | this is a papyrus         |
       | Note                     | same as general           |
       | Paleographic Description | sydney                    |
@@ -161,15 +195,12 @@ Feature: Manage Papyrus
     When I enter the following papyrus details
       | field        | value |
       | MQT Number   | 3     |
-      | Date         | -2    |
     And I press "Save"
     Then I should not see "Your Papyrus record has been created."
-    And I should see "Date year must be greater than 0"
     And I should see "Mqt number has already been taken"
     And I should see the following fields with errors
       | field        | message                                                   |
       | MQT Number   | Mqt number has already been taken                         |
-      | Date         | Date year must be greater than 0; Date era can't be blank |
 
   Scenario: Clicking cancel on the create page should take you to the list papyri page
     Given I am logged in as "admin@intersect.org.au"
@@ -203,10 +234,11 @@ Feature: Manage Papyrus
     Then I should see papyrus fields displayed
       | field                    | value               |
       | MQT Number               | 2                   |
-      | Inventory ID             | p.macq.2            |
+      | Inventory ID             | p.macq2             |
       | Languages                | Coptic, Greek       |
       | Dimensions               | 5 x 6 cm            |
-      | Date                     | 88 CE               |
+      | Date From                | 88 CE               |
+      | Date To                  |                     |
       | General Note             | General Blah        |
       | Note                     | Specific blah       |
       | Paleographic Description | Paleo Diet          |
@@ -226,7 +258,8 @@ Feature: Manage Papyrus
       | MQT Number               | 6                         |
       | Inventory ID             | 24gac                     |
       | Dimensions               | (a) 2x3cm, (b) 3x3cm      |
-      | Date                     | 234 CE                    |
+      | Date From                | 234 CE                    |
+      | Date To                  | 235 CE                    |
       | General Note             | this is a papyrus         |
       | Note                     | same as general           |
       | Paleographic Description | sydney                    |
@@ -253,7 +286,7 @@ Feature: Manage Papyrus
       | Inventory ID             | 24gac                     |
       | Languages                | Egyptian, Latin           |
       | Dimensions               | (a) 2x3cm, (b) 3x3cm      |
-      | Date                     | 234 CE                    |
+      | Date                     | 234 CE - 235 CE           |
       | General Note             | this is a papyrus         |
       | Note                     | same as general           |
       | Paleographic Description | sydney                    |
@@ -270,7 +303,6 @@ Feature: Manage Papyrus
       | Translated Text          | area to honor             |
     And I should be on the "MQT 6" papyrus page
 
-
   Scenario: Editing a Papyrus record and unchecking all languages (logged in as administrator)
     Given I am logged in as "admin@intersect.org.au"
     And I am on the "MQT 2" papyrus page
@@ -279,10 +311,11 @@ Feature: Manage Papyrus
     Then I should see papyrus fields displayed
       | field                    | value               |
       | MQT Number               | 2                   |
-      | Inventory ID             | p.macq.2            |
+      | Inventory ID             | p.macq2             |
       | Languages                | Coptic, Greek       |
       | Dimensions               | 5 x 6 cm            |
-      | Date                     | 88 CE               |
+      | Date From                | 88 CE               |
+      | Date To                  |                     |
       | General Note             | General Blah        |
       | Note                     | Specific blah       |
       | Paleographic Description | Paleo Diet          |
@@ -312,11 +345,11 @@ Feature: Manage Papyrus
     When I follow "Edit this record"
     Then I should be on the "MQT 2" edit papyrus page
     When I enter the following papyrus details
-      | field | value |
-      | Date  | 0 CE  |
+      | field     | value |
+      | Date From | 0 CE  |
     And I press "Save"
     Then I should not see "Papyrus was successfully updated."
-    And I should see "Date year must be greater than 0"
+    And I should see "Date from must not be zero"
 
   Scenario: clicking cancel on the edit page takes you back to the view page for that papyrus
     Given I am logged in as "admin@intersect.org.au"
@@ -387,7 +420,7 @@ Feature: Manage Papyrus
     And I should see the list papyri table
       | MQT Number | Inventory ID | Note           | Country of Origin | Translation |
       | MQT 3      | hidden.macq  | Specific stuff | Turkey            | No          |
-      | MQT 2      | p.macq.2     | Specific blah  | Greece            | Yes         |
+      | MQT 2      | p.macq2      | Specific blah  | Greece            | Yes         |
       | MQT 4      | visible.macq | Specific stuff | Turkey            | No          |
     When I follow "MQT 3"
     Then I should be on the "MQT 3" papyrus page
@@ -406,7 +439,7 @@ Feature: Manage Papyrus
     And I should see the list papyri table
       | MQT Number | Inventory ID | Note           | Country of Origin | Translation |
       | MQT 3      | hidden.macq  | Specific stuff | Turkey            | No          |
-      | MQT 2      | p.macq.2     | Specific blah  | Greece            | Yes         |
+      | MQT 2      | p.macq2      | Specific blah  | Greece            | Yes         |
       | MQT 4      | visible.macq | Specific stuff | Turkey            | No          |
 
   Scenario: Anonymous user should see list of visible and public papyri
@@ -415,6 +448,6 @@ Feature: Manage Papyrus
     Then I should be on the papyri page
     And I should see the list papyri table
       | MQT Number | Inventory ID | Note           | Country of Origin | Translation |
-      | MQT 2      | p.macq.2     | Specific blah  | Greece            | Yes         |
+      | MQT 2      | p.macq2      | Specific blah  | Greece            | Yes         |
       | MQT 4      | visible.macq | Specific stuff | Turkey            | No          |
 

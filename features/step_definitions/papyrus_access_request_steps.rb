@@ -18,8 +18,8 @@ end
 
 Given /^I have papyrus access requests$/ do |table|
   table.hashes.each do |row|
-    user = User.find_by_email(row["User requesting access"])
-    papyrus = Papyrus.find_by_mqt_number(row["MQT Number"])
+    user = User.find_by_email!(row["User requesting access"])
+    papyrus = Papyrus.find_by_mqt_number!(row["MQT Number"])
   Factory(:access_request, user: user, papyrus: papyrus, date_requested: row["Date requested"], date_approved: row["Date approved"])
   end
 end

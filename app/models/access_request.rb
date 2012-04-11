@@ -37,6 +37,7 @@ class AccessRequest < ActiveRecord::Base
     access_request.user = user
     access_request.papyrus = papyrus
     access_request.status = CREATED
+    access_request.date_requested = Date.today
     access_request.save!
 
     Notifier.notify_superusers_of_papyrus_access_request(access_request).deliver

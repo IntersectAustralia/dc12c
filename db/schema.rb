@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120410073708) do
+ActiveRecord::Schema.define(:version => 20120411020016) do
 
   create_table "access_requests", :force => true do |t|
     t.integer  "user_id",        :precision => 38, :scale => 0
@@ -61,13 +61,13 @@ ActiveRecord::Schema.define(:version => 20120410073708) do
     t.string  "summary"
     t.string  "original_text"
     t.string  "translated_text"
-    t.integer "date_year",                               :precision => 38, :scale => 0
-    t.string  "date_era"
     t.integer "country_of_origin_id",                    :precision => 38, :scale => 0
     t.integer "genre_id",                                :precision => 38, :scale => 0
     t.string  "visibility",                                                             :default => "HIDDEN"
     t.string  "dimensions",               :limit => 511
     t.integer "mqt_number",                              :precision => 38, :scale => 0,                       :null => false
+    t.integer "date_from",                               :precision => 38, :scale => 0
+    t.integer "date_to",                                 :precision => 38, :scale => 0
   end
 
   create_table "roles", :force => true do |t|
