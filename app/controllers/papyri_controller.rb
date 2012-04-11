@@ -113,10 +113,14 @@ class PapyriController < ApplicationController
     if ['BCE', 'CE'].include? params[:papyrus_date_from_era]
       multiplier = 'CE' == params[:papyrus_date_from_era] ? 1 : -1
       papyrus.date_from = params[:papyrus_date_from_year].to_i * multiplier
+    else
+      papyrus.date_from = nil
     end
     if ['BCE', 'CE'].include? params[:papyrus_date_to_era]
       multiplier = 'CE' == params[:papyrus_date_to_era] ? 1 : -1
       papyrus.date_to = params[:papyrus_date_to_year].to_i * multiplier
+    else
+      papyrus.date_to = nil
     end
   end
 

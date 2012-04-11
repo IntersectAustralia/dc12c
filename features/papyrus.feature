@@ -31,6 +31,40 @@ Feature: Manage Papyrus
       | hidden.macq  | Coptic, Demotic | 5 x 7 cm       | 488 CE      | General stuff | Specific stuff | HIDDEN     | Turkey            |
       | visible.macq | Coptic, Demotic | 5 x 8 cm       | 488 CE      | General stuff | Specific stuff | VISIBLE    | Turkey            |
 
+  Scenario: half-clearing date
+    Given I am logged in as "admin@intersect.org.au"
+    And I have a papyrus
+      | inventory_id | date_from | date_to | visibility |
+      | dateful      | 488 CE    | 1234 CE | HIDDEN     |
+    And I am on the "dateful" edit papyrus page
+    When I enter the following papyrus details
+      | field     | value |
+      | Date From | 123   |
+      | Date To   | 234   |
+    And I press "Save"
+    Then I should see "Papyrus was successfully updated."
+    Then I should see fields displayed
+      | field        | value   |
+      | Inventory ID | dateful |
+    And Date should be empty
+
+  Scenario: Deleting date
+    Given I am logged in as "admin@intersect.org.au"
+    And I have a papyrus
+      | inventory_id | date_from | date_to | visibility |
+      | dateful      | 488 CE    | 1234 CE | HIDDEN     |
+    And I am on the "dateful" edit papyrus page
+    When I enter the following papyrus details
+      | field     | value |
+      | Date From |       |
+      | Date To   |       |
+    And I press "Save"
+    Then I should see "Papyrus was successfully updated."
+    Then I should see fields displayed
+      | field        | value   |
+      | Inventory ID | dateful |
+    And Date should be empty
+
   Scenario: Creating Papyrus
     Given I am logged in as "admin@intersect.org.au"
     And I am on the home page

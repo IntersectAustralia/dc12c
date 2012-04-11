@@ -30,9 +30,17 @@ When /^I enter the following papyrus details$/ do |table|
 
       year_name, era_name = "date_#{from_or_to}_year", "date_#{from_or_to}_era"
 
-      set_papyrus_field(year_name, year)
-
-      set_papyrus_field(era_name, era) unless era.nil?
+      if value == ''
+        set_papyrus_field(year_name, '')
+        set_papyrus_field(era_name, '')
+      else
+        set_papyrus_field(year_name, year)
+        if era.nil?
+          set_papyrus_field(era_name, '')
+        else
+          set_papyrus_field(era_name, era)
+        end
+      end
     elsif field == 'Languages'
       languages = value.split(', ')
       languages.each do |l|
@@ -208,6 +216,10 @@ Then /^I should see search results "([^"]*)"$/ do |inventory_ids|
   ]
   actual = find("table#search_results").all('tr').map { |row| row.all('th, td').map { |cell| cell.text.strip } }
   expected_table.should eq actual
+end
+
+And /^Date should be empty$/ do
+  find('#display_date>div').text.should eq ''
 end
 
 def diff_tables!(expected_table, actual_id)
