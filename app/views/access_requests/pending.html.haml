@@ -1,3 +1,3 @@
 - @pending_access_requests.each do |access_request|
-  = link_to access_request.papyrus.inventory_id, access_request_path(access_request)
+  = link_to access_request.papyrus.formatted_mqt_number, access_request_path(access_request)
   = access_request.user.email

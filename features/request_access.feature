@@ -23,14 +23,14 @@ Feature: Requesting access
       | Cyprus |
       | Turkey |
     And I have papyri
-      | inventory_id | languages       | dimensions   | date   | general_note  | note           | paleographic_description | recto_note | verso_note | country_of_origin | origin_details | source_of_acquisition | preservation_note | genre | language_note | summary             | original_text | translated_text | visibility |
-      | v.macq2      | Coptic, Greek   | 5 x 6 cm     | 88 CE  | General Blah  | Specific blah  | Paleo Diet               | Rectangle  | Verses     | Greece            | It's Greek.    | Got it from Greece    | poorly preserved  | Book  | Fancy Greek   | don't understand it | περιοχής      | area            | VISIBLE    |
-      | hidden.macq  | Coptic, Demotic | 5 x 6 cm     | 488 CE | General stuff | Specific stuff |                          |            |            | Turkey            |                |                       |                   |       |               |                     |               |                 | HIDDEN     |
-      | visible.macq | Coptic, Demotic | 5 x 6 cm     | 488 CE | General stuff | Specific stuff |                          |            |            | Turkey            |                |                       |                   |       |               |                     |               |                 | VISIBLE    |
+      | mqt_number | inventory_id | languages       | dimensions   | date   | general_note  | note           | paleographic_description | recto_note | verso_note | country_of_origin | origin_details | source_of_acquisition | preservation_note | genre | language_note | summary             | original_text | translated_text | visibility |
+      | 2          | v.macq2      | Coptic, Greek   | 5 x 6 cm     | 88 CE  | General Blah  | Specific blah  | Paleo Diet               | Rectangle  | Verses     | Greece            | It's Greek.    | Got it from Greece    | poorly preserved  | Book  | Fancy Greek   | don't understand it | περιοχής      | area            | VISIBLE    |
+      | 3          | hidden.macq  | Coptic, Demotic | 5 x 6 cm     | 488 CE | General stuff | Specific stuff |                          |            |            | Turkey            |                |                       |                   |       |               |                     |               |                 | HIDDEN     |
+      | 5          | visible.macq | Coptic, Demotic | 5 x 6 cm     | 488 CE | General stuff | Specific stuff |                          |            |            | Turkey            |                |                       |                   |       |               |                     |               |                 | VISIBLE    |
 
   Scenario: researchers should have a request access button on view papyrus pages
     Given I am logged in as "researcher@intersect.org.au"
-    And I am on the "v.macq2" papyrus page
+    And I am on the "MQT 2" papyrus page
     Then I should see button "Request Access"
     And I should not see button "Cancel Access"
 
@@ -45,7 +45,7 @@ Feature: Requesting access
 
   Scenario: check email
     Given I am logged in as "researcher@intersect.org.au"
-    And I am on the "v.macq2" papyrus page
+    And I am on the "MQT 2" papyrus page
     When I press "Request Access"
     Then "admin@intersect.org.au" should receive an email with subject "Papyri Data Capture - Papyrus access request"
 
@@ -53,10 +53,10 @@ Feature: Requesting access
     And I am logged in as "admin@intersect.org.au"
     When I open the email
     And I click the first link in the email
-    Then I should be on the papyrus access request page for "researcher@intersect.org.au" and papyrus "v.macq2"
+    Then I should be on the papyrus access request page for "researcher@intersect.org.au" and papyrus "MQT 2"
 
   Scenario: general public should not see the request link
-    Given I am on the "v.macq2" papyrus page
+    Given I am on the "MQT 2" papyrus page
     Then I should not see "Request Access"
     And I should not see "Cancel Access"
 

@@ -145,8 +145,8 @@ And /^I should see the following fields with errors$/ do |table|
   end
 end
 
-And /^"([^"]*)" should have a visibility of "([^"]*)"$/ do |inventory_id, visibility|
-  papyrus = Papyrus.find_by_inventory_id! inventory_id
+And /^"MQT ([^"]*)" should have a visibility of "([^"]*)"$/ do |mqt_number, visibility|
+  papyrus = Papyrus.find_by_mqt_number! mqt_number
   papyrus.visibility.should eq visibility
 end
 And /^I should see the list papyri table$/ do |expected_table|
@@ -167,14 +167,14 @@ And /^I should not see the search results table$/ do
 
 end
 
-Then /^I should see search results "([^"]*)"$/ do |inventory_ids|
-  ids = inventory_ids.split ", "
-  papyri = Papyrus.order('inventory_id').where(inventory_id: ids)
+Then /^I should see search results "MQT ([^"]*)"$/ do |mqt_numbers|
+  ids = mqt_numbers.split ", "
+  papyri = Papyrus.order('mqt_number').where(mqt_number: ids)
   rows = papyri.map do |papyrus|
-    [papyrus.inventory_id, papyrus.note || '', papyrus.country_of_origin.try(:name) || '', papyrus.human_readable_has_translation]
+    [papyrus.formatted_mqt_number, papyrus.inventory_id, papyrus.note || '', papyrus.country_of_origin.try(:name) || '', papyrus.human_readable_has_translation]
   end
   expected_table = [
-    ['Inventory ID', 'Note', 'Country of Origin', 'Translation'],
+    ['MQT Number', 'Inventory ID', 'Note', 'Country of Origin', 'Translation'],
     *rows
   ]
   actual = find("table#search_results").all('tr').map { |row| row.all('th, td').map { |cell| cell.text.strip } }

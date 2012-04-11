@@ -21,7 +21,7 @@ describe Papyrus do
     it { should have_many :images }
   end
   describe "validations" do
-    it { should validate_presence_of :inventory_id }
+    it { should validate_presence_of :mqt_number }
     it { should ensure_length_of(:inventory_id).is_at_most(32) }
     it { should ensure_length_of(:dimensions).is_at_most(511) }
     it { should ensure_length_of(:general_note).is_at_most(255) }
@@ -44,9 +44,9 @@ describe Papyrus do
       papyrus.errors[:date_year].should include("is too long (maximum is 4 characters)")
     end
 
-    it "should validate inventory id is unique" do
+    it "should validate mqt number is unique" do
       Factory(:papyrus)
-      should validate_uniqueness_of :inventory_id
+      should validate_uniqueness_of :mqt_number
     end
     it "should not be greater than current year" do
       papyrus = FactoryGirl.build(:papyrus, date_year: 9999, date_era: 'CE')
@@ -79,7 +79,7 @@ describe Papyrus do
       today.should_receive(:year).twice.and_return(2012, 2013)
       Date.should_receive(:today).twice.and_return(today)
       load 'app/models/papyrus.rb'
-      papyrus = Papyrus.new(inventory_id: 'sdfh', date_year: 2013, date_era: 'CE')
+      papyrus = Papyrus.new(mqt_number: 1000, date_year: 2013, date_era: 'CE')
       papyrus.should_not be_valid
       papyrus.should be_valid
     end

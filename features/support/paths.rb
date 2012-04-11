@@ -43,12 +43,12 @@ module NavigationHelpers
       when /the list users page/
         users_path
 
-      when /the "(.*)" papyrus page/
-        p = Papyrus.find_by_inventory_id! $1
+      when /the "MQT (.*)" papyrus page/
+        p = Papyrus.find_by_mqt_number! $1
         papyrus_path p
 
-      when /the "(.*)" edit papyrus page/
-        p = Papyrus.find_by_inventory_id! $1
+      when /the "MQT (.*)" edit papyrus page/
+        p = Papyrus.find_by_mqt_number! $1
         edit_papyrus_path p
 
       when /the list papyri page/
@@ -67,10 +67,11 @@ module NavigationHelpers
       when /the admin page/
         admin_index_path
 
-      when /the upload image page for "(.*)"/
-        new_papyrus_image_path(Papyrus.find_by_inventory_id!($1))
-      when /the papyrus "(.*)" image "(.*)" "(.*)" page/
-        papyrus = Papyrus.find_by_inventory_id!($1)
+      when /the upload image page for "MQT (.*)"/
+        new_papyrus_image_path(Papyrus.find_by_mqt_number!($1))
+
+      when /the papyrus "MQT (.*)" image "(.*)" "(.*)" page/
+        papyrus = Papyrus.find_by_mqt_number!($1)
         image = papyrus.images.find_by_image_file_name!($2)
         style = $3
         image.image.url(style.to_sym)
@@ -78,9 +79,9 @@ module NavigationHelpers
       when /the list requests page/
         access_requests_path
 
-      when /the papyrus access request page for "(.*)" and papyrus "(.*)"/
+      when /the papyrus access request page for "(.*)" and papyrus "MQT (.*)"/
         user = User.find_by_email! $1
-        papyrus = Papyrus.find_by_inventory_id! $2
+        papyrus = Papyrus.find_by_mqt_number! $2
         access_request = AccessRequest.find_by_user_id_and_papyrus_id!(user.id, papyrus.id)
         access_request_path(access_request)
 

@@ -2,17 +2,17 @@ When /^I attach image "(.*)"$/ do |filename|
   attach_image(filename)
 end
 
-And /^"(.*)" should have (\d+) image(s)?$/ do |inventory_id, num_images, _|
-  Papyrus.find_by_inventory_id!(inventory_id).images.count.should eq num_images.to_i
+And /^"MQT (.*)" should have (\d+) image(s)?$/ do |mqt_number, num_images, _|
+  Papyrus.find_by_mqt_number!(mqt_number).images.count.should eq num_images.to_i
 end
 
-And /^I should see low res image for "(.*)" of papyrus "(.*)"$/ do |image_name, papyrus_name|
-  papyrus = Papyrus.find_by_inventory_id!(papyrus_name)
+And /^I should see low res image for "(.*)" of papyrus "MQT (.*)"$/ do |image_name, mqt_number|
+  papyrus = Papyrus.find_by_mqt_number!(mqt_number)
   image = papyrus.images.find_by_image_file_name!(image_name)
   page.should have_css(%Q{img[src*="/image/#{image.id}/low_res"]})
 end
-Then /^I should (not )?see "Download in (high|low) resolution" for "(.*)" for "(.*)"$/ do |not_see, high_or_low, image_filename, inventory_id|
-  papyrus = Papyrus.find_by_inventory_id!(inventory_id)
+Then /^I should (not )?see "Download in (high|low) resolution" for "(.*)" for "MQT (.*)"$/ do |not_see, high_or_low, image_filename, mqt_number|
+  papyrus = Papyrus.find_by_mqt_number!(mqt_number)
   image = papyrus.images.find_by_image_file_name!(image_filename)
 
   link = find_or_nil("#download_#{high_or_low}_res_#{image.id}")
@@ -23,16 +23,16 @@ Then /^I should (not )?see "Download in (high|low) resolution" for "(.*)" for "(
   end
 end
 
-When /^I follow "Download in (high|low) resolution" for "(.*)" for "(.*)"$/ do |high_or_low, image_filename, inventory_id|
-  papyrus = Papyrus.find_by_inventory_id!(inventory_id)
+When /^I follow "Download in (high|low) resolution" for "(.*)" for "MQT (.*)"$/ do |high_or_low, image_filename, mqt_number|
+  papyrus = Papyrus.find_by_mqt_number!(mqt_number)
   image = papyrus.images.find_by_image_file_name!(image_filename)
 
   link = find("#download_#{high_or_low}_res_#{image.id}")
   link.click
 end
 
-And /^"(.*)" uploaded image "(.*)" to "(.*)" with caption "(.*)"$/ do |email, image_filename, inventory_id, caption|
-  papyrus = Papyrus.find_by_inventory_id!(inventory_id)
+And /^"(.*)" uploaded image "(.*)" to "MQT (.*)" with caption "(.*)"$/ do |email, image_filename, mqt_number, caption|
+  papyrus = Papyrus.find_by_mqt_number!(mqt_number)
   upload(email, image_filename, papyrus, caption)
 end
 

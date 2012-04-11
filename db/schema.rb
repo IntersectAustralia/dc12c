@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120410021406) do
+ActiveRecord::Schema.define(:version => 20120410073708) do
 
   create_table "access_requests", :force => true do |t|
     t.integer "user_id",    :precision => 38, :scale => 0
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(:version => 20120410021406) do
     t.integer "genre_id",                                :precision => 38, :scale => 0
     t.string  "visibility",                                                             :default => "HIDDEN"
     t.string  "dimensions",               :limit => 511
+    t.integer "mqt_number",                              :precision => 38, :scale => 0,                       :null => false
   end
 
   create_table "roles", :force => true do |t|

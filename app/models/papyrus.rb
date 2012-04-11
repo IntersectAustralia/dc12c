@@ -6,7 +6,7 @@ class Papyrus < ActiveRecord::Base
   PUBLIC = 'PUBLIC'
   HIDDEN = 'HIDDEN'
 
-  attr_accessible :inventory_id, :date_year, :date_era, :general_note, :note, :paleographic_description, :recto_note, :origin_details, :source_of_acquisition, :preservation_note, :summary, :language_note, :original_text, :translated_text, :verso_note, :dimensions, :country_of_origin_id, :genre_id, :language_ids
+  attr_accessible :mqt_number, :inventory_id, :date_year, :date_era, :general_note, :note, :paleographic_description, :recto_note, :origin_details, :source_of_acquisition, :preservation_note, :summary, :language_note, :original_text, :translated_text, :verso_note, :dimensions, :country_of_origin_id, :genre_id, :language_ids
 
   belongs_to :country_of_origin, class_name: 'Country'
   belongs_to :genre
@@ -14,7 +14,7 @@ class Papyrus < ActiveRecord::Base
   has_many :access_requests
   has_many :images
 
-  validates :inventory_id, presence: true, uniqueness: true
+  validates :mqt_number, presence: true, uniqueness: true
   validates :visibility, presence: true, inclusion: [HIDDEN, VISIBLE, PUBLIC]
 
   validate :date_less_than_current_year
@@ -43,6 +43,10 @@ class Papyrus < ActiveRecord::Base
 
   def formatted_date
     "#{date_year} #{date_era}" if date_year and date_era
+  end
+
+  def formatted_mqt_number
+    "MQT #{mqt_number}"
   end
 
   def languages_csv

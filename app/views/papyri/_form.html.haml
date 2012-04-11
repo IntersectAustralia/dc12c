@@ -6,6 +6,7 @@
         - @papyrus.errors.full_messages.each do |msg|
           %li= msg
 
+  = render_field('MQT Number', f.text_field(:mqt_number))
   = render_field('Inventory ID', f.text_field(:inventory_id))
   = render_field_with_block('Languages') do
     - Language.all.each do |l|
