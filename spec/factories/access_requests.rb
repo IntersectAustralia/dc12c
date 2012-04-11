@@ -5,5 +5,6 @@ FactoryGirl.define do
     status 'CREATED'
     association :papyrus
     association :user
+    date_requested '04/04/2011'
   end
 end

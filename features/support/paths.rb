@@ -78,6 +78,13 @@ module NavigationHelpers
       when /the list requests page/
         access_requests_path
 
+      when /the list pending requests page/
+        pending_access_requests_path
+
+      when /page (.*) of the list approved requests index/
+        page_num = $1
+        approved_access_requests_path page: page_num
+
 
 # Add more mappings here.
 # Here is an example that pulls values out of the Regexp:
