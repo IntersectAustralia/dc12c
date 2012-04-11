@@ -23,10 +23,10 @@ Feature: Requesting access
       | Cyprus |
       | Turkey |
     And I have papyri
-      | inventory_id | languages       | dimensions   | date   | general_note  | note           | paleographic_description | recto_note | verso_note | country_of_origin | origin_details | source_of_acquisition | preservation_note | genre | language_note | summary             | original_text | translated_text | visibility |
-      | v.macq2      | Coptic, Greek   | 5 x 6 cm     | 88 CE  | General Blah  | Specific blah  | Paleo Diet               | Rectangle  | Verses     | Greece            | It's Greek.    | Got it from Greece    | poorly preserved  | Book  | Fancy Greek   | don't understand it | περιοχής      | area            | VISIBLE    |
-      | hidden.macq  | Coptic, Demotic | 5 x 6 cm     | 488 CE | General stuff | Specific stuff |                          |            |            | Turkey            |                |                       |                   |       |               |                     |               |                 | HIDDEN     |
-      | visible.macq | Coptic, Demotic | 5 x 6 cm     | 488 CE | General stuff | Specific stuff |                          |            |            | Turkey            |                |                       |                   |       |               |                     |               |                 | VISIBLE    |
+      | inventory_id | languages       | dimensions   | date_from | general_note  | note           | paleographic_description | recto_note | verso_note | country_of_origin | origin_details | source_of_acquisition | preservation_note | genre | language_note | summary             | original_text | translated_text | visibility |
+      | v.macq2      | Coptic, Greek   | 5 x 6 cm     | 88 CE     | General Blah  | Specific blah  | Paleo Diet               | Rectangle  | Verses     | Greece            | It's Greek.    | Got it from Greece    | poorly preserved  | Book  | Fancy Greek   | don't understand it | περιοχής      | area            | VISIBLE    |
+      | hidden.macq  | Coptic, Demotic | 5 x 6 cm     | 488 CE    | General stuff | Specific stuff |                          |            |            | Turkey            |                |                       |                   |       |               |                     |               |                 | HIDDEN     |
+      | visible.macq | Coptic, Demotic | 5 x 6 cm     | 488 CE    | General stuff | Specific stuff |                          |            |            | Turkey            |                |                       |                   |       |               |                     |               |                 | VISIBLE    |
 
   Scenario: researchers should have a request access button on view papyrus pages
     Given I am logged in as "researcher@intersect.org.au"

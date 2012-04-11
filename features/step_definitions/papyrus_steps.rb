@@ -23,10 +23,16 @@ When /^I enter the following papyrus details$/ do |table|
   table.hashes.each do |row|
     field = row[:field]
     value = row[:value]
-    if field == 'Date'
+    if field =~ /Date (From|To)/
+      from_or_to = $1.downcase
+
       year, era = value.split ' '
-      set_papyrus_field('date_year', year)
-      set_papyrus_field('date_era', era) unless era.nil?
+
+      year_name, era_name = "date_#{from_or_to}_year", "date_#{from_or_to}_era"
+
+      set_papyrus_field(year_name, year)
+
+      set_papyrus_field(era_name, era) unless era.nil?
     elsif field == 'Languages'
       languages = value.split(', ')
       languages.each do |l|
@@ -68,17 +74,31 @@ end
 And /^I have (a papyrus|papyri)$/ do |_, table|
   table.hashes.each do |attrs|
     languages = attrs.delete 'languages'
-    date = attrs.delete 'date'
+    date_from = attrs.delete 'date_from'
+    date_to = attrs.delete 'date_to'
     country_of_origin = attrs.delete 'country_of_origin'
     genre = attrs.delete 'genre'
     visibility = attrs.delete 'visibility'
 
-    year, era = date.split ' ' if date
     country = Country.find_by_name! country_of_origin if country_of_origin.present?
 
     papyrus = Papyrus.new(attrs)
-    papyrus.date_year = year
-    papyrus.date_era = era
+
+    if date_from
+      if date_from.ends_with? 'BCE'
+        papyrus.date_from = -date_from.to_i
+      else
+        papyrus.date_from = date_from.to_i
+      end
+      if date_to
+        if date_to.ends_with? 'BCE'
+          papyrus.date_to = -date_to.to_i
+        else
+          papyrus.date_to = date_to.to_i
+        end
+      end
+    end
+
     papyrus.country_of_origin = country
     if languages
       languages = languages.split ', ' if languages
@@ -98,10 +118,19 @@ Then /^I should see papyrus fields displayed$/ do |table|
 
     field = row[:field]
     value = row[:value]
-    if field == 'Date'
-      year, era = value.split ' '
-      get_papyrus_field('date_year').should == year
-      get_papyrus_field('date_era').should == era
+    if field =~ /^Date (From|To)$/
+      from_or_to = $1.downcase
+
+      year_name, era_name = "date_#{from_or_to}_year", "date_#{from_or_to}_era"
+
+      if value.present?
+        year, era = value.split ' '
+      else
+        year = era = ''
+      end
+
+      get_papyrus_field(year_name).should == year
+      get_papyrus_field(era_name).should == era
     elsif field == 'Languages'
       checked_ids = page.all(:css, '.papyrus_language_checkbox').find_all{|e|e.checked?}.map{|e|e.value}.map(&:to_i)
 

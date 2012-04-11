@@ -4,13 +4,50 @@ require 'spec_helper'
 
 describe Papyrus do
   describe "formatted date" do
-    it "should have year and era" do
-      papyrus = Factory(:papyrus, date_year: 234, date_era: 'BCE')
-      papyrus.formatted_date.should eq "234 BCE"
+    it "shows a date range" do
+      papyrus = Factory(:papyrus, date_from: -234, date_to: 224)
+      papyrus.formatted_date.should eq "234 BCE - 224 CE"
+    end
+    it "shows a specific date BCE" do
+      papyrus = Factory(:papyrus, date_from: -1234)
+      papyrus.formatted_date.should eq "1234 BCE"
+    end
+    it "shows a specific date CE" do
+      papyrus = Factory(:papyrus, date_from: 1534)
+      papyrus.formatted_date.should eq "1534 CE"
     end
     it "should be nil if no data" do
-      papyrus = Factory(:papyrus, date_year: nil, date_era: nil)
+      papyrus = Factory(:papyrus, date_from: nil, date_to: nil)
       papyrus.formatted_date.should be_nil
+    end
+  end
+  describe "dates" do
+    describe "nils" do
+      before :each do
+        @p = Factory(:papyrus)
+      end
+      it { @p.date_from_year.should be_nil }
+      it { @p.date_to_year.should be_nil }
+      it { @p.date_from_era.should be_nil }
+      it { @p.date_to_era.should be_nil }
+    end
+    describe "bce" do
+      it "handles negatives" do
+        p = Factory(:papyrus, date_from: -233, date_to: -1)
+        p.date_from_year.should eq 233
+        p.date_from_era.should eq 'BCE'
+
+        p.date_to_year.should eq 1
+        p.date_to_era.should eq 'BCE'
+      end
+      it "handles positives" do
+        p = Factory(:papyrus, date_from: 23, date_to: 1023)
+
+        p.date_from_year.should eq 23
+        p.date_from_era.should eq 'CE'
+        p.date_to_year.should eq 1023
+        p.date_to_era.should eq 'CE'
+      end
     end
   end
   describe "associations" do
@@ -38,50 +75,52 @@ describe Papyrus do
     it { should ensure_length_of(:original_text).is_at_most(4096) }
     it { should ensure_length_of(:translated_text).is_at_most(4096) }
 
-    it "should not be able to be greater than 4 digits long" do
-      papyrus = FactoryGirl.build(:papyrus, date_year: 10000, date_era: 'BCE')
-      papyrus.should_not be_valid
-      papyrus.errors[:date_year].should include("is too long (maximum is 4 characters)")
-    end
-
     it "should validate inventory id is unique" do
       Factory(:papyrus)
       should validate_uniqueness_of :inventory_id
     end
-    it "should not be greater than current year" do
-      papyrus = FactoryGirl.build(:papyrus, date_year: 9999, date_era: 'CE')
-      papyrus.should_not be_valid
-    end
-    it "should be able to be greater than current year if BCE" do
-      papyrus = FactoryGirl.build(:papyrus, date_year: 9999, date_era: 'BCE')
-      papyrus.should be_valid
-    end
-    it "should have a valid date era" do
-      papyrus = FactoryGirl.build(:papyrus, date_year: 2012, date_era: 'FDW')
-      papyrus.should_not be_valid
-    end
-    it "should not allow a year 0" do
-      papyrus = FactoryGirl.build(:papyrus, date_year: 0, date_era: 'CE')
-      papyrus.should_not be_valid
-    end
-    it "should accept both nil or both present" do
-      [[123, 'CE'], [nil, nil]].each do |year, era|
-        Factory(:papyrus, date_year: year, date_era: era).should be_valid
+
+    describe "dates" do
+      it "should not be able to be greater than 4 digits long" do
+        papyrus = FactoryGirl.build(:papyrus, date_from: -10000)
+        papyrus.should_not be_valid
+        # papyrus.errors[:date_from].should include("is too long (maximum is 4 characters)") # TODO
       end
-    end
-    it "should reject when just one date datum present" do
-      [[123, nil], [nil, 'CE']].each do |year, era|
-        FactoryGirl.build(:papyrus, date_year: year, date_era: era).should_not be_valid
+      it "checks date_from is present if date_to is present" do
+        FactoryGirl.build(:papyrus, date_to: 23).should_not be_valid
       end
-    end
-    it "should work if the year changes" do
-      today = mock(Object)
-      today.should_receive(:year).twice.and_return(2012, 2013)
-      Date.should_receive(:today).twice.and_return(today)
-      load 'app/models/papyrus.rb'
-      papyrus = Papyrus.new(inventory_id: 'sdfh', date_year: 2013, date_era: 'CE')
-      papyrus.should_not be_valid
-      papyrus.should be_valid
+      it "checks to date is after from date" do
+        FactoryGirl.build(:papyrus, date_from: 1, date_to: 1).should_not be_valid
+        FactoryGirl.build(:papyrus, date_from: 1, date_to: -1).should_not be_valid
+        FactoryGirl.build(:papyrus, date_from: 1, date_to: 2).should be_valid
+      end
+      it "should not be greater than current year" do
+        papyrus = FactoryGirl.build(:papyrus, date_from: 9999)
+        papyrus.should_not be_valid
+
+        papyrus = FactoryGirl.build(:papyrus, date_from: 999, date_to: 9999)
+        papyrus.should_not be_valid
+      end
+      it "should be able to be greater than current year if BCE" do
+        papyrus = FactoryGirl.build(:papyrus, date_from: -9999)
+        papyrus.should be_valid
+      end
+      it "should not allow a year 0" do
+        papyrus = FactoryGirl.build(:papyrus, date_from: 0)
+        papyrus.should_not be_valid
+
+        papyrus = FactoryGirl.build(:papyrus, date_to: 0)
+        papyrus.should_not be_valid
+      end
+      it "should work if the year changes" do
+        today = mock(Object)
+        today.should_receive(:year).at_least(:once).and_return(2012, 2013)
+        Date.should_receive(:today).at_least(:once).and_return(today)
+        load 'app/models/papyrus.rb'
+        papyrus = Papyrus.new(inventory_id: 'sdfh', date_from: 2013)
+        papyrus.should_not be_valid
+        papyrus.should be_valid
+      end
     end
     it { should validate_presence_of :visibility }
     it "should only accept either hidden, visible or public" do

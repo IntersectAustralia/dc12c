@@ -6,7 +6,7 @@ class Papyrus < ActiveRecord::Base
   PUBLIC = 'PUBLIC'
   HIDDEN = 'HIDDEN'
 
-  attr_accessible :inventory_id, :date_year, :date_era, :general_note, :note, :paleographic_description, :recto_note, :origin_details, :source_of_acquisition, :preservation_note, :summary, :language_note, :original_text, :translated_text, :verso_note, :dimensions, :country_of_origin_id, :genre_id, :language_ids
+  attr_accessible :inventory_id, :date_from, :date_to, :general_note, :note, :paleographic_description, :recto_note, :origin_details, :source_of_acquisition, :preservation_note, :summary, :language_note, :original_text, :translated_text, :verso_note, :dimensions, :country_of_origin_id, :genre_id, :language_ids
 
   belongs_to :country_of_origin, class_name: 'Country'
   belongs_to :genre
@@ -17,14 +17,12 @@ class Papyrus < ActiveRecord::Base
   validates :inventory_id, presence: true, uniqueness: true
   validates :visibility, presence: true, inclusion: [HIDDEN, VISIBLE, PUBLIC]
 
-  validate :date_less_than_current_year
-  validates_inclusion_of :date_era, in: ['BCE', 'CE'], allow_nil: true
-  validates_numericality_of :date_year, greater_than: 0, allow_nil: true
-  validates_presence_of :date_year, if: Proc.new { |papyrus| papyrus.date_era }
-  validates_presence_of :date_era, if: Proc.new { |papyrus| papyrus.date_year }
+  validate :dates_in_range_and_non_zero
+  validate :date_to_greater_than_date_from
+  validates_numericality_of :date_from, greater_than: -10000, allow_nil: true
+  validates_presence_of :date_from, if: proc { |papyrus| papyrus.date_to }
 
   validates_length_of :inventory_id, maximum: 32
-  validates_length_of :date_year, maximum: 4
   validates_length_of :dimensions, maximum: 511
   validates_length_of :general_note, maximum: 255
   validates_length_of :note, maximum: 255
@@ -41,8 +39,30 @@ class Papyrus < ActiveRecord::Base
 
   default_scope order: 'inventory_id'
 
+  def date_from_year
+    date_from.abs if date_from
+  end
+
+  def date_from_era
+    to_era date_from
+  end
+
+  def date_to_year
+    date_to.abs if date_to
+  end
+
+  def date_to_era
+    to_era date_to
+  end
+
   def formatted_date
-    "#{date_year} #{date_era}" if date_year and date_era
+    if date_from
+      if date_to
+        "#{date_from_year} #{date_from_era} - #{date_to_year} #{date_to_era}"
+      else
+        "#{date_from_year} #{date_from_era}"
+      end
+    end
   end
 
   def languages_csv
@@ -90,9 +110,26 @@ class Papyrus < ActiveRecord::Base
 
   private
 
-  def date_less_than_current_year
-    if date_era == 'CE' and date_year and date_year > Date.today.year
-      self.errors[:base] << 'Date must be less than or equal to the current year'
+  def date_to_greater_than_date_from
+    if date_to and date_from
+      errors[:date_to] << "Date to must be greater than Date from" unless date_to > date_from
+    end
+  end
+
+  def dates_in_range_and_non_zero
+    ['DateFrom', 'DateTo'].each do |field|
+      method_name = field.underscore.to_sym
+      field_value = self.send method_name
+      if field_value
+        errors[method_name] << "#{field.underscore.humanize} must not be zero" if field_value == 0
+        errors[method_name] << "#{field.underscore.humanize} must be less than or equal to #{Date.today.year}" if field_value > Date.today.year
+      end
+    end
+  end
+
+  def to_era(date)
+    if date
+      date > 0 ? 'CE' : 'BCE'
     end
   end
 end

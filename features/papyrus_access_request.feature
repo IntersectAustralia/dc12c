@@ -23,8 +23,8 @@ Feature: As an administrator
       | Cyprus |
       | Turkey |
     And I have a papyrus
-      | inventory_id | languages       | dimensions | date   | general_note  | note           | visibility | country_of_origin |
-      | visible.macq | Coptic, Demotic | 5 x 6 cm   | 488 CE | General stuff | Specific stuff | VISIBLE    | Turkey            |
+      | inventory_id | languages       | dimensions | date_from | general_note  | note           | visibility | country_of_origin |
+      | visible.macq | Coptic, Demotic | 5 x 6 cm   | 488 CE    | General stuff | Specific stuff | VISIBLE    | Turkey            |
     And I have papyrus access requests
       | Inventory ID | User requesting access       | Date requested | Date approved |
       | visible.macq | researcher1@intersect.org.au | 2010-05-02     | 2011-06-03    |
@@ -113,4 +113,3 @@ Feature: As an administrator
     Then I should see approved requests
       | Inventory ID | User with access             | Date requested | Date approved |
       | visible.macq | researcher3@intersect.org.au | 2010-05-02     | 2010-10-14    |
-
