@@ -1,0 +1,12 @@
+%table{id: table_id}
+  %thead
+    %tr
+      %th Inventory ID
+      %th User requesting access
+      %th Date requested
+  %tbody
+    - requests.each do |access_request|
+      %tr
+        %td= link_to access_request.papyrus.inventory_id, access_request_path(access_request)
+        %td= access_request.user.email
+        %td= access_request.formatted_date_requested

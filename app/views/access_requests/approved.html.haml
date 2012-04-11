@@ -1,3 +1,18 @@
-- @approved_access_requests.each do |access_request|
-  = access_request.papyrus.formatted_mqt_number
-  = access_request.user.email
+%table#approved_requests
+  %thead
+    %tr
+      %th MQT Number
+      %th Inventory ID
+      %th User with access
+      %th Date requested
+      %th Date approved
+  %tbody
+    - @approved_access_requests.each do |access_request|
+      %tr
+        %td= access_request.papyrus.formatted_mqt_number
+        %td= access_request.papyrus.inventory_id
+        %td= access_request.user.email
+        %td= access_request.formatted_date_requested
+        %td= access_request.formatted_date_approved
+  = will_paginate @approved_access_requests
+= link_to "Back", admin_index_path, class: 'btn'

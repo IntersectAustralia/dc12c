@@ -1,3 +1,8 @@
+Given /^the date is "(.*)"$/ do |date_string|
+  time = Time.strptime(date_string, '%Y-%m-%d')
+  Time.stub!(:now).and_return(time)
+end
+
 Then /^I should see "([^"]*)" table with$/ do |table_id, expected_table|
   actual = find("table##{table_id}").all('tr').map { |row| row.all('th, td').map { |cell| cell.text.strip } }
   expected_table.diff!(actual)

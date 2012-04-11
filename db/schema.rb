@@ -14,9 +14,11 @@
 ActiveRecord::Schema.define(:version => 20120410073708) do
 
   create_table "access_requests", :force => true do |t|
-    t.integer "user_id",    :precision => 38, :scale => 0
-    t.integer "papyrus_id", :precision => 38, :scale => 0
-    t.string  "status"
+    t.integer  "user_id",        :precision => 38, :scale => 0
+    t.integer  "papyrus_id",     :precision => 38, :scale => 0
+    t.string   "status"
+    t.datetime "date_requested"
+    t.datetime "date_approved"
   end
 
   create_table "countries", :force => true do |t|
