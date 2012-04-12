@@ -46,7 +46,7 @@ gem "therubyracer" # TODO should this be in group :assets ?
 group :development, :test, :jenkins do
   gem "rspec-rails"
   gem "factory_girl_rails"
-  gem "ruby-ldapserver", '~> 0.4.0', :git => 'http://github.com/IntersectAustralia/ruby-ldapserver.git'
+  # gem "ruby-ldapserver", '~> 0.4.0', :git => 'http://github.com/IntersectAustralia/ruby-ldapserver.git'
   gem "net-ldap"
 
   # cucumber gems

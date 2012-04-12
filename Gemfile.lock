@@ -1,9 +1,3 @@
-GIT
-  remote: http://github.com/IntersectAustralia/ruby-ldapserver.git
-  revision: 0298144c547ccd92bccc983e9d6a4d0f1cc056c6
-  specs:
-    ruby-ldapserver (0.4.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -310,7 +304,6 @@ DEPENDENCIES
   paperclip
   rails (= 3.2.2)
   rspec-rails
-  ruby-ldapserver (~> 0.4.0)!
   ruby-oci8 (~> 2.1.0)
   sass-rails (~> 3.2.3)
   shoulda
