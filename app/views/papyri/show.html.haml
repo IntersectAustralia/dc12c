@@ -22,6 +22,7 @@
     .page-content-record 
       %h3 Papyrus details
       = render_field('MQT Number', @papyrus.formatted_mqt_number)
+      = render_field('MQT Note', @papyrus.mqt_note)
       = render_field('Inventory ID', @papyrus.inventory_id)
       = render_field('Languages', @papyrus.languages_csv)
       = render_field('Dimensions', @papyrus.dimensions)

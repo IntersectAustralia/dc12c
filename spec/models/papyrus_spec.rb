@@ -59,6 +59,7 @@ describe Papyrus do
   end
   describe "validations" do
     it { should validate_presence_of :mqt_number }
+    it { should ensure_length_of(:mqt_note).is_at_most(255) }
     it { should ensure_length_of(:inventory_id).is_at_most(32) }
     it { should ensure_length_of(:dimensions).is_at_most(511) }
     it { should ensure_length_of(:general_note).is_at_most(255) }

@@ -24,8 +24,8 @@ Feature: Manage Papyrus
       | Cyprus |
       | Turkey |
     And I have a papyrus
-      | mqt_number | inventory_id | languages     | dimensions     | date_from  | general_note | note          | paleographic_description | recto_note | verso_note | country_of_origin | origin_details | source_of_acquisition | preservation_note | genre | language_note | summary             | original_text | translated_text | visibility |
-      | 2          | p.macq2      | Coptic, Greek | 5 x 6 cm       | 88 CE | General Blah | Specific blah | Paleo Diet               | Rectangle  | Verses     | Greece            | It's Greek.    | Got it from Greece    | poorly preserved  | Book  | Fancy Greek   | don't understand it | περιοχής      | area            | PUBLIC     |
+      | mqt_number | mqt_note | inventory_id | languages     | dimensions     | date_from  | general_note | note          | paleographic_description | recto_note | verso_note | country_of_origin | origin_details | source_of_acquisition | preservation_note | genre | language_note | summary             | original_text | translated_text | visibility |
+      | 2          | note too | p.macq2      | Coptic, Greek | 5 x 6 cm       | 88 CE | General Blah | Specific blah | Paleo Diet               | Rectangle  | Verses     | Greece            | It's Greek.    | Got it from Greece    | poorly preserved  | Book  | Fancy Greek   | don't understand it | περιοχής      | area            | PUBLIC     |
     And I have papyri
       | mqt_number | inventory_id | languages       | dimensions     | date_from   | general_note  | note           | visibility | country_of_origin |
       | 3          | hidden.macq  | Coptic, Demotic | 5 x 7 cm       | 488 CE      | General stuff | Specific stuff | HIDDEN     | Turkey            |
@@ -72,6 +72,7 @@ Feature: Manage Papyrus
     Then I should see fields displayed
       | field                    | value |
       | MQT Number               |       |
+      | MQT Note                 |       |
       | Inventory ID             |       |
       | Languages                |       |
       | Dimensions               |       |
@@ -95,6 +96,7 @@ Feature: Manage Papyrus
     When I enter the following papyrus details
       | field                    | value                     |
       | MQT Number               | 5                         |
+      | MQT Note                 | from #2                   |
       | Inventory ID             | 24gac                     |
       | Languages                | Greek, Coptic             |
       | Dimensions               | (a) 2 x 3cm, (b) same     |
@@ -121,6 +123,7 @@ Feature: Manage Papyrus
     And I should see the following papyrus details
       | field                    | value                     |
       | MQT Number               | MQT 5                     |
+      | MQT Note                 | from #2                   |
       | Inventory ID             | 24gac                     |
       | Languages                | Coptic, Greek             |
       | Dimensions               | (a) 2 x 3cm, (b) same     |
@@ -169,6 +172,7 @@ Feature: Manage Papyrus
     And I should see the following papyrus details
       | field                    | value |
       | MQT Number               | MQT 6 |
+      | MQT Note                 |       |
       | Inventory ID             |       |
       | Languages                |       |
       | Dimensions               |       |
@@ -234,6 +238,7 @@ Feature: Manage Papyrus
     Then I should see papyrus fields displayed
       | field                    | value               |
       | MQT Number               | 2                   |
+      | MQT Note                 | note too            |
       | Inventory ID             | p.macq2             |
       | Languages                | Coptic, Greek       |
       | Dimensions               | 5 x 6 cm            |
@@ -256,6 +261,7 @@ Feature: Manage Papyrus
     When I enter the following papyrus details
       | field                    | value                     |
       | MQT Number               | 6                         |
+      | MQT Note                 | none                      |
       | Inventory ID             | 24gac                     |
       | Dimensions               | (a) 2x3cm, (b) 3x3cm      |
       | Date From                | 234 CE                    |
@@ -283,6 +289,7 @@ Feature: Manage Papyrus
     And I should see the following papyrus details
       | field                    | value                     |
       | MQT Number               | MQT 6                     |
+      | MQT Note                 | none                      |
       | Inventory ID             | 24gac                     |
       | Languages                | Egyptian, Latin           |
       | Dimensions               | (a) 2x3cm, (b) 3x3cm      |
@@ -311,6 +318,7 @@ Feature: Manage Papyrus
     Then I should see papyrus fields displayed
       | field                    | value               |
       | MQT Number               | 2                   |
+      | MQT Note                 | note too            |
       | Inventory ID             | p.macq2             |
       | Languages                | Coptic, Greek       |
       | Dimensions               | 5 x 6 cm            |
