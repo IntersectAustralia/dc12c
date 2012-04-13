@@ -6,7 +6,7 @@ class Papyrus < ActiveRecord::Base
   PUBLIC = 'PUBLIC'
   HIDDEN = 'HIDDEN'
 
-  attr_accessible :mqt_number, :mqt_note, :inventory_id, :apis_id, :trismegistos_id, :date_from, :date_to, :general_note, :note, :paleographic_description, :recto_note, :origin_details, :source_of_acquisition, :preservation_note, :summary, :language_note, :original_text, :translated_text, :verso_note, :dimensions, :country_of_origin_id, :genre_id, :language_ids
+  attr_accessible :mqt_number, :mqt_note, :inventory_id, :apis_id, :trismegistos_id, :physical_location, :date_from, :date_to, :general_note, :note, :paleographic_description, :recto_note, :origin_details, :source_of_acquisition, :preservation_note, :summary, :language_note, :original_text, :translated_text, :verso_note, :dimensions, :country_of_origin_id, :genre_id, :language_ids
 
   belongs_to :country_of_origin, class_name: 'Country'
   belongs_to :genre
@@ -26,6 +26,7 @@ class Papyrus < ActiveRecord::Base
   validates_length_of :mqt_note, maximum: 255
   validates_length_of :inventory_id, maximum: 32
   validates_length_of :apis_id, maximum: 32
+  validates_length_of :physical_location, maximum: 255
   validates_length_of :dimensions, maximum: 511
   validates_length_of :general_note, maximum: 255
   validates_length_of :note, maximum: 255

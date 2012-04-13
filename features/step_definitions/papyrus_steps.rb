@@ -3,7 +3,7 @@ def find_papyrus_field(field_id)
   find(id)
 end
 def get_papyrus_field(field_id)
-  find_papyrus_field(field_id).value
+  find_papyrus_field(field_id).value.to_s
 end
 def set_papyrus_field(field_id, value)
   input = find_papyrus_field(field_id)

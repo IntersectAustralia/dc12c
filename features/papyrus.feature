@@ -76,6 +76,7 @@ Feature: Manage Papyrus
       | Inventory ID             |       |
       | APIS ID                  |       |
       | Trismegistos ID          |       |
+      | Physical location        |       |
       | Languages                |       |
       | Dimensions               |       |
       | Date From                |       |
@@ -102,6 +103,7 @@ Feature: Manage Papyrus
       | Inventory ID             | 24gac                     |
       | APIS ID                  | P1234                     |
       | Trismegistos ID          | 12345                     |
+      | Physical location        | Cabinet A, shelf 3, N.4   |
       | Languages                | Greek, Coptic             |
       | Dimensions               | (a) 2 x 3cm, (b) same     |
       | Date From                | 234 BCE                   |
@@ -131,6 +133,7 @@ Feature: Manage Papyrus
       | Inventory ID             | 24gac                     |
       | APIS ID                  | P1234                     |
       | Trismegistos ID          | 12345                     |
+      | Physical location        | Cabinet A, shelf 3, N.4   |
       | Languages                | Coptic, Greek             |
       | Dimensions               | (a) 2 x 3cm, (b) same     |
       | Date                     | 234 BCE - 233 CE          |
@@ -182,6 +185,7 @@ Feature: Manage Papyrus
       | Inventory ID             |       |
       | APIS ID                  |       |
       | Trismegistos ID          |       |
+      | Physical location        |       |
       | Languages                |       |
       | Dimensions               |       |
       | Date                     |       |
@@ -250,6 +254,9 @@ Feature: Manage Papyrus
       | MQT Number               | 2                   |
       | MQT Note                 | note too            |
       | Inventory ID             | p.macq2             |
+      | APIS ID                  |                     |
+      | Trismegistos ID          |                     |
+      | Physical location        |                     |
       | Languages                | Coptic, Greek       |
       | Dimensions               | 5 x 6 cm            |
       | Date From                | 88 CE               |
@@ -273,6 +280,9 @@ Feature: Manage Papyrus
       | MQT Number               | 6                         |
       | MQT Note                 | none                      |
       | Inventory ID             | 24gac                     |
+      | APIS ID                  | apis.1                    |
+      | Trismegistos ID          | 123                       |
+      | Physical location        | cabinet 12                |
       | Dimensions               | (a) 2x3cm, (b) 3x3cm      |
       | Date From                | 234 CE                    |
       | Date To                  | 235 CE                    |
@@ -301,6 +311,9 @@ Feature: Manage Papyrus
       | MQT Number               | MQT 6                     |
       | MQT Note                 | none                      |
       | Inventory ID             | 24gac                     |
+      | APIS ID                  | apis.1                    |
+      | Trismegistos ID          | 123                       |
+      | Physical location        | cabinet 12                |
       | Languages                | Egyptian, Latin           |
       | Dimensions               | (a) 2x3cm, (b) 3x3cm      |
       | Date                     | 234 CE - 235 CE           |
@@ -330,6 +343,9 @@ Feature: Manage Papyrus
       | MQT Number               | 2                   |
       | MQT Note                 | note too            |
       | Inventory ID             | p.macq2             |
+      | APIS ID                  |                     |
+      | Trismegistos ID          |                     |
+      | Physical location        |                     |
       | Languages                | Coptic, Greek       |
       | Dimensions               | 5 x 6 cm            |
       | Date From                | 88 CE               |

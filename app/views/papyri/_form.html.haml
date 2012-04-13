@@ -11,6 +11,7 @@
   = render_field('Inventory ID', f.text_field(:inventory_id))
   = render_field('APIS ID', f.text_field(:apis_id))
   = render_field('Trismegistos ID', f.text_field(:trismegistos_id))
+  = render_field('Physical location', f.text_area(:physical_location, :class => "medium"))
   = render_field_with_block('Languages') do
     - Language.all.each do |l|
       .checkbox

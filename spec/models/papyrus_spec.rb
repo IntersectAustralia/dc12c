@@ -62,6 +62,7 @@ describe Papyrus do
     it { should ensure_length_of(:mqt_note).is_at_most(255) }
     it { should ensure_length_of(:inventory_id).is_at_most(32) }
     it { should ensure_length_of(:apis_id).is_at_most(32) }
+    it { should ensure_length_of(:physical_location).is_at_most(255) }
     it { should ensure_length_of(:dimensions).is_at_most(511) }
     it { should ensure_length_of(:general_note).is_at_most(255) }
     it { should ensure_length_of(:note).is_at_most(255) }
