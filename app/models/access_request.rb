@@ -1,10 +1,9 @@
 class AccessRequest < ActiveRecord::Base
   CREATED = 'CREATED'
   APPROVED = 'APPROVED'
-  REJECTED = 'REJECTED'
   DATE_FORMAT = '%Y-%m-%d'
 
-  validates :status, inclusion: [CREATED, APPROVED, REJECTED]
+  validates :status, inclusion: [CREATED, APPROVED]
   validates_presence_of :user_id
   validates_presence_of :papyrus_id
   validates_uniqueness_of :user_id, scope: :papyrus_id
@@ -17,9 +16,8 @@ class AccessRequest < ActiveRecord::Base
   belongs_to :user
   belongs_to :papyrus
 
-  scope :pending_requests, where(status: CREATED)
-  scope :approved_requests, where(status: APPROVED)
-  scope :rejected_requests, where(status: REJECTED)
+  scope :pending_requests, where(status: CREATED).order('date_requested asc')
+  scope :approved_requests, where(status: APPROVED).order('date_approved desc')
 
   def approve!
     self.status = APPROVED
@@ -28,8 +26,7 @@ class AccessRequest < ActiveRecord::Base
   end
 
   def reject!
-    self.status = REJECTED
-    self.save!
+    self.destroy
   end
 
   def self.place_request(user, papyrus)
