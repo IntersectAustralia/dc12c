@@ -6,7 +6,7 @@ class Papyrus < ActiveRecord::Base
   PUBLIC = 'PUBLIC'
   HIDDEN = 'HIDDEN'
 
-  attr_accessible :mqt_number, :inventory_id, :date_from, :date_to, :date_note, :general_note, :note, :paleographic_description, :recto_note, :origin_details, :source_of_acquisition, :preservation_note, :summary, :language_note, :original_text, :translated_text, :verso_note, :dimensions, :country_of_origin_id, :genre_id, :language_ids
+  attr_accessible :mqt_number, :inventory_id, :date_from, :date_to, :date_note, :general_note, :lines_of_text, :paleographic_description, :recto_note, :origin_details, :source_of_acquisition, :preservation_note, :conservation_note, :summary, :language_note, :original_text, :translated_text, :verso_note, :dimensions, :country_of_origin_id, :genre_id, :language_ids, :other_characteristics, :material
 
   belongs_to :country_of_origin, class_name: 'Country'
   belongs_to :genre
@@ -25,18 +25,21 @@ class Papyrus < ActiveRecord::Base
   validates_length_of :inventory_id, maximum: 32
   validates_length_of :dimensions, maximum: 511
   validates_length_of :general_note, maximum: 255
-  validates_length_of :note, maximum: 255
-  validates_length_of :paleographic_description, maximum: 255
+  validates_length_of :lines_of_text, maximum: 1023
+  validates_length_of :paleographic_description, maximum: 1023
   validates_length_of :recto_note, maximum: 255
   validates_length_of :verso_note, maximum: 255
   validates_length_of :origin_details, maximum: 255
   validates_length_of :source_of_acquisition, maximum: 255
-  validates_length_of :preservation_note, maximum: 255
+  validates_length_of :preservation_note, maximum: 1023
+  validates_length_of :conservation_note, maximum: 1023
   validates_length_of :summary, maximum: 255
   validates_length_of :language_note, maximum: 255
   validates_length_of :original_text, maximum: 4096
   validates_length_of :translated_text, maximum: 4096
   validates_length_of :date_note, maximum: 511
+  validates_length_of :other_characteristics, maximum: 1023
+  validates_length_of :material, maximum: 255
 
   default_scope order: 'inventory_id'
 
@@ -84,7 +87,7 @@ class Papyrus < ActiveRecord::Base
       upper(inventory_id).like_any(search_terms)             \
     | upper(languages.name).like_any(search_terms)           \
     | upper(general_note).like_any(search_terms)             \
-    | upper(note).like_any(search_terms)                     \
+    | upper(lines_of_text).like_any(search_terms)            \
     | upper(paleographic_description).like_any(search_terms) \
     | upper(recto_note).like_any(search_terms)               \
     | upper(verso_note).like_any(search_terms)               \

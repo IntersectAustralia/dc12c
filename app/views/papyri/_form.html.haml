@@ -14,6 +14,7 @@
         = check_box_tag "papyrus[language_ids][]", l.id, @papyrus.languages.include?(l), id: "papyrus_language_ids_#{l.id}", class: 'papyrus_language_checkbox'
         = label_tag "papyrus_language_ids_#{l.id}", l.name
   = render_field('Dimensions', f.text_area(:dimensions, :class => "medium"))
+  = render_field('Material', f.text_area(:material, :class => "medium"))
   = render_field_with_block('Date From') do
     = text_field_tag(:papyrus_date_from_year, @papyrus.date_from_year || '', class: 'input-mini')
     - from_options = options_for_select([[''], ['CE'], ['BCE']], selected = @papyrus.date_from_era)
@@ -24,14 +25,16 @@
     = select_tag(:papyrus_date_to_era, to_options, include_blank: true)
   = render_field('Date Note', f.text_field(:date_note))
   = render_field('General Note', f.text_field(:general_note))
-  = render_field('Note', f.text_field(:note))
+  = render_field('Lines of Text', f.text_field(:lines_of_text))
+  = render_field('Other Characteristics', f.text_area(:other_characteristics, class: 'medium'))
   = render_field('Paleographic Description', f.text_field(:paleographic_description))
   = render_field('Recto Note', f.text_field(:recto_note))
   = render_field('Verso Note', f.text_field(:verso_note))
   = render_field('Country of Origin', f.select(:country_of_origin_id, Country.all.map{|c| [c.name, c.id]}, {include_blank: true}, id: 'papyrus_country_of_origin'))
   = render_field('Origin Details', f.text_field(:origin_details))
   = render_field('Source of Acquisition', f.text_field(:source_of_acquisition))
-  = render_field('Preservation Note', f.text_field(:preservation_note))
+  = render_field('Preservation Note', f.text_area(:preservation_note, class: 'medium'))
+  = render_field('Conservation Note', f.text_area(:conservation_note, class: 'medium'))
   = render_field('Genre', f.select(:genre_id, Genre.all.map{|g| [g.name, g.id]}, {include_blank: true}, id: 'papyrus_genre'))
   = render_field('Language Note', f.text_field(:language_note))
   = render_field('Summary', f.text_field(:summary))

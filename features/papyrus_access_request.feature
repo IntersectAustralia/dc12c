@@ -23,7 +23,7 @@ Feature: As an administrator
       | Cyprus |
       | Turkey |
     And I have a papyrus
-      | mqt_number | inventory_id | languages       | dimensions | date_from | general_note  | note           | visibility | country_of_origin |
+      | mqt_number | inventory_id | languages       | dimensions | date_from | general_note  | lines_of_text  | visibility | country_of_origin |
       | 5          | visible.macq | Coptic, Demotic | 5 x 6 cm   | 488 CE    | General stuff | Specific stuff | VISIBLE    | Turkey            |
     And I have papyrus access requests
       | MQT Number | User requesting access       | Date requested | Date approved |

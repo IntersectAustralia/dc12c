@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120412065816) do
+ActiveRecord::Schema.define(:version => 20120413004259) do
 
   create_table "access_requests", :force => true do |t|
     t.integer  "user_id",        :precision => 38, :scale => 0
@@ -50,25 +50,28 @@ ActiveRecord::Schema.define(:version => 20120412065816) do
   create_table "papyri", :force => true do |t|
     t.string  "inventory_id"
     t.string  "general_note"
-    t.string  "note"
-    t.string  "paleographic_description"
+    t.string  "lines_of_text",            :limit => 1023
+    t.string  "paleographic_description", :limit => 1023
     t.string  "recto_note"
     t.string  "verso_note"
     t.string  "origin_details"
     t.string  "source_of_acquisition"
-    t.string  "preservation_note"
+    t.string  "preservation_note",        :limit => 1023
     t.string  "language_note"
     t.string  "summary"
     t.string  "original_text"
     t.string  "translated_text"
-    t.integer "country_of_origin_id",                    :precision => 38, :scale => 0
-    t.integer "genre_id",                                :precision => 38, :scale => 0
-    t.string  "visibility",                                                             :default => "HIDDEN"
+    t.integer "country_of_origin_id",                     :precision => 38, :scale => 0
+    t.integer "genre_id",                                 :precision => 38, :scale => 0
+    t.string  "visibility",                                                              :default => "HIDDEN"
     t.string  "dimensions",               :limit => 511
-    t.integer "date_from",                               :precision => 38, :scale => 0
-    t.integer "date_to",                                 :precision => 38, :scale => 0
-    t.integer "mqt_number",                              :precision => 38, :scale => 0,                       :null => false
+    t.integer "date_from",                                :precision => 38, :scale => 0
+    t.integer "date_to",                                  :precision => 38, :scale => 0
+    t.integer "mqt_number",                               :precision => 38, :scale => 0,                       :null => false
     t.string  "date_note"
+    t.string  "material"
+    t.string  "conservation_note",        :limit => 1023
+    t.string  "other_characteristics",    :limit => 1023
   end
 
   create_table "roles", :force => true do |t|

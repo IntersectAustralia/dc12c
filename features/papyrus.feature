@@ -24,10 +24,10 @@ Feature: Manage Papyrus
       | Cyprus |
       | Turkey |
     And I have a papyrus
-      | mqt_number | inventory_id | languages     | dimensions | date_from | date_note | general_note | note          | paleographic_description | recto_note | verso_note | country_of_origin | origin_details | source_of_acquisition | preservation_note | genre | language_note | summary             | original_text | translated_text | visibility |
-      | 2          | p.macq2      | Coptic, Greek | 5 x 6 cm   | 88 CE     | some date | General Blah | Specific blah | Paleo Diet               | Rectangle  | Verses     | Greece            | It's Greek.    | Got it from Greece    | poorly preserved  | Book  | Fancy Greek   | don't understand it | περιοχής      | area            | PUBLIC     |
+      | mqt_number | inventory_id | languages     | dimensions | date_from | date_note | general_note | lines_of_text | paleographic_description | recto_note | verso_note | country_of_origin | origin_details | source_of_acquisition | preservation_note | conservation_note | genre | language_note | summary             | original_text | translated_text | other_characteristics | material | visibility |
+      | 2          | p.macq2      | Coptic, Greek | 5 x 6 cm   | 88 CE     | some date | General Blah | Specific blah | Paleo Diet               | Rectangle  | Verses     | Greece            | It's Greek.    | Got it from Greece    | poorly preserved  | conservative      | Book  | Fancy Greek   | don't understand it | περιοχής      | area            | some other            | fabric   | PUBLIC      |
     And I have papyri
-      | mqt_number | inventory_id | languages       | dimensions     | date_from   | general_note  | note           | visibility | country_of_origin |
+      | mqt_number | inventory_id | languages       | dimensions     | date_from   | general_note  | lines_of_text  | visibility | country_of_origin |
       | 3          | hidden.macq  | Coptic, Demotic | 5 x 7 cm       | 488 CE      | General stuff | Specific stuff | HIDDEN     | Turkey            |
       | 4          | visible.macq | Coptic, Demotic | 5 x 8 cm       | 488 CE      | General stuff | Specific stuff | VISIBLE    | Turkey            |
 
@@ -75,11 +75,12 @@ Feature: Manage Papyrus
       | Inventory ID             |       |
       | Languages                |       |
       | Dimensions               |       |
+      | Material                 |       |
       | Date From                |       |
       | Date To                  |       |
       | Date Note                |       |
       | General Note             |       |
-      | Note                     |       |
+      | Lines of Text            |       |
       | Paleographic Description |       |
       | Recto Note               |       |
       | Verso Note               |       |
@@ -87,11 +88,13 @@ Feature: Manage Papyrus
       | Origin Details           |       |
       | Source of Acquisition    |       |
       | Preservation Note        |       |
+      | Conservation Note        |       |
       | Genre                    |       |
       | Language Note            |       |
       | Summary                  |       |
       | Original Text            |       |
       | Translated Text          |       |
+      | Other Characteristics    |       |
 
     When I enter the following papyrus details
       | field                    | value                     |
@@ -103,7 +106,7 @@ Feature: Manage Papyrus
       | Date To                  | 233 CE                    |
       | Date Note                | special note              |
       | General Note             | this is a papyrus         |
-      | Note                     | same as general           |
+      | Lines of Text            | same as general           |
       | Paleographic Description | sydney                    |
       | Recto Note               | it's shiny                |
       | Verso Note               | not so shiny              |
@@ -111,11 +114,13 @@ Feature: Manage Papyrus
       | Origin Details           | greece                    |
       | Source of Acquisition    | shady dealer              |
       | Preservation Note        | do not get wet            |
+      | Conservation Note        | it is conserved           |
       | Genre                    | Letter                    |
       | Language Note            | it's in greek             |
       | Summary                  | very old papyrus          |
       | Original Text            | περιοχής για να τιμήσουμε |
       | Translated Text          | area to honor             |
+      | Other Characteristics    | other                     |
 
     And I press "Save"
     Then I should see "Your Papyrus record has been created."
@@ -129,7 +134,7 @@ Feature: Manage Papyrus
       | Date                     | 234 BCE - 233 CE          |
       | Date Note                | special note              |
       | General Note             | this is a papyrus         |
-      | Note                     | same as general           |
+      | Lines of Text            | same as general           |
       | Paleographic Description | sydney                    |
       | Recto Note               | it's shiny                |
       | Verso Note               | not so shiny              |
@@ -137,11 +142,13 @@ Feature: Manage Papyrus
       | Origin Details           | greece                    |
       | Source of Acquisition    | shady dealer              |
       | Preservation Note        | do not get wet            |
+      | Conservation Note        | it is conserved           |
       | Genre                    | Letter                    |
       | Language Note            | it's in greek             |
       | Summary                  | very old papyrus          |
       | Original Text            | περιοχής για να τιμήσουμε |
       | Translated Text          | area to honor             |
+      | Other Characteristics    | other                     |
     And "MQT 5" should have a visibility of "HIDDEN"
 
   Scenario: Researcher cannot create a papyrus record
@@ -170,27 +177,29 @@ Feature: Manage Papyrus
     Then I should see "Your Papyrus record has been created."
     And I should be on the "MQT 6" papyrus page
     And I should see the following papyrus details
-      | field                    | value        |
-      | MQT Number               | MQT 6        |
-      | Inventory ID             |              |
-      | Languages                |              |
-      | Dimensions               |              |
-      | Date                     |              |
-      | Date Note                |              |
-      | General Note             |              |
-      | Note                     |              |
-      | Paleographic Description |              |
-      | Recto Note               |              |
-      | Verso Note               |              |
-      | Country of Origin        |              |
-      | Origin Details           |              |
-      | Source of Acquisition    |              |
-      | Preservation Note        |              |
-      | Genre                    |              |
-      | Language Note            |              |
-      | Summary                  |              |
-      | Original Text            |              |
-      | Translated Text          |              |
+      | field                    | value |
+      | MQT Number               | MQT 6 |
+      | Inventory ID             |       |
+      | Languages                |       |
+      | Dimensions               |       |
+      | Date                     |       |
+      | Date Note                |       |
+      | General Note             |       |
+      | Lines of Text            |       |
+      | Paleographic Description |       |
+      | Recto Note               |       |
+      | Verso Note               |       |
+      | Country of Origin        |       |
+      | Origin Details           |       |
+      | Source of Acquisition    |       |
+      | Preservation Note        |       |
+      | Conservation Note        |       |
+      | Genre                    |       |
+      | Language Note            |       |
+      | Summary                  |       |
+      | Original Text            |       |
+      | Translated Text          |       |
+      | Other Characteristics    |       |
 
   Scenario: Creating Papyrus with wrong fields
     Given I am logged in as "admin@intersect.org.au"
@@ -221,14 +230,12 @@ Feature: Manage Papyrus
     Then I should be on the home page
     And I should see "You are not authorized to access this page"
 
-
   Scenario: Editing a Papyrus record (not logged in)
     Given I am on the "MQT 2" papyrus page
     Then I should not see link "Edit this record"
     When I am on the "MQT 2" edit papyrus page
     Then I should be on the home page
     And I should see "You are not authorized to access this page"
-
 
   Scenario: Editing a Papyrus record (logged in as administrator)
     Given I am logged in as "admin@intersect.org.au"
@@ -245,7 +252,7 @@ Feature: Manage Papyrus
       | Date To                  |                     |
       | Date Note                | some date           |
       | General Note             | General Blah        |
-      | Note                     | Specific blah       |
+      | Lines of Text            | Specific blah       |
       | Paleographic Description | Paleo Diet          |
       | Recto Note               | Rectangle           |
       | Verso Note               | Verses              |
@@ -253,11 +260,13 @@ Feature: Manage Papyrus
       | Origin Details           | It's Greek.         |
       | Source of Acquisition    | Got it from Greece  |
       | Preservation Note        | poorly preserved    |
+      | Conservation Note        | conservative        |
       | Genre                    | Book                |
       | Language Note            | Fancy Greek         |
       | Summary                  | don't understand it |
       | Original Text            | περιοχής            |
       | Translated Text          | area                |
+      | Other Characteristics    | some other          |
     When I enter the following papyrus details
       | field                    | value                     |
       | MQT Number               | 6                         |
@@ -267,7 +276,7 @@ Feature: Manage Papyrus
       | Date To                  | 235 CE                    |
       | Date Note                | special date note         |
       | General Note             | this is a papyrus         |
-      | Note                     | same as general           |
+      | Lines of Text            | same as general           |
       | Paleographic Description | sydney                    |
       | Recto Note               | it's shiny                |
       | Verso Note               | not so shiny              |
@@ -275,11 +284,13 @@ Feature: Manage Papyrus
       | Origin Details           | Turkish                   |
       | Source of Acquisition    | shady dealer              |
       | Preservation Note        | do not get wet            |
+      | Conservation Note        | conserved again           |
       | Genre                    | Letter                    |
       | Language Note            | it's in greek             |
       | Summary                  | very old papyrus          |
       | Original Text            | περιοχής για να τιμήσουμε |
       | Translated Text          | area to honor             |
+      | Other Characteristics    | other new                 |
     And I uncheck "Coptic"
     And I uncheck "Greek"
     And I check "Egyptian"
@@ -295,7 +306,7 @@ Feature: Manage Papyrus
       | Date                     | 234 CE - 235 CE           |
       | Date Note                | special date note         |
       | General Note             | this is a papyrus         |
-      | Note                     | same as general           |
+      | Lines of Text            | same as general           |
       | Paleographic Description | sydney                    |
       | Recto Note               | it's shiny                |
       | Verso Note               | not so shiny              |
@@ -303,11 +314,13 @@ Feature: Manage Papyrus
       | Origin Details           | Turkish                   |
       | Source of Acquisition    | shady dealer              |
       | Preservation Note        | do not get wet            |
+      | Conservation Note        | conserved again           |
       | Genre                    | Letter                    |
       | Language Note            | it's in greek             |
       | Summary                  | very old papyrus          |
       | Original Text            | περιοχής για να τιμήσουμε |
       | Translated Text          | area to honor             |
+      | Other Characteristics    | other new                 |
     And I should be on the "MQT 6" papyrus page
 
   Scenario: Editing a Papyrus record and unchecking all languages (logged in as administrator)
@@ -325,7 +338,7 @@ Feature: Manage Papyrus
       | Date To                  |                     |
       | Date Note                | some date           |
       | General Note             | General Blah        |
-      | Note                     | Specific blah       |
+      | Lines of Text            | Specific blah       |
       | Paleographic Description | Paleo Diet          |
       | Recto Note               | Rectangle           |
       | Verso Note               | Verses              |
@@ -333,11 +346,13 @@ Feature: Manage Papyrus
       | Origin Details           | It's Greek.         |
       | Source of Acquisition    | Got it from Greece  |
       | Preservation Note        | poorly preserved    |
+      | Conservation Note        | conservative        |
       | Genre                    | Book                |
       | Language Note            | Fancy Greek         |
       | Summary                  | don't understand it |
       | Original Text            | περιοχής            |
       | Translated Text          | area                |
+      | Other Characteristics    | some other          |
     And I uncheck "Coptic"
     And I uncheck "Greek"
     And I press "Save"
@@ -426,7 +441,7 @@ Feature: Manage Papyrus
     When I follow "List all papyri records"
     Then I should be on the papyri page
     And I should see the list papyri table
-      | MQT Number | Inventory ID | Note           | Country of Origin | Translation |
+      | MQT Number | Inventory ID | Lines of Text  | Country of Origin | Translation |
       | MQT 3      | hidden.macq  | Specific stuff | Turkey            | No          |
       | MQT 2      | p.macq2      | Specific blah  | Greece            | Yes         |
       | MQT 4      | visible.macq | Specific stuff | Turkey            | No          |
@@ -445,7 +460,7 @@ Feature: Manage Papyrus
     When I follow "List all papyri records"
     Then I should be on the papyri page
     And I should see the list papyri table
-      | MQT Number | Inventory ID | Note           | Country of Origin | Translation |
+      | MQT Number | Inventory ID | Lines of Text  | Country of Origin | Translation |
       | MQT 3      | hidden.macq  | Specific stuff | Turkey            | No          |
       | MQT 2      | p.macq2      | Specific blah  | Greece            | Yes         |
       | MQT 4      | visible.macq | Specific stuff | Turkey            | No          |
@@ -455,7 +470,7 @@ Feature: Manage Papyrus
     When I follow "List all papyri records"
     Then I should be on the papyri page
     And I should see the list papyri table
-      | MQT Number | Inventory ID | Note           | Country of Origin | Translation |
+      | MQT Number | Inventory ID | Lines of Text  | Country of Origin | Translation |
       | MQT 2      | p.macq2      | Specific blah  | Greece            | Yes         |
       | MQT 4      | visible.macq | Specific stuff | Turkey            | No          |
 
