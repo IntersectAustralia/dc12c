@@ -17,11 +17,11 @@
   = render_field('Material', f.text_area(:material, :class => "medium"))
   = render_field_with_block('Date From') do
     = text_field_tag(:papyrus_date_from_year, @papyrus.date_from_year || '', class: 'input-mini')
-    - from_options = options_for_select([[''], ['CE'], ['BCE']], selected = @papyrus.date_from_era)
+    - from_options = options_for_select([['CE'], ['BCE']], selected = @papyrus.date_from_era)
     = select_tag(:papyrus_date_from_era, from_options, include_blank: true)
   = render_field_with_block('Date To') do
     = text_field_tag(:papyrus_date_to_year, @papyrus.date_to_year || '', class: 'input-mini')
-    - to_options = options_for_select([[''], ['CE'], ['BCE']], selected = @papyrus.date_to_era)
+    - to_options = options_for_select([['CE'], ['BCE']], selected = @papyrus.date_to_era)
     = select_tag(:papyrus_date_to_era, to_options, include_blank: true)
   = render_field('Date Note', f.text_field(:date_note))
   = render_field('General Note', f.text_field(:general_note))
