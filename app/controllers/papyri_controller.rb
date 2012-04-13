@@ -36,12 +36,13 @@ class PapyriController < ApplicationController
   # POST /papyri
   # POST /papyri.json
   def create
-    set_dates(@papyrus, params)
+    date_errors = set_dates(@papyrus, params)
     respond_to do |format|
-      if @papyrus.save
+      if @papyrus.save and date_errors.empty?
         format.html { redirect_to @papyrus, notice: 'Your Papyrus record has been created.' }
         format.json { render json: @papyrus, status: :created, location: @papyrus }
       else
+        append_date_errors(@papyrus, date_errors)
         format.html { render action: "new" }
         format.json { render json: @papyrus.errors, status: :unprocessable_entity }
       end
@@ -51,13 +52,14 @@ class PapyriController < ApplicationController
   # PUT /papyri/1
   # PUT /papyri/1.json
   def update
-    set_dates(@papyrus, params)
+    errors = set_dates(@papyrus, params)
     respond_to do |format|
       params[:papyrus][:language_ids] ||= []
-      if @papyrus.update_attributes(params[:papyrus])
+      if @papyrus.update_attributes(params[:papyrus]) and errors.empty?
         format.html { redirect_to @papyrus, notice: 'Papyrus was successfully updated.' }
         format.json { head :no_content }
       else
+        append_date_errors(@papyrus, errors)
         format.html { render action: "edit" }
         format.json { render json: @papyrus.errors, status: :unprocessable_entity }
       end
@@ -110,17 +112,29 @@ class PapyriController < ApplicationController
   end
 
   def set_dates(papyrus, params)
+    errors = []
     if ['BCE', 'CE'].include? params[:papyrus_date_from_era]
       multiplier = 'CE' == params[:papyrus_date_from_era] ? 1 : -1
       papyrus.date_from = params[:papyrus_date_from_year].to_i * multiplier
+    elsif params[:papyrus_date_from_year].present?
+      errors << 'Fill in Date From Era'
     else
       papyrus.date_from = nil
     end
     if ['BCE', 'CE'].include? params[:papyrus_date_to_era]
       multiplier = 'CE' == params[:papyrus_date_to_era] ? 1 : -1
       papyrus.date_to = params[:papyrus_date_to_year].to_i * multiplier
+    elsif params[:papyrus_date_to_year].present?
+      errors << 'Fill in Date To Era'
     else
       papyrus.date_to = nil
+    end
+    errors
+  end
+
+  def append_date_errors(papyrus, errors)
+    errors.each do |error|
+      papyrus.errors[:base] << error
     end
   end
 

@@ -25,20 +25,24 @@ When /^I enter the following papyrus details$/ do |table|
     value = row[:value]
     if field =~ /Date (From|To)/
       from_or_to = $1.downcase
-
-      year, era = value.split ' '
-
       year_name, era_name = "date_#{from_or_to}_year", "date_#{from_or_to}_era"
 
-      if value == ''
+      if ['BCE', 'CE'].include? value
         set_papyrus_field(year_name, '')
-        set_papyrus_field(era_name, '')
+        set_papyrus_field(era_name, value)
       else
-        set_papyrus_field(year_name, year)
-        if era.nil?
+        year, era = value.split ' '
+
+        if value == ''
+          set_papyrus_field(year_name, '')
           set_papyrus_field(era_name, '')
         else
-          set_papyrus_field(era_name, era)
+          set_papyrus_field(year_name, year)
+          if era.nil?
+            set_papyrus_field(era_name, '')
+          else
+            set_papyrus_field(era_name, era)
+          end
         end
       end
     elsif field == 'Languages'

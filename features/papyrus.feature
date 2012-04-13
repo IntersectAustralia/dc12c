@@ -31,22 +31,18 @@ Feature: Manage Papyrus
       | 3          | hidden.macq  | Coptic, Demotic | 5 x 7 cm       | 488 CE      | General stuff | Specific stuff | HIDDEN     | Turkey            |
       | 4          | visible.macq | Coptic, Demotic | 5 x 8 cm       | 488 CE      | General stuff | Specific stuff | VISIBLE    | Turkey            |
 
-  Scenario: half-clearing date
+  Scenario: no era
     Given I am logged in as "admin@intersect.org.au"
-    And I have a papyrus
-      | mqt_number | inventory_id | date_from | date_to | visibility |
-      | 6          | dateful      | 488 CE    | 1234 CE | HIDDEN     |
-    And I am on the "MQT 6" edit papyrus page
+    And I am on the new papyrus page
     When I enter the following papyrus details
-      | field     | value |
-      | Date From | 123   |
-      | Date To   | 234   |
+      | field      | value |
+      | MQT Number | 9     |
+      | Date From  | 23    |
+      | Date To    | 234   |
     And I press "Save"
-    Then I should see "Papyrus was successfully updated."
-    Then I should see fields displayed
-      | field        | value   |
-      | Inventory ID | dateful |
-    And Date should be empty
+    Then I should not see "Your Papyrus record has been created."
+    And I should see "Fill in Date From Era"
+    And I should see "Fill in Date To Era"
 
   Scenario: Deleting date
     Given I am logged in as "admin@intersect.org.au"
