@@ -120,7 +120,7 @@ class Papyrus < ActiveRecord::Base
 
   def date_to_greater_than_date_from
     if date_to and date_from
-      errors[:date_to] << "Date to must be greater than Date from" unless date_to > date_from
+      errors[:date_to] << "must be greater than Date from" unless date_to > date_from
     end
   end
 
@@ -129,8 +129,8 @@ class Papyrus < ActiveRecord::Base
       method_name = field.underscore.to_sym
       field_value = self.send method_name
       if field_value
-        errors[method_name] << "#{field.underscore.humanize} must not be zero" if field_value == 0
-        errors[method_name] << "#{field.underscore.humanize} must be less than or equal to #{Date.today.year}" if field_value > Date.today.year
+        errors[method_name] << "must not be zero" if field_value == 0
+        errors[method_name] << "must be less than or equal to #{Date.today.year}" if field_value > Date.today.year
       end
     end
   end
