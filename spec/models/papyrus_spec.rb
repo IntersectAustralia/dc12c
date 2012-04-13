@@ -74,6 +74,7 @@ describe Papyrus do
     it { should ensure_length_of(:language_note).is_at_most(255) }
     it { should ensure_length_of(:original_text).is_at_most(4096) }
     it { should ensure_length_of(:translated_text).is_at_most(4096) }
+    it { should ensure_length_of(:date_note).is_at_most(511) }
 
     it "should validate mqt number is unique" do
       Factory(:papyrus)

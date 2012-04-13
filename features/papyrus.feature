@@ -24,8 +24,8 @@ Feature: Manage Papyrus
       | Cyprus |
       | Turkey |
     And I have a papyrus
-      | mqt_number | inventory_id | languages     | dimensions     | date_from  | general_note | note          | paleographic_description | recto_note | verso_note | country_of_origin | origin_details | source_of_acquisition | preservation_note | genre | language_note | summary             | original_text | translated_text | visibility |
-      | 2          | p.macq2      | Coptic, Greek | 5 x 6 cm       | 88 CE | General Blah | Specific blah | Paleo Diet               | Rectangle  | Verses     | Greece            | It's Greek.    | Got it from Greece    | poorly preserved  | Book  | Fancy Greek   | don't understand it | περιοχής      | area            | PUBLIC     |
+      | mqt_number | inventory_id | languages     | dimensions | date_from | date_note | general_note | note          | paleographic_description | recto_note | verso_note | country_of_origin | origin_details | source_of_acquisition | preservation_note | genre | language_note | summary             | original_text | translated_text | visibility |
+      | 2          | p.macq2      | Coptic, Greek | 5 x 6 cm   | 88 CE     | some date | General Blah | Specific blah | Paleo Diet               | Rectangle  | Verses     | Greece            | It's Greek.    | Got it from Greece    | poorly preserved  | Book  | Fancy Greek   | don't understand it | περιοχής      | area            | PUBLIC     |
     And I have papyri
       | mqt_number | inventory_id | languages       | dimensions     | date_from   | general_note  | note           | visibility | country_of_origin |
       | 3          | hidden.macq  | Coptic, Demotic | 5 x 7 cm       | 488 CE      | General stuff | Specific stuff | HIDDEN     | Turkey            |
@@ -77,6 +77,7 @@ Feature: Manage Papyrus
       | Dimensions               |       |
       | Date From                |       |
       | Date To                  |       |
+      | Date Note                |       |
       | General Note             |       |
       | Note                     |       |
       | Paleographic Description |       |
@@ -100,6 +101,7 @@ Feature: Manage Papyrus
       | Dimensions               | (a) 2 x 3cm, (b) same     |
       | Date From                | 234 BCE                   |
       | Date To                  | 233 CE                    |
+      | Date Note                | special note              |
       | General Note             | this is a papyrus         |
       | Note                     | same as general           |
       | Paleographic Description | sydney                    |
@@ -125,6 +127,7 @@ Feature: Manage Papyrus
       | Languages                | Coptic, Greek             |
       | Dimensions               | (a) 2 x 3cm, (b) same     |
       | Date                     | 234 BCE - 233 CE          |
+      | Date Note                | special note              |
       | General Note             | this is a papyrus         |
       | Note                     | same as general           |
       | Paleographic Description | sydney                    |
@@ -167,26 +170,27 @@ Feature: Manage Papyrus
     Then I should see "Your Papyrus record has been created."
     And I should be on the "MQT 6" papyrus page
     And I should see the following papyrus details
-      | field                    | value |
-      | MQT Number               | MQT 6 |
-      | Inventory ID             |       |
-      | Languages                |       |
-      | Dimensions               |       |
-      | Date                     |       |
-      | General Note             |       |
-      | Note                     |       |
-      | Paleographic Description |       |
-      | Recto Note               |       |
-      | Verso Note               |       |
-      | Country of Origin        |       |
-      | Origin Details           |       |
-      | Source of Acquisition    |       |
-      | Preservation Note        |       |
-      | Genre                    |       |
-      | Language Note            |       |
-      | Summary                  |       |
-      | Original Text            |       |
-      | Translated Text          |       |
+      | field                    | value        |
+      | MQT Number               | MQT 6        |
+      | Inventory ID             |              |
+      | Languages                |              |
+      | Dimensions               |              |
+      | Date                     |              |
+      | Date Note                |              |
+      | General Note             |              |
+      | Note                     |              |
+      | Paleographic Description |              |
+      | Recto Note               |              |
+      | Verso Note               |              |
+      | Country of Origin        |              |
+      | Origin Details           |              |
+      | Source of Acquisition    |              |
+      | Preservation Note        |              |
+      | Genre                    |              |
+      | Language Note            |              |
+      | Summary                  |              |
+      | Original Text            |              |
+      | Translated Text          |              |
 
   Scenario: Creating Papyrus with wrong fields
     Given I am logged in as "admin@intersect.org.au"
@@ -239,6 +243,7 @@ Feature: Manage Papyrus
       | Dimensions               | 5 x 6 cm            |
       | Date From                | 88 CE               |
       | Date To                  |                     |
+      | Date Note                | some date           |
       | General Note             | General Blah        |
       | Note                     | Specific blah       |
       | Paleographic Description | Paleo Diet          |
@@ -260,6 +265,7 @@ Feature: Manage Papyrus
       | Dimensions               | (a) 2x3cm, (b) 3x3cm      |
       | Date From                | 234 CE                    |
       | Date To                  | 235 CE                    |
+      | Date Note                | special date note         |
       | General Note             | this is a papyrus         |
       | Note                     | same as general           |
       | Paleographic Description | sydney                    |
@@ -287,6 +293,7 @@ Feature: Manage Papyrus
       | Languages                | Egyptian, Latin           |
       | Dimensions               | (a) 2x3cm, (b) 3x3cm      |
       | Date                     | 234 CE - 235 CE           |
+      | Date Note                | special date note         |
       | General Note             | this is a papyrus         |
       | Note                     | same as general           |
       | Paleographic Description | sydney                    |
@@ -316,6 +323,7 @@ Feature: Manage Papyrus
       | Dimensions               | 5 x 6 cm            |
       | Date From                | 88 CE               |
       | Date To                  |                     |
+      | Date Note                | some date           |
       | General Note             | General Blah        |
       | Note                     | Specific blah       |
       | Paleographic Description | Paleo Diet          |
