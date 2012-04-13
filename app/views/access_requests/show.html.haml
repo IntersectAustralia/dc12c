@@ -1,4 +1,10 @@
+%p #{@access_request.user.first_name} #{@access_request.user.last_name} is requesting access to this record
 = form_for(@access_request, url: approve_access_request_path(@access_request)) do |f|
   = f.submit 'Approve'
 = form_for(@access_request, url: reject_access_request_path(@access_request)) do |f|
   = f.submit 'Reject'
+
+.page-content
+  = render partial: 'papyri/details', locals: {papyrus: @access_request.papyrus}
+
+= link_to 'Cancel', pending_access_requests_path, class: 'btn'

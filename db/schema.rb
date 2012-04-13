@@ -65,9 +65,9 @@ ActiveRecord::Schema.define(:version => 20120413004259) do
     t.integer "genre_id",                                 :precision => 38, :scale => 0
     t.string  "visibility",                                                              :default => "HIDDEN"
     t.string  "dimensions",               :limit => 511
+    t.integer "mqt_number",                               :precision => 38, :scale => 0,                       :null => false
     t.integer "date_from",                                :precision => 38, :scale => 0
     t.integer "date_to",                                  :precision => 38, :scale => 0
-    t.integer "mqt_number",                               :precision => 38, :scale => 0,                       :null => false
     t.string  "date_note"
     t.string  "material"
     t.string  "conservation_note",        :limit => 1023
