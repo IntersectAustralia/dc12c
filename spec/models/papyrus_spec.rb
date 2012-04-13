@@ -61,6 +61,7 @@ describe Papyrus do
     it { should validate_presence_of :mqt_number }
     it { should ensure_length_of(:mqt_note).is_at_most(255) }
     it { should ensure_length_of(:inventory_id).is_at_most(32) }
+    it { should ensure_length_of(:apis_id).is_at_most(32) }
     it { should ensure_length_of(:dimensions).is_at_most(511) }
     it { should ensure_length_of(:general_note).is_at_most(255) }
     it { should ensure_length_of(:note).is_at_most(255) }
@@ -79,6 +80,23 @@ describe Papyrus do
     it "should validate mqt number is unique" do
       Factory(:papyrus)
       should validate_uniqueness_of :mqt_number
+    end
+
+    describe "trismegistos id" do
+      it "should be numeric" do
+        papyrus = FactoryGirl.build(:papyrus, trismegistos_id: 'aaa')
+        papyrus.should_not be_valid
+        # papyrus.errors[:date_from].should include("is too long (maximum is 4 characters)") # TODO
+      end
+      it "should be grater than 0" do
+        papyrus = FactoryGirl.build(:papyrus, trismegistos_id: 0)
+        papyrus.should_not be_valid
+        papyrus = FactoryGirl.build(:papyrus, trismegistos_id: -10)
+        papyrus.should_not be_valid
+        papyrus = FactoryGirl.build(:papyrus, trismegistos_id: 10)
+        papyrus.should be_valid
+        # papyrus.errors[:date_from].should include("is too long (maximum is 4 characters)") # TODO
+      end
     end
 
     describe "dates" do

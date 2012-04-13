@@ -74,6 +74,8 @@ Feature: Manage Papyrus
       | MQT Number               |       |
       | MQT Note                 |       |
       | Inventory ID             |       |
+      | APIS ID                  |       |
+      | Trismegistos ID          |       |
       | Languages                |       |
       | Dimensions               |       |
       | Date From                |       |
@@ -98,6 +100,8 @@ Feature: Manage Papyrus
       | MQT Number               | 5                         |
       | MQT Note                 | from #2                   |
       | Inventory ID             | 24gac                     |
+      | APIS ID                  | P1234                     |
+      | Trismegistos ID          | 12345                     |
       | Languages                | Greek, Coptic             |
       | Dimensions               | (a) 2 x 3cm, (b) same     |
       | Date From                | 234 BCE                   |
@@ -125,6 +129,8 @@ Feature: Manage Papyrus
       | MQT Number               | MQT 5                     |
       | MQT Note                 | from #2                   |
       | Inventory ID             | 24gac                     |
+      | APIS ID                  | P1234                     |
+      | Trismegistos ID          | 12345                     |
       | Languages                | Coptic, Greek             |
       | Dimensions               | (a) 2 x 3cm, (b) same     |
       | Date                     | 234 BCE - 233 CE          |
@@ -174,6 +180,8 @@ Feature: Manage Papyrus
       | MQT Number               | MQT 6 |
       | MQT Note                 |       |
       | Inventory ID             |       |
+      | APIS ID                  |       |
+      | Trismegistos ID          |       |
       | Languages                |       |
       | Dimensions               |       |
       | Date                     |       |
@@ -197,14 +205,16 @@ Feature: Manage Papyrus
     And I am on the home page
     When I follow "Create Papyrus"
     When I enter the following papyrus details
-      | field        | value |
-      | MQT Number   | 3     |
+      | field            | value |
+      | MQT Number       | 3     |
+      | Trismegistos ID  | a     |
     And I press "Save"
     Then I should not see "Your Papyrus record has been created."
     And I should see "Mqt number has already been taken"
     And I should see the following fields with errors
-      | field        | message                                                   |
-      | MQT Number   | Mqt number has already been taken                         |
+      | field           | message                                                   |
+      | MQT Number      | Mqt number has already been taken                         |
+      | Trismegistos ID | Trismegistos ID is not a number                           |
 
   Scenario: Clicking cancel on the create page should take you to the list papyri page
     Given I am logged in as "admin@intersect.org.au"

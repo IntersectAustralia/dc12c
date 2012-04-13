@@ -9,6 +9,8 @@
   = render_field('MQT Number', f.text_field(:mqt_number))
   = render_field('MQT Note', f.text_field(:mqt_note))
   = render_field('Inventory ID', f.text_field(:inventory_id))
+  = render_field('APIS ID', f.text_field(:apis_id))
+  = render_field('Trismegistos ID', f.text_field(:trismegistos_id))
   = render_field_with_block('Languages') do
     - Language.all.each do |l|
       .checkbox
