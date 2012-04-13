@@ -24,8 +24,8 @@ Feature: Manage Papyrus
       | Cyprus |
       | Turkey |
     And I have a papyrus
-      | mqt_number | inventory_id | languages     | dimensions | date_from | date_note | general_note | lines_of_text | paleographic_description | recto_note | verso_note | country_of_origin | origin_details | source_of_acquisition | preservation_note | conservation_note | genre | language_note | summary             | original_text | translated_text | other_characteristics | material | visibility |
-      | 2          | p.macq2      | Coptic, Greek | 5 x 6 cm   | 88 CE     | some date | General Blah | Specific blah | Paleo Diet               | Rectangle  | Verses     | Greece            | It's Greek.    | Got it from Greece    | poorly preserved  | conservative      | Book  | Fancy Greek   | don't understand it | περιοχής      | area            | some other            | fabric   | PUBLIC      |
+      | mqt_number | inventory_id | languages     | dimensions | date_from | date_note | general_note | lines_of_text | paleographic_description | recto_verso_note | country_of_origin | origin_details | source_of_acquisition | preservation_note | conservation_note | genre | language_note | summary             | original_text | translated_text | other_characteristics | material | type_of_text | modern_textual_dates | publications | visibility |
+      | 2          | p.macq2      | Coptic, Greek | 5 x 6 cm   | 88 CE     | some date | General Blah | Specific blah | Paleo Diet               | Rectangle        | Greece            | It's Greek.    | Got it from Greece    | poorly preserved  | conservative      | Book  | Fancy Greek   | don't understand it | περιοχής      | area            | some other            | fabric   | text type    | some dates           | some pub'ns  | PUBLIC     |
     And I have papyri
       | mqt_number | inventory_id | languages       | dimensions     | date_from   | general_note  | lines_of_text  | visibility | country_of_origin |
       | 3          | hidden.macq  | Coptic, Demotic | 5 x 7 cm       | 488 CE      | General stuff | Specific stuff | HIDDEN     | Turkey            |
@@ -78,8 +78,11 @@ Feature: Manage Papyrus
       | General Note             |       |
       | Lines of Text            |       |
       | Paleographic Description |       |
-      | Recto Note               |       |
-      | Verso Note               |       |
+      | Recto Verso Note         |       |
+      | Material                 |       |
+      | Type of Text             |       |
+      | Modern Textual Dates     |       |
+      | Publications             |       |
       | Country of Origin        |       |
       | Origin Details           |       |
       | Source of Acquisition    |       |
@@ -104,8 +107,11 @@ Feature: Manage Papyrus
       | General Note             | this is a papyrus         |
       | Lines of Text            | same as general           |
       | Paleographic Description | sydney                    |
-      | Recto Note               | it's shiny                |
-      | Verso Note               | not so shiny              |
+      | Recto Verso Note         | it's shiny                |
+      | Material                 | new fabric                |
+      | Type of Text             | new type                  |
+      | Modern Textual Dates     | new dates                 |
+      | Publications             | new pub'ns                |
       | Country of Origin        | Greece                    |
       | Origin Details           | greece                    |
       | Source of Acquisition    | shady dealer              |
@@ -132,8 +138,11 @@ Feature: Manage Papyrus
       | General Note             | this is a papyrus         |
       | Lines of Text            | same as general           |
       | Paleographic Description | sydney                    |
-      | Recto Note               | it's shiny                |
-      | Verso Note               | not so shiny              |
+      | Recto Verso Note         | it's shiny                |
+      | Type of Text             | new type                  |
+      | Modern Textual Dates     | new dates                 |
+      | Publications             | new pub'ns                |
+      | Material                 | new fabric                |
       | Country of Origin        | Greece                    |
       | Origin Details           | greece                    |
       | Source of Acquisition    | shady dealer              |
@@ -183,8 +192,11 @@ Feature: Manage Papyrus
       | General Note             |       |
       | Lines of Text            |       |
       | Paleographic Description |       |
-      | Recto Note               |       |
-      | Verso Note               |       |
+      | Recto Verso Note         |       |
+      | Material                 |       |
+      | Type of Text             |       |
+      | Modern Textual Dates     |       |
+      | Publications             |       |
       | Country of Origin        |       |
       | Origin Details           |       |
       | Source of Acquisition    |       |
@@ -250,8 +262,11 @@ Feature: Manage Papyrus
       | General Note             | General Blah        |
       | Lines of Text            | Specific blah       |
       | Paleographic Description | Paleo Diet          |
-      | Recto Note               | Rectangle           |
-      | Verso Note               | Verses              |
+      | Recto Verso Note         | Rectangle           |
+      | Material                 | fabric              |
+      | Type of Text             | text type           |
+      | Modern Textual Dates     | some dates          |
+      | Publications             | some pub'ns         |
       | Country of Origin        | Greece              |
       | Origin Details           | It's Greek.         |
       | Source of Acquisition    | Got it from Greece  |
@@ -274,8 +289,11 @@ Feature: Manage Papyrus
       | General Note             | this is a papyrus         |
       | Lines of Text            | same as general           |
       | Paleographic Description | sydney                    |
-      | Recto Note               | it's shiny                |
-      | Verso Note               | not so shiny              |
+      | Recto Verso Note         | it's shiny                |
+      | Material                 | skin                      |
+      | Type of Text             | a type                    |
+      | Modern Textual Dates     | a date                    |
+      | Publications             | publicat                  |
       | Country of Origin        | Turkey                    |
       | Origin Details           | Turkish                   |
       | Source of Acquisition    | shady dealer              |
@@ -304,8 +322,11 @@ Feature: Manage Papyrus
       | General Note             | this is a papyrus         |
       | Lines of Text            | same as general           |
       | Paleographic Description | sydney                    |
-      | Recto Note               | it's shiny                |
-      | Verso Note               | not so shiny              |
+      | Recto Verso Note         | it's shiny                |
+      | Type of Text             | a type                    |
+      | Modern Textual Dates     | a date                    |
+      | Material                 | skin                      |
+      | Publications             | publicat                  |
       | Country of Origin        | Turkey                    |
       | Origin Details           | Turkish                   |
       | Source of Acquisition    | shady dealer              |
@@ -336,8 +357,11 @@ Feature: Manage Papyrus
       | General Note             | General Blah        |
       | Lines of Text            | Specific blah       |
       | Paleographic Description | Paleo Diet          |
-      | Recto Note               | Rectangle           |
-      | Verso Note               | Verses              |
+      | Recto Verso Note         | Rectangle           |
+      | Material                 | fabric              |
+      | Type of Text             | text type           |
+      | Modern Textual Dates     | some dates          |
+      | Publications             | some pub'ns         |
       | Country of Origin        | Greece              |
       | Origin Details           | It's Greek.         |
       | Source of Acquisition    | Got it from Greece  |
@@ -382,8 +406,8 @@ Feature: Manage Papyrus
     And I am on the "MQT 2" papyrus page
     When I follow "Edit this record"
     And I enter the following papyrus details
-      | field      | value      |
-      | recto_note | Sponge-bob |
+      | field            | value      |
+      | recto_verso_note | Sponge-bob |
     And I follow "Cancel"
     Then I should not see "Sponge-bob"
     And I should see "Rectangle"
