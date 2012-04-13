@@ -33,17 +33,10 @@ describe AccessRequest do
     end
   end
   describe "reject!" do
-    it "sets the status to REJECTED" do
+    it "deletes the access request" do
       a = Factory(:access_request, status: AccessRequest::CREATED)
       a.reject!
-      a.status.should eq AccessRequest::REJECTED
-    end
-    it "saves the access request" do
-      a = Factory(:access_request, status: AccessRequest::CREATED)
-      a.reject!
-
-      a.reload
-      a.status.should eq AccessRequest::REJECTED
+      AccessRequest.should_not exist(a)
     end
   end
   describe "place request" do
@@ -67,16 +60,12 @@ describe AccessRequest do
     before :each do
       @created = Factory(:access_request, status: AccessRequest::CREATED)
       @approved = Factory(:access_request, status: AccessRequest::APPROVED, date_approved: Time.new(2012, 2, 3))
-      @rejected = Factory(:access_request, status: AccessRequest::REJECTED)
     end
     it "pending requests" do
       AccessRequest.pending_requests.should eq [@created]
     end
     it "approved requests" do
       AccessRequest.approved_requests.should eq [@approved]
-    end
-    it "rejected requests" do
-      AccessRequest.rejected_requests.should eq [@rejected]
     end
   end
   describe "validations" do
@@ -92,7 +81,7 @@ describe AccessRequest do
     it "should have it's status as one of the allowed values" do
       FactoryGirl.build(:access_request, status: AccessRequest::CREATED).should be_valid
       FactoryGirl.build(:access_request, status: AccessRequest::APPROVED, date_approved: Time.new(2011, 4, 5)).should be_valid
-      FactoryGirl.build(:access_request, status: AccessRequest::REJECTED).should be_valid
+      FactoryGirl.build(:access_request, status: "REJECTED").should_not be_valid
       FactoryGirl.build(:access_request, status: "RANDOM").should_not be_valid
       FactoryGirl.build(:access_request, status: "created").should_not be_valid
       FactoryGirl.build(:access_request, status: nil).should_not be_valid

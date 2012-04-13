@@ -23,7 +23,7 @@ def create_languages
 end
 
 def create_genres
-  genre_names = %w{Book Fragment Scrap Painting}
+  genre_names = ["Account", "Contract", "Fragment", "Letter", "List", "Literary Text", "Memorandum", "Petition", "Receipt", "Report"]
   Genre.delete_all
   genre_names.each do |name|
     Genre.create! name: name

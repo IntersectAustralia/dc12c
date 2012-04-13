@@ -50,28 +50,34 @@ ActiveRecord::Schema.define(:version => 20120413074859) do
   create_table "papyri", :force => true do |t|
     t.string  "inventory_id"
     t.string  "general_note"
-    t.string  "note"
-    t.string  "paleographic_description"
-    t.string  "recto_note"
-    t.string  "verso_note"
+    t.string  "lines_of_text",            :limit => 1023
+    t.string  "paleographic_description", :limit => 1023
     t.string  "origin_details"
     t.string  "source_of_acquisition"
-    t.string  "preservation_note"
+    t.string  "preservation_note",        :limit => 1023
     t.string  "language_note"
     t.string  "summary"
     t.string  "original_text"
     t.string  "translated_text"
-    t.integer "country_of_origin_id",                    :precision => 38, :scale => 0
-    t.integer "genre_id",                                :precision => 38, :scale => 0
-    t.string  "visibility",                                                             :default => "HIDDEN"
+    t.integer "country_of_origin_id",                     :precision => 38, :scale => 0
+    t.integer "genre_id",                                 :precision => 38, :scale => 0
+    t.string  "visibility",                                                              :default => "HIDDEN"
     t.string  "dimensions",               :limit => 511
-    t.integer "mqt_number",                              :precision => 38, :scale => 0,                       :null => false
-    t.integer "date_from",                               :precision => 38, :scale => 0
-    t.integer "date_to",                                 :precision => 38, :scale => 0
+    t.integer "mqt_number",                               :precision => 38, :scale => 0,                       :null => false
+    t.integer "date_from",                                :precision => 38, :scale => 0
+    t.integer "date_to",                                  :precision => 38, :scale => 0
     t.string  "mqt_note"
     t.string  "apis_id",                  :limit => 32
-    t.integer "trismegistos_id",                         :precision => 38, :scale => 0
+    t.integer "trismegistos_id",                          :precision => 38, :scale => 0
     t.string  "physical_location"
+    t.string  "date_note"
+    t.string  "material"
+    t.string  "conservation_note",        :limit => 1023
+    t.string  "other_characteristics",    :limit => 1023
+    t.string  "recto_verso_note",         :limit => 511
+    t.string  "type_of_text"
+    t.string  "modern_textual_dates",     :limit => 511
+    t.string  "publications",             :limit => 127
   end
 
   create_table "roles", :force => true do |t|

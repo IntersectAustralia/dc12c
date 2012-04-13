@@ -61,3 +61,8 @@ end
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :truncation
 
+Around('@papyrus_per_page_is_one') do |scenario, block|
+  APP_CONFIG['number_of_papyri_per_page'] = 1
+  block.call
+  APP_CONFIG['number_of_papyri_per_page'] = 20
+end

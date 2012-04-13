@@ -6,7 +6,7 @@ class Papyrus < ActiveRecord::Base
   PUBLIC = 'PUBLIC'
   HIDDEN = 'HIDDEN'
 
-  attr_accessible :mqt_number, :mqt_note, :inventory_id, :apis_id, :trismegistos_id, :physical_location, :date_from, :date_to, :general_note, :note, :paleographic_description, :recto_note, :origin_details, :source_of_acquisition, :preservation_note, :summary, :language_note, :original_text, :translated_text, :verso_note, :dimensions, :country_of_origin_id, :genre_id, :language_ids
+  attr_accessible :mqt_number, :mqt_note, :inventory_id, :apis_id, :trismegistos_id, :physical_location, :date_from, :date_to, :date_note, :general_note, :lines_of_text, :paleographic_description, :origin_details, :source_of_acquisition, :preservation_note, :conservation_note, :summary, :language_note, :original_text, :translated_text, :dimensions, :country_of_origin_id, :genre_id, :language_ids, :other_characteristics, :material, :recto_verso_note, :type_of_text, :modern_textual_dates, :publications
 
   belongs_to :country_of_origin, class_name: 'Country'
   belongs_to :genre
@@ -29,17 +29,23 @@ class Papyrus < ActiveRecord::Base
   validates_length_of :physical_location, maximum: 255
   validates_length_of :dimensions, maximum: 511
   validates_length_of :general_note, maximum: 255
-  validates_length_of :note, maximum: 255
-  validates_length_of :paleographic_description, maximum: 255
-  validates_length_of :recto_note, maximum: 255
-  validates_length_of :verso_note, maximum: 255
+  validates_length_of :lines_of_text, maximum: 1023
+  validates_length_of :paleographic_description, maximum: 1023
   validates_length_of :origin_details, maximum: 255
   validates_length_of :source_of_acquisition, maximum: 255
-  validates_length_of :preservation_note, maximum: 255
+  validates_length_of :preservation_note, maximum: 1023
+  validates_length_of :conservation_note, maximum: 1023
   validates_length_of :summary, maximum: 255
   validates_length_of :language_note, maximum: 255
   validates_length_of :original_text, maximum: 4096
   validates_length_of :translated_text, maximum: 4096
+  validates_length_of :date_note, maximum: 511
+  validates_length_of :other_characteristics, maximum: 1023
+  validates_length_of :material, maximum: 255
+  validates_length_of :recto_verso_note, maximum: 511
+  validates_length_of :type_of_text, maximum: 255
+  validates_length_of :modern_textual_dates, maximum: 511
+  validates_length_of :publications, maximum: 127
 
   default_scope order: 'inventory_id'
 
@@ -87,10 +93,9 @@ class Papyrus < ActiveRecord::Base
       upper(inventory_id).like_any(search_terms)             \
     | upper(languages.name).like_any(search_terms)           \
     | upper(general_note).like_any(search_terms)             \
-    | upper(note).like_any(search_terms)                     \
+    | upper(lines_of_text).like_any(search_terms)            \
     | upper(paleographic_description).like_any(search_terms) \
-    | upper(recto_note).like_any(search_terms)               \
-    | upper(verso_note).like_any(search_terms)               \
+    | upper(recto_verso_note).like_any(search_terms)         \
     | upper(country_of_origin.name).like_any(search_terms)   \
     | upper(origin_details).like_any(search_terms)           \
     | upper(source_of_acquisition).like_any(search_terms)    \
@@ -120,7 +125,7 @@ class Papyrus < ActiveRecord::Base
 
   def date_to_greater_than_date_from
     if date_to and date_from
-      errors[:date_to] << "Date to must be greater than Date from" unless date_to > date_from
+      errors[:date_to] << "must be greater than Date from" unless date_to > date_from
     end
   end
 
@@ -129,8 +134,8 @@ class Papyrus < ActiveRecord::Base
       method_name = field.underscore.to_sym
       field_value = self.send method_name
       if field_value
-        errors[method_name] << "#{field.underscore.humanize} must not be zero" if field_value == 0
-        errors[method_name] << "#{field.underscore.humanize} must be less than or equal to #{Date.today.year}" if field_value > Date.today.year
+        errors[method_name] << "must not be zero" if field_value == 0
+        errors[method_name] << "must be less than or equal to #{Date.today.year}" if field_value > Date.today.year
       end
     end
   end

@@ -6,10 +6,9 @@
 
       = render_field('Inventory ID', search_field_tag(:inventory_id, @search_fields[:inventory_id], maxlength: 50))
       = render_field('General Note', search_field_tag(:general_note,  @search_fields[:general_note], maxlength: 50))
-      = render_field('Note', search_field_tag(:note,  @search_fields[:note], maxlength: 50))
+      = render_field('Lines of Text', search_field_tag(:lines_of_text,  @search_fields[:lines_of_text], maxlength: 50))
       = render_field('Paleographic Description', search_field_tag(:paleographic_description, @search_fields[:paleographic_description], maxlength: 50))
-      = render_field('Recto Note', search_field_tag(:recto_note, @search_fields[:recto_note], maxlength: 50))
-      = render_field('Verso Note', search_field_tag(:verso_note, @search_fields[:verso_note], maxlength: 50))
+      = render_field('Recto Verso Note', search_field_tag(:recto_verso_note, @search_fields[:recto_verso_note], maxlength: 50))
       = render_field('Origin Details', search_field_tag(:origin_details, @search_fields[:origin_details], maxlength: 50))
       = render_field('Source of Acquisition', search_field_tag(:source_of_acquisition, @search_fields[:source_of_acquisition], maxlength: 50))
       = render_field('Preservation Note', search_field_tag(:preservation_note, @search_fields[:preservation_note], maxlength: 50))

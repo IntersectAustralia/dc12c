@@ -65,18 +65,24 @@ describe Papyrus do
     it { should ensure_length_of(:physical_location).is_at_most(255) }
     it { should ensure_length_of(:dimensions).is_at_most(511) }
     it { should ensure_length_of(:general_note).is_at_most(255) }
-    it { should ensure_length_of(:note).is_at_most(255) }
-    it { should ensure_length_of(:paleographic_description).is_at_most(255) }
-    it { should ensure_length_of(:recto_note).is_at_most(255) }
-    it { should ensure_length_of(:verso_note).is_at_most(255) }
+    it { should ensure_length_of(:lines_of_text).is_at_most(1023) }
+    it { should ensure_length_of(:paleographic_description).is_at_most(1023) }
+    it { should ensure_length_of(:recto_verso_note).is_at_most(511) }
     it { should ensure_length_of(:origin_details).is_at_most(255) }
     it { should ensure_length_of(:source_of_acquisition).is_at_most(255) }
-    it { should ensure_length_of(:preservation_note).is_at_most(255) }
-    it { should ensure_length_of(:paleographic_description).is_at_most(255) }
+    it { should ensure_length_of(:preservation_note).is_at_most(1023) }
+    it { should ensure_length_of(:conservation_note).is_at_most(1023) }
+    it { should ensure_length_of(:paleographic_description).is_at_most(1023) }
     it { should ensure_length_of(:summary).is_at_most(255) }
     it { should ensure_length_of(:language_note).is_at_most(255) }
     it { should ensure_length_of(:original_text).is_at_most(4096) }
     it { should ensure_length_of(:translated_text).is_at_most(4096) }
+    it { should ensure_length_of(:date_note).is_at_most(511) }
+    it { should ensure_length_of(:material).is_at_most(255) }
+    it { should ensure_length_of(:other_characteristics).is_at_most(1023) }
+    it { should ensure_length_of(:type_of_text).is_at_most(255) }
+    it { should ensure_length_of(:modern_textual_dates).is_at_most(511) }
+    it { should ensure_length_of(:publications).is_at_most(127) }
 
     it "should validate mqt number is unique" do
       Factory(:papyrus)
@@ -196,10 +202,9 @@ describe Papyrus do
       @p1 = Factory(:papyrus, inventory_id: "l23")
       @p2 = Factory(:papyrus, languages: [latin])
       @p3 = Factory(:papyrus, general_note: "screen wipe")
-      @p4 = Factory(:papyrus, note: "light bulb")
+      @p4 = Factory(:papyrus, lines_of_text: "light bulb")
       @p5 = Factory(:papyrus, paleographic_description: "Sydney")
-      @p6 = Factory(:papyrus, recto_note: "staedtler")
-      @p7 = Factory(:papyrus, verso_note: "uniball")
+      @p6 = Factory(:papyrus, recto_verso_note: "staedtler")
       @p8 = Factory(:papyrus, country_of_origin: england)
       @p9 = Factory(:papyrus, origin_details: "best ever")
       @p10 = Factory(:papyrus, source_of_acquisition: "eBay")
@@ -224,7 +229,7 @@ describe Papyrus do
         results = Papyrus.search(['screen'])
         results.should eq [@p3]
       end
-      it "should find by note" do
+      it "should find by lines_of_text" do
         results = Papyrus.search(['light bulb'])
         results.should eq [@p4]
       end
@@ -232,13 +237,9 @@ describe Papyrus do
         results = Papyrus.search(['sydney'])
         results.should eq [@p5]
       end
-      it "should find by recto note" do
+      it "should find by recto verso note" do
         results = Papyrus.search(['staedtler'])
         results.should eq [@p6]
-      end
-      it "should find by verso note" do
-        results = Papyrus.search(['uniball'])
-        results.should eq [@p7]
       end
       it "should find by country of origin" do
         results = Papyrus.search(['England'])
@@ -274,7 +275,7 @@ describe Papyrus do
       end
       it "should find across multiple fields" do
         results = Papyrus.search(['EnglanD', 'Bulb', 'aLl'])
-        results.should eq [@p4, @p7, @p8, @p11, @p14]
+        results.should eq [@p4, @p8, @p11, @p14]
       end
       it "should find prefix of words in utf8 searches" do
         results = Papyrus.search(['Έμ'])
@@ -288,20 +289,16 @@ describe Papyrus do
         results.should eq [@p3]
       end
       it "should find by note" do
-        results = Papyrus.advanced_search(note: 'light bulb')
+        results = Papyrus.advanced_search(lines_of_text: 'light bulb')
         results.should eq [@p4]
       end
       it "should find by paleographic description" do
         results = Papyrus.advanced_search(paleographic_description: 'sydney')
         results.should eq [@p5]
       end
-      it "should find by recto note" do
-        results = Papyrus.advanced_search(recto_note: 'staedtler')
+      it "should find by recto verso note" do
+        results = Papyrus.advanced_search(recto_verso_note: 'staedtler')
         results.should eq [@p6]
-      end
-      it "should find by verso note" do
-        results = Papyrus.advanced_search(verso_note: 'uniball')
-        results.should eq [@p7]
       end
       it "should find by origin details" do
         results = Papyrus.advanced_search(origin_details: 'ever')
