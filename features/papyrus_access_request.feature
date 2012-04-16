@@ -45,7 +45,7 @@ Feature: As an administrator
     And I should see "488 CE"
     And I should see "Fred Bloggs is requesting access to this record"
     When I press "Approve"
-    Then I should be on the list requests page
+    Then I should be on the list pending requests page
     And I should see "The request was approved"
     When I am on the admin page
     And I follow "Approved requests"
@@ -65,7 +65,7 @@ Feature: As an administrator
       | MQT 5      | visible.macq | researcher3@intersect.org.au | 2010-05-03     |
     When I follow "MQT 5"
     And I press "Reject"
-    Then I should be on the list requests page
+    Then I should be on the list pending requests page
     And I should see "The request was rejected"
 
     When I am on the admin page
@@ -112,3 +112,19 @@ Feature: As an administrator
     When I follow "MQT 5"
     And I follow "Cancel"
     Then I should be on the list pending requests page
+
+    @wip
+  Scenario: admin can revoke a access request
+    Given I am logged in as "admin@intersect.org.au"
+    When I approve the requests
+      | user_requesting_access       | date_approved |
+      | researcher1@intersect.org.au | 2011-04-03    |
+    Then I am on the admin page
+    And I follow "Approved requests"
+    When I follow "MQT 5"
+    Then show me the page
+    Then I should be on the revoke access request page
+    And I follow "Revoke Access"
+    Then I should be on the list approved requests page
+    And I should see "The user's access to this record has been revoked."
+

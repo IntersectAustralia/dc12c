@@ -39,6 +39,13 @@ describe AccessRequest do
       AccessRequest.should_not exist(a)
     end
   end
+  describe "revoke!" do
+    it "removes the researchers access to a papyrus" do
+      a = Factory(:access_request, status: AccessRequest::APPROVED, date_approved: "2012-01-20")
+      a.revoke!
+      AccessRequest.should_not exist(a)
+    end
+  end
   describe "place request" do
     it "sends email to super users and creates an access request" do
       u = Factory(:user)

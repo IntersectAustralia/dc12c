@@ -25,9 +25,8 @@ class AccessRequest < ActiveRecord::Base
     self.save!
   end
 
-  def reject!
-    self.destroy
-  end
+  alias :reject! :destroy
+  alias :revoke! :destroy
 
   def self.place_request(user, papyrus)
     access_request = AccessRequest.new

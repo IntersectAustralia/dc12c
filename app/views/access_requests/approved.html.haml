@@ -9,7 +9,7 @@
   %tbody
     - @approved_access_requests.each do |access_request|
       %tr
-        %td= access_request.papyrus.formatted_mqt_number
+        %td= link_to access_request.papyrus.formatted_mqt_number, revoke_access_request_path(access_request)
         %td= access_request.papyrus.inventory_id
         %td= access_request.user.email
         %td= access_request.formatted_date_requested

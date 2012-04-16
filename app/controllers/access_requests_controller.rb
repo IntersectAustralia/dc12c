@@ -12,14 +12,21 @@ class AccessRequestsController < ApplicationController
     access_request = AccessRequest.find(params[:id])
     access_request.approve!
 
-    redirect_to access_requests_path, notice: "The request was approved"
+    redirect_to pending_access_requests_path, notice: "The request was approved"
   end
 
   def reject
     access_request = AccessRequest.find(params[:id])
     access_request.reject!
 
-    redirect_to access_requests_path, notice: "The request was rejected"
+    redirect_to pending_access_requests_path, notice: "The request was rejected"
+  end
+
+  def revoke
+    access_request = AccessRequest.find(params[:id])
+    access_request.revoke!
+
+    redirect_to approved_access_requests_path, notice: "The user's access to this record has been revoked."
   end
 
   def approved

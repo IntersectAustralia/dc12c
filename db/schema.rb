@@ -59,18 +59,18 @@ ActiveRecord::Schema.define(:version => 20120416051205) do
     t.integer "genre_id",                                 :precision => 38, :scale => 0
     t.string  "visibility",                                                              :default => "HIDDEN"
     t.string  "dimensions",               :limit => 511
+    t.integer "mqt_number",                               :precision => 38, :scale => 0,                       :null => false
     t.integer "date_from",                                :precision => 38, :scale => 0
     t.integer "date_to",                                  :precision => 38, :scale => 0
-    t.integer "mqt_number",                               :precision => 38, :scale => 0,                       :null => false
     t.string  "date_note"
     t.string  "material"
     t.string  "conservation_note",        :limit => 1023
     t.string  "other_characteristics",    :limit => 1023
+    t.string  "mqt_note"
     t.string  "recto_verso_note",         :limit => 511
     t.string  "type_of_text"
     t.string  "modern_textual_dates",     :limit => 511
     t.string  "publications",             :limit => 127
-    t.string  "mqt_note"
     t.string  "apis_id",                  :limit => 32
     t.integer "trismegistos_id",                          :precision => 38, :scale => 0
     t.string  "physical_location"
