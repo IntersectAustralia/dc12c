@@ -1,3 +1,11 @@
+def find_or_nil(selector)
+  begin
+    find(selector)
+  rescue Capybara::ElementNotFound
+    nil
+  end
+end
+
 def find_papyrus_field(field_id)
   id = "#papyrus_#{field_id}"
   find(id)
@@ -58,13 +66,17 @@ When /^I enter the following papyrus details$/ do |table|
     end
   end
 end
-Then /^I should see the following papyrus details$/ do |table|
+Then /^I should (not )?see the following papyrus details$/ do |not_see, table|
   table.hashes.each do |row|
     field = row[:field]
     value = row[:value]
     field_id = field.downcase.gsub ' ', '_'
-    display_value = find("#display_#{field_id}>div:last-child")
-    display_value.text.should eq value
+    display_value = find_or_nil("#display_#{field_id}>div:last-child")
+    if not_see
+      display_value.should be_nil
+    else
+      display_value.text.should eq value
+    end
   end
 end
 And /^I have languages$/ do |table|
