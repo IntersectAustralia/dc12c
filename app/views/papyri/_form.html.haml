@@ -36,7 +36,6 @@
   = render_field('Type of Text', f.text_field(:type_of_text))
   = render_field('Modern Textual Dates', f.text_field(:modern_textual_dates))
   = render_field('Publications', f.text_field(:publications))
-  = render_field('Country of Origin', f.select(:country_of_origin_id, Country.all.map{|c| [c.name, c.id]}, {include_blank: true}, id: 'papyrus_country_of_origin'))
   = render_field('Origin Details', f.text_field(:origin_details))
   = render_field('Source of Acquisition', f.text_field(:source_of_acquisition))
   = render_field('Preservation Note', f.text_area(:preservation_note, class: 'medium'))

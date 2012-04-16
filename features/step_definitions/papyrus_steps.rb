@@ -77,22 +77,14 @@ And /^I have genres$/ do |table|
     Factory(:genre, attrs)
   end
 end
-And /^I have countries$/ do |table|
-  table.hashes.each do |attrs|
-    Factory(:country, attrs)
-  end
-end
 
 And /^I have (a papyrus|papyri)$/ do |_, table|
   table.hashes.each do |attrs|
     languages = attrs.delete 'languages'
     date_from = attrs.delete 'date_from'
     date_to = attrs.delete 'date_to'
-    country_of_origin = attrs.delete 'country_of_origin'
     genre = attrs.delete 'genre'
     visibility = attrs.delete 'visibility'
-
-    country = Country.find_by_name! country_of_origin if country_of_origin.present?
 
     papyrus = Papyrus.new(attrs)
 
@@ -111,7 +103,6 @@ And /^I have (a papyrus|papyri)$/ do |_, table|
       end
     end
 
-    papyrus.country_of_origin = country
     if languages
       languages = languages.split ', ' if languages
       languages = languages.map { |name| Language.find_by_name! name }
@@ -154,11 +145,8 @@ Then /^I should see papyrus fields displayed$/ do |table|
 
       checked_ids.sort.should eq expected_ids.sort
     else
-      case field
-        when 'Country of Origin'
-          value = Country.find_by_name!(value).id
-        when 'Genre'
-          value = Genre.find_by_name!(value).id
+      if field == 'Genre'
+        value = Genre.find_by_name!(value).id
       end
       field_id = field.downcase.gsub ' ', '_'
       get_papyrus_field(field_id).should eq value.to_s
@@ -212,10 +200,10 @@ Then /^I should see search results "MQT ([^"]*)"$/ do |mqt_numbers|
   ids = mqt_numbers.split ", "
   papyri = Papyrus.order('mqt_number').where(mqt_number: ids)
   rows = papyri.map do |papyrus|
-    [papyrus.formatted_mqt_number, papyrus.inventory_id, papyrus.lines_of_text || '', papyrus.country_of_origin.try(:name) || '', papyrus.human_readable_has_translation]
+    [papyrus.formatted_mqt_number, papyrus.inventory_id, papyrus.lines_of_text || '', papyrus.human_readable_has_translation]
   end
   expected_table = [
-    ['MQT Number', 'Inventory ID', 'Lines of Text', 'Country of Origin', 'Translation'],
+    ['MQT Number', 'Inventory ID', 'Lines of Text', 'Translation'],
     *rows
   ]
   actual = find("table#search_results").all('tr').map { |row| row.all('th, td').map { |cell| cell.text.strip } }

@@ -37,66 +37,66 @@ Feature: List Papyrus
     When I am logged in as "admin@intersect.org.au"
     And I am on the papyri page
     Then I should see the list papyri table
-      | MQT Number | Inventory ID | Lines of Text | Country of Origin | Translation |
-      | MQT 1      | A            |               |                   | No          |
-      | MQT 2      | B            |               |                   | No          |
-      | MQT 5      | C            |               |                   | No          |
-      | MQT 3      | D            |               |                   | No          |
-      | MQT 8      | E            |               |                   | No          |
-      | MQT 4      | F            |               |                   | No          |
-      | MQT 9      | G            |               |                   | No          |
-      | MQT 6      | H            |               |                   | No          |
-      | MQT 11     | I            |               |                   | No          |
-      | MQT 21     | J            |               |                   | No          |
-      | MQT 13     | K            |               |                   | No          |
-      | MQT 14     | L            |               |                   | No          |
-      | MQT 15     | M            |               |                   | No          |
-      | MQT 16     | N            |               |                   | No          |
-      | MQT 17     | O            |               |                   | No          |
-      | MQT 18     | P            |               |                   | No          |
-      | MQT 19     | Q            |               |                   | No          |
-      | MQT 20     | R            |               |                   | No          |
-      | MQT 22     | S            |               |                   | No          |
-      | MQT 23     | T            |               |                   | No          |
+      | MQT Number | Inventory ID | Lines of Text | Translation |
+      | MQT 1      | A            |               | No          |
+      | MQT 2      | B            |               | No          |
+      | MQT 5      | C            |               | No          |
+      | MQT 3      | D            |               | No          |
+      | MQT 8      | E            |               | No          |
+      | MQT 4      | F            |               | No          |
+      | MQT 9      | G            |               | No          |
+      | MQT 6      | H            |               | No          |
+      | MQT 11     | I            |               | No          |
+      | MQT 21     | J            |               | No          |
+      | MQT 13     | K            |               | No          |
+      | MQT 14     | L            |               | No          |
+      | MQT 15     | M            |               | No          |
+      | MQT 16     | N            |               | No          |
+      | MQT 17     | O            |               | No          |
+      | MQT 18     | P            |               | No          |
+      | MQT 19     | Q            |               | No          |
+      | MQT 20     | R            |               | No          |
+      | MQT 22     | S            |               | No          |
+      | MQT 23     | T            |               | No          |
    And I should see the pagination controls
 
   Scenario: View page two
     When I am logged in as "admin@intersect.org.au"
     And I am on page 2 of the papyri index
     Then I should see the list papyri table
-      | MQT Number | Inventory ID | Lines of Text | Country of Origin | Translation |
-      | MQT 24     | U            |               |                   | No          |
-      | MQT 7      | V            |               |                   | No          |
-      | MQT 25     | W            |               |                   | No          |
-      | MQT 10     | X            |               |                   | No          |
-      | MQT 26     | Y            |               |                   | No          |
-      | MQT 12     | Z            |               |                   | No          |
+      | MQT Number | Inventory ID | Lines of Text | Translation |
+      | MQT 24     | U            |               | No          |
+      | MQT 7      | V            |               | No          |
+      | MQT 25     | W            |               | No          |
+      | MQT 10     | X            |               | No          |
+      | MQT 26     | Y            |               | No          |
+      | MQT 12     | Z            |               | No          |
     And I should see the pagination controls
 
   Scenario: Public users should not see hidden records
     Given I am on the papyri page
     Then I should see the list papyri table
-      | MQT Number | Inventory ID | Lines of Text | Country of Origin | Translation |
-      | MQT 2      | B            |               |                   | No          |
-      | MQT 3      | D            |               |                   | No          |
-      | MQT 4      | F            |               |                   | No          |
-      | MQT 6      | H            |               |                   | No          |
-      | MQT 11     | I            |               |                   | No          |
-      | MQT 21     | J            |               |                   | No          |
-      | MQT 13     | K            |               |                   | No          |
-      | MQT 14     | L            |               |                   | No          |
-      | MQT 16     | N            |               |                   | No          |
-      | MQT 17     | O            |               |                   | No          |
-      | MQT 18     | P            |               |                   | No          |
-      | MQT 19     | Q            |               |                   | No          |
-      | MQT 22     | S            |               |                   | No          |
-      | MQT 23     | T            |               |                   | No          |
-      | MQT 24     | U            |               |                   | No          |
-      | MQT 7      | V            |               |                   | No          |
-      | MQT 25     | W            |               |                   | No          |
-      | MQT 10     | X            |               |                   | No          |
-      | MQT 26     | Y            |               |                   | No          |
-      | MQT 12     | Z            |               |                   | No          |
+      | MQT Number | Inventory ID | Lines of Text | Translation |
+      | MQT 2      | B            |               | No          |
+      | MQT 3      | D            |               | No          |
+      | MQT 4      | F            |               | No          |
+      | MQT 6      | H            |               | No          |
+      | MQT 11     | I            |               | No          |
+      | MQT 21     | J            |               | No          |
+      | MQT 13     | K            |               | No          |
+      | MQT 14     | L            |               | No          |
+      | MQT 16     | N            |               | No          |
+      | MQT 17     | O            |               | No          |
+      | MQT 18     | P            |               | No          |
+      | MQT 19     | Q            |               | No          |
+      | MQT 22     | S            |               | No          |
+      | MQT 23     | T            |               | No          |
+      | MQT 24     | U            |               | No          |
+      | MQT 7      | V            |               | No          |
+      | MQT 25     | W            |               | No          |
+      | MQT 10     | X            |               | No          |
+      | MQT 26     | Y            |               | No          |
+      | MQT 12     | Z            |               | No          |
     And I should not see the pagination controls
 
 
@@ -104,27 +104,27 @@ Feature: List Papyrus
     When I am logged in as "admin@intersect.org.au"
     And I am on page <page> of the papyri index
     Then I should see the list papyri table
-      | MQT Number | Inventory ID | Lines of Text | Country of Origin | Translation |
-      | MQT 1      | A            |               |                   | No          |
-      | MQT 2      | B            |               |                   | No          |
-      | MQT 5      | C            |               |                   | No          |
-      | MQT 3      | D            |               |                   | No          |
-      | MQT 8      | E            |               |                   | No          |
-      | MQT 4      | F            |               |                   | No          |
-      | MQT 9      | G            |               |                   | No          |
-      | MQT 6      | H            |               |                   | No          |
-      | MQT 11     | I            |               |                   | No          |
-      | MQT 21     | J            |               |                   | No          |
-      | MQT 13     | K            |               |                   | No          |
-      | MQT 14     | L            |               |                   | No          |
-      | MQT 15     | M            |               |                   | No          |
-      | MQT 16     | N            |               |                   | No          |
-      | MQT 17     | O            |               |                   | No          |
-      | MQT 18     | P            |               |                   | No          |
-      | MQT 19     | Q            |               |                   | No          |
-      | MQT 20     | R            |               |                   | No          |
-      | MQT 22     | S            |               |                   | No          |
-      | MQT 23     | T            |               |                   | No          |
+      | MQT Number | Inventory ID | Lines of Text | Translation |
+      | MQT 1      | A            |               | No          |
+      | MQT 2      | B            |               | No          |
+      | MQT 5      | C            |               | No          |
+      | MQT 3      | D            |               | No          |
+      | MQT 8      | E            |               | No          |
+      | MQT 4      | F            |               | No          |
+      | MQT 9      | G            |               | No          |
+      | MQT 6      | H            |               | No          |
+      | MQT 11     | I            |               | No          |
+      | MQT 21     | J            |               | No          |
+      | MQT 13     | K            |               | No          |
+      | MQT 14     | L            |               | No          |
+      | MQT 15     | M            |               | No          |
+      | MQT 16     | N            |               | No          |
+      | MQT 17     | O            |               | No          |
+      | MQT 18     | P            |               | No          |
+      | MQT 19     | Q            |               | No          |
+      | MQT 20     | R            |               | No          |
+      | MQT 22     | S            |               | No          |
+      | MQT 23     | T            |               | No          |
     And I should see the pagination controls
   Examples:
     | page |
@@ -135,8 +135,5 @@ Feature: List Papyrus
   Scenario: Entering a page number greater than max doesn't throw an error
     Given I am on page 1000000000 of the papyri index
     Then I should see the list papyri table
-      | MQT Number | Inventory ID | Lines of Text | Country of Origin | Translation |
+      | MQT Number | Inventory ID | Lines of Text | Translation |
     And I should not see the pagination controls
-
-
-

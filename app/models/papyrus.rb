@@ -6,9 +6,8 @@ class Papyrus < ActiveRecord::Base
   PUBLIC = 'PUBLIC'
   HIDDEN = 'HIDDEN'
 
-  attr_accessible :mqt_number, :mqt_note, :inventory_id, :apis_id, :trismegistos_id, :physical_location, :date_from, :date_to, :date_note, :general_note, :lines_of_text, :paleographic_description, :origin_details, :source_of_acquisition, :preservation_note, :conservation_note, :summary, :language_note, :original_text, :translated_text, :dimensions, :country_of_origin_id, :genre_id, :language_ids, :other_characteristics, :material, :recto_verso_note, :type_of_text, :modern_textual_dates, :publications
+  attr_accessible :mqt_number, :mqt_note, :inventory_id, :apis_id, :trismegistos_id, :physical_location, :date_from, :date_to, :date_note, :general_note, :lines_of_text, :paleographic_description, :origin_details, :source_of_acquisition, :preservation_note, :conservation_note, :summary, :language_note, :original_text, :translated_text, :dimensions, :genre_id, :language_ids, :other_characteristics, :material, :recto_verso_note, :type_of_text, :modern_textual_dates, :publications
 
-  belongs_to :country_of_origin, class_name: 'Country'
   belongs_to :genre
   has_and_belongs_to_many :languages
   has_many :access_requests
@@ -89,14 +88,13 @@ class Papyrus < ActiveRecord::Base
 
   def self.search search_terms
     search_terms = search_terms.map {|term| "%#{UnicodeUtils.upcase(term)}%"}
-    Papyrus.joins { languages.outer }.joins{country_of_origin.outer}.joins{genre.outer}.where do
+    Papyrus.joins { languages.outer }.joins{genre.outer}.where do
       upper(inventory_id).like_any(search_terms)             \
     | upper(languages.name).like_any(search_terms)           \
     | upper(general_note).like_any(search_terms)             \
     | upper(lines_of_text).like_any(search_terms)            \
     | upper(paleographic_description).like_any(search_terms) \
     | upper(recto_verso_note).like_any(search_terms)         \
-    | upper(country_of_origin.name).like_any(search_terms)   \
     | upper(origin_details).like_any(search_terms)           \
     | upper(source_of_acquisition).like_any(search_terms)    \
     | upper(preservation_note).like_any(search_terms)        \

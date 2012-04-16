@@ -17,19 +17,13 @@ Feature: Manage Papyrus
       | Letter        |
       | Book          |
       | Book Fragment |
-    And I have countries
-      | name   |
-      | Greece |
-      | Egypt  |
-      | Cyprus |
-      | Turkey |
     And I have a papyrus
-      | mqt_number | mqt_note | inventory_id | languages     | dimensions | date_from | date_note | general_note | lines_of_text | paleographic_description | recto_verso_note | country_of_origin | origin_details | source_of_acquisition | preservation_note | conservation_note | genre | language_note | summary             | original_text | translated_text | other_characteristics | material | type_of_text | modern_textual_dates | publications | visibility |
-      | 2          | note too | p.macq2      | Coptic, Greek | 5 x 6 cm   | 88 CE     | some date | General Blah | Specific blah | Paleo Diet               | Rectangle        | Greece            | It's Greek.    | Got it from Greece    | poorly preserved  | conservative      | Book  | Fancy Greek   | don't understand it | περιοχής      | area            | some other            | fabric   | text type    | some dates           | some pub'ns  | PUBLIC     |
+      | mqt_number | mqt_note | inventory_id | languages     | dimensions | date_from | date_note | general_note | lines_of_text | paleographic_description | recto_verso_note | origin_details | source_of_acquisition | preservation_note | conservation_note | genre | language_note | summary             | original_text | translated_text | other_characteristics | material | type_of_text | modern_textual_dates | publications | visibility |
+      | 2          | note too | p.macq2      | Coptic, Greek | 5 x 6 cm   | 88 CE     | some date | General Blah | Specific blah | Paleo Diet               | Rectangle        | It's Greek.    | Got it from Greece    | poorly preserved  | conservative      | Book  | Fancy Greek   | don't understand it | περιοχής      | area            | some other            | fabric   | text type    | some dates           | some pub'ns  | PUBLIC     |
     And I have papyri
-      | mqt_number | inventory_id | languages       | dimensions     | date_from   | general_note  | lines_of_text  | visibility | country_of_origin |
-      | 3          | hidden.macq  | Coptic, Demotic | 5 x 7 cm       | 488 CE      | General stuff | Specific stuff | HIDDEN     | Turkey            |
-      | 4          | visible.macq | Coptic, Demotic | 5 x 8 cm       | 488 CE      | General stuff | Specific stuff | VISIBLE    | Turkey            |
+      | mqt_number | inventory_id | languages       | dimensions     | date_from   | general_note  | lines_of_text  | visibility |
+      | 3          | hidden.macq  | Coptic, Demotic | 5 x 7 cm       | 488 CE      | General stuff | Specific stuff | HIDDEN     |
+      | 4          | visible.macq | Coptic, Demotic | 5 x 8 cm       | 488 CE      | General stuff | Specific stuff | VISIBLE    |
 
   Scenario: no era
     Given I am logged in as "admin@intersect.org.au"
@@ -87,7 +81,6 @@ Feature: Manage Papyrus
       | Type of Text             |       |
       | Modern Textual Dates     |       |
       | Publications             |       |
-      | Country of Origin        |       |
       | Origin Details           |       |
       | Source of Acquisition    |       |
       | Preservation Note        |       |
@@ -120,7 +113,6 @@ Feature: Manage Papyrus
       | Type of Text             | new type                  |
       | Modern Textual Dates     | new dates                 |
       | Publications             | new pub'ns                |
-      | Country of Origin        | Greece                    |
       | Origin Details           | greece                    |
       | Source of Acquisition    | shady dealer              |
       | Preservation Note        | do not get wet            |
@@ -155,7 +147,6 @@ Feature: Manage Papyrus
       | Modern Textual Dates     | new dates                 |
       | Publications             | new pub'ns                |
       | Material                 | new fabric                |
-      | Country of Origin        | Greece                    |
       | Origin Details           | greece                    |
       | Source of Acquisition    | shady dealer              |
       | Preservation Note        | do not get wet            |
@@ -213,7 +204,6 @@ Feature: Manage Papyrus
       | Type of Text             |       |
       | Modern Textual Dates     |       |
       | Publications             |       |
-      | Country of Origin        |       |
       | Origin Details           |       |
       | Source of Acquisition    |       |
       | Preservation Note        |       |
@@ -289,7 +279,6 @@ Feature: Manage Papyrus
       | Type of Text             | text type           |
       | Modern Textual Dates     | some dates          |
       | Publications             | some pub'ns         |
-      | Country of Origin        | Greece              |
       | Origin Details           | It's Greek.         |
       | Source of Acquisition    | Got it from Greece  |
       | Preservation Note        | poorly preserved    |
@@ -320,7 +309,6 @@ Feature: Manage Papyrus
       | Type of Text             | a type                    |
       | Modern Textual Dates     | a date                    |
       | Publications             | publicat                  |
-      | Country of Origin        | Turkey                    |
       | Origin Details           | Turkish                   |
       | Source of Acquisition    | shady dealer              |
       | Preservation Note        | do not get wet            |
@@ -357,7 +345,6 @@ Feature: Manage Papyrus
       | Modern Textual Dates     | a date                    |
       | Material                 | skin                      |
       | Publications             | publicat                  |
-      | Country of Origin        | Turkey                    |
       | Origin Details           | Turkish                   |
       | Source of Acquisition    | shady dealer              |
       | Preservation Note        | do not get wet            |
@@ -396,7 +383,6 @@ Feature: Manage Papyrus
       | Type of Text             | text type           |
       | Modern Textual Dates     | some dates          |
       | Publications             | some pub'ns         |
-      | Country of Origin        | Greece              |
       | Origin Details           | It's Greek.         |
       | Source of Acquisition    | Got it from Greece  |
       | Preservation Note        | poorly preserved    |
@@ -495,10 +481,10 @@ Feature: Manage Papyrus
     When I follow "List all papyri records"
     Then I should be on the papyri page
     And I should see the list papyri table
-      | MQT Number | Inventory ID | Lines of Text  | Country of Origin | Translation |
-      | MQT 3      | hidden.macq  | Specific stuff | Turkey            | No          |
-      | MQT 2      | p.macq2      | Specific blah  | Greece            | Yes         |
-      | MQT 4      | visible.macq | Specific stuff | Turkey            | No          |
+      | MQT Number | Inventory ID | Lines of Text  | Translation |
+      | MQT 3      | hidden.macq  | Specific stuff | No          |
+      | MQT 2      | p.macq2      | Specific blah  | Yes         |
+      | MQT 4      | visible.macq | Specific stuff | No          |
     When I follow "MQT 3"
     Then I should be on the "MQT 3" papyrus page
     When I am on the papyri page
@@ -514,17 +500,17 @@ Feature: Manage Papyrus
     When I follow "List all papyri records"
     Then I should be on the papyri page
     And I should see the list papyri table
-      | MQT Number | Inventory ID | Lines of Text  | Country of Origin | Translation |
-      | MQT 3      | hidden.macq  | Specific stuff | Turkey            | No          |
-      | MQT 2      | p.macq2      | Specific blah  | Greece            | Yes         |
-      | MQT 4      | visible.macq | Specific stuff | Turkey            | No          |
+      | MQT Number | Inventory ID | Lines of Text  | Translation |
+      | MQT 3      | hidden.macq  | Specific stuff | No          |
+      | MQT 2      | p.macq2      | Specific blah  | Yes         |
+      | MQT 4      | visible.macq | Specific stuff | No          |
 
   Scenario: Anonymous user should see list of visible and public papyri
     Given I am on the home page
     When I follow "List all papyri records"
     Then I should be on the papyri page
     And I should see the list papyri table
-      | MQT Number | Inventory ID | Lines of Text  | Country of Origin | Translation |
-      | MQT 2      | p.macq2      | Specific blah  | Greece            | Yes         |
-      | MQT 4      | visible.macq | Specific stuff | Turkey            | No          |
+      | MQT Number | Inventory ID | Lines of Text  | Translation |
+      | MQT 2      | p.macq2      | Specific blah  | Yes         |
+      | MQT 4      | visible.macq | Specific stuff | No          |
 

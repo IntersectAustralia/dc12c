@@ -16,17 +16,11 @@ Feature: Requesting access
       | Letter        |
       | Book          |
       | Book Fragment |
-    And I have countries
-      | name   |
-      | Greece |
-      | Egypt  |
-      | Cyprus |
-      | Turkey |
     And I have papyri
-      | mqt_number | inventory_id | languages       | dimensions   | date_from   | general_note  | lines_of_text  | paleographic_description | recto_verso_note | country_of_origin | origin_details | source_of_acquisition | preservation_note | genre | language_note | summary             | original_text | translated_text | visibility |
-      | 2          | v.macq2      | Coptic, Greek   | 5 x 6 cm     | 88 CE       | General Blah  | Specific blah  | Paleo Diet               | Rectangle        | Greece            | It's Greek.    | Got it from Greece    | poorly preserved  | Book  | Fancy Greek   | don't understand it | περιοχής      | area            | VISIBLE    |
-      | 3          | hidden.macq  | Coptic, Demotic | 5 x 6 cm     | 488 CE      | General stuff | Specific stuff |                          |                  | Turkey            |                |                       |                   |       |               |                     |               |                 | HIDDEN     |
-      | 5          | visible.macq | Coptic, Demotic | 5 x 6 cm     | 488 CE      | General stuff | Specific stuff |                          |                  | Turkey            |                |                       |                   |       |               |                     |               |                 | VISIBLE    |
+      | mqt_number | inventory_id | languages       | dimensions   | date_from   | general_note  | lines_of_text  | paleographic_description | recto_verso_note | origin_details | source_of_acquisition | preservation_note | genre | language_note | summary             | original_text | translated_text | visibility |
+      | 2          | v.macq2      | Coptic, Greek   | 5 x 6 cm     | 88 CE       | General Blah  | Specific blah  | Paleo Diet               | Rectangle        | It's Greek.    | Got it from Greece    | poorly preserved  | Book  | Fancy Greek   | don't understand it | περιοχής      | area            | VISIBLE    |
+      | 3          | hidden.macq  | Coptic, Demotic | 5 x 6 cm     | 488 CE      | General stuff | Specific stuff |                          |                  |                |                       |                   |       |               |                     |               |                 | HIDDEN     |
+      | 5          | visible.macq | Coptic, Demotic | 5 x 6 cm     | 488 CE      | General stuff | Specific stuff |                          |                  |                |                       |                   |       |               |                     |               |                 | VISIBLE    |
 
   Scenario: researchers should have a request access button on view papyrus pages
     Given I am logged in as "researcher@intersect.org.au"

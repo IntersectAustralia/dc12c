@@ -3,7 +3,6 @@
     %th MQT Number
     %th Inventory ID
     %th Lines of Text
-    %th Country of Origin
     %th Translation
 
   - @papyri.each do |papyrus|
@@ -11,5 +10,4 @@
       %td= link_to papyrus.formatted_mqt_number, papyrus
       %td= papyrus.inventory_id
       %td= papyrus.lines_of_text
-      %td= papyrus.country_of_origin.try :name
       %td= papyrus.human_readable_has_translation

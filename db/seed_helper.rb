@@ -6,14 +6,6 @@ def create_roles_and_permissions
   end
 end
 
-def create_countries
-  country_names = %w{Greece Italy Australia}
-  Country.delete_all
-  country_names.each do |name|
-    Country.create! name: name
-  end
-end
-
 def create_languages
   language_names = %w{Greek Latin English Demotic}
   Language.delete_all

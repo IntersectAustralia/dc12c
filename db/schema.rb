@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120413074859) do
+ActiveRecord::Schema.define(:version => 20120416051205) do
 
   create_table "access_requests", :force => true do |t|
     t.integer  "user_id",        :precision => 38, :scale => 0
@@ -19,10 +19,6 @@ ActiveRecord::Schema.define(:version => 20120413074859) do
     t.string   "status"
     t.datetime "date_requested"
     t.datetime "date_approved"
-  end
-
-  create_table "countries", :force => true do |t|
-    t.string "name"
   end
 
   create_table "genres", :force => true do |t|
@@ -63,13 +59,9 @@ ActiveRecord::Schema.define(:version => 20120413074859) do
     t.integer "genre_id",                                 :precision => 38, :scale => 0
     t.string  "visibility",                                                              :default => "HIDDEN"
     t.string  "dimensions",               :limit => 511
-    t.integer "mqt_number",                               :precision => 38, :scale => 0,                       :null => false
     t.integer "date_from",                                :precision => 38, :scale => 0
     t.integer "date_to",                                  :precision => 38, :scale => 0
-    t.string  "mqt_note"
-    t.string  "apis_id",                  :limit => 32
-    t.integer "trismegistos_id",                          :precision => 38, :scale => 0
-    t.string  "physical_location"
+    t.integer "mqt_number",                               :precision => 38, :scale => 0,                       :null => false
     t.string  "date_note"
     t.string  "material"
     t.string  "conservation_note",        :limit => 1023
@@ -78,6 +70,10 @@ ActiveRecord::Schema.define(:version => 20120413074859) do
     t.string  "type_of_text"
     t.string  "modern_textual_dates",     :limit => 511
     t.string  "publications",             :limit => 127
+    t.string  "mqt_note"
+    t.string  "apis_id",                  :limit => 32
+    t.integer "trismegistos_id",                          :precision => 38, :scale => 0
+    t.string  "physical_location"
   end
 
   create_table "roles", :force => true do |t|

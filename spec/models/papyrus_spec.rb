@@ -51,7 +51,6 @@ describe Papyrus do
     end
   end
   describe "associations" do
-    it { should belong_to :country_of_origin }
     it { should belong_to :genre }
     it { should have_and_belong_to_many :languages }
     it { should have_many :access_requests }
@@ -197,7 +196,6 @@ describe Papyrus do
   describe "search" do
     before :each do
       latin = Factory(:language, name: 'Latin')
-      england = Factory(:country, name: 'England')
       drama = Factory(:genre, name: 'Drama')
       @p1 = Factory(:papyrus, inventory_id: "l23")
       @p2 = Factory(:papyrus, languages: [latin])
@@ -205,7 +203,6 @@ describe Papyrus do
       @p4 = Factory(:papyrus, lines_of_text: "light bulb")
       @p5 = Factory(:papyrus, paleographic_description: "Sydney")
       @p6 = Factory(:papyrus, recto_verso_note: "staedtler")
-      @p8 = Factory(:papyrus, country_of_origin: england)
       @p9 = Factory(:papyrus, origin_details: "best ever")
       @p10 = Factory(:papyrus, source_of_acquisition: "eBay")
       @p11 = Factory(:papyrus, preservation_note: "no biro allowed")
@@ -241,10 +238,6 @@ describe Papyrus do
         results = Papyrus.search(['staedtler'])
         results.should eq [@p6]
       end
-      it "should find by country of origin" do
-        results = Papyrus.search(['England'])
-        results.should eq [@p8]
-      end
       it "should find by origin details" do
         results = Papyrus.search(['ever'])
         results.should eq [@p9]
@@ -274,8 +267,8 @@ describe Papyrus do
         results.should eq [@p15]
       end
       it "should find across multiple fields" do
-        results = Papyrus.search(['EnglanD', 'Bulb', 'aLl'])
-        results.should eq [@p4, @p8, @p11, @p14]
+        results = Papyrus.search(['Bulb', 'aLl'])
+        results.should eq [@p4, @p11, @p14]
       end
       it "should find prefix of words in utf8 searches" do
         results = Papyrus.search(['Έμ'])
