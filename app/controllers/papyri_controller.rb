@@ -105,6 +105,21 @@ class PapyriController < ApplicationController
     redirect_to @papyrus, notice: 'Your request has been cancelled.'
   end
 
+  def make_visible
+    @papyrus.make_visible!
+    redirect_to @papyrus, notice: 'The papyrus is now visible'
+  end
+
+  def make_hidden
+    @papyrus.make_hidden!
+    redirect_to @papyrus, notice: 'The papyrus is now hidden'
+  end
+
+  def make_public
+    @papyrus.make_public!
+    redirect_to @papyrus, notice: 'The papyrus is now public'
+  end
+
   private
 
   def make_page(page)

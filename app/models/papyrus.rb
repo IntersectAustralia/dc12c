@@ -79,6 +79,21 @@ class Papyrus < ActiveRecord::Base
     FULL.include? field_name
   end
 
+  def make_hidden!
+    self.visibility = HIDDEN
+    self.save!
+  end
+
+  def make_public!
+    self.visibility = PUBLIC
+    self.save!
+  end
+
+  def make_visible!
+    self.visibility = VISIBLE
+    self.save!
+  end
+
   def date_from_year
     date_from.abs if date_from
   end

@@ -66,6 +66,10 @@ class Ability
       can :reject, User
       can :approve, User
       can :read_full_field, Papyrus
+      can :change_visibility, Papyrus
+      can :make_visible, Papyrus, visibility: [Papyrus::HIDDEN, Papyrus::PUBLIC]
+      can :make_public, Papyrus, visibility: [Papyrus::HIDDEN, Papyrus::VISIBLE]
+      can :make_hidden, Papyrus, visibility: [Papyrus::PUBLIC, Papyrus::VISIBLE]
     end
 
     can :read_detailed_field, Papyrus

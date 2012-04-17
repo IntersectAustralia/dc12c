@@ -3,6 +3,39 @@ require 'spec_helper'
 
 
 describe Papyrus do
+  describe "visibility helpers" do
+    before :each do
+      @p = Factory(:papyrus, visibility: Papyrus::HIDDEN)
+    end
+    describe "make_public!" do
+      it "saves and updates visibility accordingly" do
+        @p.make_public!
+
+        @p.reload
+        @p.visibility.should eq Papyrus::PUBLIC
+        @p.should be_persisted
+      end
+    end
+    describe "make_visible!" do
+      it "saves and updates visibility accordingly" do
+        @p.make_visible!
+
+        @p.reload
+        @p.visibility.should eq Papyrus::VISIBLE
+        @p.should be_persisted
+      end
+    end
+    describe "make_hidden!" do
+      it "saves and updates visibility accordingly" do
+        @p = Factory(:papyrus, visibility: Papyrus::PUBLIC)
+        @p.make_hidden!
+
+        @p.reload
+        @p.visibility.should eq Papyrus::HIDDEN
+        @p.should be_persisted
+      end
+    end
+  end
   describe "basic_field" do
     it "should return true for basic fields" do
       Papyrus.basic_field(:formatted_mqt_number).should be_true
