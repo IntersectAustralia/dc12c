@@ -597,3 +597,8 @@ Feature: Manage Papyrus
       | MQT 2      | p.macq2      | Specific blah  | Yes         |
       | MQT 4      | visible.macq | Specific stuff | No          |
 
+  Scenario: Only a Cancel link on edit page instead of Show and Cancel
+    Given I am logged in as "admin@intersect.org.au"
+    And I am on the "MQT 2" edit papyrus page
+    Then I should not see link "Show"
+    And I should see link "Cancel"
