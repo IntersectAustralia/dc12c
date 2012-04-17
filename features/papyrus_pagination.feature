@@ -147,3 +147,7 @@ Feature: List Papyrus
   Scenario: new papyrus link is not displayed on list page for anonymous
     Given I am on the papyri page
     Then I should not see link "New Papyrus"
+
+  Scenario: list page does not say "Search Results"
+    Given I am on the papyri page
+    Then I should not see "Search results"
