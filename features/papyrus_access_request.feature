@@ -148,3 +148,14 @@ Feature: As an administrator
     And I am on the home page
     Then I should not see "Admin"
 
+  Scenario: pressing cancel on the revoke page
+    Given I am logged in as "admin@intersect.org.au"
+    When I approve the requests
+      | user_requesting_access       | date_approved |
+      | researcher1@intersect.org.au | 2011-04-03    |
+    Then I am on the admin page
+    And I follow "Approved requests"
+    When I follow "MQT 5"
+    And I follow "Cancel"
+    Then I should be on the list approved requests page
+

@@ -12,4 +12,7 @@
 .page-content
   = render partial: 'papyri/details', locals: {papyrus: @access_request.papyrus}
 
-= link_to 'Cancel', pending_access_requests_path, class: 'btn'
+-if @access_request.status == AccessRequest::CREATED
+  = link_to 'Cancel', pending_access_requests_path, class: 'btn'
+-elsif @access_request.status == AccessRequest::APPROVED
+  = link_to 'Cancel', approved_access_requests_path, class: 'btn'
