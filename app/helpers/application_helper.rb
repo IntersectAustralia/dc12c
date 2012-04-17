@@ -1,4 +1,20 @@
 module ApplicationHelper
+
+  class SecuredRenderer
+    def initialize(helper_module, papyrus, user)
+      @helper_module = helper_module
+      @papyrus = papyrus
+      @ability = Ability.new(user)
+    end
+    def render(label, field_name)
+      if Papyrus.basic_field(field_name) ||
+        (Papyrus.detailed_field(field_name) && @ability.can?(:read_detailed_field, @papyrus)) ||
+        (Papyrus.full_field(field_name) && (@ability.can?(:read_full_field, @papyrus)))
+        @helper_module.render_field(label, @papyrus.send(field_name))
+      end
+    end
+  end
+
   def title(page_title)
     content_for(:title) { page_title }
   end
@@ -21,6 +37,11 @@ module ApplicationHelper
   def render_field_with_block(label, &block)
     content = with_output_buffer(&block)
     render_field_content(label, content)
+  end
+
+  def with_renderer_for(papyrus, current_user, &block)
+    renderer = SecuredRenderer.new(self, papyrus, current_user)
+    block.call(renderer)
   end
 
   private

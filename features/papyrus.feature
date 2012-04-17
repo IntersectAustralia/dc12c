@@ -18,8 +18,8 @@ Feature: Manage Papyrus
       | Book          |
       | Book Fragment |
     And I have a papyrus
-      | mqt_number | mqt_note | inventory_id | languages     | dimensions | date_from | date_note | general_note | lines_of_text | paleographic_description | recto_verso_note | origin_details | source_of_acquisition | preservation_note | conservation_note | genre | language_note | summary             | original_text | translated_text | other_characteristics | material | type_of_text | modern_textual_dates | publications | visibility |
-      | 2          | note too | p.macq2      | Coptic, Greek | 5 x 6 cm   | 88 CE     | some date | General Blah | Specific blah | Paleo Diet               | Rectangle        | It's Greek.    | Got it from Greece    | poorly preserved  | conservative      | Book  | Fancy Greek   | don't understand it | περιοχής      | area            | some other            | fabric   | text type    | some dates           | some pub'ns  | PUBLIC     |
+      | mqt_number | mqt_note | inventory_id | apis_id  | trismegistos_id | physical_location | languages     | dimensions             | date_from | date_note | general_note | lines_of_text | paleographic_description | recto_verso_note | origin_details | source_of_acquisition | preservation_note | conservation_note | genre   | language_note | summary             | original_text            | translated_text | other_characteristics | material | type_of_text | modern_textual_dates | publications | visibility |
+      | 2          | note too | p.macq2      |          |                 |                   | Coptic, Greek | 5 x 6 cm               | 88 CE     | some date | General Blah | Specific blah | Paleo Diet               | Rectangle        | It's Greek.    | Got it from Greece    | poorly preserved  | conservative      | Book    | Fancy Greek   | don't understand it | περιοχής                 | area            | some other            | fabric   | text type    | some dates           | some pub'ns  | PUBLIC     |
     And I have papyri
       | mqt_number | inventory_id | languages       | dimensions     | date_from   | general_note  | lines_of_text  | visibility |
       | 3          | hidden.macq  | Coptic, Demotic | 5 x 7 cm       | 488 CE      | General stuff | Specific stuff | HIDDEN     |
@@ -453,6 +453,83 @@ Feature: Manage Papyrus
     And I am on the "MQT 4" papyrus page
     Then I should see "Record is visible"
 
+  Scenario: as admin I should see all fields for all visibilities
+    Given I am logged in as "admin@intersect.org.au"
+    And I have a papyrus
+      | mqt_number | mqt_note | inventory_id | apis_id  | trismegistos_id | physical_location | languages     | dimensions             | date_from | date_note | general_note | lines_of_text | paleographic_description | recto_verso_note | origin_details | source_of_acquisition | preservation_note | conservation_note | genre   | language_note | summary             | original_text            | translated_text | other_characteristics | material | type_of_text | modern_textual_dates | publications | visibility |
+      | 7          | note too | p.macq7      | APIS.7   | 77              | Physical 7        | Coptic, Greek | (a) 2 x 7cm, (b) same  | 237 BCE   | date 7    | general 7    | lines 7       | paleo 7                  | recto verso 7    | Greek seven    | Got it 7              | minus 7           | taped to 7        | Book    | greek 7       | very seven papyrus  | περιοχής για 7 τιμήσουμε | area 7          | other 7               | fabric   | text type    | date at 7            | pub.mq.7     | PUBLIC     |
+    And I am on the "MQT 7" papyrus page
+    Then I should see "Record is public"
+    And I should see the following papyrus details
+      | field                    | value                     |
+      | MQT Number               | MQT 7                     |
+      | MQT Note                 | note too                  |
+      | Inventory ID             | p.macq7                   |
+      | APIS ID                  | APIS.7                    |
+      | Trismegistos ID          | 77                        |
+      | Physical location        | Physical 7                |
+      | Languages                | Coptic, Greek             |
+      | Dimensions               | (a) 2 x 7cm, (b) same     |
+      | Date                     | 237 BCE                   |
+      | Date Note                | date 7                    |
+      | General Note             | general 7                 |
+      | Lines of Text            | lines 7                   |
+      | Paleographic Description | paleo 7                   |
+      | Recto Verso Note         | recto verso 7             |
+      | Type of Text             | text type                 |
+      | Modern Textual Dates     | date at 7                 |
+      | Publications             | pub.mq.7                  |
+      | Material                 | fabric                    |
+      | Origin Details           | Greek seven               |
+      | Source of Acquisition    | Got it 7                  |
+      | Preservation Note        | minus 7                   |
+      | Conservation Note        | taped to 7                |
+      | Genre                    | Book                      |
+      | Language Note            | greek 7                   |
+      | Summary                  | very seven papyrus        |
+      | Original Text            | περιοχής για 7 τιμήσουμε  |
+      | Translated Text          | area 7                    |
+      | Other Characteristics    | other 7                   |
+
+  Scenario: as a researcher I should only see fields that are basic or detailed for hidden and visible for records I don't have access to
+    Given I am logged in as "researcher@intersect.org.au"
+    And I have a papyrus
+      | mqt_number | mqt_note | inventory_id | apis_id  | trismegistos_id | physical_location | languages     | dimensions             | date_from | date_note | general_note | lines_of_text | paleographic_description | recto_verso_note | origin_details | source_of_acquisition | preservation_note | conservation_note | genre   | language_note | summary             | original_text            | translated_text | other_characteristics | material | type_of_text | modern_textual_dates | publications | visibility |
+      | 7          | note too | p.macq7      | APIS.7   | 77              | Physical 7        | Coptic, Greek | (a) 2 x 7cm, (b) same  | 237 BCE   | date 7    | general 7    | lines 7       | paleo 7                  | recto verso 7    | Greek seven    | Got it 7              | minus 7           | taped to 7        | Book    | greek 7       | very seven papyrus  | περιοχής για 7 τιμήσουμε | area 7          | other 7               | fabric   | text type    | date at 7            | pub.mq.7     | HIDDEN     |
+    And I am on the "MQT 7" papyrus page
+    And I should see the following papyrus details
+      | field                    | value                     |
+      | MQT Number               | MQT 7                     |
+      | Inventory ID             | p.macq7                   |
+      | APIS ID                  | APIS.7                    |
+      | Trismegistos ID          | 77                        |
+      | Physical location        | Physical 7                |
+      | Languages                | Coptic, Greek             |
+      | Dimensions               | (a) 2 x 7cm, (b) same     |
+      | Date                     | 237 BCE                   |
+      | Date Note                | date 7                    |
+      | General Note             | general 7                 |
+      | Lines of Text            | lines 7                   |
+      | Paleographic Description | paleo 7                   |
+      | Type of Text             | text type                 |
+      | Publications             | pub.mq.7                  |
+      | Material                 | fabric                    |
+      | Origin Details           | Greek seven               |
+      | Source of Acquisition    | Got it 7                  |
+      | Preservation Note        | minus 7                   |
+      | Conservation Note        | taped to 7                |
+      | Genre                    | Book                      |
+      | Language Note            | greek 7                   |
+      | Summary                  | very seven papyrus        |
+      | Translated Text          | area 7                    |
+      | Other Characteristics    | other 7                   |
+    And I should not see the following papyrus details
+      | field                    | value                     |
+      | MQT Note                 | note too                  |
+      | Recto Verso Note         | recto verso 7             |
+      | Modern Textual Dates     | date at 7                 |
+      | Original Text            | περιοχής για 7 τιμήσουμε  |
+
   Scenario: Viewing a Papyrus record (logged in as Researcher)
     Given I am logged in as "researcher@intersect.org.au"
     And I am on the "MQT 3" papyrus page
@@ -461,6 +538,12 @@ Feature: Manage Papyrus
     Then I should not see "Record is public"
     And I am on the "MQT 4" papyrus page
     Then I should not see "Record is visible"
+
+  Scenario: a researcher can only see detailed fields for not-granted access records
+    Given I am logged in as "researcher@intersect.org.au"
+    And I am on the "MQT 3" papyrus page
+    Then I should not see "Record is hidden"
+
 
   Scenario: Anonymous user should only see public papyri records
     When I am on the "MQT 3" papyrus page
@@ -514,3 +597,8 @@ Feature: Manage Papyrus
       | MQT 2      | p.macq2      | Specific blah  | Yes         |
       | MQT 4      | visible.macq | Specific stuff | No          |
 
+  Scenario: Only a Cancel link on edit page instead of Show and Cancel
+    Given I am logged in as "admin@intersect.org.au"
+    And I am on the "MQT 2" edit papyrus page
+    Then I should not see link "Show"
+    And I should see link "Cancel"

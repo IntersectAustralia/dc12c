@@ -3,6 +3,30 @@ require 'spec_helper'
 
 
 describe Papyrus do
+  describe "basic_field" do
+    it "should return true for basic fields" do
+      Papyrus.basic_field(:formatted_mqt_number).should be_true
+    end
+    it "should return false for detailed fields" do
+      Papyrus.basic_field(:physical_location).should be_false
+    end
+  end
+  describe "detailed_field" do
+    it "should return true for detailed fields" do
+      Papyrus.detailed_field(:physical_location).should be_true
+    end
+    it "should return false for full fields" do
+      Papyrus.detailed_field(:mqt_note).should be_false
+    end
+  end
+  describe "full_field" do
+    it "should return true for full fields" do
+      Papyrus.full_field(:recto_verso_note).should be_true
+    end
+    it "should return false for non-full fields" do
+      Papyrus.full_field(:physical_location).should be_false
+    end
+  end
   describe "formatted date" do
     it "shows a date range" do
       papyrus = Factory(:papyrus, date_from: -234, date_to: 224)
@@ -180,6 +204,19 @@ describe Papyrus do
     it "should return false for a nil translation" do
       p = Papyrus.new(translated_text: nil)
       p.human_readable_has_translation.should eq 'No'
+    end
+  end
+
+  describe "genre_name" do
+    it "should return the genre name" do
+      genre = Genre.new(name: 'A genre')
+      p = Papyrus.new()
+      p.genre = genre
+      p.genre_name.should eq 'A genre'
+    end
+    it "should be nil for nil genre" do
+      p = Papyrus.new()
+      p.genre_name.should be_nil
     end
   end
 

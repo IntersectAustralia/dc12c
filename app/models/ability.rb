@@ -65,6 +65,12 @@ class Ability
       can :read, AccessRequest
       can :reject, User
       can :approve, User
+      can :read_full_field, Papyrus
+    end
+
+    can :read_detailed_field, Papyrus
+    can :read_full_field, Papyrus do |papyrus|
+      papyrus.access_requests.where(user_id: user.id, status: AccessRequest::APPROVED).present?
     end
 
 

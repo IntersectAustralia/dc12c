@@ -1,12 +1,31 @@
 require "unicode_utils/upcase"
+require 'set'
 
 class Papyrus < ActiveRecord::Base
+
+  BASIC = Set.new
+  DETAILED = Set.new
+  FULL = Set.new
+
+  private
+
+  def self.attr_field_security(set, *method_names)
+    set.merge(method_names)
+  end
+
+  public
 
   VISIBLE = 'VISIBLE'
   PUBLIC = 'PUBLIC'
   HIDDEN = 'HIDDEN'
 
   attr_accessible :mqt_number, :mqt_note, :inventory_id, :apis_id, :trismegistos_id, :physical_location, :date_from, :date_to, :date_note, :general_note, :lines_of_text, :paleographic_description, :origin_details, :source_of_acquisition, :preservation_note, :conservation_note, :summary, :language_note, :original_text, :translated_text, :dimensions, :genre_id, :language_ids, :other_characteristics, :material, :recto_verso_note, :type_of_text, :modern_textual_dates, :publications
+
+  attr_field_security BASIC, :formatted_mqt_number, :inventory_id, :apis_id, :trismegistos_id, :formatted_date, :lines_of_text, :paleographic_description, :origin_details, :summary, :dimensions, :genre_name, :languages_csv, :material, :publications
+
+  attr_field_security DETAILED, :physical_location, :date_note, :general_note, :source_of_acquisition, :preservation_note, :conservation_note, :language_note, :translated_text, :other_characteristics, :type_of_text
+
+  attr_field_security FULL, :mqt_note, :original_text, :recto_verso_note, :modern_textual_dates
 
   belongs_to :genre
   has_and_belongs_to_many :languages
@@ -48,6 +67,18 @@ class Papyrus < ActiveRecord::Base
 
   default_scope order: 'inventory_id'
 
+  def self.basic_field(field_name)
+    BASIC.include? field_name
+  end
+
+  def self.detailed_field(field_name)
+    DETAILED.include? field_name
+  end
+
+  def self.full_field(field_name)
+    FULL.include? field_name
+  end
+
   def date_from_year
     date_from.abs if date_from
   end
@@ -84,6 +115,10 @@ class Papyrus < ActiveRecord::Base
 
   def human_readable_has_translation
     translated_text.present? ? 'Yes' : 'No'
+  end
+
+  def genre_name
+    genre.name if genre
   end
 
   def self.search search_terms
