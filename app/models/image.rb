@@ -1,5 +1,5 @@
 class Image < ActiveRecord::Base
-  attr_accessible :image, :caption
+  attr_accessible :image, :caption, :ordering
   IMAGE_ROOT = APP_CONFIG.fetch 'image_root'
 
   belongs_to :papyrus
@@ -20,6 +20,13 @@ class Image < ActiveRecord::Base
   validates_presence_of :caption
 
   validates_length_of :caption, maximum: 255
+  validates_length_of :ordering, maximum: 1
+
+  validates_format_of :ordering, with: /[A-Z]/, allow_nil: true
+
+  default_scope order: 'ordering'
+
+  before_validation :upcase_ordering
 
   def high_res_filename
     "p.macq.#{id}.#{original_extension}"
@@ -36,5 +43,11 @@ class Image < ActiveRecord::Base
     dot_index = image_file_name.rindex('.') || -1
     first_extension_char_index = dot_index + 1
     image_file_name.slice (first_extension_char_index..-1)
+  end
+
+  def upcase_ordering
+    if ordering
+      self.ordering = ordering.to_s.upcase
+    end
   end
 end

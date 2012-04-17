@@ -3,6 +3,39 @@ require 'spec_helper'
 
 
 describe Papyrus do
+  describe "visibility helpers" do
+    before :each do
+      @p = Factory(:papyrus, visibility: Papyrus::HIDDEN)
+    end
+    describe "make_public!" do
+      it "saves and updates visibility accordingly" do
+        @p.make_public!
+
+        @p.reload
+        @p.visibility.should eq Papyrus::PUBLIC
+        @p.should be_persisted
+      end
+    end
+    describe "make_visible!" do
+      it "saves and updates visibility accordingly" do
+        @p.make_visible!
+
+        @p.reload
+        @p.visibility.should eq Papyrus::VISIBLE
+        @p.should be_persisted
+      end
+    end
+    describe "make_hidden!" do
+      it "saves and updates visibility accordingly" do
+        @p = Factory(:papyrus, visibility: Papyrus::PUBLIC)
+        @p.make_hidden!
+
+        @p.reload
+        @p.visibility.should eq Papyrus::HIDDEN
+        @p.should be_persisted
+      end
+    end
+  end
   describe "basic_field" do
     it "should return true for basic fields" do
       Papyrus.basic_field(:formatted_mqt_number).should be_true
@@ -111,12 +144,24 @@ describe Papyrus do
       Factory(:papyrus)
       should validate_uniqueness_of :mqt_number
     end
+    describe "mqt_number" do
+      it "rejects non-numerics" do
+        FactoryGirl.build(:papyrus, mqt_number: 'abc').should_not be_valid
+      end
+      it "rejects fractions" do
+        FactoryGirl.build(:papyrus, mqt_number: '11.2').should_not be_valid
+        FactoryGirl.build(:papyrus, mqt_number: 11.2).should_not be_valid
+      end
+      it "rejects negatives" do
+        FactoryGirl.build(:papyrus, mqt_number: '-1').should_not be_valid
+        FactoryGirl.build(:papyrus, mqt_number: -1).should_not be_valid
+      end
+    end
 
     describe "trismegistos id" do
       it "should be numeric" do
         papyrus = FactoryGirl.build(:papyrus, trismegistos_id: 'aaa')
         papyrus.should_not be_valid
-        # papyrus.errors[:date_from].should include("is too long (maximum is 4 characters)") # TODO
       end
       it "should be grater than 0" do
         papyrus = FactoryGirl.build(:papyrus, trismegistos_id: 0)
@@ -125,7 +170,9 @@ describe Papyrus do
         papyrus.should_not be_valid
         papyrus = FactoryGirl.build(:papyrus, trismegistos_id: 10)
         papyrus.should be_valid
-        # papyrus.errors[:date_from].should include("is too long (maximum is 4 characters)") # TODO
+      end
+      it "rejects fractions" do
+        FactoryGirl.build(:papyrus, trismegistos_id: 1.2).should_not be_valid
       end
     end
 

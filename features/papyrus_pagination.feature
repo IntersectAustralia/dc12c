@@ -4,6 +4,7 @@ Feature: List Papyrus
 
   Background:
     Given I have a user "admin@intersect.org.au" with role "Administrator"
+    And I have a user "researcher@intersect.org.au" with role "Researcher"
     And I have papyri
       | mqt_number | inventory_id | visibility |
       | 1          | A            | HIDDEN     |
@@ -137,3 +138,16 @@ Feature: List Papyrus
     Then I should see the list papyri table
       | MQT Number | Inventory ID | Lines of Text | Translation |
     And I should not see the pagination controls
+
+  Scenario: new papyrus link is not displayed on list page for researcher
+    Given I am logged in as "researcher@intersect.org.au"
+    And I am on the papyri page
+    Then I should not see link "New Papyrus"
+
+  Scenario: new papyrus link is not displayed on list page for anonymous
+    Given I am on the papyri page
+    Then I should not see link "New Papyrus"
+
+  Scenario: list page does not say "Search Results"
+    Given I am on the papyri page
+    Then I should not see "Search results"

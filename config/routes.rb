@@ -3,7 +3,7 @@ Dc12c::Application.routes.draw do
     member do
       put :approve
       put :reject
-      get :revoke
+      put :revoke
     end
     collection do
       get :pending
@@ -20,6 +20,9 @@ Dc12c::Application.routes.draw do
     member do
       post :request_access
       post :cancel_access_request
+      post :make_hidden
+      post :make_visible
+      post :make_public
     end
 
     resources :images, only: [:new, :create]

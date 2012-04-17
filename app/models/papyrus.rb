@@ -39,7 +39,9 @@ class Papyrus < ActiveRecord::Base
   validate :date_to_greater_than_date_from
   validates_numericality_of :date_from, greater_than: -10000, allow_nil: true
   validates_presence_of :date_from, if: proc { |papyrus| papyrus.date_to }
-  validates_numericality_of :trismegistos_id, greater_than: 0, allow_nil: true
+  validates_numericality_of :trismegistos_id, greater_than: 0, allow_nil: true, only_integer: true
+
+  validates_numericality_of :mqt_number, greater_than: 0, only_integer: true
 
   validates_length_of :mqt_note, maximum: 255
   validates_length_of :inventory_id, maximum: 32
@@ -77,6 +79,21 @@ class Papyrus < ActiveRecord::Base
 
   def self.full_field(field_name)
     FULL.include? field_name
+  end
+
+  def make_hidden!
+    self.visibility = HIDDEN
+    self.save!
+  end
+
+  def make_public!
+    self.visibility = PUBLIC
+    self.save!
+  end
+
+  def make_visible!
+    self.visibility = VISIBLE
+    self.save!
   end
 
   def date_from_year

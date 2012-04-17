@@ -18,6 +18,18 @@
     - if can? :update, @papyrus
       = link_to 'Edit this record', edit_papyrus_path(@papyrus), class: "btn"
 
+    - if can? :make_visible, @papyrus
+      = form_tag make_visible_papyrus_path(@papyrus) do
+        = submit_tag 'Make Visible'
+
+    - if can? :make_hidden, @papyrus
+      = form_tag make_hidden_papyrus_path(@papyrus) do
+        = submit_tag 'Make Hidden'
+
+    - if can? :make_public, @papyrus
+      = form_tag make_public_papyrus_path(@papyrus) do
+        = submit_tag 'Make Public'
+
   .page-content
     = render partial: 'details', locals: {papyrus: @papyrus}
 
