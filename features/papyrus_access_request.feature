@@ -22,10 +22,10 @@ Feature: As an administrator
 
     And I have papyrus access requests
       | MQT Number | User requesting access       | Date requested | Date approved |
-      | 5          | researcher1@intersect.org.au | 2010-05-02     | 2011-06-03    |
-      | 5          | researcher2@intersect.org.au | 2010-02-02     | 2011-06-04    |
-      | 5          | researcher3@intersect.org.au | 2010-05-03     | 2012-01-16    |
-      | 5          | researcher4@intersect.org.au | 2009-05-02     | 2011-08-03    |
+      | 5          | researcher1@intersect.org.au | 2010-05-02     |               |
+      | 5          | researcher2@intersect.org.au | 2010-02-02     |               |
+      | 5          | researcher3@intersect.org.au | 2010-05-03     |               |
+      | 5          | researcher4@intersect.org.au | 2009-05-02     |               |
 
 
   Scenario: Admin can accept an access request

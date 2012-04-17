@@ -66,24 +66,27 @@ When /^I enter the following papyrus details$/ do |table|
     end
   end
 end
+
 Then /^I should (not )?see the following papyrus details$/ do |not_see, table|
   table.hashes.each do |row|
     field = row[:field]
     value = row[:value]
     field_id = field.downcase.gsub ' ', '_'
-    display_value = find_or_nil("#display_#{field_id}>div:last-child")
+    display_field = find_or_nil("#display_#{field_id}>div:last-child")
     if not_see
-      display_value.should be_nil
+      display_field.should_not be_displayed(field_id)
     else
-      display_value.text.should eq value
+      display_field.should display_a(value, field_id)
     end
   end
 end
+
 And /^I have languages$/ do |table|
   table.hashes.each do |attrs|
     Factory(:language, attrs)
   end
 end
+
 And /^I have genres$/ do |table|
   table.hashes.each do |attrs|
     Factory(:genre, attrs)

@@ -32,6 +32,9 @@ class Ability
       image.papyrus.visibility == Papyrus::PUBLIC
     end
 
+    can :read_full_field, Papyrus, visibility: [Papyrus::PUBLIC]
+    can :read_detailed_field, Papyrus, visibility: [Papyrus::PUBLIC]
+
     return unless user and user.role
 
     can :request_access, Papyrus do |papyrus|
