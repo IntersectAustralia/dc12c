@@ -4,6 +4,7 @@
     %small Listing Papyri...
   .page-content
     .control-group
-      = link_to 'New Papyrus', new_papyrus_path, class: 'btn'
+      - if can? :create, Papyrus
+        = link_to 'New Papyrus', new_papyrus_path, class: 'btn'
     = render partial: 'table', locals: {table_id: 'papyri_table'}
     = will_paginate @papyri
