@@ -113,7 +113,6 @@ Feature: As an administrator
     And I follow "Cancel"
     Then I should be on the list pending requests page
 
-    @wip
   Scenario: admin can revoke a access request
     Given I am logged in as "admin@intersect.org.au"
     When I approve the requests
@@ -122,9 +121,30 @@ Feature: As an administrator
     Then I am on the admin page
     And I follow "Approved requests"
     When I follow "MQT 5"
-    Then show me the page
-    Then I should be on the revoke access request page
-    And I follow "Revoke Access"
+    And I press "Revoke Access"
     Then I should be on the list approved requests page
     And I should see "The user's access to this record has been revoked."
+
+  Scenario Outline: researchers can't revoke/see approved/see pending requests
+    Given I am logged in as "researcher1@intersect.org.au"
+    And I am on <page>
+    Then I should see "You are not authorized to access this page."
+  Examples:
+    | page                            |
+    | the list approved requests page |
+    | the list pending requests page  |
+
+  Scenario Outline: users not logged in can't revoke/see approved/see pending requests
+    Given I am on <page>
+    Then I should see "You are not authorized to access this page."
+  Examples:
+    | page                            |
+    | the list approved requests page |
+    | the list pending requests page  |
+
+
+  Scenario: researchers should not see the admin tab
+    Given I am logged in as "researcher1@intersect.org.au"
+    And I am on the home page
+    Then I should not see "Admin"
 

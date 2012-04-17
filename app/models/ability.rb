@@ -22,6 +22,13 @@ class Ability
     # alias advanced search to read so they are considered the same
     alias_action :advanced_search, to: :read
 
+    alias_action :revoke, to: :admin
+    alias_action :reject, to: :admin
+    alias_action :approve, to: :admin
+    alias_action :approved, to: :admin
+    alias_action :pending, to: :admin
+
+
     can :read, Papyrus, visibility: [Papyrus::PUBLIC, Papyrus::VISIBLE]
 
     can :low_res, Image do |image|
@@ -54,6 +61,8 @@ class Ability
       can :update_role, User
       can :activate_deactivate, User
       can :admin, User
+      can :admin, AccessRequest
+      can :read, AccessRequest
       can :reject, User
       can :approve, User
     end

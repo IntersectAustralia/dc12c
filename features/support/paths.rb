@@ -92,8 +92,8 @@ module NavigationHelpers
         page_num = $1
         approved_access_requests_path page: page_num
 
-      when /the revoke access request page/
-        revoke_access_request_path
+      when /the list approved requests page/
+        approved_access_requests_path
 
 
 # Add more mappings here.

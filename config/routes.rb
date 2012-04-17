@@ -3,7 +3,7 @@ Dc12c::Application.routes.draw do
     member do
       put :approve
       put :reject
-      get :revoke
+      put :revoke
     end
     collection do
       get :pending
