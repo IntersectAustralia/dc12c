@@ -144,12 +144,24 @@ describe Papyrus do
       Factory(:papyrus)
       should validate_uniqueness_of :mqt_number
     end
+    describe "mqt_number" do
+      it "rejects non-numerics" do
+        FactoryGirl.build(:papyrus, mqt_number: 'abc').should_not be_valid
+      end
+      it "rejects fractions" do
+        FactoryGirl.build(:papyrus, mqt_number: '11.2').should_not be_valid
+        FactoryGirl.build(:papyrus, mqt_number: 11.2).should_not be_valid
+      end
+      it "rejects negatives" do
+        FactoryGirl.build(:papyrus, mqt_number: '-1').should_not be_valid
+        FactoryGirl.build(:papyrus, mqt_number: -1).should_not be_valid
+      end
+    end
 
     describe "trismegistos id" do
       it "should be numeric" do
         papyrus = FactoryGirl.build(:papyrus, trismegistos_id: 'aaa')
         papyrus.should_not be_valid
-        # papyrus.errors[:date_from].should include("is too long (maximum is 4 characters)") # TODO
       end
       it "should be grater than 0" do
         papyrus = FactoryGirl.build(:papyrus, trismegistos_id: 0)
@@ -158,7 +170,9 @@ describe Papyrus do
         papyrus.should_not be_valid
         papyrus = FactoryGirl.build(:papyrus, trismegistos_id: 10)
         papyrus.should be_valid
-        # papyrus.errors[:date_from].should include("is too long (maximum is 4 characters)") # TODO
+      end
+      it "rejects fractions" do
+        FactoryGirl.build(:papyrus, trismegistos_id: 1.2).should_not be_valid
       end
     end
 
