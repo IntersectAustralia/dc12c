@@ -6,6 +6,7 @@ class ImagesController < ApplicationController
   end
 
   def create
+    @image.ordering = nil if @image.ordering == ''
     if @image.save
       redirect_to papyrus_path(@papyrus), notice: 'Your image was successfully uploaded.'
     else

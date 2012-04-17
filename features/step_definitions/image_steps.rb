@@ -36,11 +36,20 @@ And /^"(.*)" uploaded image "(.*)" to "MQT (.*)" with caption "(.*)"$/ do |email
   upload(email, image_filename, papyrus, caption)
 end
 
-def upload(email, image_filename, papyrus, caption)
+And /^"(.*)" uploaded images$/ do |email, table|
+  user = User.find_by_email!(email)
+  table.hashes.each do |row|
+    papyrus = Papyrus.find_by_mqt_number(row['mqt'])
+    upload(email, row['filename'], papyrus, row['caption'], row['ordering'])
+  end
+end
+
+def upload(email, image_filename, papyrus, caption, ordering='')
   login(email)
   visit new_papyrus_image_path(papyrus)
   attach_image(image_filename)
-  fill_in("image_caption", :with => caption)
+  fill_in("image_caption", with: caption)
+  fill_in("image_ordering", with: ordering)
   click_button('Upload')
   logout
 end
@@ -57,3 +66,18 @@ def find_or_nil(selector)
   end
 end
 
+Then /^I should see images ordered "(.*)" for mqt "(.*)"$/ do |filenames_cssv, mqt_number|
+  papyrus = Papyrus.find_by_mqt_number!(mqt_number)
+  expected_filenames = filenames_cssv.split(', ')
+
+  found = page.all :css, 'img[src*="/low_res"]'
+
+  actual_filenames_in_order = found.map do |elem|
+    img_src = elem['src']
+    image_id = /image\/(\d+)\/low_res/.match(img_src)[1]
+
+    Image.find(image_id).image_file_name
+  end
+
+  actual_filenames_in_order.should eq expected_filenames
+end

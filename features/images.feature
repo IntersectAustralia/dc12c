@@ -44,7 +44,7 @@ Feature: In order to associate new images with papyri records
   Scenario: Add image without image
     Given I am logged in as "admin@intersect.org.au"
     And I am on the upload image page for "MQT 2"
-    When I fill in "Caption" with "some caption"
+    When I fill in "image_caption" with "some caption"
     And I press "Upload"
     Then I should not see "Your image was successfully uploaded."
     And I should see "Image can't be blank"
@@ -56,7 +56,8 @@ Feature: In order to associate new images with papyri records
     When I follow "Upload"
     Then I should be on the upload image page for "MQT 2"
     When I attach image "test.tiff"
-    And I fill in "Caption" with "This is my fancy picture"
+    And I fill in "image_caption" with "This is my fancy picture"
+    And I fill in "image_ordering" with "A"
     And I press "Upload"
     Then I should be on the "MQT 2" papyrus page
     Then I should see "Your image was successfully uploaded."
@@ -69,6 +70,24 @@ Feature: In order to associate new images with papyri records
     And I should see "This is my fancy picture"
     When I follow "Download in high resolution" for "test.tiff" for "MQT 2"
     Then I should not see "You are not authorized to access this page."
+
+  Scenario: Uploading image without ordering
+    Given I am logged in as "admin@intersect.org.au"
+    When I am on the "MQT 2" papyrus page
+    And I follow "Upload"
+    And I attach image "test.tiff"
+    And I fill in "image_caption" with "This is my fancy picture"
+    And I press "Upload"
+    Then I should see "Your image was successfully uploaded."
+
+  Scenario: Image rejection due to non-alpha ordering
+    Given I am logged in as "admin@intersect.org.au"
+    When I am on the "MQT 2" papyrus page
+    And I follow "Upload"
+    And I fill in "image_ordering" with "3"
+    And I press "Upload"
+    Then I should not see "Your image was successfully uploaded."
+    And I should see "Ordering is invalid"
 
   Scenario: researcher can't upload
     Given I am logged in as "researcher@intersect.org.au"
@@ -148,4 +167,12 @@ Feature: In order to associate new images with papyri records
     | researcher | 5          | test.tiff  |
     | researcher | 3          | test.tiff  |
 
-
+  Scenario: Image ordering
+    Given "admin@intersect.org.au" uploaded images
+      | mqt | filename   | caption | ordering |
+      | 2   | test3.tiff | someth. |          |
+      | 2   | test2.tiff | someth. | a        |
+      | 2   | test.tiff  | someth. | b        |
+    And I am logged in as "admin@intersect.org.au"
+    And I am on the "MQT 2" papyrus page
+    Then I should see images ordered "test2.tiff, test.tiff, test3.tiff" for mqt "2"

@@ -5,6 +5,18 @@ describe Image do
     it { should belong_to :papyrus }
   end
 
+  describe "default scope" do
+    it "should order by ordering with nulls last" do
+      d = Factory(:image, ordering: 'd')
+      b = Factory(:image, ordering: 'b')
+      a = Factory(:image, ordering: 'a')
+      blank = Factory(:image, ordering: nil)
+      c = Factory(:image, ordering: 'c')
+
+      Image.all.should eq [a, b, c, d, blank]
+    end
+  end
+
   it { should have_attached_file(:image) }
 
   describe "validations" do
@@ -13,6 +25,32 @@ describe Image do
     it { should validate_presence_of :papyrus_id }
     it { should validate_presence_of :caption }
     it { should ensure_length_of(:caption).is_at_most(255) }
+    it { should ensure_length_of(:ordering).is_at_most(1) }
+    describe "ordering" do
+      it "checks ordering is in A-Z (after upcasing)" do
+        ('a'..'z').each do |letter|
+          Factory(:image, ordering: 'a').should be_valid
+        end
+      end
+      it "checks numbers are invalid" do
+        (0..9).each do |digit|
+          FactoryGirl.build(:image, ordering: digit).should_not be_valid
+        end
+      end
+    end
+  end
+
+  describe "upcasing ordering" do
+    it "upcases before validation" do
+      i = Factory(:image, ordering: 'a')
+      i.save!
+
+      i.ordering.should eq 'A'
+
+      i.reload
+
+      i.ordering.should eq 'A'
+    end
   end
 
   describe "high res filename" do
