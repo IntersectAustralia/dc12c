@@ -6,11 +6,25 @@ And /^"MQT (.*)" should have (\d+) image(s)?$/ do |mqt_number, num_images, _|
   Papyrus.find_by_mqt_number!(mqt_number).images.count.should eq num_images.to_i
 end
 
-And /^I should see low res image for "(.*)" of papyrus "MQT (.*)"$/ do |image_name, mqt_number|
+And /^I should see (low_res|thumbnail) image for "(.*)" of papyrus "MQT (.*)"$/ do |image_type, image_name, mqt_number|
   papyrus = Papyrus.find_by_mqt_number!(mqt_number)
   image = papyrus.images.find_by_image_file_name!(image_name)
-  page.should have_css(%Q{img[src*="/image/#{image.id}/low_res"]})
+  page.should have_css(%Q{img[src*="/image/#{image.id}/#{image_type}"]})
 end
+
+Then /^I should (not )?see a thumbnail image for papyrus "MQT ([^"]*)"$/ do |not_see, mqt_number|
+  papyrus = Papyrus.find_by_mqt_number!(mqt_number)
+  begin
+    if not_see
+      find("#thumbnail_#{papyrus.id}").should_not be
+    else
+      find("#thumbnail_#{papyrus.id}").should be
+    end
+  rescue Capybara::ElementNotFound
+    # ignore, this is expected
+  end
+end
+
 Then /^I should (not )?see "Download in (high|low) resolution" for "(.*)" for "MQT (.*)"$/ do |not_see, high_or_low, image_filename, mqt_number|
   papyrus = Papyrus.find_by_mqt_number!(mqt_number)
   image = papyrus.images.find_by_image_file_name!(image_filename)

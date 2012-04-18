@@ -28,6 +28,7 @@ Dc12c::Application.routes.draw do
     resources :images, only: [:new, :create]
   end
 
+  match 'papyrus/:papyrus_id/image/:id/thumbnail' => 'Images#thumbnail'
   match 'papyrus/:papyrus_id/image/:id/low_res' => 'Images#low_res'
   match 'papyrus/:papyrus_id/image/:id/original' => 'Images#high_res'
   match 'admin/index' => 'Admin#index'

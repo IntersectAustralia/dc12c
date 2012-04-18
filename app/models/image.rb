@@ -11,6 +11,10 @@ class Image < ActiveRecord::Base
       low_res: {
         geometry: '450x300>',
         format: 'jpg'
+      },
+      thumbnail: {
+        geometry: '45x30>',
+        format: 'jpg'
       }
     }
 

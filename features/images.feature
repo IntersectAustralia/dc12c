@@ -18,11 +18,11 @@ Feature: In order to associate new images with papyri records
       | Book          |
       | Book Fragment |
     And I have papyri
-      | mqt_number | inventory_id | languages     | dimensions    | date_from | general_note | paleographic_description | recto_verso_note | origin_details | source_of_acquisition | preservation_note | genre | language_note | summary             | original_text | translated_text | visibility |
-      | 2          | p.macq1      | Coptic, Greek | 5 x 6 cm      | 88 CE     | General Blah | Paleo Diet               | Rectangle        | It's Greek.    | Got it from Greece    | poorly preserved  | Book  | Fancy Greek   | don't understand it | περιοχής      | area            | PUBLIC     |
-      | 3          | hidden       | Coptic, Greek | 5 x 6 cm      | 88 CE     | General Blah | Paleo Diet               | Rectangle        | It's Greek.    | Got it from Greece    | poorly preserved  | Book  | Fancy Greek   | don't understand it | περιοχής      | area            | HIDDEN     |
-      | 4          | public       | Coptic, Greek | 5 x 6 cm      | 88 CE     | General Blah | Paleo Diet               | Rectangle        | It's Greek.    | Got it from Greece    | poorly preserved  | Book  | Fancy Greek   | don't understand it | περιοχής      | area            | PUBLIC     |
-      | 5          | visible      | Coptic, Greek | 5 x 6 cm      | 88 CE     | General Blah | Paleo Diet               | Rectangle        | It's Greek.    | Got it from Greece    | poorly preserved  | Book  | Fancy Greek   | don't understand it | περιοχής      | area            | VISIBLE    |
+      | mqt_number | inventory_id | languages     | dimensions | date_from | general_note | paleographic_description | recto_verso_note | origin_details | source_of_acquisition | preservation_note | genre | language_note | summary             | original_text | translated_text | visibility |
+      | 2          | p.macq1      | Coptic, Greek | 5 x 6 cm   | 88 CE     | General Blah | Paleo Diet               | Rectangle        | It's Greek.    | Got it from Greece    | poorly preserved  | Book  | Fancy Greek   | don't understand it | περιοχής      | area            | PUBLIC     |
+      | 3          | hidden       | Coptic, Greek | 5 x 6 cm   | 88 CE     | General Blah | Paleo Diet               | Rectangle        | It's Greek.    | Got it from Greece    | poorly preserved  | Book  | Fancy Greek   | don't understand it | περιοχής      | area            | HIDDEN     |
+      | 4          | public       | Coptic, Greek | 5 x 6 cm   | 88 CE     | General Blah | Paleo Diet               | Rectangle        | It's Greek.    | Got it from Greece    | poorly preserved  | Book  | Fancy Greek   | don't understand it | περιοχής      | area            | PUBLIC     |
+      | 5          | visible      | Coptic, Greek | 5 x 6 cm   | 88 CE     | General Blah | Paleo Diet               | Rectangle        | It's Greek.    | Got it from Greece    | poorly preserved  | Book  | Fancy Greek   | don't understand it | περιοχής      | area            | VISIBLE    |
     And "admin@intersect.org.au" uploaded image "test.tiff" to "MQT 3" with caption "hidden"
     And "admin@intersect.org.au" uploaded image "test2.tiff" to "MQT 4" with caption "public"
     And "admin@intersect.org.au" uploaded image "test.tiff" to "MQT 5" with caption "visible"
@@ -62,7 +62,7 @@ Feature: In order to associate new images with papyri records
     Then I should be on the "MQT 2" papyrus page
     Then I should see "Your image was successfully uploaded."
     And "MQT 2" should have 1 image
-    And I should see low res image for "test.tiff" of papyrus "MQT 2"
+    And I should see low_res image for "test.tiff" of papyrus "MQT 2"
     When I am on the papyrus "MQT 2" image "test.tiff" "low_res" page
     Then I should not see "You are not authorized to access this page."
     When I am on the "MQT 2" papyrus page
@@ -176,3 +176,35 @@ Feature: In order to associate new images with papyri records
     And I am logged in as "admin@intersect.org.au"
     And I am on the "MQT 2" papyrus page
     Then I should see images ordered "test2.tiff, test.tiff, test3.tiff" for mqt "2"
+
+
+  Scenario: search results have a thumbnail showing an image of that record
+    Given "admin@intersect.org.au" uploaded images
+      | mqt | filename   | caption | ordering |
+      | 2   | test3.tiff | someth. |          |
+      | 2   | test2.tiff | someth. | a        |
+      | 2   | test.tiff  | someth. | b        |
+    When I am on the home page
+    And I fill in "Search" with "p.macq1"
+    And I press "Search"
+    Then I should see thumbnail image for "test2.tiff" of papyrus "MQT 2"
+    And I should see a thumbnail image for papyrus "MQT 2"
+
+  Scenario: list all papyri page has thumbnails
+    Given "admin@intersect.org.au" uploaded images
+      | mqt | filename   | caption | ordering |
+      | 2   | test3.tiff | someth. | a        |
+      | 4   | test2.tiff | someth. | a        |
+      | 5   | test.tiff  | someth. | a        |
+    When I am on the home page
+    And I follow "List all papyri records"
+    Then I should see thumbnail image for "test3.tiff" of papyrus "MQT 2"
+    Then I should see thumbnail image for "test2.tiff" of papyrus "MQT 4"
+    Then I should see thumbnail image for "test.tiff" of papyrus "MQT 5"
+
+  Scenario: if no image, then no image shown
+    When I am on the home page
+    And I fill in "Search" with "p.macq1"
+    And I press "Search"
+    Then I should not see a thumbnail image for papyrus "MQT 2"
+

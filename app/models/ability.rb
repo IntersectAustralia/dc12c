@@ -29,9 +29,15 @@ class Ability
     alias_action :pending, to: :admin
 
 
+
+
     can :read, Papyrus, visibility: [Papyrus::PUBLIC, Papyrus::VISIBLE]
 
     can :low_res, Image do |image|
+      [Papyrus::PUBLIC, Papyrus::VISIBLE].include? image.papyrus.visibility
+    end
+
+    can :thumbnail, Image do |image|
       [Papyrus::PUBLIC, Papyrus::VISIBLE].include? image.papyrus.visibility
     end
 
@@ -52,6 +58,7 @@ class Ability
     end
     can :read, Papyrus
     can :low_res, Image
+    can :thumbnail, Image
 
     if Role.superuser_roles.include? user.role
       can :create, Papyrus

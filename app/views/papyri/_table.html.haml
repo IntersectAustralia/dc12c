@@ -4,6 +4,7 @@
     %th Inventory ID
     %th Lines of Text
     %th Translation
+    %th Image
 
   - @papyri.each do |papyrus|
     %tr
@@ -11,3 +12,6 @@
       %td= papyrus.inventory_id
       %td= papyrus.lines_of_text
       %td= papyrus.human_readable_has_translation
+      %td
+        -if papyrus.images.first
+          =image_tag papyrus.images.first.image.url(:thumbnail), title: papyrus.images.first.caption, id: "thumbnail_#{papyrus.id}"

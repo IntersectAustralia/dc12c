@@ -257,10 +257,10 @@ Then /^I should see search results "MQT ([^"]*)"$/ do |mqt_numbers|
   ids = mqt_numbers.split ", "
   papyri = Papyrus.order('inventory_id').where(mqt_number: ids)
   rows = papyri.map do |papyrus|
-    [papyrus.formatted_mqt_number, papyrus.inventory_id, papyrus.lines_of_text || '', papyrus.human_readable_has_translation]
+    [papyrus.formatted_mqt_number, papyrus.inventory_id, papyrus.lines_of_text || '', papyrus.human_readable_has_translation, '']
   end
   expected_table = [
-    ['MQT Number', 'Inventory ID', 'Lines of Text', 'Translation'],
+    ['MQT Number', 'Inventory ID', 'Lines of Text', 'Translation', 'Image'],
     *rows
   ]
   actual = find("table#search_results").all('tr').map { |row| row.all('th, td').map { |cell| cell.text.strip } }
