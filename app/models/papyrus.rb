@@ -19,9 +19,9 @@ class Papyrus < ActiveRecord::Base
   PUBLIC = 'PUBLIC'
   HIDDEN = 'HIDDEN'
 
-  attr_accessible :mqt_number, :mqt_note, :inventory_id, :apis_id, :trismegistos_id, :physical_location, :date_from, :date_to, :date_note, :general_note, :lines_of_text, :paleographic_description, :origin_details, :source_of_acquisition, :preservation_note, :conservation_note, :summary, :language_note, :original_text, :translated_text, :dimensions, :genre_id, :language_ids, :other_characteristics, :material, :recto_verso_note, :type_of_text, :modern_textual_dates, :publications
+  attr_accessible :mqt_number, :mqt_note, :inventory_id, :apis_id, :trismegistos_id, :physical_location, :date_from, :date_to, :date_note, :general_note, :lines_of_text, :paleographic_description, :origin_details, :source_of_acquisition, :preservation_note, :conservation_note, :summary, :language_note, :original_text, :translated_text, :dimensions, :genre_id, :language_ids, :other_characteristics, :material, :recto_verso_note, :type_of_text, :modern_textual_dates, :publications, :volume_number, :item_number
 
-  attr_field_security BASIC, :formatted_mqt_number, :inventory_id, :apis_id, :trismegistos_id, :formatted_date, :lines_of_text, :paleographic_description, :origin_details, :summary, :dimensions, :genre_name, :languages_csv, :material, :publications
+  attr_field_security BASIC, :formatted_mqt_number, :inventory_id, :apis_id, :trismegistos_id, :formatted_date, :lines_of_text, :paleographic_description, :origin_details, :summary, :dimensions, :genre_name, :languages_csv, :material, :publications, :formatted_pmacq_number
 
   attr_field_security DETAILED, :physical_location, :date_note, :general_note, :source_of_acquisition, :preservation_note, :conservation_note, :language_note, :translated_text, :other_characteristics, :type_of_text
 
@@ -67,6 +67,13 @@ class Papyrus < ActiveRecord::Base
   validates_length_of :modern_textual_dates, maximum: 511
   validates_length_of :publications, maximum: 127
 
+  validates_inclusion_of :volume_number, in: %w(I II III IV V VI VII VIII IX X), allow_nil: true
+  validates_numericality_of :item_number, only_integer: true, allow_nil: true, greater_than: 0
+  validates_uniqueness_of :item_number, allow_nil: true
+
+  validates_presence_of :volume_number, if: :item_number
+  validates_presence_of :item_number, if: :volume_number
+
   default_scope order: 'inventory_id'
 
   def self.basic_field(field_name)
@@ -79,6 +86,10 @@ class Papyrus < ActiveRecord::Base
 
   def self.full_field(field_name)
     FULL.include? field_name
+  end
+
+  def formatted_pmacq_number
+    "#{volume_number} #{item_number}" if volume_number and item_number
   end
 
   def make_hidden!

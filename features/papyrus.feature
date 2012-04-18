@@ -18,8 +18,8 @@ Feature: Manage Papyrus
       | Book          |
       | Book Fragment |
     And I have a papyrus
-      | mqt_number | mqt_note | inventory_id | apis_id  | trismegistos_id | physical_location | languages     | dimensions             | date_from | date_note | general_note | lines_of_text | paleographic_description | recto_verso_note | origin_details | source_of_acquisition | preservation_note | conservation_note | genre   | language_note | summary             | original_text            | translated_text | other_characteristics | material | type_of_text | modern_textual_dates | publications | visibility |
-      | 2          | note too | p.macq2      |          |                 |                   | Coptic, Greek | 5 x 6 cm               | 88 CE     | some date | General Blah | Specific blah | Paleo Diet               | Rectangle        | It's Greek.    | Got it from Greece    | poorly preserved  | conservative      | Book    | Fancy Greek   | don't understand it | περιοχής                 | area            | some other            | fabric   | text type    | some dates           | some pub'ns  | PUBLIC     |
+      | mqt_number | mqt_note | inventory_id | apis_id  | trismegistos_id | physical_location | languages     | dimensions             | date_from | date_note | general_note | lines_of_text | paleographic_description | recto_verso_note | origin_details | source_of_acquisition | preservation_note | conservation_note | genre   | language_note | summary             | original_text            | translated_text | other_characteristics | material | type_of_text | modern_textual_dates | publications | mq_publication | visibility |
+      | 2          | note too | p.macq2      |          |                 |                   | Coptic, Greek | 5 x 6 cm               | 88 CE     | some date | General Blah | Specific blah | Paleo Diet               | Rectangle        | It's Greek.    | Got it from Greece    | poorly preserved  | conservative      | Book    | Fancy Greek   | don't understand it | περιοχής                 | area            | some other            | fabric   | text type    | some dates           | some pub'ns  | I 1            | PUBLIC     |
     And I have papyri
       | mqt_number | inventory_id | languages       | dimensions     | date_from   | general_note  | lines_of_text  | visibility |
       | 3          | hidden.macq  | Coptic, Demotic | 5 x 7 cm       | 488 CE      | General stuff | Specific stuff | HIDDEN     |
@@ -64,6 +64,7 @@ Feature: Manage Papyrus
       | MQT Number               |       |
       | MQT Note                 |       |
       | Inventory ID             |       |
+      | P.Macq Number            |       |
       | APIS ID                  |       |
       | Trismegistos ID          |       |
       | Physical location        |       |
@@ -97,6 +98,7 @@ Feature: Manage Papyrus
       | MQT Number               | 5                         |
       | MQT Note                 | from #2                   |
       | Inventory ID             | 24gac                     |
+      | P.Macq Number            | II 34                     |
       | APIS ID                  | P1234                     |
       | Trismegistos ID          | 12345                     |
       | Physical location        | Cabinet A, shelf 3, N.4   |
@@ -132,6 +134,7 @@ Feature: Manage Papyrus
       | MQT Number               | MQT 5                     |
       | MQT Note                 | from #2                   |
       | Inventory ID             | 24gac                     |
+      | P.Macq Number            | II 34                     |
       | APIS ID                  | P1234                     |
       | Trismegistos ID          | 12345                     |
       | Physical location        | Cabinet A, shelf 3, N.4   |
@@ -189,6 +192,7 @@ Feature: Manage Papyrus
       | MQT Number               | MQT 6 |
       | MQT Note                 |       |
       | Inventory ID             |       |
+      | P.Macq Number            |       |
       | APIS ID                  |       |
       | Trismegistos ID          |       |
       | Physical location        |       |
@@ -263,6 +267,7 @@ Feature: Manage Papyrus
       | MQT Number               | 2                   |
       | MQT Note                 | note too            |
       | Inventory ID             | p.macq2             |
+      | P.Macq Number            | I 1                 |
       | APIS ID                  |                     |
       | Trismegistos ID          |                     |
       | Physical location        |                     |
@@ -294,6 +299,7 @@ Feature: Manage Papyrus
       | MQT Number               | 6                         |
       | MQT Note                 | none                      |
       | Inventory ID             | 24gac                     |
+      | P.Macq Number            | III 42                    |
       | APIS ID                  | apis.1                    |
       | Trismegistos ID          | 123                       |
       | Physical location        | cabinet 12                |
@@ -330,6 +336,7 @@ Feature: Manage Papyrus
       | MQT Number               | MQT 6                     |
       | MQT Note                 | none                      |
       | Inventory ID             | 24gac                     |
+      | P.Macq Number            | III 42                    |
       | APIS ID                  | apis.1                    |
       | Trismegistos ID          | 123                       |
       | Physical location        | cabinet 12                |
@@ -367,6 +374,7 @@ Feature: Manage Papyrus
       | MQT Number               | 2                   |
       | MQT Note                 | note too            |
       | Inventory ID             | p.macq2             |
+      | P.Macq Number            | I 1                 |
       | APIS ID                  |                     |
       | Trismegistos ID          |                     |
       | Physical location        |                     |
@@ -456,10 +464,10 @@ Feature: Manage Papyrus
   Scenario: as admin I should see all fields for all visibilities
     Given I am logged in as "admin@intersect.org.au"
     And I have papyri
-      | mqt_number | mqt_note | inventory_id | apis_id  | trismegistos_id | physical_location | languages     | dimensions             | date_from | date_note | general_note | lines_of_text | paleographic_description | recto_verso_note | origin_details | source_of_acquisition | preservation_note | conservation_note | genre   | language_note | summary             | original_text            | translated_text | other_characteristics | material | type_of_text | modern_textual_dates | publications | visibility |
-      | 7          | note too | p.macq7      | APIS.7   | 77              | Physical 7        | Coptic, Greek | (a) 2 x 7cm, (b) same  | 237 BCE   | date 7    | general 7    | lines 7       | paleo 7                  | recto verso 7    | Greek seven    | Got it 7              | minus 7           | taped to 7        | Book    | greek 7       | very seven papyrus  | περιοχής για 7 τιμήσουμε | area 7          | other 7               | fabric   | text type    | date at 7            | pub.mq.7     | HIDDEN     |
-      | 8          | note too | p.macq8      | APIS.8   | 88              | Physical 8        | Coptic, Greek | (a) 2 x 8cm, (b) same  | 238 BCE   | date 8    | general 8    | lines 8       | paleo 8                  | recto verso 8    | Greek seven    | Got it 8              | minus 8           | taped to 8        | Book    | greek 8       | very seven papyrus  | περιοχής για 8 τιμήσουμε | area 8          | other 8               | fabric   | text type    | date at 8            | pub.mq.8     | PUBLIC     |
-      | 9          | note too | p.macq9      | APIS.9   | 99              | Physical 9        | Coptic, Greek | (a) 2 x 9cm, (b) same  | 239 BCE   | date 9    | general 9    | lines 9       | paleo 9                  | recto verso 9    | Greek seven    | Got it 9              | minus 9           | taped to 9        | Book    | greek 9       | very seven papyrus  | περιοχής για 9 τιμήσουμε | area 9          | other 9               | fabric   | text type    | date at 9            | pub.mq.9     | VISIBLE    |
+      | mqt_number | mqt_note | inventory_id | apis_id  | trismegistos_id | physical_location | languages     | dimensions             | date_from | date_note | general_note | lines_of_text | paleographic_description | recto_verso_note | origin_details | source_of_acquisition | preservation_note | conservation_note | genre   | language_note | summary             | original_text            | translated_text | other_characteristics | material | type_of_text | modern_textual_dates | publications | mq_publication | visibility |
+      | 7          | note too | p.macq7      | APIS.7   | 77              | Physical 7        | Coptic, Greek | (a) 2 x 7cm, (b) same  | 237 BCE   | date 7    | general 7    | lines 7       | paleo 7                  | recto verso 7    | Greek seven    | Got it 7              | minus 7           | taped to 7        | Book    | greek 7       | very seven papyrus  | περιοχής για 7 τιμήσουμε | area 7          | other 7               | fabric   | text type    | date at 7            | pub.mq.7     | IX 100         | HIDDEN     |
+      | 8          | note too | p.macq8      | APIS.8   | 88              | Physical 8        | Coptic, Greek | (a) 2 x 8cm, (b) same  | 238 BCE   | date 8    | general 8    | lines 8       | paleo 8                  | recto verso 8    | Greek seven    | Got it 8              | minus 8           | taped to 8        | Book    | greek 8       | very seven papyrus  | περιοχής για 8 τιμήσουμε | area 8          | other 8               | fabric   | text type    | date at 8            | pub.mq.8     | VI 30          | PUBLIC     |
+      | 9          | note too | p.macq9      | APIS.9   | 99              | Physical 9        | Coptic, Greek | (a) 2 x 9cm, (b) same  | 239 BCE   | date 9    | general 9    | lines 9       | paleo 9                  | recto verso 9    | Greek seven    | Got it 9              | minus 9           | taped to 9        | Book    | greek 9       | very seven papyrus  | περιοχής για 9 τιμήσουμε | area 9          | other 9               | fabric   | text type    | date at 9            | pub.mq.9     | V 10           | VISIBLE    |
     And I am on the "MQT 7" papyrus page
     Then I should see "Record is hidden"
     And I should see the following papyrus details
@@ -467,6 +475,7 @@ Feature: Manage Papyrus
       | MQT Number               | MQT 7                     |
       | MQT Note                 | note too                  |
       | Inventory ID             | p.macq7                   |
+      | P.Macq Number            | IX 100                    |
       | APIS ID                  | APIS.7                    |
       | Trismegistos ID          | 77                        |
       | Physical location        | Physical 7                |
@@ -559,12 +568,12 @@ Feature: Manage Papyrus
 
   Scenario: as a researcher I should only see fields that I am entitled to see
     Given I am logged in as "researcher@intersect.org.au"
-    And I have a papyrus
-      | mqt_number | mqt_note | inventory_id | apis_id  | trismegistos_id | physical_location | languages     | dimensions             | date_from | date_note | general_note | lines_of_text | paleographic_description | recto_verso_note | origin_details | source_of_acquisition | preservation_note | conservation_note | genre   | language_note | summary             | original_text            | translated_text | other_characteristics | material | type_of_text | modern_textual_dates | publications | visibility |
-      | 7          | note too | p.macq7      | APIS.7   | 77              | Physical 7        | Coptic, Greek | (a) 2 x 7cm, (b) same  | 237 BCE   | date 7    | general 7    | lines 7       | paleo 7                  | recto verso 7    | Greek seven    | Got it 7              | minus 7           | taped to 7        | Book    | greek 7       | very seven papyrus  | περιοχής για 7 τιμήσουμε | area 7          | other 7               | fabric   | text type    | date at 7            | pub.mq.7     | HIDDEN     |
-      | 8          | note too | p.macq8      | APIS.8   | 88              | Physical 8        | Coptic, Greek | (a) 2 x 8cm, (b) same  | 238 BCE   | date 8    | general 8    | lines 8       | paleo 8                  | recto verso 8    | Greek seven    | Got it 8              | minus 8           | taped to 8        | Book    | greek 8       | very seven papyrus  | περιοχής για 8 τιμήσουμε | area 8          | other 8               | fabric   | text type    | date at 8            | pub.mq.8     | PUBLIC     |
-      | 9          | note too | p.macq9      | APIS.9   | 99              | Physical 9        | Coptic, Greek | (a) 2 x 9cm, (b) same  | 239 BCE   | date 9    | general 9    | lines 9       | paleo 9                  | recto verso 9    | Greek seven    | Got it 9              | minus 9           | taped to 9        | Book    | greek 9       | very seven papyrus  | περιοχής για 9 τιμήσουμε | area 9          | other 9               | fabric   | text type    | date at 9            | pub.mq.9     | VISIBLE    |
-      | 10         | note too | p.macq10     | APIS.10  | 910             | Physical 10       | Coptic, Greek | (a) 2 x 9cm, (b) same  | 231 BCE   | date 10   | general 10   | lines 10      | paleo 10                 | recto verso 10   | Greek seven    | Got it 10             | minus 10          | taped to 10       | Book    | greek 10      | very seven papyrus  | περιοχής για 10τιμήσουμε | area 10         | other 10              | fabric   | text type    | date at 10           | pub.mq.10    | VISIBLE    |
+    And I have papyri
+      | mqt_number | mqt_note | inventory_id | apis_id  | trismegistos_id | physical_location | languages     | dimensions             | date_from | date_note | general_note | lines_of_text | paleographic_description | recto_verso_note | origin_details | source_of_acquisition | preservation_note | conservation_note | genre   | language_note | summary             | original_text            | translated_text | other_characteristics | material | type_of_text | modern_textual_dates | publications | mq_publication | visibility |
+      | 7          | note too | p.macq7      | APIS.7   | 77              | Physical 7        | Coptic, Greek | (a) 2 x 7cm, (b) same  | 237 BCE   | date 7    | general 7    | lines 7       | paleo 7                  | recto verso 7    | Greek seven    | Got it 7              | minus 7           | taped to 7        | Book    | greek 7       | very seven papyrus  | περιοχής για 7 τιμήσουμε | area 7          | other 7               | fabric   | text type    | date at 7            | pub.mq.7     | IX 100         | HIDDEN     |
+      | 8          | note too | p.macq8      | APIS.8   | 88              | Physical 8        | Coptic, Greek | (a) 2 x 8cm, (b) same  | 238 BCE   | date 8    | general 8    | lines 8       | paleo 8                  | recto verso 8    | Greek seven    | Got it 8              | minus 8           | taped to 8        | Book    | greek 8       | very seven papyrus  | περιοχής για 8 τιμήσουμε | area 8          | other 8               | fabric   | text type    | date at 8            | pub.mq.8     | VIII 30        | PUBLIC     |
+      | 9          | note too | p.macq9      | APIS.9   | 99              | Physical 9        | Coptic, Greek | (a) 2 x 9cm, (b) same  | 239 BCE   | date 9    | general 9    | lines 9       | paleo 9                  | recto verso 9    | Greek seven    | Got it 9              | minus 9           | taped to 9        | Book    | greek 9       | very seven papyrus  | περιοχής για 9 τιμήσουμε | area 9          | other 9               | fabric   | text type    | date at 9            | pub.mq.9     | VI 20          | VISIBLE    |
+      | 10         | note too | p.macq10     | APIS.10  | 910             | Physical 10       | Coptic, Greek | (a) 2 x 9cm, (b) same  | 231 BCE   | date 10   | general 10   | lines 10      | paleo 10                 | recto verso 10   | Greek seven    | Got it 10             | minus 10          | taped to 10       | Book    | greek 10      | very seven papyrus  | περιοχής για 10τιμήσουμε | area 10         | other 10              | fabric   | text type    | date at 10           | pub.mq.10    | IV 10          | VISIBLE    |
     And I have papyrus access requests
       | User requesting access        | MQT Number | Date requested | Date approved |
       | researcher@intersect.org.au   | 10         | 2012-01-01     | 2012-01-02    |
@@ -573,6 +582,7 @@ Feature: Manage Papyrus
       | field                    | value                     |
       | MQT Number               | MQT 7                     |
       | Inventory ID             | p.macq7                   |
+      | P.Macq Number            | IX 100                    |
       | APIS ID                  | APIS.7                    |
       | Trismegistos ID          | 77                        |
       | Physical location        | Physical 7                |

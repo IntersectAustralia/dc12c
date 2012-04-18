@@ -9,6 +9,9 @@
   = render_field('MQT Number', f.text_field(:mqt_number, maxlength: 32))
   = render_field('MQT Note', f.text_field(:mqt_note))
   = render_field('Inventory ID', f.text_field(:inventory_id))
+  = render_field_with_block('P.Macq Number') do
+    = f.text_field(:volume_number, limit: 2)
+    = f.text_field(:item_number, limit: 6)
   = render_field('APIS ID', f.text_field(:apis_id))
   = render_field('Trismegistos ID', f.text_field(:trismegistos_id, maxlength: 32))
   = render_field('Physical location', f.text_area(:physical_location, :class => "medium"))
