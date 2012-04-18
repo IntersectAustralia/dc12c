@@ -31,38 +31,45 @@ When /^I enter the following papyrus details$/ do |table|
   table.hashes.each do |row|
     field = row[:field]
     value = row[:value]
-    if field =~ /Date (From|To)/
-      from_or_to = $1.downcase
-      year_name, era_name = "date_#{from_or_to}_year", "date_#{from_or_to}_era"
+    case field
+      when /Date (From|To)/
+        from_or_to = $1.downcase
+        year_name, era_name = "date_#{from_or_to}_year", "date_#{from_or_to}_era"
 
-      if ['BCE', 'CE'].include? value
-        set_papyrus_field(year_name, '')
-        set_papyrus_field(era_name, value)
-      else
-        year, era = value.split ' '
-
-        if value == ''
+        if ['BCE', 'CE'].include? value
           set_papyrus_field(year_name, '')
-          set_papyrus_field(era_name, '')
+          set_papyrus_field(era_name, value)
         else
-          set_papyrus_field(year_name, year)
-          if era.nil?
+          year, era = value.split ' '
+
+          if value == ''
+            set_papyrus_field(year_name, '')
             set_papyrus_field(era_name, '')
           else
-            set_papyrus_field(era_name, era)
+            set_papyrus_field(year_name, year)
+            if era.nil?
+              set_papyrus_field(era_name, '')
+            else
+              set_papyrus_field(era_name, era)
+            end
           end
         end
-      end
-    elsif field == 'Languages'
-      languages = value.split(', ')
-      languages.each do |l|
-        language = Language.find_by_name! l
-        field_id = "language_ids_#{language.id}"
-        set_papyrus_field(field_id, 'checked')
-      end
-    else
-      field_id = field.downcase.gsub ' ', '_'
-      set_papyrus_field(field_id, value)
+      when 'Languages'
+        languages = value.split(', ')
+        languages.each do |l|
+          language = Language.find_by_name! l
+          field_id = "language_ids_#{language.id}"
+          set_papyrus_field(field_id, 'checked')
+        end
+      when 'P.Macq Number'
+        volume_number, item_number = value.split ' '
+        volume_number ||= ''
+        item_number ||= ''
+        set_papyrus_field('volume_number', volume_number)
+        set_papyrus_field('item_number', item_number)
+      else
+        field_id = field.downcase.gsub ' ', '_'
+        set_papyrus_field(field_id, value)
     end
   end
 end
@@ -71,7 +78,7 @@ Then /^I should (not )?see the following papyrus details$/ do |not_see, table|
   table.hashes.each do |row|
     field = row[:field]
     value = row[:value]
-    field_id = field.downcase.gsub ' ', '_'
+    field_id = field.downcase.tr ' .', '_'
     display_field = find_or_nil("#display_#{field_id}>div:last-child")
     if not_see
       display_field.should_not be_displayed(field_id)
@@ -100,6 +107,7 @@ And /^I have (a papyrus|papyri)$/ do |_, table|
     date_to = attrs.delete 'date_to'
     genre = attrs.delete 'genre'
     visibility = attrs.delete 'visibility'
+    mq_publication = attrs.delete 'mq_publication'
 
     papyrus = Papyrus.new(attrs)
 
@@ -116,6 +124,12 @@ And /^I have (a papyrus|papyri)$/ do |_, table|
           papyrus.date_to = date_to.to_i
         end
       end
+    end
+
+    if mq_publication
+      volume_number, item_number = mq_publication.split ' '
+      papyrus.volume_number = volume_number
+      papyrus.item_number = item_number
     end
 
     if languages
@@ -136,35 +150,40 @@ Then /^I should see papyrus fields displayed$/ do |table|
 
     field = row[:field]
     value = row[:value]
-    if field =~ /^Date (From|To)$/
-      from_or_to = $1.downcase
+    case field
+      when /^Date (From|To)$/
+        from_or_to = $1.downcase
 
-      year_name, era_name = "date_#{from_or_to}_year", "date_#{from_or_to}_era"
+        year_name, era_name = "date_#{from_or_to}_year", "date_#{from_or_to}_era"
 
-      if value.present?
-        year, era = value.split ' '
+        if value.present?
+          year, era = value.split ' '
+        else
+          year = era = ''
+        end
+
+        get_papyrus_field(year_name).should == year
+        get_papyrus_field(era_name).should == era
+      when 'Languages'
+        checked_ids = page.all(:css, '.papyrus_language_checkbox').find_all{|e|e.checked?}.map{|e|e.value}.map(&:to_i)
+
+        languages = value.split(', ')
+        expected_ids = languages.map do |l|
+          language = Language.find_by_name! l
+          language.id
+        end
+
+        checked_ids.sort.should eq expected_ids.sort
+      when 'P.Macq Number'
+        volume_number, item_number = value.split ' '
+        get_papyrus_field('volume_number').should eq volume_number
+        get_papyrus_field('item_number').should eq item_number
       else
-        year = era = ''
-      end
-
-      get_papyrus_field(year_name).should == year
-      get_papyrus_field(era_name).should == era
-    elsif field == 'Languages'
-      checked_ids = page.all(:css, '.papyrus_language_checkbox').find_all{|e|e.checked?}.map{|e|e.value}.map(&:to_i)
-
-      languages = value.split(', ')
-      expected_ids = languages.map do |l|
-        language = Language.find_by_name! l
-        language.id
-      end
-
-      checked_ids.sort.should eq expected_ids.sort
-    else
-      if field == 'Genre'
-        value = Genre.find_by_name!(value).id
-      end
-      field_id = field.downcase.gsub ' ', '_'
-      get_papyrus_field(field_id).should eq value.to_s
+        if field == 'Genre'
+          value = Genre.find_by_name!(value).id
+        end
+        field_id = field.downcase.gsub ' ', '_'
+        get_papyrus_field(field_id).should eq value.to_s
     end
   end
 end

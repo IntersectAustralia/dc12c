@@ -3,6 +3,16 @@ require 'spec_helper'
 
 
 describe Papyrus do
+  describe "formatted_pmacq_number" do
+    it "concatenates volume number and item number" do
+      FactoryGirl.build(:papyrus, volume_number: 'X', item_number: 123).formatted_pmacq_number.should eq 'X 123'
+    end
+    it "nils all other combinations of volume number and item number" do
+      FactoryGirl.build(:papyrus, volume_number: nil, item_number: nil).formatted_pmacq_number.should be_nil
+      FactoryGirl.build(:papyrus, volume_number: '1', item_number: nil).formatted_pmacq_number.should be_nil
+      FactoryGirl.build(:papyrus, volume_number: nil, item_number: 123).formatted_pmacq_number.should be_nil
+    end
+  end
   describe "visibility helpers" do
     before :each do
       @p = Factory(:papyrus, visibility: Papyrus::HIDDEN)
@@ -225,6 +235,37 @@ describe Papyrus do
       FactoryGirl.build(:papyrus, visibility: Papyrus::PUBLIC).should be_valid
       FactoryGirl.build(:papyrus, visibility: "RANDOM").should_not be_valid
       FactoryGirl.build(:papyrus, visibility: "public").should_not be_valid
+    end
+
+    describe "p.macq number" do
+      it "validates volume number is I-X" do
+        %w{I II III IV V VI VII VIII IX X}.each do |volume|
+          FactoryGirl.build(:papyrus, volume_number: volume, item_number: 1).should be_valid
+        end
+        FactoryGirl.build(:papyrus, volume_number: 'garbage', item_number: 1).should_not be_valid
+      end
+      it "validates item_number as positive integer" do
+        FactoryGirl.build(:papyrus, volume_number: 'I', item_number: -1).should_not be_valid
+        FactoryGirl.build(:papyrus, volume_number: 'I', item_number: 0).should_not be_valid
+        FactoryGirl.build(:papyrus, volume_number: 'I', item_number: 0.5).should_not be_valid
+        FactoryGirl.build(:papyrus, volume_number: 'I', item_number: 5).should be_valid
+      end
+      it "validates item number uniqueness" do
+        Factory :papyrus, volume_number: 'I', item_number: 1
+        should validate_uniqueness_of :item_number
+      end
+      it "accepts item/volume absent" do
+        FactoryGirl.build(:papyrus, volume_number: nil, item_number: nil).should be_valid
+      end
+      it "accepts item/volume present" do
+        FactoryGirl.build(:papyrus, volume_number: 'X', item_number: 123).should be_valid
+      end
+      it "rejects item only" do
+        FactoryGirl.build(:papyrus, volume_number: nil, item_number: 123).should_not be_valid
+      end
+      it "rejects volume only" do
+        FactoryGirl.build(:papyrus, volume_number: 'I', item_number: nil).should_not be_valid
+      end
     end
 
   end

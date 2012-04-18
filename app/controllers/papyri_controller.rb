@@ -37,6 +37,7 @@ class PapyriController < ApplicationController
   # POST /papyri.json
   def create
     date_errors = set_dates(@papyrus, params)
+    nil_blanks(@papyrus, params)
     respond_to do |format|
       if @papyrus.save and date_errors.empty?
         format.html { redirect_to @papyrus, notice: 'Your Papyrus record has been created.' }
@@ -53,6 +54,7 @@ class PapyriController < ApplicationController
   # PUT /papyri/1.json
   def update
     errors = set_dates(@papyrus, params)
+    nil_blanks(@papyrus, params)
     respond_to do |format|
       params[:papyrus][:language_ids] ||= []
       if @papyrus.update_attributes(params[:papyrus]) and errors.empty?
@@ -151,6 +153,13 @@ class PapyriController < ApplicationController
     errors.each do |error|
       papyrus.errors[:base] << error
     end
+  end
+
+  def nil_blanks(papyrus, params)
+    params[:papyrus][:volume_number] = nil if params[:papyrus][:volume_number] == ''
+    params[:papyrus][:item_number] = nil if params[:papyrus][:item_number] == ''
+    papyrus.volume_number = nil if papyrus.volume_number == ''
+    papyrus.item_number = nil if papyrus.item_number == ''
   end
 
 end
