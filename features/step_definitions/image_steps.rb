@@ -9,20 +9,25 @@ end
 And /^I should see (low_res|thumbnail) image for "(.*)" of papyrus "MQT (.*)"$/ do |image_type, image_name, mqt_number|
   papyrus = Papyrus.find_by_mqt_number!(mqt_number)
   image = papyrus.images.find_by_image_file_name!(image_name)
-  page.should have_css(%Q{img[src*="/image/#{image.id}/#{image_type}"]})
+  get_image_elem(image_type, image.id).should be
 end
 
 Then /^I should (not )?see a thumbnail image for papyrus "MQT ([^"]*)"$/ do |not_see, mqt_number|
   papyrus = Papyrus.find_by_mqt_number!(mqt_number)
-  begin
-    if not_see
+  if not_see
+    begin
       find("#thumbnail_#{papyrus.id}").should_not be
-    else
-      find("#thumbnail_#{papyrus.id}").should be
+      raise 'found unexpected thumbnail'
+    rescue Capybara::ElementNotFound
+      # expected
     end
-  rescue Capybara::ElementNotFound
-    # ignore, this is expected
+  else
+    find("#thumbnail_#{papyrus.id}").should be
   end
+end
+
+def get_image_elem(image_type, image_id)
+  find_or_nil(%Q{img[src*="/image/#{image_id}/#{image_type}"]})
 end
 
 Then /^I should (not )?see "Download in (high|low) resolution" for "(.*)" for "MQT (.*)"$/ do |not_see, high_or_low, image_filename, mqt_number|
@@ -95,3 +100,28 @@ Then /^I should see images ordered "(.*)" for mqt "(.*)"$/ do |filenames_cssv, m
 
   actual_filenames_in_order.should eq expected_filenames
 end
+
+Then /^I should see an edit link for image "([^"]*)" for "MQT ([^"]*)"$/ do |filename, mqt_number|
+  image_link(filename, mqt_number).should be
+end
+
+When /^I follow the edit link for image "([^"]*)" for "MQT ([^"]*)"$/ do |filename, mqt_number|
+  image_link(filename, mqt_number).click
+end
+
+def image_link(filename, mqt_number)
+  image = get_image(filename, mqt_number)
+  selector = "#edit_image_#{image.id}"
+  find_or_nil(selector)
+end
+
+def get_image(filename, mqt_number)
+  papyrus = Papyrus.find_by_mqt_number! mqt_number
+  papyrus.images.find_by_image_file_name! filename
+end
+
+Then /^I should see low res image for "([^"]*)" for "MQT ([^"]*)" with caption "([^"]*)"$/ do |filename, mqt_number, caption|
+  img = get_image(filename, mqt_number)
+  get_image_elem('low_res', img.id)['title'].should eq caption
+end
+

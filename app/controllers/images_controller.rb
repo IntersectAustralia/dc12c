@@ -18,6 +18,17 @@ class ImagesController < ApplicationController
     send_file @image.image.path(:thumbnail)
   end
 
+  def edit
+  end
+
+  def update
+    if @image.update_attributes params[:image]
+      redirect_to papyrus_path(@papyrus), notice: 'Your image was successfully updated.'
+    else
+      render :edit
+    end
+  end
+
   def low_res
     send_file @image.image.path(:low_res), filename: @image.low_res_filename
   end

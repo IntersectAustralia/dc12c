@@ -25,7 +25,7 @@ Dc12c::Application.routes.draw do
       post :make_public
     end
 
-    resources :images, only: [:new, :create]
+    resources :images, only: [:new, :create, :edit, :update]
   end
 
   match 'papyrus/:papyrus_id/image/:id/thumbnail' => 'Images#thumbnail'

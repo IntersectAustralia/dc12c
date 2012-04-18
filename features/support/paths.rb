@@ -95,6 +95,13 @@ module NavigationHelpers
       when /the list approved requests page/
         approved_access_requests_path
 
+      when /the edit image page for "(.*)" for "MQT (\d+)"/
+        filename = $1
+        mqt_number = $2
+        papyrus = Papyrus.find_by_mqt_number! mqt_number
+        image = papyrus.images.find_by_image_file_name! filename
+        edit_papyrus_image_path(papyrus, image)
+
 
 # Add more mappings here.
 # Here is an example that pulls values out of the Regexp:

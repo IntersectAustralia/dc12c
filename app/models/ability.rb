@@ -65,6 +65,7 @@ class Ability
       can :update, Papyrus
       can :view_visibility, Papyrus
       can :create, Image
+      can :update, Image
       can :high_res, Image
       can :accept_or_reject, AccessRequest
       can :read, User

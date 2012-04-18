@@ -23,9 +23,11 @@ Feature: In order to associate new images with papyri records
       | 3          | hidden       | Coptic, Greek | 5 x 6 cm   | 88 CE     | General Blah | Paleo Diet               | Rectangle        | It's Greek.    | Got it from Greece    | poorly preserved  | Book  | Fancy Greek   | don't understand it | περιοχής      | area            | HIDDEN     |
       | 4          | public       | Coptic, Greek | 5 x 6 cm   | 88 CE     | General Blah | Paleo Diet               | Rectangle        | It's Greek.    | Got it from Greece    | poorly preserved  | Book  | Fancy Greek   | don't understand it | περιοχής      | area            | PUBLIC     |
       | 5          | visible      | Coptic, Greek | 5 x 6 cm   | 88 CE     | General Blah | Paleo Diet               | Rectangle        | It's Greek.    | Got it from Greece    | poorly preserved  | Book  | Fancy Greek   | don't understand it | περιοχής      | area            | VISIBLE    |
-    And "admin@intersect.org.au" uploaded image "test.tiff" to "MQT 3" with caption "hidden"
-    And "admin@intersect.org.au" uploaded image "test2.tiff" to "MQT 4" with caption "public"
-    And "admin@intersect.org.au" uploaded image "test.tiff" to "MQT 5" with caption "visible"
+    And "admin@intersect.org.au" uploaded images
+      | mqt | filename   | caption | ordering |
+      | 3   | test.tiff  | hidden  | b        |
+      | 4   | test2.tiff | public  | a        |
+      | 5   | test.tiff  | visible | Z        |
 
   Scenario: Clicking cancel
     Given I am logged in as "admin@intersect.org.au"
@@ -177,7 +179,6 @@ Feature: In order to associate new images with papyri records
     And I am on the "MQT 2" papyrus page
     Then I should see images ordered "test2.tiff, test.tiff, test3.tiff" for mqt "2"
 
-
   Scenario: search results have a thumbnail showing an image of that record
     Given "admin@intersect.org.au" uploaded images
       | mqt | filename   | caption | ordering |
@@ -207,4 +208,31 @@ Feature: In order to associate new images with papyri records
     And I fill in "Search" with "p.macq1"
     And I press "Search"
     Then I should not see a thumbnail image for papyrus "MQT 2"
+
+  Scenario: Editing an image
+    Given "admin@intersect.org.au" uploaded images
+      | mqt | filename   | caption | ordering |
+      | 2   | test3.tiff | someth. |          |
+      | 2   | test2.tiff | someth. | a        |
+      | 2   | test.tiff  | someth. | b        |
+    And I am logged in as "admin@intersect.org.au"
+    And I am on the "MQT 2" papyrus page
+    Then I should see an edit link for image "test2.tiff" for "MQT 2"
+    When I follow the edit link for image "test2.tiff" for "MQT 2"
+    Then I should be on the edit image page for "test2.tiff" for "MQT 2"
+    When I fill in "image_caption" with "new caption"
+    And I fill in "image_ordering" with "C"
+    And I press "Update"
+    Then I should be on the "MQT 2" papyrus page
+    And I should see "Your image was successfully updated"
+    And I should see images ordered "test.tiff, test2.tiff, test3.tiff" for mqt "2"
+    And I should see low res image for "test2.tiff" for "MQT 2" with caption "new caption"
+
+  Scenario: Failing edit
+    Given I am logged in as "admin@intersect.org.au"
+    And I am on the edit image page for "test.tiff" for "MQT 3"
+    And I fill in "image_caption" with ""
+    And I press "Update"
+    Then I should see "The record could not be saved"
+    And I should see "Caption can't be blank"
 

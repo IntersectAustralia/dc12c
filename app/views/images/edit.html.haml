@@ -1,0 +1,5 @@
+.page-inner
+  .page-header.record
+    %h2 Edit Image
+  .page-content
+    = render partial: 'form', locals: {image: @image, papyrus: @papyrus, is_edit: true}
