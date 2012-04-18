@@ -131,6 +131,29 @@ And /^I have (a papyrus|papyri)$/ do |_, table|
   end
 end
 
+Given /^I have papyri with visibility "([^"]*)" and a field filled with "([^"]*)" or "([^"]*)"$/ do |visibility, str_value, num_value, table|
+  numeric_fields = {trismegistos_id: true, date_from:true}
+  table.hashes.each do |attrs|
+    mqt_number = attrs[:mqt_number]
+    field_name = attrs[:populated_field]
+    papyrus = Papyrus.new(mqt_number: mqt_number, inventory_id: mqt_number)
+    if 'languages' == field_name
+      language = Language.new(name: str_value)
+      language.save!
+      papyrus.languages = [language]
+    elsif 'genre' == field_name
+      genre = Genre.new(name: str_value)
+      genre.save!
+      papyrus.genre = genre
+    else
+      value = numeric_fields[field_name.to_sym] ? num_value : str_value
+      papyrus.send((field_name + "=").to_sym,value)
+    end
+    papyrus.visibility = visibility
+    papyrus.save!
+  end
+end
+
 Then /^I should see papyrus fields displayed$/ do |table|
   table.hashes.each do |row|
 
@@ -213,7 +236,7 @@ end
 
 Then /^I should see search results "MQT ([^"]*)"$/ do |mqt_numbers|
   ids = mqt_numbers.split ", "
-  papyri = Papyrus.order('mqt_number').where(mqt_number: ids)
+  papyri = Papyrus.order('inventory_id').where(mqt_number: ids)
   rows = papyri.map do |papyrus|
     [papyrus.formatted_mqt_number, papyrus.inventory_id, papyrus.lines_of_text || '', papyrus.human_readable_has_translation]
   end
@@ -222,7 +245,7 @@ Then /^I should see search results "MQT ([^"]*)"$/ do |mqt_numbers|
     *rows
   ]
   actual = find("table#search_results").all('tr').map { |row| row.all('th, td').map { |cell| cell.text.strip } }
-  expected_table.should eq actual
+  actual.should eq expected_table
 end
 
 And /^Date should be empty$/ do

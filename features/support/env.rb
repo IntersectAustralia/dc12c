@@ -66,3 +66,10 @@ Around('@papyrus_per_page_is_one') do |scenario, block|
   block.call
   APP_CONFIG['number_of_papyri_per_page'] = 20
 end
+
+# for practical purposes 9999 is infinite in this project
+Around('@papyrus_per_page_is_infinite') do |scenario, block|
+  APP_CONFIG['number_of_papyri_per_page'] = 9999
+  block.call
+  APP_CONFIG['number_of_papyri_per_page'] = 20
+end

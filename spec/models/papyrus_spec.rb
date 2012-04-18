@@ -296,6 +296,17 @@ describe Papyrus do
       @p15 = Factory(:papyrus, inventory_id: 'p.macq1234', translated_text: "These strike me as Chinese")
       @p16 = Factory(:papyrus, original_text: "Έμπασυ στο Κολωνάκι")
       @p17 = Factory(:papyrus, summary: "Έμπασυ στο Κολωνάκι")
+      @p18 = Factory(:papyrus, apis_id: "apis")
+      @p19 = Factory(:papyrus, trismegistos_id: 444)
+      @p20 = Factory(:papyrus, mqt_note: "aaa")
+      @p21 = Factory(:papyrus, physical_location: "bbb")
+      @p22 = Factory(:papyrus, dimensions: "ccc")
+      @p23 = Factory(:papyrus, date_note: "ddd")
+      @p24 = Factory(:papyrus, conservation_note: "eee")
+      @p25 = Factory(:papyrus, translated_text: "fff")
+      @p26 = Factory(:papyrus, other_characteristics: "ggg")
+      @p27 = Factory(:papyrus, material: "hhh")
+      @p28 = Factory(:papyrus, type_of_text: "iii")
     end
     describe "simple" do
       it "should find by inventory id" do
@@ -349,6 +360,50 @@ describe Papyrus do
       it "should find by translated text" do
         results = Papyrus.search(['Chinese', 'strike'])
         results.should eq [@p15]
+      end
+      it "should find by mqt_note" do
+        results = Papyrus.search(['aaa'])
+        results.should eq [@p20]
+      end
+      it "should find by apis id" do
+        results = Papyrus.search(['apis'])
+        results.should eq [@p18]
+      end
+      it "should find by trismegistos id" do
+        results = Papyrus.search(['444'])
+        results.should eq [@p19]
+      end
+      it "should find by physical location" do
+        results = Papyrus.search(['bbb'])
+        results.should eq [@p21]
+      end
+      it "should find by dimensions" do
+        results = Papyrus.search(['ccc'])
+        results.should eq [@p22]
+      end
+      it "should find by date note" do
+        results = Papyrus.search(['ddd'])
+        results.should eq [@p23]
+      end
+      it "should find by conservation note" do
+        results = Papyrus.search(['eee'])
+        results.should eq [@p24]
+      end
+      it "should find by translated text" do
+        results = Papyrus.search(['fff'])
+        results.should eq [@p25]
+      end
+      it "should find by other characteristics" do
+        results = Papyrus.search(['ggg'])
+        results.should eq [@p26]
+      end
+      it "should find by material" do
+        results = Papyrus.search(['hhh'])
+        results.should eq [@p27]
+      end
+      it "should find by type of text/tittle" do
+        results = Papyrus.search(['iii'])
+        results.should eq [@p28]
       end
       it "should find across multiple fields" do
         results = Papyrus.search(['Bulb', 'aLl'])

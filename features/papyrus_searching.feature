@@ -175,3 +175,37 @@ Feature: Searching Papyri
     And I press "Search"
     Then I should not see the search results table
     And I should see "No Results Found"
+
+  @papyrus_per_page_is_infinite
+  Scenario: admin should find results in all fields for simple search
+    Given I am logged in as "admin@intersect.org.au"
+    And I have papyri with visibility "HIDDEN" and a field filled with "abcd" or "123"
+      | mqt_number | populated_field               |
+      |  52        | mqt_note                      |
+      |  53        | inventory_id                  |
+      |  54        | apis_id                       |
+      |  55        | trismegistos_id               |
+      |  56        | physical_location             |
+      |  57        | languages                     |
+      |  58        | dimensions                    |
+      |  60        | date_note                     |
+      |  61        | general_note                  |
+      |  62        | lines_of_text                 |
+      |  63        | paleographic_description      |
+      |  64        | recto_verso_note              |
+      |  65        | origin_details                |
+      |  66        | source_of_acquisition         |
+      |  67        | preservation_note             |
+      |  68        | conservation_note             |
+      |  69        | genre                         |
+      |  70        | language_note                 |
+      |  71        | summary                       |
+      |  73        | translated_text               |
+      |  74        | other_characteristics         |
+      |  75        | material                      |
+      |  76        | type_of_text                  |
+    And I am on the home page
+    Then I fill in "Search" with "abcd 123"
+    And I press "Search"
+    And I should see search results "MQT 52, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 53, 77, 78, 79"
+    

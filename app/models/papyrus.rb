@@ -153,6 +153,16 @@ class Papyrus < ActiveRecord::Base
     | upper(genre.name).like_any(search_terms)               \
     | upper(language_note).like_any(search_terms)            \
     | upper(summary).like_any(search_terms)                  \
+    | upper(mqt_note).like_any(search_terms)                 \
+    | upper(apis_id).like_any(search_terms)                  \
+    | upper(trismegistos_id).like_any(search_terms)          \
+    | upper(physical_location).like_any(search_terms)        \
+    | upper(dimensions).like_any(search_terms)               \
+    | upper(date_note).like_any(search_terms)                \
+    | upper(conservation_note).like_any(search_terms)        \
+    | upper(other_characteristics).like_any(search_terms)    \
+    | upper(material).like_any(search_terms)                 \
+    | upper(type_of_text).like_any(search_terms)             \
     | upper(translated_text).like_any(search_terms)
     end
   end
