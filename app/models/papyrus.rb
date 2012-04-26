@@ -74,7 +74,7 @@ class Papyrus < ActiveRecord::Base
   validates_presence_of :volume_number, if: :item_number
   validates_presence_of :item_number, if: :volume_number
 
-  default_scope order: 'inventory_number'
+  default_scope order: 'mqt_number'
 
   def self.basic_field(field_name)
     BASIC.include? field_name
@@ -149,36 +149,47 @@ class Papyrus < ActiveRecord::Base
     genre.name if genre
   end
 
-  def self.search search_terms
+  def self.search user, search_terms
     search_terms = search_terms.map {|term| "%#{UnicodeUtils.upcase(term)}%"}
-    Papyrus.joins { languages.outer }.joins{genre.outer}.where do
-      upper(inventory_number).like_any(search_terms)             \
-    | upper(languages.name).like_any(search_terms)           \
-    | upper(general_note).like_any(search_terms)             \
-    | upper(lines_of_text).like_any(search_terms)            \
-    | upper(paleographic_description).like_any(search_terms) \
-    | upper(recto_verso_note).like_any(search_terms)         \
-    | upper(origin_details).like_any(search_terms)           \
-    | upper(source_of_acquisition).like_any(search_terms)    \
-    | upper(preservation_note).like_any(search_terms)        \
-    | upper(genre.name).like_any(search_terms)               \
-    | upper(language_note).like_any(search_terms)            \
-    | upper(summary).like_any(search_terms)                  \
-    | upper(mqt_note).like_any(search_terms)                 \
-    | upper(apis_id).like_any(search_terms)                  \
-    | upper(trismegistos_id).like_any(search_terms)          \
-    | upper(physical_location).like_any(search_terms)        \
-    | upper(dimensions).like_any(search_terms)               \
-    | upper(date_note).like_any(search_terms)                \
-    | upper(conservation_note).like_any(search_terms)        \
-    | upper(other_characteristics).like_any(search_terms)    \
-    | upper(material).like_any(search_terms)                 \
-    | upper(type_of_text).like_any(search_terms)             \
-    | upper(translated_text).like_any(search_terms)
+    simple_fields = [:inventory_number, :general_note, :lines_of_text,
+          :paleographic_description, :recto_verso_note, :origin_details, :source_of_acquisition,
+          :preservation_note, :language_note, :summary, :mqt_note, :apis_id,
+          :trismegistos_id, :physical_location, :dimensions, :date_note, :conservation_note,
+          :other_characteristics, :material, :type_of_text, :translated_text]
+    ability = Ability.new(user)
+    registered = user and user.role.present?
+    super_role = user and (Role.superuser_roles.include? user.role)
+    if user
+      papyri_id_list = AccessRequest.where(user_id: user.id, status: AccessRequest::APPROVED).pluck(:papyrus_id)
+    else
+      papyri_id_list = []
     end
+    # genre.name, language.name are added by hand later
+    Papyrus.joins { languages.outer }.joins{genre.outer}.where do
+      clauses = simple_fields.map do |field_name|
+        if Papyrus.basic_field(field_name)
+           upper(__send__(field_name)).like_any search_terms
+        elsif Papyrus.detailed_field(field_name)
+          if registered
+           upper(__send__(field_name)).like_any search_terms
+          else
+           upper(__send__(field_name)).like_any(search_terms) & visibility.eq("PUBLIC")
+          end
+        else
+          if super_role
+            upper(__send__(field_name)).like_any search_terms
+          else
+            upper(__send__(field_name)).like_any(search_terms) & (visibility.eq("PUBLIC") | id.in(papyri_id_list))
+          end
+        end
+      end.compact
+      clauses << (upper(genre.name).like_any search_terms)
+      clauses << (upper(languages.name).like_any search_terms)
+      clauses.reduce {|a, b| a | b }
+    end.accessible_by(ability, :search)
   end
 
-  def self.advanced_search search_fields
+  def self.advanced_search user, search_fields
 
     search_fields = search_fields.reduce({}) do |acc, (k, v)|
       acc.merge k => v.split(/\s+/).map{|term| "%#{UnicodeUtils.upcase(term)}%"}
@@ -191,6 +202,10 @@ class Papyrus < ActiveRecord::Base
       clauses.reduce {|a, b| a | b }
     end
   end
+
+#  def inspect
+#    modern_textual_dates
+#  end
 
   private
 

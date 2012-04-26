@@ -1,2 +1,2 @@
 export DYLD_LIBRARY_PATH=`ls -d /usr/local/instantclient*`
-rvm use ruby-1.9.2-p318@dc12c --create
+rvm use ruby-1.9.2-p180@dc12c --create

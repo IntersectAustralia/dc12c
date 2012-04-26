@@ -76,8 +76,8 @@ class PapyriController < ApplicationController
       @simple_search_error = 'Please enter a search query.'
       render 'pages/home'
     else
-      search_results = Papyrus.search(search_terms)
-      @papyri = search_results.accessible_by(current_ability).paginate(page: page, per_page: APP_CONFIG['number_of_papyri_per_page'])
+      search_results = Papyrus.search(current_user, search_terms)
+      @papyri = search_results.paginate(page: page, per_page: APP_CONFIG['number_of_papyri_per_page'])
     end
   end
 
@@ -90,7 +90,7 @@ class PapyriController < ApplicationController
     end
     if !search_fields.empty?
       @search_fields = search_fields
-      @papyri = Papyrus.advanced_search(search_fields).accessible_by(current_ability, :advanced_search).paginate(page: page, per_page: APP_CONFIG['number_of_papyri_per_page'])
+      @papyri = Papyrus.advanced_search(current_user, search_fields).accessible_by(current_ability, :advanced_search).paginate(page: page, per_page: APP_CONFIG['number_of_papyri_per_page'])
     else
       @search_fields = {}
       @papyri = []

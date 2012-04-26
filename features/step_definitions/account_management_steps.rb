@@ -1,23 +1,23 @@
 Given /^I have access requests$/ do |table|
   table.hashes.each do |hash|
-    Factory(:user, hash.merge(:status => 'U'))
+    FactoryGirl.create(:user, hash.merge(:status => 'U'))
   end
 end
 
 Given /^I have users$/ do |table|
   table.hashes.each do |hash|
-    Factory(:user, hash.merge(:status => 'A'))
+    FactoryGirl.create(:user, hash.merge(:status => 'A'))
   end
 end
 
 Given /^I have roles$/ do |table|
   table.hashes.each do |hash|
-    Factory(:role, hash)
+    FactoryGirl.create(:role, hash)
   end
 end
 
 And /^I have role "([^"]*)"$/ do |name|
-  Factory(:role, :name => name)
+  FactoryGirl.create(:role, :name => name)
 end
 
 Given /^"([^"]*)" has role "([^"]*)"$/ do |email, role|

@@ -18,29 +18,29 @@ Feature: Searching Papyri
       | Book Fragment |
     And I have papyri
       | mqt_number | inventory_number | languages | general_note | lines_of_text    | paleographic_description | recto_verso_note | origin_details | source_of_acquisition | preservation_note | genre | language_note | summary | original_text       | translated_text | visibility |
-      | 20         | pmac20       | Greek     |              |                  |                          |                  |                |                       |                   |       |               |         |                     |                 | VISIBLE    |
-      | 21         | pmac21       |           | window wash  |                  |                          |                  |                |                       |                   |       |               |         |                     |                 | VISIBLE    |
-      | 22         | pmac22       |           |              | plant pot        |                          |                  |                |                       |                   |       |               |         |                     |                 | VISIBLE    |
-      | 23         | pmac23       |           |              |                  | elephant                 |                  |                |                       |                   |       |               |         |                     |                 | HIDDEN     |
-      | 24         | pmac24       |           |              |                  |                          | front end        |                |                       |                   |       |               |         |                     |                 | HIDDEN     |
-      | 27         | pmac27       |           |              |                  |                          |                  | very hot place |                       |                   |       |               |         |                     |                 | VISIBLE    |
-      | 28         | pmac28       |           |              |                  |                          |                  |                | brought from a shop   |                   |       |               |         |                     |                 | VISIBLE    |
-      | 29         | pmac29       |           |              |                  |                          |                  |                |                       | is tattered       |       |               |         |                     |                 | VISIBLE    |
-      | 30         | pmac30       |           |              |                  |                          |                  |                |                       |                   | Book  |               |         |                     |                 | VISIBLE    |
-      | 31         | pmac31       |           |              |                  |                          |                  |                |                       |                   |       | Carlos        |         |                     |                 | VISIBLE    |
-      | 32         | pmac32       |           |              |                  |                          |                  |                |                       |                   |       |               | Bryan   |                     |                 | VISIBLE    |
-      | 33         | pmac33       |           |              |                  |                          |                  |                |                       |                   |       |               |         |                     | Ryan            | VISIBLE    |
-      | 34         | pmac34       |           |              |                  |                          |                  |                |                       |                   |       |               |         | Έμπασυ στο Κολωνάκι |                 | VISIBLE    |
-      | 35         | pmac35       |           |              |                  |                          |                  |                |                       |                   |       |               |         |                     |                 | VISIBLE    |
-      | 36         | pmac36       |           |              |                  |                          |                  |                |                       |                   |       |               |         |                     |                 | VISIBLE    |
-      | 37         | pmac37       |           |              |                  |                          |                  |                |                       |                   |       |               |         |                     |                 | VISIBLE    |
-      | 38         | pmac38       |           |              |                  |                          |                  |                |                       |                   |       |               |         |                     |                 | VISIBLE    |
-      | 39         | pmac39       |           |              |                  |                          |                  |                |                       |                   |       |               |         |                     |                 | VISIBLE    |
-      | 40         | pmac40       |           |              |                  |                          |                  |                |                       |                   |       |               |         |                     |                 | VISIBLE    |
-      | 41         | pmac41       |           |              |                  |                          |                  |                |                       |                   |       |               |         |                     |                 | VISIBLE    |
-      | 42         | pmac42       |           |              |                  |                          |                  |                |                       |                   |       |               |         |                     |                 | VISIBLE    |
-      | 43         | pmac43       |           |              |                  |                          |                  |                |                       |                   |       |               |         |                     |                 | VISIBLE    |
-      | 44         | pmac44       |           |              |                  |                          |                  |                |                       |                   |       |               |         |                     |                 | VISIBLE    |
+      | 20         | pmac20           | Greek     |              |                  |                          |                  |                |                       |                   |       |               |         |                     |                 | VISIBLE    |
+      | 21         | pmac21           |           | window wash  |                  |                          |                  |                |                       |                   |       |               |         |                     |                 | VISIBLE    |
+      | 22         | pmac22           |           |              | plant pot        |                          |                  |                |                       |                   |       |               |         |                     |                 | VISIBLE    |
+      | 23         | pmac23           |           |              |                  | elephant                 |                  |                |                       |                   |       |               |         |                     |                 | HIDDEN     |
+      | 24         | pmac24           |           |              |                  |                          | front end        |                |                       |                   |       |               |         |                     |                 | HIDDEN     |
+      | 27         | pmac27           |           |              |                  |                          |                  | very hot place |                       |                   |       |               |         |                     |                 | VISIBLE    |
+      | 28         | pmac28           |           |              |                  |                          |                  |                | brought from a shop   |                   |       |               |         |                     |                 | VISIBLE    |
+      | 29         | pmac29           |           |              |                  |                          |                  |                |                       | is tattered       |       |               |         |                     |                 | VISIBLE    |
+      | 30         | pmac30           |           |              |                  |                          |                  |                |                       |                   | Book  |               |         |                     |                 | VISIBLE    |
+      | 31         | pmac31           |           |              |                  |                          |                  |                |                       |                   |       | Carlos        |         |                     |                 | VISIBLE    |
+      | 32         | pmac32           |           |              |                  |                          |                  |                |                       |                   |       |               | Bryan   |                     |                 | VISIBLE    |
+      | 33         | pmac33           |           |              |                  |                          |                  |                |                       |                   |       |               |         |                     | Ryan            | VISIBLE    |
+      | 34         | pmac34           |           |              |                  |                          |                  |                |                       |                   |       |               |         | Έμπασυ στο Κολωνάκι |                 | VISIBLE    |
+      | 35         | pmac35           |           |              |                  |                          |                  |                |                       |                   |       |               |         |                     |                 | VISIBLE    |
+      | 36         | pmac36           |           |              |                  |                          |                  |                |                       |                   |       |               |         |                     |                 | VISIBLE    |
+      | 37         | pmac37           |           |              |                  |                          |                  |                |                       |                   |       |               |         |                     |                 | VISIBLE    |
+      | 38         | pmac38           |           |              |                  |                          |                  |                |                       |                   |       |               |         |                     |                 | VISIBLE    |
+      | 39         | pmac39           |           |              |                  |                          |                  |                |                       |                   |       |               |         |                     |                 | VISIBLE    |
+      | 40         | pmac40           |           |              |                  |                          |                  |                |                       |                   |       |               |         |                     |                 | VISIBLE    |
+      | 41         | pmac41           |           |              |                  |                          |                  |                |                       |                   |       |               |         |                     |                 | VISIBLE    |
+      | 42         | pmac42           |           |              |                  |                          |                  |                |                       |                   |       |               |         |                     |                 | VISIBLE    |
+      | 43         | pmac43           |           |              |                  |                          |                  |                |                       |                   |       |               |         |                     |                 | VISIBLE    |
+      | 44         | pmac44           |           |              |                  |                          |                  |                |                       |                   |       |               |         |                     |                 | VISIBLE    |
     And I have a user "admin@intersect.org.au" with role "Administrator"
     And I have a user "researcher@intersect.org.au" with role "Researcher"
 
@@ -68,7 +68,7 @@ Feature: Searching Papyri
     | researcher | window      | 21             |
     | researcher | plant pot   | 22             |
     | researcher | elephant    | 23             |
-    | researcher | fron        | 24             |
+    | researcher | fron        |                |
     | researcher | very        | 27             |
     | researcher | brought     | 28             |
     | researcher | atter       | 29             |
@@ -115,8 +115,7 @@ Feature: Searching Papyri
     | summary                  | Bryan     | 32     |
     | original_text            | Κολωνάκι  | 34     |
     | translated_text          | Ryan      | 33     |
-    | inventory_number             | pmac20    | 20     |
-
+    | inventory_number         | pmac20    | 20     |
 
   Scenario: to check the results table is not present before making a search
     Given I am logged in as "admin@intersect.org.au"
@@ -128,30 +127,30 @@ Feature: Searching Papyri
     Given I am logged in as "researcher@intersect.org.au"
     And I have papyri
       | mqt_number | inventory_number | general_note | visibility |
-      | 51         | pmac51       | window       | HIDDEN     |
-      | 52         | pmac52       | window       | HIDDEN     |
-      | 53         | pmac53       | window       | HIDDEN     |
-      | 54         | pmac54       | window       | HIDDEN     |
-      | 55         | pmac55       | window       | HIDDEN     |
-      | 56         | pmac56       | window       | HIDDEN     |
-      | 57         | pmac57       | window       | HIDDEN     |
-      | 58         | pmac58       | window       | HIDDEN     |
-      | 59         | pmac59       | window       | HIDDEN     |
-      | 60         | pmac60       | window       | HIDDEN     |
-      | 61         | pmac61       | window       | HIDDEN     |
-      | 62         | pmac62       | window       | HIDDEN     |
-      | 63         | pmac63       | window       | HIDDEN     |
-      | 64         | pmac64       | window       | HIDDEN     |
-      | 65         | pmac65       | window       | HIDDEN     |
-      | 66         | pmac66       | window       | HIDDEN     |
-      | 67         | pmac67       | window       | HIDDEN     |
-      | 68         | pmac68       | window       | HIDDEN     |
-      | 69         | pmac69       | window       | HIDDEN     |
-      | 70         | pmac70       | window       | HIDDEN     |
-      | 71         | pmac71       | window       | HIDDEN     |
-      | 72         | pmac72       | window       | HIDDEN     |
-      | 73         | pmac73       | window       | HIDDEN     |
-      | 74         | pmac74       | window       | HIDDEN     |
+      | 51         | pmac51           | window       | HIDDEN     |
+      | 52         | pmac52           | window       | HIDDEN     |
+      | 53         | pmac53           | window       | HIDDEN     |
+      | 54         | pmac54           | window       | HIDDEN     |
+      | 55         | pmac55           | window       | HIDDEN     |
+      | 56         | pmac56           | window       | HIDDEN     |
+      | 57         | pmac57           | window       | HIDDEN     |
+      | 58         | pmac58           | window       | HIDDEN     |
+      | 59         | pmac59           | window       | HIDDEN     |
+      | 60         | pmac60           | window       | HIDDEN     |
+      | 61         | pmac61           | window       | HIDDEN     |
+      | 62         | pmac62           | window       | HIDDEN     |
+      | 63         | pmac63           | window       | HIDDEN     |
+      | 64         | pmac64           | window       | HIDDEN     |
+      | 65         | pmac65           | window       | HIDDEN     |
+      | 66         | pmac66           | window       | HIDDEN     |
+      | 67         | pmac67           | window       | HIDDEN     |
+      | 68         | pmac68           | window       | HIDDEN     |
+      | 69         | pmac69           | window       | HIDDEN     |
+      | 70         | pmac70           | window       | HIDDEN     |
+      | 71         | pmac71           | window       | HIDDEN     |
+      | 72         | pmac72           | window       | HIDDEN     |
+      | 73         | pmac73           | window       | HIDDEN     |
+      | 74         | pmac74           | window       | HIDDEN     |
     And I am on the advanced search page
     And I fill in "general_note" with "window"
     And I press "Search"
@@ -182,7 +181,7 @@ Feature: Searching Papyri
     And I have papyri with visibility "HIDDEN" and a field filled with "abcd" or "123"
       | mqt_number | populated_field               |
       |  52        | mqt_note                      |
-      |  53        | inventory_number                  |
+      |  53        | inventory_number              |
       |  54        | apis_id                       |
       |  55        | trismegistos_id               |
       |  56        | physical_location             |
@@ -209,3 +208,36 @@ Feature: Searching Papyri
     And I press "Search"
     And I should see search results "MQT 52, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 53, 77, 78, 79"
     
+  @wip
+  @papyrus_per_page_is_infinite
+  Scenario: researcher should find results in authorized fields for simple search of hidden
+    Given I am logged in as "researcher@intersect.org.au"
+    And I have papyri with visibility "HIDDEN" and a field filled with "abcd" or "123"
+      | mqt_number | populated_field               |
+      |  52        | mqt_note                      |
+      |  53        | inventory_number              |
+      |  54        | apis_id                       |
+      |  55        | trismegistos_id               |
+      |  56        | physical_location             |
+      |  57        | languages                     |
+      |  58        | dimensions                    |
+      |  60        | date_note                     |
+      |  61        | general_note                  |
+      |  62        | lines_of_text                 |
+      |  63        | paleographic_description      |
+      |  64        | recto_verso_note              |
+      |  65        | origin_details                |
+      |  66        | source_of_acquisition         |
+      |  67        | preservation_note             |
+      |  68        | conservation_note             |
+      |  69        | genre                         |
+      |  70        | language_note                 |
+      |  71        | summary                       |
+      |  73        | translated_text               |
+      |  74        | other_characteristics         |
+      |  75        | material                      |
+      |  76        | type_of_text                  |
+    And I am on the home page
+    Then I fill in "Search" with "abcd 123"
+    And I press "Search"
+    And I should see search results "MQT 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 53, 77, 78, 79"

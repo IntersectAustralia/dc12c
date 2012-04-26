@@ -90,13 +90,13 @@ end
 
 And /^I have languages$/ do |table|
   table.hashes.each do |attrs|
-    Factory(:language, attrs)
+    FactoryGirl.create(:language, attrs)
   end
 end
 
 And /^I have genres$/ do |table|
   table.hashes.each do |attrs|
-    Factory(:genre, attrs)
+    FactoryGirl.create(:genre, attrs)
   end
 end
 
@@ -255,16 +255,20 @@ end
 
 Then /^I should see search results "MQT ([^"]*)"$/ do |mqt_numbers|
   ids = mqt_numbers.split ", "
-  papyri = Papyrus.order('inventory_number').where(mqt_number: ids)
-  rows = papyri.map do |papyrus|
-    [papyrus.formatted_mqt_number, papyrus.inventory_number, papyrus.lines_of_text || '', papyrus.human_readable_has_translation, '']
+  if ids.present?
+    papyri = Papyrus.order('inventory_number').where(mqt_number: ids)
+    rows = papyri.map do |papyrus|
+      [papyrus.formatted_mqt_number, papyrus.inventory_number, papyrus.lines_of_text || '', papyrus.human_readable_has_translation, '']
+    end
+    expected_table = [
+      ['MQT Number', 'Inventory Number', 'Lines of Text', 'Translation', 'Image'],
+      *rows
+    ]
+    actual = find("table#search_results").all('tr').map { |row| row.all('th, td').map { |cell| cell.text.strip } }
+    actual.should eq expected_table
+  else
+    find_or_nil('table#search_results').should be_nil
   end
-  expected_table = [
-    ['MQT Number', 'Inventory Number', 'Lines of Text', 'Translation', 'Image'],
-    *rows
-  ]
-  actual = find("table#search_results").all('tr').map { |row| row.all('th, td').map { |cell| cell.text.strip } }
-  actual.should eq expected_table
 end
 
 And /^Date should be empty$/ do

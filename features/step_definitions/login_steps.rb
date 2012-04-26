@@ -1,29 +1,29 @@
 Given /^I have a user "([^"]*)"$/ do |email|
-  Factory(:user, :email => email, :password => "Pas$w0rd", :status => 'A')
+  FactoryGirl.create(:user, :email => email, :password => "Pas$w0rd", :status => 'A')
 end
 
 Given /^I have a locked user "([^"]*)"$/ do |email|
-  Factory(:user, :email => email, :password => "Pas$w0rd", :status => 'A', :locked_at => Time.now - 30.minute, :failed_attempts => 3)
+  FactoryGirl.create(:user, :email => email, :password => "Pas$w0rd", :status => 'A', :locked_at => Time.now - 30.minute, :failed_attempts => 3)
 end
 
 Given /^I have a deactivated user "([^"]*)"$/ do |email|
-  Factory(:user, :email => email, :password => "Pas$w0rd", :status => 'D')
+  FactoryGirl.create(:user, :email => email, :password => "Pas$w0rd", :status => 'D')
 end
 
 Given /^I have a rejected as spam user "([^"]*)"$/ do |email|
-  Factory(:user, :email => email, :password => "Pas$w0rd", :status => 'R')
+  FactoryGirl.create(:user, :email => email, :password => "Pas$w0rd", :status => 'R')
 end
 
 Given /^I have a pending approval user "([^"]*)"$/ do |email|
-  Factory(:user, :email => email, :password => "Pas$w0rd", :status => 'U')
+  FactoryGirl.create(:user, :email => email, :password => "Pas$w0rd", :status => 'U')
 end
 
 Given /^I have a user "([^"]*)" with an expired lock$/ do |email|
-  Factory(:user, :email => email, :password => "Pas$w0rd", :status => 'A', :locked_at => Time.now - 1.hour - 1.second, :failed_attempts => 3)
+  FactoryGirl.create(:user, :email => email, :password => "Pas$w0rd", :status => 'A', :locked_at => Time.now - 1.hour - 1.second, :failed_attempts => 3)
 end
 
 Given /^I have a user "([^"]*)" with role "([^"]*)"$/ do |email, role_name|
-  user = Factory(:user, :email => email, :password => "Pas$w0rd", :status => 'A')
+  user = FactoryGirl.create(:user, :email => email, :password => "Pas$w0rd", :status => 'A')
   role = Role.where(:name => role_name).first
   role = Role.new.tap{|r|r.name = role_name}.tap{|r|r.save!} unless role
   user.role_id = role.id

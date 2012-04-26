@@ -7,11 +7,11 @@ describe Image do
 
   describe "default scope" do
     it "should order by ordering with nulls last" do
-      d = Factory(:image, ordering: 'd')
-      b = Factory(:image, ordering: 'b')
-      a = Factory(:image, ordering: 'a')
-      blank = Factory(:image, ordering: nil)
-      c = Factory(:image, ordering: 'c')
+      d = FactoryGirl.create(:image, ordering: 'd')
+      b = FactoryGirl.create(:image, ordering: 'b')
+      a = FactoryGirl.create(:image, ordering: 'a')
+      blank = FactoryGirl.create(:image, ordering: nil)
+      c = FactoryGirl.create(:image, ordering: 'c')
 
       Image.all.should eq [a, b, c, d, blank]
     end
@@ -29,7 +29,7 @@ describe Image do
     describe "ordering" do
       it "checks ordering is in A-Z (after upcasing)" do
         ('a'..'z').each do |letter|
-          Factory(:image, ordering: 'a').should be_valid
+          FactoryGirl.create(:image, ordering: 'a').should be_valid
         end
       end
       it "checks numbers are invalid" do
@@ -42,7 +42,7 @@ describe Image do
 
   describe "upcasing ordering" do
     it "upcases before validation" do
-      i = Factory(:image, ordering: 'a')
+      i = FactoryGirl.create(:image, ordering: 'a')
       i.save!
 
       i.ordering.should eq 'A'
@@ -55,36 +55,36 @@ describe Image do
 
   describe "high res filename" do
     it "should return the extension" do
-      image = Factory(:image, image_file_name: 'blah.tiff')
+      image = FactoryGirl.create(:image, image_file_name: 'blah.tiff')
       image.high_res_filename.should eq "p.macq.#{image.id}.tiff"
     end
     it "handles multiple dots" do
-      image = Factory(:image, image_file_name: 'blah.blah.tiff')
+      image = FactoryGirl.create(:image, image_file_name: 'blah.blah.tiff')
       image.high_res_filename.should eq "p.macq.#{image.id}.tiff"
     end
     it "handles no dots" do
-      image = Factory(:image, image_file_name: 'nodotshere')
+      image = FactoryGirl.create(:image, image_file_name: 'nodotshere')
       image.high_res_filename.should eq "p.macq.#{image.id}.nodotshere"
     end
   end
   describe "low res filename" do
     before :each do
-      @papyrus = Factory(:papyrus)
+      @papyrus = FactoryGirl.create(:papyrus)
     end
     it "should return unchanged caption" do
-      image = Factory(:image, image_file_name: 'blah.jpg', caption: 'hello123', papyrus: @papyrus)
+      image = FactoryGirl.create(:image, image_file_name: 'blah.jpg', caption: 'hello123', papyrus: @papyrus)
       image.low_res_filename.should eq "#{@papyrus.id}-hello123-low.jpeg"
     end
     it "should return downcased caption" do
-      image = Factory(:image, image_file_name: 'blah.jpg', caption: 'hElLo123', papyrus: @papyrus)
+      image = FactoryGirl.create(:image, image_file_name: 'blah.jpg', caption: 'hElLo123', papyrus: @papyrus)
       image.low_res_filename.should eq "#{@papyrus.id}-hello123-low.jpeg"
     end
     it "should remove non-alphanumeric characters" do
-      image = Factory(:image, image_file_name: 'blah.jpg', caption: "!hE+_)(*&^`~\rlL o1!@$%^23\n\t", papyrus: @papyrus)
+      image = FactoryGirl.create(:image, image_file_name: 'blah.jpg', caption: "!hE+_)(*&^`~\rlL o1!@$%^23\n\t", papyrus: @papyrus)
       image.low_res_filename.should eq "#{@papyrus.id}-hello123-low.jpeg"
     end
     it "should be less than 50 characters total" do
-      image = Factory(:image, image_file_name: 'a.jpg', caption: "a" * 50, papyrus: @papyrus)
+      image = FactoryGirl.create(:image, image_file_name: 'a.jpg', caption: "a" * 50, papyrus: @papyrus)
       image.low_res_filename.length.should <= 50
     end
   end

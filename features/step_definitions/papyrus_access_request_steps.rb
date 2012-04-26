@@ -1,7 +1,7 @@
 Given /^I have an access request for "MQT ([^"]*)" from "([^"]*)" at "([^"]*)"$/ do |mqt_number, username, date|
   papyrus = Papyrus.find_by_mqt_number(mqt_number)
   user = User.find_by_email(username)
-  Factory(:access_request, user: user, papyrus: papyrus, date_requested: date)
+  FactoryGirl.create(:access_request, user: user, papyrus: papyrus, date_requested: date)
 end
 
 Then /^I should see pending requests$/ do |expected_table|
@@ -22,7 +22,7 @@ Given /^I have papyrus access requests$/ do |table|
     papyrus = Papyrus.find_by_mqt_number!(row["MQT Number"])
     status = AccessRequest::CREATED
     status = AccessRequest::APPROVED if row["Date approved"] && !row["Date approved"].blank?
-    Factory(:access_request, user: user, papyrus: papyrus, date_requested: row["Date requested"], date_approved: row["Date approved"], status: status)
+    FactoryGirl.create(:access_request, user: user, papyrus: papyrus, date_requested: row["Date requested"], date_approved: row["Date approved"], status: status)
   end
 end
 

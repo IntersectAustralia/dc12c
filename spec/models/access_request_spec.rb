@@ -17,13 +17,13 @@ describe AccessRequest do
       Time.stub!(:now).and_return(now)
     end
     it "sets the status to APPROVED" do
-      a = Factory(:access_request, status: AccessRequest::CREATED)
+      a = FactoryGirl.create(:access_request, status: AccessRequest::CREATED)
       a.approve!
       a.status.should eq AccessRequest::APPROVED
       assert_localdate_equal(a.date_approved, [2012, 4, 3])
     end
     it "saves the access request" do
-      a = Factory(:access_request, status: AccessRequest::CREATED)
+      a = FactoryGirl.create(:access_request, status: AccessRequest::CREATED)
       a.approve!
       a.reload
 
@@ -34,25 +34,25 @@ describe AccessRequest do
   end
   describe "reject!" do
     it "deletes the access request" do
-      a = Factory(:access_request, status: AccessRequest::CREATED)
+      a = FactoryGirl.create(:access_request, status: AccessRequest::CREATED)
       a.reject!
       AccessRequest.should_not exist(a)
     end
   end
   describe "revoke!" do
     it "removes the researchers access to a papyrus" do
-      a = Factory(:access_request, status: AccessRequest::APPROVED, date_approved: "2012-01-20")
+      a = FactoryGirl.create(:access_request, status: AccessRequest::APPROVED, date_approved: "2012-01-20")
       a.revoke!
       AccessRequest.should_not exist(a)
     end
   end
   describe "place request" do
     it "sends email to super users and creates an access request" do
-      u = Factory(:user)
-      p = Factory(:papyrus)
-      super_role = Factory(:role, name: Role::SUPERUSER_ROLE_NAME)
-      su = Factory(:user, role: super_role, status:"A")
-      su2 = Factory(:user, role: super_role, status:"A")
+      u = FactoryGirl.create(:user)
+      p = FactoryGirl.create(:papyrus)
+      super_role = FactoryGirl.create(:role, name: Role::SUPERUSER_ROLE_NAME)
+      su = FactoryGirl.create(:user, role: super_role, status:"A")
+      su2 = FactoryGirl.create(:user, role: super_role, status:"A")
 
       mock_mail = mock(Object)
 
@@ -65,8 +65,8 @@ describe AccessRequest do
   end
   describe "scopes" do
     before :each do
-      @created = Factory(:access_request, status: AccessRequest::CREATED)
-      @approved = Factory(:access_request, status: AccessRequest::APPROVED, date_approved: Time.new(2012, 2, 3))
+      @created = FactoryGirl.create(:access_request, status: AccessRequest::CREATED)
+      @approved = FactoryGirl.create(:access_request, status: AccessRequest::APPROVED, date_approved: Time.new(2012, 2, 3))
     end
     it "pending requests" do
       AccessRequest.pending_requests.should eq [@created]
@@ -80,9 +80,9 @@ describe AccessRequest do
     it{should validate_presence_of :papyrus_id}
     it{should validate_presence_of :date_requested}
     it "should validate unique (user_id, papyrus_id) combination" do
-      u = Factory(:user)
-      p = Factory(:papyrus)
-      Factory(:access_request, user: u, papyrus: p).should be_valid
+      u = FactoryGirl.create(:user)
+      p = FactoryGirl.create(:papyrus)
+      FactoryGirl.create(:access_request, user: u, papyrus: p).should be_valid
       FactoryGirl.build(:access_request, user: u, papyrus: p).should_not be_valid
     end
     it "should have it's status as one of the allowed values" do

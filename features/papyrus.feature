@@ -51,7 +51,7 @@ Feature: Manage Papyrus
     And I press "Save"
     Then I should see "Papyrus was successfully updated."
     Then I should see fields displayed
-      | field        | value   |
+      | field            | value   |
       | Inventory Number | dateful |
     And Date should be empty
 
@@ -63,7 +63,7 @@ Feature: Manage Papyrus
       | field                    | value |
       | MQT Number               |       |
       | MQT Note                 |       |
-      | Inventory Number             |       |
+      | Inventory Number         |       |
       | P.Macq Number            |       |
       | APIS ID                  |       |
       | Trismegistos ID          |       |
@@ -97,7 +97,7 @@ Feature: Manage Papyrus
       | field                    | value                     |
       | MQT Number               | 5                         |
       | MQT Note                 | from #2                   |
-      | Inventory Number             | 24gac                     |
+      | Inventory Number         | 24gac                     |
       | P.Macq Number            | II 34                     |
       | APIS ID                  | P1234                     |
       | Trismegistos ID          | 12345                     |
@@ -133,7 +133,7 @@ Feature: Manage Papyrus
       | field                    | value                     |
       | MQT Number               | MQT 5                     |
       | MQT Note                 | from #2                   |
-      | Inventory Number             | 24gac                     |
+      | Inventory Number         | 24gac                     |
       | P.Macq Number            | II 34                     |
       | APIS ID                  | P1234                     |
       | Trismegistos ID          | 12345                     |
@@ -191,7 +191,7 @@ Feature: Manage Papyrus
       | field                    | value |
       | MQT Number               | MQT 6 |
       | MQT Note                 |       |
-      | Inventory Number             |       |
+      | Inventory Number         |       |
       | P.Macq Number            |       |
       | APIS ID                  |       |
       | Trismegistos ID          |       |
@@ -266,7 +266,7 @@ Feature: Manage Papyrus
       | field                    | value               |
       | MQT Number               | 2                   |
       | MQT Note                 | note too            |
-      | Inventory Number             | p.macq2             |
+      | Inventory Number         | p.macq2             |
       | P.Macq Number            | I 1                 |
       | APIS ID                  |                     |
       | Trismegistos ID          |                     |
@@ -298,7 +298,7 @@ Feature: Manage Papyrus
       | field                    | value                     |
       | MQT Number               | 6                         |
       | MQT Note                 | none                      |
-      | Inventory Number             | 24gac                     |
+      | Inventory Number         | 24gac                     |
       | P.Macq Number            | III 42                    |
       | APIS ID                  | apis.1                    |
       | Trismegistos ID          | 123                       |
@@ -335,7 +335,7 @@ Feature: Manage Papyrus
       | field                    | value                     |
       | MQT Number               | MQT 6                     |
       | MQT Note                 | none                      |
-      | Inventory Number             | 24gac                     |
+      | Inventory Number         | 24gac                     |
       | P.Macq Number            | III 42                    |
       | APIS ID                  | apis.1                    |
       | Trismegistos ID          | 123                       |
@@ -373,7 +373,7 @@ Feature: Manage Papyrus
       | field                    | value               |
       | MQT Number               | 2                   |
       | MQT Note                 | note too            |
-      | Inventory Number             | p.macq2             |
+      | Inventory Number         | p.macq2             |
       | P.Macq Number            | I 1                 |
       | APIS ID                  |                     |
       | Trismegistos ID          |                     |
@@ -474,7 +474,7 @@ Feature: Manage Papyrus
       | field                    | value                     |
       | MQT Number               | MQT 7                     |
       | MQT Note                 | note too                  |
-      | Inventory Number             | p.macq7                   |
+      | Inventory Number         | p.macq7                   |
       | P.Macq Number            | IX 100                    |
       | APIS ID                  | APIS.7                    |
       | Trismegistos ID          | 77                        |
@@ -507,7 +507,7 @@ Feature: Manage Papyrus
       | field                    | value                     |
       | MQT Number               | MQT 8                     |
       | MQT Note                 | note too                  |
-      | Inventory Number             | p.macq8                   |
+      | Inventory Number         | p.macq8                   |
       | APIS ID                  | APIS.8                    |
       | Trismegistos ID          | 88                        |
       | Physical location        | Physical 8                |
@@ -539,7 +539,7 @@ Feature: Manage Papyrus
       | field                    | value                     |
       | MQT Number               | MQT 9                     |
       | MQT Note                 | note too                  |
-      | Inventory Number             | p.macq9                   |
+      | Inventory Number         | p.macq9                   |
       | APIS ID                  | APIS.9                    |
       | Trismegistos ID          | 99                        |
       | Physical location        | Physical 9                |
@@ -581,7 +581,7 @@ Feature: Manage Papyrus
     Then I should see the following papyrus details
       | field                    | value                     |
       | MQT Number               | MQT 7                     |
-      | Inventory Number             | p.macq7                   |
+      | Inventory Number         | p.macq7                   |
       | P.Macq Number            | IX 100                    |
       | APIS ID                  | APIS.7                    |
       | Trismegistos ID          | 77                        |
@@ -615,7 +615,7 @@ Feature: Manage Papyrus
       | field                    | value                     |
       | MQT Number               | MQT 8                     |
       | MQT Note                 | note too                  |
-      | Inventory Number             | p.macq8                   |
+      | Inventory Number         | p.macq8                   |
       | APIS ID                  | APIS.8                    |
       | Trismegistos ID          | 88                        |
       | Physical location        | Physical 8                |
@@ -645,7 +645,7 @@ Feature: Manage Papyrus
     Then I should see the following papyrus details
       | field                    | value                     |
       | MQT Number               | MQT 9                     |
-      | Inventory Number             | p.macq9                   |
+      | Inventory Number         | p.macq9                   |
       | APIS ID                  | APIS.9                    |
       | Trismegistos ID          | 99                        |
       | Physical location        | Physical 9                |
@@ -678,7 +678,7 @@ Feature: Manage Papyrus
       | field                    | value                     |
       | MQT Number               | MQT 10                    |
       | MQT Note                 | note too                  |
-      | Inventory Number             | p.macq10                  |
+      | Inventory Number         | p.macq10                  |
       | APIS ID                  | APIS.10                   |
       | Trismegistos ID          | 910                       |
       | Physical location        | Physical 10               |
@@ -718,7 +718,7 @@ Feature: Manage Papyrus
       | field                    | value                     |
       | MQT Number               | MQT 8                     |
       | MQT Note                 | note too                  |
-      | Inventory Number             | p.macq8                   |
+      | Inventory Number         | p.macq8                   |
       | APIS ID                  | APIS.8                    |
       | Trismegistos ID          | 88                        |
       | Physical location        | Physical 8                |
@@ -748,7 +748,7 @@ Feature: Manage Papyrus
     And I should see the following papyrus details
       | field                    | value                     |
       | MQT Number               | MQT 9                     |
-      | Inventory Number             | p.macq9                   |
+      | Inventory Number         | p.macq9                   |
       | APIS ID                  | APIS.9                    |
       | Trismegistos ID          | 99                        |
       | Languages                | Coptic, Greek             |
@@ -814,9 +814,9 @@ Feature: Manage Papyrus
     Then I should be on the papyri page
     And I should see the list papyri table
       | MQT Number | Inventory Number | Lines of Text  | Translation |
-      | MQT 3      | hidden.macq  | Specific stuff | No          |
-      | MQT 2      | p.macq2      | Specific blah  | Yes         |
-      | MQT 4      | visible.macq | Specific stuff | No          |
+      | MQT 2      | p.macq2          | Specific blah  | Yes         |
+      | MQT 3      | hidden.macq      | Specific stuff | No          |
+      | MQT 4      | visible.macq     | Specific stuff | No          |
     When I follow "MQT 3"
     Then I should be on the "MQT 3" papyrus page
     When I am on the papyri page
@@ -833,9 +833,9 @@ Feature: Manage Papyrus
     Then I should be on the papyri page
     And I should see the list papyri table
       | MQT Number | Inventory Number | Lines of Text  | Translation |
-      | MQT 3      | hidden.macq  | Specific stuff | No          |
-      | MQT 2      | p.macq2      | Specific blah  | Yes         |
-      | MQT 4      | visible.macq | Specific stuff | No          |
+      | MQT 2      | p.macq2          | Specific blah  | Yes         |
+      | MQT 3      | hidden.macq      | Specific stuff | No          |
+      | MQT 4      | visible.macq     | Specific stuff | No          |
 
   Scenario: Anonymous user should see list of visible and public papyri
     Given I am on the home page
@@ -843,8 +843,8 @@ Feature: Manage Papyrus
     Then I should be on the papyri page
     And I should see the list papyri table
       | MQT Number | Inventory Number | Lines of Text  | Translation |
-      | MQT 2      | p.macq2      | Specific blah  | Yes         |
-      | MQT 4      | visible.macq | Specific stuff | No          |
+      | MQT 2      | p.macq2          | Specific blah  | Yes         |
+      | MQT 4      | visible.macq     | Specific stuff | No          |
 
   Scenario: Only a Cancel link on edit page instead of Show and Cancel
     Given I am logged in as "admin@intersect.org.au"
