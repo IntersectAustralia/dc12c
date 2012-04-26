@@ -73,7 +73,7 @@ describe Image do
     end
     it "should return unchanged caption" do
       image = Factory(:image, image_file_name: 'blah.jpg', caption: 'hello123', papyrus: @papyrus)
-    image.low_res_filename.should eq "#{@papyrus.id}-hello123-low.jpeg"
+      image.low_res_filename.should eq "#{@papyrus.id}-hello123-low.jpeg"
     end
     it "should return downcased caption" do
       image = Factory(:image, image_file_name: 'blah.jpg', caption: 'hElLo123', papyrus: @papyrus)

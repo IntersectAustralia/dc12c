@@ -13,7 +13,7 @@ class Image < ActiveRecord::Base
         format: 'jpg'
       },
       thumbnail: {
-        geometry: '45x30>',
+        geometry: '100x80>',
         format: 'jpg'
       }
     }
