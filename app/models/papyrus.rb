@@ -157,23 +157,23 @@ class Papyrus < ActiveRecord::Base
           :trismegistos_id, :physical_location, :dimensions, :date_note, :conservation_note,
           :other_characteristics, :material, :type_of_text, :translated_text]
     ability = Ability.new(user)
-    registered = user and user.role.present?
-    super_role = user and (Role.superuser_roles.include? user.role)
+    registered = user && user.role.present?
+    super_role = user && (Role.superuser_roles.include? user.role)
     if user
       papyri_id_list = AccessRequest.where(user_id: user.id, status: AccessRequest::APPROVED).pluck(:papyrus_id)
     else
       papyri_id_list = []
     end
     # genre.name, language.name are added by hand later
-    Papyrus.joins { languages.outer }.joins{genre.outer}.where do
+    results = Papyrus.joins { languages.outer }.joins{genre.outer}.where do
       clauses = simple_fields.map do |field_name|
         if Papyrus.basic_field(field_name)
-           upper(__send__(field_name)).like_any search_terms
+          upper(__send__(field_name)).like_any search_terms
         elsif Papyrus.detailed_field(field_name)
           if registered
-           upper(__send__(field_name)).like_any search_terms
+            upper(__send__(field_name)).like_any search_terms
           else
-           upper(__send__(field_name)).like_any(search_terms) & visibility.eq("PUBLIC")
+            upper(__send__(field_name)).like_any(search_terms) & visibility.eq("PUBLIC")
           end
         else
           if super_role
@@ -182,7 +182,7 @@ class Papyrus < ActiveRecord::Base
             upper(__send__(field_name)).like_any(search_terms) & (visibility.eq("PUBLIC") | id.in(papyri_id_list))
           end
         end
-      end.compact
+      end
       clauses << (upper(genre.name).like_any search_terms)
       clauses << (upper(languages.name).like_any search_terms)
       clauses.reduce {|a, b| a | b }
