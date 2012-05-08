@@ -109,15 +109,15 @@ describe AccessRequest do
   end
 
   it "returns formatted date requested" do
-    request = Factory.build(:access_request, date_requested: '13/12/2010')
+    request = FactoryGirl.build(:access_request, date_requested: '13/12/2010')
     request.formatted_date_requested.should eq '2010-12-13'
   end
   it "returns formatted date approved" do
-    request = Factory.build(:access_request, date_requested: '13/12/2010', date_approved: '15/1/2011')
+    request = FactoryGirl.build(:access_request, date_requested: '13/12/2010', date_approved: '15/1/2011')
     request.formatted_date_approved.should eq '2011-01-15'
   end
   it "handles timezones" do
-    request = Factory.build(:access_request, date_requested: Date.new(2011, 6, 3), date_approved: Date.new(1000, 3, 2))
+    request = FactoryGirl.build(:access_request, date_requested: Date.new(2011, 6, 3), date_approved: Date.new(1000, 3, 2))
     request.formatted_date_requested.should eq '2011-06-03'
     request.formatted_date_approved.should eq '1000-03-02'
   end
