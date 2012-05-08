@@ -17,7 +17,7 @@ Feature: As an administrator
       | Demotic  |
       | Latin    |
     And I have a papyrus
-      | mqt_number | inventory_id | languages       | dimensions | date_from | general_note  | lines_of_text  | visibility |
+      | mqt_number | inventory_number | languages       | dimensions | date_from | general_note  | lines_of_text  | visibility |
       | 5          | visible.macq | Coptic, Demotic | 5 x 6 cm   | 488 CE    | General stuff | Specific stuff | VISIBLE    |
 
     And I have papyrus access requests
@@ -33,7 +33,7 @@ Feature: As an administrator
     And I am on the admin page
     When I follow "Pending requests"
     Then I should see pending requests
-      | MQT Number | Inventory ID | User requesting access       | Date requested |
+      | MQT Number | Inventory Number | User requesting access       | Date requested |
       | MQT 5      | visible.macq | researcher4@intersect.org.au | 2009-05-02     |
       | MQT 5      | visible.macq | researcher2@intersect.org.au | 2010-02-02     |
       | MQT 5      | visible.macq | researcher1@intersect.org.au | 2010-05-02     |
@@ -50,7 +50,7 @@ Feature: As an administrator
     When I am on the admin page
     And I follow "Approved requests"
     Then I should see approved requests
-      | MQT Number | Inventory ID | User with access             | Date requested | Date approved |
+      | MQT Number | Inventory Number | User with access             | Date requested | Date approved |
       | MQT 5      | visible.macq | researcher4@intersect.org.au | 2009-05-02     | 2011-06-03    |
 
   Scenario: Admin can reject an access request
@@ -58,7 +58,7 @@ Feature: As an administrator
     And I am on the admin page
     And I follow "Pending requests"
     Then I should see pending requests
-      | MQT Number | Inventory ID | User requesting access       | Date requested |
+      | MQT Number | Inventory Number | User requesting access       | Date requested |
       | MQT 5      | visible.macq | researcher4@intersect.org.au | 2009-05-02     |
       | MQT 5      | visible.macq | researcher2@intersect.org.au | 2010-02-02     |
       | MQT 5      | visible.macq | researcher1@intersect.org.au | 2010-05-02     |
@@ -71,7 +71,7 @@ Feature: As an administrator
     When I am on the admin page
     And I follow "Approved requests"
     Then I should see approved requests
-      | Inventory ID | User with access | Date requested |
+      | Inventory Number | User with access | Date requested |
 
   Scenario: can press back on the list page and be at the admin page
     Given I am logged in as "admin@intersect.org.au"
@@ -90,19 +90,19 @@ Feature: As an administrator
       | researcher4@intersect.org.au | 2011-01-20    |
     And I am on page 1 of the list approved requests index
     Then I should see approved requests
-      | MQT Number | Inventory ID | User with access             | Date requested | Date approved |
+      | MQT Number | Inventory Number | User with access             | Date requested | Date approved |
       | MQT 5      | visible.macq | researcher2@intersect.org.au | 2010-02-02     | 2011-06-03    |
     And I am on page 2 of the list approved requests index
     Then I should see approved requests
-      | MQT Number | Inventory ID | User with access             | Date requested | Date approved |
+      | MQT Number | Inventory Number | User with access             | Date requested | Date approved |
       | MQT 5      | visible.macq | researcher1@intersect.org.au | 2010-05-02     | 2011-04-03    |
     And I am on page 3 of the list approved requests index
     Then I should see approved requests
-      | MQT Number | Inventory ID | User with access             | Date requested | Date approved |
+      | MQT Number | Inventory Number | User with access             | Date requested | Date approved |
       | MQT 5      | visible.macq | researcher4@intersect.org.au | 2009-05-02     | 2011-01-20    |
     And I am on page 4 of the list approved requests index
     Then I should see approved requests
-      | MQT Number | Inventory ID | User with access             | Date requested | Date approved |
+      | MQT Number | Inventory Number | User with access             | Date requested | Date approved |
       | MQT 5      | visible.macq | researcher3@intersect.org.au | 2010-05-03     | 2010-10-14    |
 
   Scenario: approve/reject page has a cancel button

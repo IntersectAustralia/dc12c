@@ -6,7 +6,7 @@ Feature: List Papyrus
     Given I have a user "admin@intersect.org.au" with role "Administrator"
     And I have a user "researcher@intersect.org.au" with role "Researcher"
     And I have papyri
-      | mqt_number | inventory_id | visibility |
+      | mqt_number | inventory_number | visibility |
       | 1          | A            | HIDDEN     |
       | 2          | B            | VISIBLE    |
       | 3          | D            | VISIBLE    |
@@ -38,7 +38,7 @@ Feature: List Papyrus
     When I am logged in as "admin@intersect.org.au"
     And I am on the papyri page
     Then I should see the list papyri table
-      | MQT Number | Inventory ID | Lines of Text | Translation |
+      | MQT Number | Inventory Number | Lines of Text | Translation |
       | MQT 1      | A            |               | No          |
       | MQT 2      | B            |               | No          |
       | MQT 5      | C            |               | No          |
@@ -65,7 +65,7 @@ Feature: List Papyrus
     When I am logged in as "admin@intersect.org.au"
     And I am on page 2 of the papyri index
     Then I should see the list papyri table
-      | MQT Number | Inventory ID | Lines of Text | Translation |
+      | MQT Number | Inventory Number | Lines of Text | Translation |
       | MQT 24     | U            |               | No          |
       | MQT 7      | V            |               | No          |
       | MQT 25     | W            |               | No          |
@@ -77,7 +77,7 @@ Feature: List Papyrus
   Scenario: Public users should not see hidden records
     Given I am on the papyri page
     Then I should see the list papyri table
-      | MQT Number | Inventory ID | Lines of Text | Translation |
+      | MQT Number | Inventory Number | Lines of Text | Translation |
       | MQT 2      | B            |               | No          |
       | MQT 3      | D            |               | No          |
       | MQT 4      | F            |               | No          |
@@ -105,7 +105,7 @@ Feature: List Papyrus
     When I am logged in as "admin@intersect.org.au"
     And I am on page <page> of the papyri index
     Then I should see the list papyri table
-      | MQT Number | Inventory ID | Lines of Text | Translation |
+      | MQT Number | Inventory Number | Lines of Text | Translation |
       | MQT 1      | A            |               | No          |
       | MQT 2      | B            |               | No          |
       | MQT 5      | C            |               | No          |
@@ -136,7 +136,7 @@ Feature: List Papyrus
   Scenario: Entering a page number greater than max doesn't throw an error
     Given I am on page 1000000000 of the papyri index
     Then I should see the list papyri table
-      | MQT Number | Inventory ID | Lines of Text | Translation |
+      | MQT Number | Inventory Number | Lines of Text | Translation |
     And I should not see the pagination controls
 
   Scenario: new papyrus link is not displayed on list page for researcher

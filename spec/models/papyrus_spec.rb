@@ -126,7 +126,7 @@ describe Papyrus do
   describe "validations" do
     it { should validate_presence_of :mqt_number }
     it { should ensure_length_of(:mqt_note).is_at_most(255) }
-    it { should ensure_length_of(:inventory_id).is_at_most(32) }
+    it { should ensure_length_of(:inventory_number).is_at_most(32) }
     it { should ensure_length_of(:apis_id).is_at_most(32) }
     it { should ensure_length_of(:physical_location).is_at_most(255) }
     it { should ensure_length_of(:dimensions).is_at_most(511) }
@@ -148,7 +148,7 @@ describe Papyrus do
     it { should ensure_length_of(:other_characteristics).is_at_most(1023) }
     it { should ensure_length_of(:type_of_text).is_at_most(255) }
     it { should ensure_length_of(:modern_textual_dates).is_at_most(511) }
-    it { should ensure_length_of(:publications).is_at_most(127) }
+    it { should ensure_length_of(:publications).is_at_most(511) }
 
     it "should validate mqt number is unique" do
       Factory(:papyrus)
@@ -308,13 +308,13 @@ describe Papyrus do
     end
   end
 
-  it "should order by inventory_id by default" do
-    Factory(:papyrus, inventory_id: 'B')
-    Factory(:papyrus, inventory_id: 'D')
-    Factory(:papyrus, inventory_id: 'A')
-    Factory(:papyrus, inventory_id: 'C')
+  it "should order by inventory_number by default" do
+    Factory(:papyrus, inventory_number: 'B')
+    Factory(:papyrus, inventory_number: 'D')
+    Factory(:papyrus, inventory_number: 'A')
+    Factory(:papyrus, inventory_number: 'C')
 
-    Papyrus.pluck(:inventory_id).should eq %w{A B C D}
+    Papyrus.pluck(:inventory_number).should eq %w{A B C D}
 
   end
 
@@ -322,7 +322,7 @@ describe Papyrus do
     before :each do
       latin = Factory(:language, name: 'Latin')
       drama = Factory(:genre, name: 'Drama')
-      @p1 = Factory(:papyrus, inventory_id: "l23")
+      @p1 = Factory(:papyrus, inventory_number: "l23")
       @p2 = Factory(:papyrus, languages: [latin])
       @p3 = Factory(:papyrus, general_note: "screen wipe")
       @p4 = Factory(:papyrus, lines_of_text: "light bulb")
@@ -334,7 +334,7 @@ describe Papyrus do
       @p12 = Factory(:papyrus, genre: drama)
       @p13 = Factory(:papyrus, language_note: "it looks funny")
       @p14 = Factory(:papyrus, summary: "it's all greek to me")
-      @p15 = Factory(:papyrus, inventory_id: 'p.macq1234', translated_text: "These strike me as Chinese")
+      @p15 = Factory(:papyrus, inventory_number: 'p.macq1234', translated_text: "These strike me as Chinese")
       @p16 = Factory(:papyrus, original_text: "Έμπασυ στο Κολωνάκι")
       @p17 = Factory(:papyrus, summary: "Έμπασυ στο Κολωνάκι")
       @p18 = Factory(:papyrus, apis_id: "apis")
@@ -502,7 +502,7 @@ describe Papyrus do
         results.should eq [@p15]
       end
       it "should find by multiple parameters" do
-        results = Papyrus.advanced_search(inventory_id: 'p.macq1234', translated_text: 'me striKe The')
+        results = Papyrus.advanced_search(inventory_number: 'p.macq1234', translated_text: 'me striKe The')
         results.should eq [@p15]
       end
     end

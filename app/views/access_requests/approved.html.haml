@@ -2,7 +2,7 @@
   %thead
     %tr
       %th MQT Number
-      %th Inventory ID
+      %th Inventory Number
       %th User with access
       %th Date requested
       %th Date approved
@@ -10,7 +10,7 @@
     - @approved_access_requests.each do |access_request|
       %tr
         %td= link_to access_request.papyrus.formatted_mqt_number, access_request_path(access_request)
-        %td= access_request.papyrus.inventory_id
+        %td= access_request.papyrus.inventory_number
         %td= access_request.user.email
         %td= access_request.formatted_date_requested
         %td= access_request.formatted_date_approved

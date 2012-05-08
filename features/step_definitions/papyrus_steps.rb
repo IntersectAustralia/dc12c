@@ -150,7 +150,7 @@ Given /^I have papyri with visibility "([^"]*)" and a field filled with "([^"]*)
   table.hashes.each do |attrs|
     mqt_number = attrs[:mqt_number]
     field_name = attrs[:populated_field]
-    papyrus = Papyrus.new(mqt_number: mqt_number, inventory_id: mqt_number)
+    papyrus = Papyrus.new(mqt_number: mqt_number, inventory_number: mqt_number)
     if 'languages' == field_name
       language = Language.new(name: str_value)
       language.save!
@@ -255,12 +255,12 @@ end
 
 Then /^I should see search results "MQT ([^"]*)"$/ do |mqt_numbers|
   ids = mqt_numbers.split ", "
-  papyri = Papyrus.order('inventory_id').where(mqt_number: ids)
+  papyri = Papyrus.order('inventory_number').where(mqt_number: ids)
   rows = papyri.map do |papyrus|
-    [papyrus.formatted_mqt_number, papyrus.inventory_id, papyrus.lines_of_text || '', papyrus.human_readable_has_translation, '']
+    [papyrus.formatted_mqt_number, papyrus.inventory_number, papyrus.lines_of_text || '', papyrus.human_readable_has_translation, '']
   end
   expected_table = [
-    ['MQT Number', 'Inventory ID', 'Lines of Text', 'Translation', 'Image'],
+    ['MQT Number', 'Inventory Number', 'Lines of Text', 'Translation', 'Image'],
     *rows
   ]
   actual = find("table#search_results").all('tr').map { |row| row.all('th, td').map { |cell| cell.text.strip } }

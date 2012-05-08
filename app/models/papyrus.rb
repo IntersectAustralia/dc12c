@@ -19,9 +19,9 @@ class Papyrus < ActiveRecord::Base
   PUBLIC = 'PUBLIC'
   HIDDEN = 'HIDDEN'
 
-  attr_accessible :mqt_number, :mqt_note, :inventory_id, :apis_id, :trismegistos_id, :physical_location, :date_from, :date_to, :date_note, :general_note, :lines_of_text, :paleographic_description, :origin_details, :source_of_acquisition, :preservation_note, :conservation_note, :summary, :language_note, :original_text, :translated_text, :dimensions, :genre_id, :language_ids, :other_characteristics, :material, :recto_verso_note, :type_of_text, :modern_textual_dates, :publications, :volume_number, :item_number
+  attr_accessible :mqt_number, :mqt_note, :inventory_number, :apis_id, :trismegistos_id, :physical_location, :date_from, :date_to, :date_note, :general_note, :lines_of_text, :paleographic_description, :origin_details, :source_of_acquisition, :preservation_note, :conservation_note, :summary, :language_note, :original_text, :translated_text, :dimensions, :genre_id, :language_ids, :other_characteristics, :material, :recto_verso_note, :type_of_text, :modern_textual_dates, :publications, :volume_number, :item_number
 
-  attr_field_security BASIC, :formatted_mqt_number, :inventory_id, :apis_id, :trismegistos_id, :formatted_date, :lines_of_text, :paleographic_description, :origin_details, :summary, :dimensions, :genre_name, :languages_csv, :material, :publications, :formatted_pmacq_number
+  attr_field_security BASIC, :formatted_mqt_number, :inventory_number, :apis_id, :trismegistos_id, :formatted_date, :lines_of_text, :paleographic_description, :origin_details, :summary, :dimensions, :genre_name, :languages_csv, :material, :publications, :formatted_pmacq_number
 
   attr_field_security DETAILED, :physical_location, :date_note, :general_note, :source_of_acquisition, :preservation_note, :conservation_note, :language_note, :translated_text, :other_characteristics, :type_of_text
 
@@ -44,7 +44,7 @@ class Papyrus < ActiveRecord::Base
   validates_numericality_of :mqt_number, greater_than: 0, only_integer: true
 
   validates_length_of :mqt_note, maximum: 255
-  validates_length_of :inventory_id, maximum: 32
+  validates_length_of :inventory_number, maximum: 32
   validates_length_of :apis_id, maximum: 32
   validates_length_of :physical_location, maximum: 255
   validates_length_of :dimensions, maximum: 511
@@ -74,7 +74,7 @@ class Papyrus < ActiveRecord::Base
   validates_presence_of :volume_number, if: :item_number
   validates_presence_of :item_number, if: :volume_number
 
-  default_scope order: 'inventory_id'
+  default_scope order: 'inventory_number'
 
   def self.basic_field(field_name)
     BASIC.include? field_name
@@ -152,7 +152,7 @@ class Papyrus < ActiveRecord::Base
   def self.search search_terms
     search_terms = search_terms.map {|term| "%#{UnicodeUtils.upcase(term)}%"}
     Papyrus.joins { languages.outer }.joins{genre.outer}.where do
-      upper(inventory_id).like_any(search_terms)             \
+      upper(inventory_number).like_any(search_terms)             \
     | upper(languages.name).like_any(search_terms)           \
     | upper(general_note).like_any(search_terms)             \
     | upper(lines_of_text).like_any(search_terms)            \

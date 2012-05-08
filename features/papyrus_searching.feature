@@ -17,7 +17,7 @@ Feature: Searching Papyri
       | Book          |
       | Book Fragment |
     And I have papyri
-      | mqt_number | inventory_id | languages | general_note | lines_of_text    | paleographic_description | recto_verso_note | origin_details | source_of_acquisition | preservation_note | genre | language_note | summary | original_text       | translated_text | visibility |
+      | mqt_number | inventory_number | languages | general_note | lines_of_text    | paleographic_description | recto_verso_note | origin_details | source_of_acquisition | preservation_note | genre | language_note | summary | original_text       | translated_text | visibility |
       | 20         | pmac20       | Greek     |              |                  |                          |                  |                |                       |                   |       |               |         |                     |                 | VISIBLE    |
       | 21         | pmac21       |           | window wash  |                  |                          |                  |                |                       |                   |       |               |         |                     |                 | VISIBLE    |
       | 22         | pmac22       |           |              | plant pot        |                          |                  |                |                       |                   |       |               |         |                     |                 | VISIBLE    |
@@ -115,7 +115,7 @@ Feature: Searching Papyri
     | summary                  | Bryan     | 32     |
     | original_text            | Κολωνάκι  | 34     |
     | translated_text          | Ryan      | 33     |
-    | inventory_id             | pmac20    | 20     |
+    | inventory_number             | pmac20    | 20     |
 
 
   Scenario: to check the results table is not present before making a search
@@ -127,7 +127,7 @@ Feature: Searching Papyri
   Scenario: check pagination for advanced search results
     Given I am logged in as "researcher@intersect.org.au"
     And I have papyri
-      | mqt_number | inventory_id | general_note | visibility |
+      | mqt_number | inventory_number | general_note | visibility |
       | 51         | pmac51       | window       | HIDDEN     |
       | 52         | pmac52       | window       | HIDDEN     |
       | 53         | pmac53       | window       | HIDDEN     |
@@ -182,7 +182,7 @@ Feature: Searching Papyri
     And I have papyri with visibility "HIDDEN" and a field filled with "abcd" or "123"
       | mqt_number | populated_field               |
       |  52        | mqt_note                      |
-      |  53        | inventory_id                  |
+      |  53        | inventory_number                  |
       |  54        | apis_id                       |
       |  55        | trismegistos_id               |
       |  56        | physical_location             |

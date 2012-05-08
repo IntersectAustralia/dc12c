@@ -6,6 +6,5 @@ en:
   activerecord:
     attributes:
       papyrus:
-        inventory_id: Inventory ID
         apis_id: APIS ID
         trismegistos_id: Trismegistos ID

@@ -84,7 +84,7 @@ class PapyriController < ApplicationController
   def advanced_search
     page = make_page(params[:page])
     @with_params = params.include?(:utf8)
-    fields = ['inventory_id', 'general_note', 'lines_of_text', 'paleographic_description', 'recto_verso_note', 'origin_details', 'source_of_acquisition', 'preservation_note', 'language_note', 'summary', 'original_text', 'translated_text']
+    fields = ['inventory_number', 'general_note', 'lines_of_text', 'paleographic_description', 'recto_verso_note', 'origin_details', 'source_of_acquisition', 'preservation_note', 'language_note', 'summary', 'original_text', 'translated_text']
     search_fields = params.keep_if do |name, value|
       value.present? && fields.include?(name.to_s)
     end

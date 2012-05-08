@@ -18,7 +18,7 @@ Feature: In order to associate new images with papyri records
       | Book          |
       | Book Fragment |
     And I have papyri
-      | mqt_number | inventory_id | languages     | dimensions | date_from | general_note | paleographic_description | recto_verso_note | origin_details | source_of_acquisition | preservation_note | genre | language_note | summary             | original_text | translated_text | visibility |
+      | mqt_number | inventory_number | languages     | dimensions | date_from | general_note | paleographic_description | recto_verso_note | origin_details | source_of_acquisition | preservation_note | genre | language_note | summary             | original_text | translated_text | visibility |
       | 2          | p.macq1      | Coptic, Greek | 5 x 6 cm   | 88 CE     | General Blah | Paleo Diet               | Rectangle        | It's Greek.    | Got it from Greece    | poorly preserved  | Book  | Fancy Greek   | don't understand it | περιοχής      | area            | PUBLIC     |
       | 3          | hidden       | Coptic, Greek | 5 x 6 cm   | 88 CE     | General Blah | Paleo Diet               | Rectangle        | It's Greek.    | Got it from Greece    | poorly preserved  | Book  | Fancy Greek   | don't understand it | περιοχής      | area            | HIDDEN     |
       | 4          | public       | Coptic, Greek | 5 x 6 cm   | 88 CE     | General Blah | Paleo Diet               | Rectangle        | It's Greek.    | Got it from Greece    | poorly preserved  | Book  | Fancy Greek   | don't understand it | περιοχής      | area            | PUBLIC     |
