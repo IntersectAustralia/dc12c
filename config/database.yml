@@ -39,3 +39,9 @@ jenkins:
   database: //localhost/XE
   username: ruby
   password: ruby123
+
+showcase:
+  adapter: oracle_enhanced
+  database: <%= ENV['PAPYRI_DATABASE_NAME'] %>
+  username: <%= ENV['PAPYRI_DATABASE_USER'] %>
+  password: <%= ENV['PAPYRI_DATABASE_PASS'] %>
