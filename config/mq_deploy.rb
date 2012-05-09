@@ -85,6 +85,8 @@ after 'deploy:finalize_update', 'deploy:set_runtime_permissions'
 after 'deploy:finalize_update' do
   deploy.set_runtime_permissions
   run "cd #{release_path} && LANG=en_US.UTF-8 bundle install --verbose --deployment"
+  run "sed -e's/#<Syck.*>/=/' -i /apps/papyri/releases/*/vendor/bundle/ruby/1.9.1/specifications/factory_girl_rails-3.1.0.gemspec" # broken gemspec hack
+  run "cd #{release_path} && LANG=en_US.UTF-8 bundle install --verbose --deployment;"
   run "cd #{release_path}; RAILS_ENV=#{rails_env} bundle exec rake assets:precompile"
 end
 
