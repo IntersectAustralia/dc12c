@@ -42,6 +42,6 @@ jenkins:
 
 showcase:
   adapter: oracle_enhanced
-  database: <%= ENV['PAPYRI_DATABASE_NAME'] %>
-  username: <%= ENV['PAPYRI_DATABASE_USER'] %>
-  password: <%= ENV['PAPYRI_DATABASE_PASS'] %>
+  database: <%= ENV.fetch 'PAPYRI_DATABASE_NAME' %>
+  username: <%= ENV.fetch 'PAPYRI_DATABASE_USER' %>
+  password: <%= ENV.fetch 'PAPYRI_DATABASE_PASS' %>
