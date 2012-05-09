@@ -26,10 +26,6 @@ Given /^I have papyrus access requests$/ do |table|
   end
 end
 
-Given /^pagination for the approved requests page is set to "([^"]*)"$/ do |per_page|
-  APP_CONFIG['number_of_papyri_per_page'] = 1
-end
-
 When /^I approve the requests$/ do |table|
   table.hashes.each do |row|
     approval_date = Time.strptime(row["date_approved"], '%Y-%m-%d')
