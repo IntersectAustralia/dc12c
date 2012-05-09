@@ -84,8 +84,8 @@ end
 after 'deploy:finalize_update', 'deploy:set_runtime_permissions'
 after 'deploy:finalize_update' do
   deploy.set_runtime_permissions
-  lines = capture ". /etc/profile; env"
-  kvs = lines.split '='
+  lines = capture ". /etc/profile; env | grep PAPYRI"
+  kvs = lines.split("\n").map{|line| line.split '='}
   kvs.each do |key, value|
     default_environment[key] = value
   end
