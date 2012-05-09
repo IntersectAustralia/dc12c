@@ -1,3 +1,8 @@
+load 'deploy'
+# Uncomment if you are using Rails' asset pipeline
+load 'deploy/assets'
+Dir['vendor/gems/*/recipes/*.rb','vendor/plugins/*/recipes/*.rb'].each { |plugin| load(plugin) }
+#
 # required environment variables
 # PAPYRI_USER - user to ssh to the server
 # PAPYRI_PASSWORD - password of PAPYRI_USER
@@ -7,14 +12,18 @@ require 'bundler/capistrano'
 default_run_options[:pty] = true
 
 set :application,   'papyri'
-set :repository,    "http://github.com/IntersectAustralia/dc12c.git"
-set :branch,        'mq-deploy'
+#set :repository,    "http://github.com/IntersectAustralia/dc12c.git"
+#set :branch,        'mq-deploy'
+
+# deploy via copy doesn't seem to be working... it is still trying to do a checkout remotely
+# This assumes the current checkout is up to date (which it will be if using the defined script in bamboo...
+set :repository, '.'
 
 set :use_sudo,      false
 
 set :keep_releases, 5
 
-set :scm,           :git
+set :scm,           'none'
 set :deploy_to,     "/var/www/papyri"
 set :deploy_via,    :copy
 set :copy_exclude,  [".git/*"]
@@ -75,7 +84,6 @@ end
 after 'deploy:finalize_update', 'deploy:set_runtime_permissions'
 after 'deploy:finalize_update' do
   deploy.set_runtime_permissions
-  generate_database_yml
   run "cd #{release_path}; RAILS_ENV=#{rails_env} rake assets:precompile"
 end
 
