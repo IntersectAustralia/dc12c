@@ -124,10 +124,6 @@ class PapyriController < ApplicationController
 
   private
 
-  def make_page(page)
-    page.to_i < 1 ? 1 : page
-  end
-
   def set_dates(papyrus, params)
     errors = []
     if ['BCE', 'CE'].include? params[:papyrus_date_from_era]

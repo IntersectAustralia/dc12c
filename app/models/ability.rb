@@ -10,16 +10,10 @@ class Ability
     alias_action :deactivate, :to => :activate_deactivate
     alias_action :activate, :to => :activate_deactivate
 
-    # alias access_requests to view_access_requests so the permission name is more meaningful
-    alias_action :access_requests, :to => :admin
-
     # alias reject_as_spam to reject so they are considered the same
     alias_action :reject_as_spam, :to => :reject
 
-    # alias search to read so they are considered the same
     alias_action :search, to: :read
-
-    # alias advanced search to read so they are considered the same
     alias_action :advanced_search, to: :read
 
     alias_action :revoke, to: :admin
@@ -27,8 +21,9 @@ class Ability
     alias_action :approve, to: :admin
     alias_action :approved, to: :admin
     alias_action :pending, to: :admin
+    alias_action :access_requests, to: :admin
 
-
+    alias_action :new_one_id, to: :create
 
 
     can :read, Papyrus, visibility: [Papyrus::PUBLIC, Papyrus::VISIBLE]
@@ -69,6 +64,7 @@ class Ability
       can :high_res, Image
       can :accept_or_reject, AccessRequest
       can :read, User
+      can :create, User
       can :update_role, User
       can :activate_deactivate, User
       can :admin, User

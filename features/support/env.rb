@@ -73,3 +73,13 @@ Around('@papyrus_per_page_is_infinite') do |scenario, block|
   block.call
   APP_CONFIG['number_of_papyri_per_page'] = 20
 end
+
+Around('@ldap') do |scenario, block|
+  ldap_config = YAML.load(ERB.new(File.read("#{Rails.root}/config/ldap.yml")).result)[Rails.env]
+  port = ldap_config['port']
+  server = Ladle::Server.new(quiet: true, ldif: Rails.root.join('config', 'test_ldap_data.ldif').to_s, tmpdir: '/tmp', domain: 'dc=mqauth,dc=uni,dc=mq,dc=edu,dc=au', port: port)
+
+  server.start
+  block.call
+  server.stop
+end

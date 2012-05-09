@@ -1,3 +1,5 @@
+require 'will_paginate/array'
+
 class UsersController < ApplicationController
 
   before_filter :authenticate_user!
@@ -76,5 +78,15 @@ class UsersController < ApplicationController
     else
       redirect_to(edit_approval_user_path(@user), :alert => "Please select a role for the user.")
     end
+  end
+
+  def new_one_id
+    @search_fields = {}
+    one_id = params[:one_id]
+    first_name = params[:first_name]
+    last_name = params[:last_name]
+    excluded_users = [] # FIXME
+    page = make_page(params[:page])
+    @search_results = LdapSearcher.search(one_id, first_name, last_name, excluded_users).paginate(page: page, per_page: 20)
   end
 end

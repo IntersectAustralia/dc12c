@@ -6,8 +6,15 @@ class ApplicationController < ActionController::Base
     redirect_to root_url
   end
 
+  private
+
+  def make_page(page)
+    page.to_i < 1 ? 1 : page
+  end
+
 
 end
+
 class MenuTabBuilder < TabsOnRails::Tabs::Builder
   def tab_for(tab, name, options, item_options = {})
     item_options[:class] = 'active' if current_tab?(tab)

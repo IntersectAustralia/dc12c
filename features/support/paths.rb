@@ -102,6 +102,9 @@ module NavigationHelpers
         image = papyrus.images.find_by_image_file_name! filename
         edit_papyrus_image_path(papyrus, image)
 
+      when /the create One ID user page/
+        new_one_id_users_path
+
 
 # Add more mappings here.
 # Here is an example that pulls values out of the Regexp:

@@ -56,6 +56,7 @@ group :development, :test, :jenkins do
   gem "database_cleaner"
   #gem "spork"
   gem "launchy"    # So you can do Then show me the page
+  gem 'ladle'
 end
 
 group :test, :jenkins do

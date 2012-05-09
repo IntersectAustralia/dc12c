@@ -23,4 +23,3 @@ Given /^I have the usual roles and permissions$/ do
     r.save!
   end
 end
-

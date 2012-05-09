@@ -43,3 +43,10 @@ class Warden::SessionSerializer
     keys
   end
 end
+
+def make_ldap_server
+  # TODO this code is not DRY, copied from features/support/env.rb
+  ldap_config = YAML.load(ERB.new(File.read("#{Rails.root}/config/ldap.yml")).result)[Rails.env]
+  port = ldap_config['port']
+  Ladle::Server.new(quiet: true, ldif: Rails.root.join('config', 'test_ldap_data.ldif').to_s, tmpdir: '/tmp', domain: 'dc=mqauth,dc=uni,dc=mq,dc=edu,dc=au', port: port)
+end

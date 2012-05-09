@@ -1,0 +1,12 @@
+%table{id: table_id}
+  %tr
+    %th One ID
+    %th First Name
+    %th Last Name
+    %th Email
+  - search_results.each do |sr|
+    %tr
+      %td= sr.one_id
+      %td= sr.first_name
+      %td= sr.last_name
+      %td= sr.email

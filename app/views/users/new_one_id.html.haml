@@ -1,0 +1,16 @@
+.page-inner
+  .page-header.record
+    %h2 New OneID Account
+  .page-content
+    = form_tag new_one_id_users_path, method: :get do
+      = render_field('One ID', search_field_tag(:one_id, @search_fields[:one_id], maxlength: 20))
+      .form-actions
+        = submit_tag 'Search', class: "btn btn-blue"
+        = link_to 'Cancel', admin_index_path, class: "btn"
+    - if @search_results
+      - if @search_results.present?
+        = @search_results.inspect
+        = render partial: 'oneid_table', locals: {table_id: 'one_id_search_results', search_results: @search_results}
+        = will_paginate @search_results
+      - else
+        No Results Found

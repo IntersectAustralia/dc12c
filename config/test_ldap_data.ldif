@@ -1,0 +1,183 @@
+version: 1
+
+# DC
+dn: dc=mqauth,dc=uni,dc=mq,dc=edu,dc=au
+objectClass: top
+objectClass: dcObject
+
+# OUs
+dn: OU=MQ-Users,DC=mqauth,DC=uni,DC=mq,DC=edu,DC=au
+objectClass: top
+objectClass: organizationalUnit
+
+dn: OU=Active,OU=MQ-Users,DC=mqauth,DC=uni,DC=mq,DC=edu,DC=au
+objectClass: top
+objectClass: organizationalUnit
+
+dn: OU=Affiliated-Staff,OU=Active,OU=MQ-Users,DC=mqauth,DC=uni,DC=mq,DC=edu,DC=au
+objectClass: top
+objectClass: organizationalUnit
+
+dn: OU=Staff,OU=Active,OU=MQ-Users,DC=mqauth,DC=uni,DC=mq,DC=edu,DC=au
+objectClass: top
+objectClass: organizationalUnit
+
+dn: OU=Students,OU=Active,OU=MQ-Users,DC=mqauth,DC=uni,DC=mq,DC=edu,DC=au
+objectClass: top
+objectClass: organizationalUnit
+
+dn: OU=Decoy,OU=Active,OU=MQ-Users,DC=mqauth,DC=uni,DC=mq,DC=edu,DC=au
+objectClass: top
+objectClass: organizationalUnit
+
+dn: OU=ART,OU=Staff,OU=Active,OU=MQ-Users,DC=mqauth,DC=uni,DC=mq,DC=edu,DC=au
+objectClass: top
+objectClass: organizationalUnit
+
+dn: OU=sART,OU=Students,OU=Active,OU=MQ-Users,DC=mqauth,DC=uni,DC=mq,DC=edu,DC=au
+objectClass: top
+objectClass: organizationalUnit
+
+dn: OU=ITS,OU=Staff,OU=Active,OU=MQ-Users,DC=mqauth,DC=uni,DC=mq,DC=edu,DC=au
+objectClass: top
+objectClass: organizationalUnit
+
+# People
+
+## Admin User
+dn: CN=admin,DC=mqauth,DC=uni,DC=mq,DC=edu,DC=au
+objectClass: top
+objectClass: inetorgperson
+cn: admin
+userpassword: adminpassword
+sn: User
+l: ITS
+title: Mr
+description: Admin User
+givenName: Admin
+mail: admin.user@example.com
+
+## Staff
+dn: CN=mq20112255,OU=ITS,OU=Staff,OU=Active,OU=MQ-Users,DC=mqauth,DC=uni,DC=mq,DC=edu,DC=au
+objectClass: top
+objectClass: inetorgperson
+cn: mq20112255
+uid: mq20112255
+sn: Markovic
+l: ITS
+title: Mr
+description: Vladimir Markovic
+givenName: Vladimir
+mail: vladimir.markovic@mq.edu.au
+
+dn: CN=mq20101139,OU=ITS,OU=Staff,OU=Active,OU=MQ-Users,DC=mqauth,DC=uni,DC=mq,DC=edu,DC=au
+objectClass: top
+objectClass: inetorgperson
+cn: mq20101139
+uid: mq20101139
+sn: Sayer
+l: ITS
+title: Mr
+description: Grant Sayer
+givenName: Grant
+mail: grant.sayer@mq.edu.au
+
+dn: CN=mq98002113,OU=ART,OU=Staff,OU=Active,OU=MQ-Users,DC=mqauth,DC=uni,DC=mq,DC=edu,DC=au
+objectClass: top
+objectClass: inetorgperson
+cn: mq98002113
+uid: mq98002113
+sn: Evans
+l: ART
+title: Dr
+description: Trevor Evans
+givenName: Trevor
+mail: trevor.evans@mq.edu.au
+
+dn: CN=mq31095291,OU=ART,OU=Staff,OU=Active,OU=MQ-Users,DC=mqauth,DC=uni,DC=mq,DC=edu,DC=au
+objectClass: top
+objectClass: inetorgperson
+cn: mq31095291
+uid: mq31095291
+sn: Choat
+l: ART
+title: Dr
+description: Malcolm Choat
+givenName: Malcolm
+mail: malcolm.choat@mq.edu.au
+
+## Affiliated Staff
+dn: CN=mqx804005,OU=Affiliated-Staff,OU=Active,OU=MQ-Users,DC=mqauth,DC=uni,DC=mq,DC=edu,DC=au
+objectClass: top
+objectClass: inetorgperson
+cn: mqx804005
+uid: mqx804005
+sn: Braganza
+l: Affiliated-Staff
+title: Mr
+description: Ryan Braganza
+givenName: Ryan
+userpassword: mypassword
+mail: ryan.braganza@mq.edu.au
+
+dn: CN=mqx804006,OU=Affiliated-Staff,OU=Active,OU=MQ-Users,DC=mqauth,DC=uni,DC=mq,DC=edu,DC=au
+objectClass: top
+objectClass: inetorgperson
+cn: mqx804006
+uid: mqx804006
+sn: Braganza
+l: Affiliated-Staff
+title: Mr
+description: Ryan2 Braganza
+givenName: Ryan2
+mail: ryan2.braganza@mq.edu.au
+
+dn: CN=mqx803999,OU=Affiliated-Staff,OU=Active,OU=MQ-Users,DC=mqauth,DC=uni,DC=mq,DC=edu,DC=au
+objectClass: top
+objectClass: inetorgperson
+cn: mqx803999
+uid: mqx803999
+sn: Aya
+l: Affiliated-Staff
+title: Mr
+description: Carlos Aya
+givenName: Carlos
+mail: carlos.aya@mq.edu.au
+
+## Students
+dn: CN=41231211,OU=sART,OU=Students,OU=Active,OU=MQ-Users,DC=mqauth,DC=uni,DC=mq,DC=edu,DC=au
+objectClass: top
+objectClass: inetorgperson
+cn: 41231211
+uid: 41231211
+sn: Body
+l: sART
+title: Mr
+description: Some Body
+givenName: Some
+mail: some.body@students.mq.edu.au
+
+dn: CN=41231201,OU=sART,OU=Students,OU=Active,OU=MQ-Users,DC=mqauth,DC=uni,DC=mq,DC=edu,DC=au
+objectClass: top
+objectClass: inetorgperson
+cn: 41231201
+uid: 41231201
+l: sART
+title: Mr
+description: Nomail Lastname
+givenName: Nomail
+sn: LastName
+
+## Decoys
+dn: CN=fake1,OU=Decoy,OU=Active,OU=MQ-Users,DC=mqauth,DC=uni,DC=mq,DC=edu,DC=au
+objectClass: top
+objectClass: inetorgperson
+cn: 12345678
+uid: 12345678
+sn: Decoyovic
+l: Decoy
+title: Dr
+description: Decoy Decoyovic
+givenName: Decoy
+userpassword: decoypassword
+mail: decoy.decoyovic@mq.edu.au

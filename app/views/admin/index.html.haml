@@ -7,6 +7,7 @@
       = link_to "List Approved Users", users_path, :class => "btn"
     - if can?(:access_requests, User)
       = link_to "View Access Requests", access_requests_users_path, :class => "btn"
+    = link_to "New OneID Account", new_one_id_users_path, class: 'btn'
   .page-header
     %h2 Access Request Management
   .page-content
