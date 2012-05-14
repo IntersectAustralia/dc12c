@@ -12,6 +12,10 @@ class Role < ActiveRecord::Base
   scope :by_name, order('name')
   scope :superuser_roles, where(name: SUPERUSER_ROLE_NAME)
 
+  def self.researcher
+    Role.find_by_name! RESEARCHER_ROLE_NAME
+  end
+
   def researcher?
     name == RESEARCHER_ROLE_NAME
   end

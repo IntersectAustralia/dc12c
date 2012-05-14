@@ -28,7 +28,7 @@ module NavigationHelpers
         edit_user_registration_path
 
       when /^the user details page for (.*)$/
-        user_path(User.where(:email => $1).first)
+        user_path(User.find_by_email! $1)
 
       when /^the edit role page for (.*)$/
         edit_role_user_path(User.where(:email => $1).first)

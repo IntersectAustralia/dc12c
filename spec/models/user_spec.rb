@@ -247,5 +247,14 @@ describe User do
       supers.should eq(["a@intersect.org.au", "c@intersect.org.au"])
     end
   end
+
+  describe "Existing one_ids" do
+    it "should return a list of all one ids that have already been created" do
+      (1..4).each do |one_id|
+        FactoryGirl.create(:user, one_id: one_id)
+      end
+      User.existing_one_ids.should eq ['1', '2', '3', '4']
+    end
+  end
   
 end

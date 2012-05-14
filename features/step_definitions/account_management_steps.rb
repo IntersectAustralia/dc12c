@@ -67,3 +67,7 @@ Given /^"([^"]*)" is rejected as spam$/ do |email|
   user = User.where(:email => email).first
   user.reject_access_request
 end
+
+Then /^"(.*)" should be a "(.*)"$/ do |email, role|
+  User.find_by_email!(email).role.name.should eq role
+end

@@ -46,6 +46,7 @@ Dc12c::Application.routes.draw do
       get :access_requests
       get :index
       get :new_one_id
+      post :create_one_id
     end
 
     member do

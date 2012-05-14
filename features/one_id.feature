@@ -18,13 +18,53 @@ Feature: OneID
     When I am on the create One ID user page
     Then I should be on the homepage
 
-  @wip
-  Scenario: Admin searches for One ID by oneid
+  @ldap
+  Scenario: Admin finds nothing
     Given I am logged in as "admin@intersect.org.au"
     And I am on the admin page
     And I follow "New OneID Account"
     Then I should see "New OneID Account"
-    When I fill in "One ID" with "mqx804005"
+    When I fill in "one_id" with "mqx80400"
+    And I press "Search"
+    Then I should not see the One ID results table
+
+  @ldap
+  Scenario Outline: Admin searches by a single parameter
+    Given I am logged in as "admin@intersect.org.au"
+    And I am on the admin page
+    And I follow "New OneID Account"
+    Then I should see "New OneID Account"
+    When I fill in "<field>" with "<value>"
     And I press "Search"
     Then I should see One ID results table
-      | Ryan | Braganza | mqx804005 |
+      | One ID    | First Name | Last Name | Email                |
+      | mqx803999 | Carlos     | Aya       | carlos.aya@mq.edu.au |
+    Examples:
+      | field      | value     |
+      | one_id     | mqx803999 |
+      | first_name | carlos    |
+      | last_name  | aya       |
+
+  @ldap
+  Scenario: Creating a user
+    Given I am logged in as "admin@intersect.org.au"
+    And I am on the new one id users page
+    When I fill in "one_id" with "mqx804005"
+    And I press "Search"
+    And I press "Create" for One ID "mqx804005"
+    Then I should be on the user details page for ryan.braganza@mq.edu.au
+    And "ryan.braganza@mq.edu.au" should be a "Researcher"
+
+  @ldap
+  Scenario: Users that already exist should not show up in search
+    Given I have users
+      | one_id    | first_name | last_name | email                   |
+      | mqx804005 | Ryan       | Braganza  | ryan.braganza@mq.edu.au |
+    Given I am logged in as "admin@intersect.org.au"
+    And I am on the new one id users page
+    When I fill in "one_id" with "mqx804005"
+    And I press "Search"
+    Then I should not see the One ID results table
+
+  @wip
+  Scenario: Checking pagination

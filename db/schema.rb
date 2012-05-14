@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120420051930) do
+ActiveRecord::Schema.define(:version => 20120514075105) do
 
   create_table "access_requests", :force => true do |t|
     t.integer  "user_id",        :precision => 38, :scale => 0
@@ -60,18 +60,18 @@ ActiveRecord::Schema.define(:version => 20120420051930) do
     t.integer "genre_id",                                 :precision => 38, :scale => 0
     t.string  "visibility",                                                              :default => "HIDDEN"
     t.string  "dimensions",               :limit => 511
-    t.integer "mqt_number",                               :precision => 38, :scale => 0,                       :null => false
     t.integer "date_from",                                :precision => 38, :scale => 0
     t.integer "date_to",                                  :precision => 38, :scale => 0
+    t.integer "mqt_number",                               :precision => 38, :scale => 0,                       :null => false
     t.string  "date_note"
     t.string  "material"
     t.string  "conservation_note",        :limit => 1023
     t.string  "other_characteristics",    :limit => 1023
-    t.string  "mqt_note"
     t.string  "recto_verso_note",         :limit => 511
     t.string  "type_of_text"
     t.string  "modern_textual_dates",     :limit => 511
     t.string  "publications",             :limit => 127
+    t.string  "mqt_note"
     t.string  "apis_id",                  :limit => 32
     t.integer "trismegistos_id",                          :precision => 38, :scale => 0
     t.string  "physical_location"
@@ -87,24 +87,25 @@ ActiveRecord::Schema.define(:version => 20120420051930) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                                 :default => "", :null => false
-    t.string   "encrypted_password",                                    :default => "", :null => false
+    t.string   "email",                                                               :default => "", :null => false
+    t.string   "encrypted_password",                                                  :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          :precision => 38, :scale => 0, :default => 0
+    t.integer  "sign_in_count",                        :precision => 38, :scale => 0, :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.integer  "failed_attempts",        :precision => 38, :scale => 0, :default => 0
+    t.integer  "failed_attempts",                      :precision => 38, :scale => 0, :default => 0
     t.datetime "locked_at"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "status"
-    t.integer  "role_id",                :precision => 38, :scale => 0
-    t.datetime "created_at",                                                            :null => false
-    t.datetime "updated_at",                                                            :null => false
+    t.integer  "role_id",                              :precision => 38, :scale => 0
+    t.datetime "created_at",                                                                          :null => false
+    t.datetime "updated_at",                                                                          :null => false
+    t.string   "one_id",                 :limit => 10
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

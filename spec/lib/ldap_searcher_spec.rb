@@ -73,6 +73,9 @@ describe LdapSearcher do
       LdapSearcher.search(first_name: 'Ryan2').should eq [ryan2]
       LdapSearcher.search(first_name: 'Ryan2', excluded_one_ids: ['mqx804006']).should eq []
     end
+    it "searches blank strings properly" do
+      LdapSearcher.search(first_name: '', last_name: 'Braganza')
+    end
   end
 end
 

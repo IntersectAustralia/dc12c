@@ -1,6 +1,7 @@
 require 'will_paginate/array'
 
 class UsersController < ApplicationController
+  ONE_IDS_PER_PAGE = APP_CONFIG['number_of_one_ids_per_page']
 
   before_filter :authenticate_user!
   load_and_authorize_resource
@@ -82,11 +83,24 @@ class UsersController < ApplicationController
 
   def new_one_id
     @search_fields = {}
-    one_id = params[:one_id]
-    first_name = params[:first_name]
-    last_name = params[:last_name]
-    excluded_users = [] # FIXME
+    excluded_users = User.existing_one_ids
+    @search_fields = params.slice(:one_id, :first_name, :last_name)
     page = make_page(params[:page])
-    @search_results = LdapSearcher.search(one_id, first_name, last_name, excluded_users).paginate(page: page, per_page: 20)
+    @search_results = LdapSearcher.search(@search_fields.merge(excluded_users: excluded_users)).paginate(page: page, per_page: ONE_IDS_PER_PAGE) if @search_fields.any?
+  end
+
+  def create_one_id
+    u = User.new(email: params[:email], first_name: params[:first_name], last_name: params[:last_name]) do |u|
+      u.password = 'LamePass!987654321' # enables other validations to run later. We reset password to nil later.
+      u.status = 'A'
+      u.role = Role.researcher
+    end
+    User.transaction do
+      if u.valid?
+        u.password = nil
+        u.save!(validate: false)
+      end
+    end
+    redirect_to(u)
   end
 end

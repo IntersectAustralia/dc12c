@@ -45,9 +45,9 @@ class LdapSearcher
     one_id = opts[:one_id]
 
     filters = []
-    filters << Net::LDAP::Filter.contains('givenName', givenName) if givenName
-    filters << Net::LDAP::Filter.contains('sn', sn) if sn
-    filters << Net::LDAP::Filter.eq(config['one_id_key'], one_id) if one_id
+    filters << Net::LDAP::Filter.contains('givenName', givenName) if givenName.present?
+    filters << Net::LDAP::Filter.contains('sn', sn) if sn.present?
+    filters << Net::LDAP::Filter.eq(config['one_id_key'], one_id) if one_id.present?
     filters.reduce { |a,b| a & b }
   end
 

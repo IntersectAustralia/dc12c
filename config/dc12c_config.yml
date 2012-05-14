@@ -4,6 +4,7 @@ defaults: &defaults
   account_request_admin_notification_sender: account-request@intersect.org.au
   papyrus_access_request_email_sender: papyrus-access-request@intersect.org.au
   number_of_papyri_per_page: 20
+  number_of_one_ids_per_page: 20
   image_root: /tmp
 
 development:

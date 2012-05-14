@@ -4,9 +4,17 @@
     %th First Name
     %th Last Name
     %th Email
+    %th
   - search_results.each do |sr|
     %tr
-      %td= sr.one_id
-      %td= sr.first_name
-      %td= sr.last_name
-      %td= sr.email
+      %td= sr[:one_id]
+      %td= sr[:first_name]
+      %td= sr[:last_name]
+      %td= sr[:email]
+      %td
+        = form_tag(create_one_id_users_path) do
+          = hidden_field_tag 'one_id', sr[:one_id]
+          = hidden_field_tag 'first_name', sr[:first_name]
+          = hidden_field_tag 'last_name', sr[:last_name]
+          = hidden_field_tag 'email', sr[:email]
+          = submit_tag 'Create', id: "create_#{sr[:one_id]}"
