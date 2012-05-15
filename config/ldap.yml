@@ -13,3 +13,11 @@ test:
   admin_password: adminpassword
   one_id_key: uid
   port: 54321
+
+jenkins:
+  host: localhost
+  base: OU=Active,OU=MQ-Users,DC=mqauth,DC=uni,DC=mq,DC=edu,DC=au
+  admin_user: admin
+  admin_password: adminpassword
+  one_id_key: uid
+  port: 54321
