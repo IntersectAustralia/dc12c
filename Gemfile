@@ -46,7 +46,7 @@ gem 'devise_ldap_authenticatable', git: 'http://github.com/ryanbraganza/devise_l
 # gem 'ruby-debug19', :require => 'ruby-debug'
     
 gem "therubyracer" # TODO should this be in group :assets ?
-group :development, :test, :jenkins do
+group :development, :test, :jenkins, :qa, :staging do
   gem "rspec-rails"
   gem "factory_girl", '= 3.1.1'
   gem "factory_girl_rails", '= 3.1.0'
