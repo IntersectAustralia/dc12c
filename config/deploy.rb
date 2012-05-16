@@ -1,5 +1,5 @@
 $:.unshift(File.expand_path('./lib', ENV['rvm_path']))
-require 'bundler/capistrano'
+#require 'bundler/capistrano'
 require 'capistrano/ext/multistage'
 require 'capistrano_colors'
 require 'rvm/capistrano'
