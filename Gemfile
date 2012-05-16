@@ -15,6 +15,8 @@ gem 'paperclip'
 gem 'bundler'
 gem 'rubygems-bundler'
 
+gem 'saikuro', '~> 1.2.1' # rubygems does not have 1.1.0 available any longer
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

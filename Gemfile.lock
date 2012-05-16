@@ -240,6 +240,7 @@ GEM
       sexp_processor (~> 3.0)
     rubygems-bundler (1.0.0)
     rubyzip (0.9.6.1)
+    saikuro (1.2.1)
     sass (3.1.15)
     sass-rails (3.2.4)
       railties (~> 3.2.0)
@@ -322,6 +323,7 @@ DEPENDENCIES
   rspec-rails
   ruby-oci8 (~> 2.1.0)
   rubygems-bundler
+  saikuro (~> 1.2.1)
   sass-rails (~> 3.2.3)
   shoulda
   simplecov (>= 0.3.8)
