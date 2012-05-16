@@ -85,20 +85,29 @@ class UsersController < ApplicationController
 
   def new_one_id
     @search_fields = {}
-    excluded_users = User.existing_one_ids
+    excluded_one_ids = User.existing_one_ids
     @search_fields = params.slice(:one_id, :first_name, :last_name)
     page = make_page(params[:page])
-    @search_results = LdapSearcher.search(@search_fields.merge(excluded_users: excluded_users)).paginate(page: page, per_page: ONE_IDS_PER_PAGE) if @search_fields.any?
+
+    if @search_fields.any?{|k,v|v.present?}
+      @search_results = LdapSearcher.search(@search_fields.merge(excluded_one_ids: excluded_one_ids)).paginate(page: page, per_page: ONE_IDS_PER_PAGE)
+    else
+      flash.now[:alert] = "Please fill in at least one field." if params[:commit]
+    end
   end
 
   def create_one_id
     attrs = LdapSearcher.search(one_id: params[:one_id]).first
     u = User.new(email: attrs[:email], first_name: attrs[:first_name], last_name: attrs[:last_name], login_attribute: attrs[:one_id], dn: attrs[:dn]) do |u|
+      u.one_id = attrs[:one_id]
       u.is_ldap = true
       u.status = 'A'
       u.role = Role.researcher
+      u.password = "NeverUsed.123" # TODO there should be something nicer than having to set this...
     end
-    u.save!(validate: false)
+
+    u.save!
+
     redirect_to(u)
   end
 end

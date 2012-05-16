@@ -1,5 +1,5 @@
 Then /^I should not see the One ID results table$/ do
-  find_or_nil('one_id_search_results').should be_nil
+  find_or_nil('#one_id_search_results').should be_nil
 end
 
 Then /^I should see One ID results table$/ do |expected_table|

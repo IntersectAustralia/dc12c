@@ -46,6 +46,14 @@ Feature: OneID
       | last_name  | aya       |
 
   @ldap
+  Scenario: Searching without any params returns no results
+    Given I am logged in as "admin@intersect.org.au"
+    And I am on the new one id users page
+    And I press "Search"
+    Then I should not see the One ID results table
+    And I should see "Please fill in at least one field"
+
+  @ldap
   Scenario: Creating a user
     Given I am logged in as "admin@intersect.org.au"
     And I am on the new one id users page
