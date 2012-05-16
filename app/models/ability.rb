@@ -84,6 +84,9 @@ class Ability
     can :read_full_field, Papyrus do |papyrus|
       papyrus.access_requests.where(user_id: user.id, status: AccessRequest::APPROVED).present?
     end
+    can :high_res, Image do |image|
+      image.papyrus.access_requests.where(user_id: user.id, status: AccessRequest::APPROVED).present?
+    end
 
 
 
