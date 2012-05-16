@@ -8,3 +8,5 @@ en:
       papyrus:
         apis_id: APIS ID
         trismegistos_id: Trismegistos ID
+      user:
+        login_attribute: Login

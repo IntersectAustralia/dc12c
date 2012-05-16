@@ -1,4 +1,9 @@
 class ApplicationController < ActionController::Base
+
+  rescue_from DeviseLdapAuthenticatable::LdapException do |exception|
+    render :text => exception, :status => 500
+  end
+
   protect_from_forgery
   # catch access denied and redirect to the home page
   rescue_from CanCan::AccessDenied do |exception|
@@ -12,7 +17,6 @@ class ApplicationController < ActionController::Base
     page.to_i < 1 ? 1 : page
   end
 
-
 end
 
 class MenuTabBuilder < TabsOnRails::Tabs::Builder
@@ -23,4 +27,3 @@ class MenuTabBuilder < TabsOnRails::Tabs::Builder
     end
   end
 end
-

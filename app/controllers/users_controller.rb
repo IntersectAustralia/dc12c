@@ -65,6 +65,8 @@ class UsersController < ApplicationController
         redirect_to(edit_role_user_path(@user), :alert => "Only one superuser exists. You cannot change this role.")
       elsif @user.save
         redirect_to(@user, :notice => "The role for #{@user.email} was successfully updated.")
+      else
+        raise @user.errors.inspect
       end
     end
   end
@@ -90,17 +92,13 @@ class UsersController < ApplicationController
   end
 
   def create_one_id
-    u = User.new(email: params[:email], first_name: params[:first_name], last_name: params[:last_name]) do |u|
-      u.password = 'LamePass!987654321' # enables other validations to run later. We reset password to nil later.
+    attrs = LdapSearcher.search(one_id: params[:one_id]).first
+    u = User.new(email: attrs[:email], first_name: attrs[:first_name], last_name: attrs[:last_name], login_attribute: attrs[:one_id], dn: attrs[:dn]) do |u|
+      u.is_ldap = true
       u.status = 'A'
       u.role = Role.researcher
     end
-    User.transaction do
-      if u.valid?
-        u.password = nil
-        u.save!(validate: false)
-      end
-    end
+    u.save!(validate: false)
     redirect_to(u)
   end
 end

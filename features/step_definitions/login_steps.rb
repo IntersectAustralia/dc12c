@@ -1,29 +1,29 @@
 Given /^I have a user "([^"]*)"$/ do |email|
-  FactoryGirl.create(:user, :email => email, :password => "Pas$w0rd", :status => 'A')
+  FactoryGirl.create(:user, :login_attribute => email, :email => email, :password => "Pas$w0rd", :status => 'A')
 end
 
 Given /^I have a locked user "([^"]*)"$/ do |email|
-  FactoryGirl.create(:user, :email => email, :password => "Pas$w0rd", :status => 'A', :locked_at => Time.now - 30.minute, :failed_attempts => 3)
+  FactoryGirl.create(:user, :login_attribute => email, :email => email, :password => "Pas$w0rd", :status => 'A', :locked_at => Time.now - 30.minute, :failed_attempts => 3)
 end
 
 Given /^I have a deactivated user "([^"]*)"$/ do |email|
-  FactoryGirl.create(:user, :email => email, :password => "Pas$w0rd", :status => 'D')
+  FactoryGirl.create(:user, :login_attribute => email, :email => email, :password => "Pas$w0rd", :status => 'D')
 end
 
 Given /^I have a rejected as spam user "([^"]*)"$/ do |email|
-  FactoryGirl.create(:user, :email => email, :password => "Pas$w0rd", :status => 'R')
+  FactoryGirl.create(:user, :login_attribute => email, :email => email, :password => "Pas$w0rd", :status => 'R')
 end
 
 Given /^I have a pending approval user "([^"]*)"$/ do |email|
-  FactoryGirl.create(:user, :email => email, :password => "Pas$w0rd", :status => 'U')
+  FactoryGirl.create(:user, :login_attribute => email, :email => email, :password => "Pas$w0rd", :status => 'U')
 end
 
 Given /^I have a user "([^"]*)" with an expired lock$/ do |email|
-  FactoryGirl.create(:user, :email => email, :password => "Pas$w0rd", :status => 'A', :locked_at => Time.now - 1.hour - 1.second, :failed_attempts => 3)
+  FactoryGirl.create(:user, :login_attribute => email, :email => email, :password => "Pas$w0rd", :status => 'A', :locked_at => Time.now - 1.hour - 1.second, :failed_attempts => 3)
 end
 
 Given /^I have a user "([^"]*)" with role "([^"]*)"$/ do |email, role_name|
-  user = FactoryGirl.create(:user, :email => email, :password => "Pas$w0rd", :status => 'A')
+  user = FactoryGirl.create(:user, :login_attribute => email, :email => email, :password => "Pas$w0rd", :status => 'A')
   role = Role.where(:name => role_name).first
   role = Role.new.tap{|r|r.name = role_name}.tap{|r|r.save!} unless role
   user.role_id = role.id
@@ -41,7 +41,7 @@ end
 Then /^I should be able to log in with "([^"]*)" and "([^"]*)"$/ do |email, password|
   logout
   visit path_to("the login page")
-  fill_in("user_email", :with => email)
+  fill_in("user_login_attribute", :with => email)
   fill_in("user_password", :with => password)
   click_button("Log in")
   page.should have_content('Logged in successfully.')
@@ -50,7 +50,7 @@ end
 
 When /^I attempt to login with "([^"]*)" and "([^"]*)"$/ do |email, password|
   visit path_to("the login page")
-  fill_in("user_email", :with => email)
+  fill_in("user_login_attribute", :with => email)
   fill_in("user_password", :with => password)
   click_button("Log in")
 end
@@ -69,7 +69,7 @@ end
 
 def login(email)
   visit path_to("the login page")
-  fill_in("user_email", :with => email)
+  fill_in("user_login_attribute", :with => email)
   fill_in("user_password", :with => "Pas$w0rd")
   click_button("Log in")
 end

@@ -180,6 +180,26 @@ describe User do
     it { should validate_presence_of :last_name }
     it { should validate_presence_of :email }
     it { should validate_presence_of :password }
+    it { should validate_presence_of :login_attribute }
+
+    it "should validate presence of is_ldap" do
+      FactoryGirl.build(:user, is_ldap: nil).should_not be_valid
+      FactoryGirl.build(:user, is_ldap: true, one_id: 'mqxsomething', login_attribute: 'mqxsomething').should be_valid
+      FactoryGirl.build(:user, is_ldap: false, email: 'a@a.com', login_attribute: 'a@a.com').should be_valid
+    end
+    it "should validate one_id is present if is_ldap" do
+      FactoryGirl.build(:user, is_ldap: true, one_id: nil).should_not be_valid
+      FactoryGirl.build(:user, is_ldap: true, one_id: 'something').should be_valid
+    end
+    it "should validate presence of dn is is_ldap"
+    it "should validate uniqueness of dn, one_id"
+    it "should validate login_attribute is equal to one_id or email" do
+      FactoryGirl.build(:user, is_ldap: true, one_id: 'mqxsomething', email: 'a@a.com', login_attribute: 'a@a.com').should_not be_valid
+      FactoryGirl.build(:user, is_ldap: true, one_id: 'mqxsomething', email: 'a@a.com', login_attribute: 'mqxsomething').should be_valid
+
+      FactoryGirl.build(:user, is_ldap: false, one_id: 'mqxsomething', email: 'a@a.com', login_attribute: 'mqxsomething').should_not be_valid
+      FactoryGirl.build(:user, is_ldap: false, one_id: 'mqxsomething', email: 'a@a.com', login_attribute: 'a@a.com').should be_valid
+    end
 
     #password rules: at least one lowercase, uppercase, number, symbol
     # too short < 6

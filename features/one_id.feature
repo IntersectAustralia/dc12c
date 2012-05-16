@@ -57,9 +57,9 @@ Feature: OneID
 
   @ldap
   Scenario: Users that already exist should not show up in search
-    Given I have users
-      | one_id    | first_name | last_name | email                   |
-      | mqx804005 | Ryan       | Braganza  | ryan.braganza@mq.edu.au |
+    Given I have ldap users
+      | dn                                                                                         | one_id    | login_attribute | first_name | last_name | email                   |
+      | CN=mqx804005,OU=Affiliated-Staff,OU=Active,OU=MQ-Users,DC=mqauth,DC=uni,DC=mq,DC=edu,DC=au | mqx804005 | mqx804005       | Ryan       | Braganza  | ryan.braganza@mq.edu.au |
     Given I am logged in as "admin@intersect.org.au"
     And I am on the new one id users page
     When I fill in "one_id" with "mqx804005"
@@ -68,3 +68,19 @@ Feature: OneID
 
   @wip
   Scenario: Checking pagination
+
+  @ldap
+  Scenario: one_id user should be able to login
+    Given I have ldap users
+      | dn                                                                                         | one_id    | login_attribute | first_name | last_name | email                   |
+      | CN=mqx804005,OU=Affiliated-Staff,OU=Active,OU=MQ-Users,DC=mqauth,DC=uni,DC=mq,DC=edu,DC=au | mqx804005 | mqx804005       | Ryan       | Braganza  | ryan.braganza@mq.edu.au |
+    When I am on the home page
+    And I fill in "Login" with "mqx804005"
+    And I fill in "Password" with "mypassword"
+    And I press "Log in"
+    Then I should see "Logged in successfully."
+    And I should be on the home page
+
+  @wip
+  @ldap
+  Scenario: equivalent ldap tests for database tests in login.feature

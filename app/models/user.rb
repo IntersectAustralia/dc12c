@@ -1,20 +1,30 @@
 class User < ActiveRecord::Base
   # Include devise modules
-  devise :database_authenticatable, :registerable, :lockable, :recoverable, :trackable, :validatable, :timeoutable
+  devise :database_authenticatable, :ldap_authenticatable, :registerable, :lockable, :recoverable, :trackable, :validatable, :timeoutable
 
   belongs_to :role
   has_many :access_requests
 
   # Setup accessible attributes (status/approved flags should NEVER be accessible by mass assignment)
-  attr_accessible :email, :password, :password_confirmation, :first_name, :last_name
+  attr_accessible :email, :password, :password_confirmation, :first_name, :last_name, :login_attribute, :dn
 
   validates_presence_of :first_name
   validates_presence_of :last_name
   validates_presence_of :status
+  validates_presence_of :login_attribute
+
+  validate do |user|
+    errors[:base] << "login attribute #{user.login_attribute.inspect} should eq one_id #{user.one_id.inspect}" if user.is_ldap && user.login_attribute != user.one_id
+    errors[:base] << "login attribute #{user.login_attribute.inspect} should eq email #{user.email.inspect}" if !user.is_ldap && user.login_attribute != user.email
+  end
+
+  validates_presence_of :one_id, if: :is_ldap
 
   validates_length_of :first_name, :maximum => 255
   validates_length_of :last_name, :maximum => 255
   validates_length_of :email, :maximum => 255
+
+  validates_inclusion_of :is_ldap, in: [true, false]
 
   with_options :if => :password_required? do |v|
     v.validates :password, :password_format => true
@@ -30,6 +40,14 @@ class User < ActiveRecord::Base
   def self.existing_one_ids
     pluck :one_id
   end
+
+#  def valid_password?(password) # clyfe's devise_ldap_authenticatable suggests this is required, but it does not seem to be required
+#    begin
+#      super(password)
+#    rescue BCrypt::Errors::InvalidHash
+#      false
+#    end
+#  end
 
   # Override Devise active for authentication method so that users must be approved before being allowed to log in
   # https://github.com/plataformatec/devise/wiki/How-To:-Require-admin-to-activate-account-before-sign_in

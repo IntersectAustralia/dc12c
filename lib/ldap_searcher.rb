@@ -18,6 +18,7 @@ class LdapSearcher
         first_name: entry['givenname'].first,
         last_name: entry[:sn].first,
         one_id: entry[config['one_id_key']].first,
+        dn: entry[:dn].first,
         email: entry[:mail].first
       }
     end
@@ -48,7 +49,7 @@ class LdapSearcher
     filters << Net::LDAP::Filter.contains('givenName', givenName) if givenName.present?
     filters << Net::LDAP::Filter.contains('sn', sn) if sn.present?
     filters << Net::LDAP::Filter.eq(config['one_id_key'], one_id) if one_id.present?
-    filters.reduce { |a,b| a & b }
+    filters.reduce { |a, b| a & b }
   end
 
   def self.config

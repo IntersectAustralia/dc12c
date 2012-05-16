@@ -10,13 +10,13 @@ describe LdapSearcher do
     @server.stop
   end
 
-  let(:carlos) { make_sr 'Carlos', 'Aya', 'mqx803999' }
-  let(:ryan) { make_sr 'Ryan', 'Braganza', 'mqx804005' }
-  let(:ryan2) { make_sr 'Ryan2', 'Braganza', 'mqx804006' }
-  let(:malcolm) { make_sr 'Malcolm', 'Choat', 'mq31095291' }
-  let(:grant) { make_sr 'Grant', 'Sayer', 'mq20101139' }
-  let(:vladimir) { make_sr 'Vladimir', 'Markovic', 'mq20112255' }
-  let(:some_student) {make_sr 'Some', 'Body', '41231211', 'some.body@students.mq.edu.au' }
+  let(:carlos) { make_sr 'Carlos', 'Aya', 'mqx803999', 'cn=mqx803999,ou=Affiliated-Staff,ou=Active,ou=MQ-Users,dc=mqauth,dc=uni,dc=mq,dc=edu,dc=au' }
+  let(:ryan) { make_sr 'Ryan', 'Braganza', 'mqx804005', 'cn=mqx804005,ou=Affiliated-Staff,ou=Active,ou=MQ-Users,dc=mqauth,dc=uni,dc=mq,dc=edu,dc=au'}
+  let(:ryan2) { make_sr 'Ryan2', 'Braganza', 'mqx804006', 'cn=mqx804006,ou=Affiliated-Staff,ou=Active,ou=MQ-Users,dc=mqauth,dc=uni,dc=mq,dc=edu,dc=au' }
+  let(:malcolm) { make_sr 'Malcolm', 'Choat', 'mq31095291', 'cn=mq31095291,ou=ART,ou=Staff,ou=Active,ou=MQ-Users,dc=mqauth,dc=uni,dc=mq,dc=edu,dc=au' }
+  let(:grant) { make_sr 'Grant', 'Sayer', 'mq20101139', 'cn=mq20101139,ou=ITS,ou=Staff,ou=Active,ou=MQ-Users,dc=mqauth,dc=uni,dc=mq,dc=edu,dc=au' }
+  let(:vladimir) { make_sr 'Vladimir', 'Markovic', 'mq20112255', 'cn=mq20112255,ou=ITS,ou=Staff,ou=Active,ou=MQ-Users,dc=mqauth,dc=uni,dc=mq,dc=edu,dc=au' }
+  let(:some_student) {make_sr 'Some', 'Body', '41231211', 'cn=41231211,ou=sART,ou=Students,ou=Active,ou=MQ-Users,dc=mqauth,dc=uni,dc=mq,dc=edu,dc=au', 'some.body@students.mq.edu.au'  }
 
   describe "search" do
     it "raises an exception if no search terms are given" do
@@ -79,12 +79,13 @@ describe LdapSearcher do
   end
 end
 
-def make_sr(first_name, last_name, one_id, email=nil)
+def make_sr(first_name, last_name, one_id, dn, email=nil)
   email = "#{first_name.downcase}.#{last_name.downcase}@mq.edu.au" unless email
   {
     first_name: first_name,
     last_name: last_name,
     one_id: one_id,
+    dn: dn,
     email: email
   }
 end

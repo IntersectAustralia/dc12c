@@ -13,7 +13,7 @@ Feature: Logging In
 
   Scenario: Successful login
     Given I am on the login page
-    When I fill in "Email" with "georgina@intersect.org.au"
+    When I fill in "Login" with "georgina@intersect.org.au"
     And I fill in "Password" with "Pas$w0rd"
     And I press "Log in"
     Then I should see "Logged in successfully."
@@ -21,7 +21,7 @@ Feature: Logging In
 
   Scenario: Successful login from home page
     Given I am on the home page
-    When I fill in "Email" with "georgina@intersect.org.au"
+    When I fill in "Login" with "georgina@intersect.org.au"
     And I fill in "Password" with "Pas$w0rd"
     And I press "Log in"
     Then I should see "Logged in successfully."
@@ -34,7 +34,7 @@ Feature: Logging In
 
   Scenario: Should be redirected to requested page after logging in following a redirect from a secure page
     Given I am on the list users page
-    When I fill in "Email" with "georgina@intersect.org.au"
+    When I fill in "Login" with "georgina@intersect.org.au"
     And I fill in "Password" with "Pas$w0rd"
     And I press "Log in"
     Then I should see "Logged in successfully."
@@ -42,13 +42,13 @@ Feature: Logging In
 
   Scenario Outline: Failed logins due to missing/invalid details
     Given I am on the login page
-    When I fill in "Email" with "<email>"
+    When I fill in "Login" with "<login>"
     And I fill in "Password" with "<password>"
     And I press "Log in"
     Then I should see "Invalid email or password."
     And I should be on the login page
   Examples:
-    | email                     | password | explanation      |
+    | login                     | password | explanation      |
     |                           |          | nothing          |
     |                           | Pas$w0rd | missing email    |
     | georgina@intersect.org.au |          | missing password |
@@ -60,12 +60,12 @@ Feature: Logging In
     And I have a rejected as spam user "spammer@intersect.org.au"
     And I have a pending approval user "pending@intersect.org.au"
     And I am on the login page
-    When I fill in "Email" with "<email>"
+    When I fill in "Login" with "<login>"
     And I fill in "Password" with "<password>"
     And I press "Log in"
     Then I should see "Your account is not active."
   Examples:
-    | email                    | password |
+    | login                    | password |
     | deact@intersect.org.au   | Pas$w0rd |
     | spammer@intersect.org.au | Pas$w0rd |
     | pending@intersect.org.au | Pas$w0rd |
@@ -75,13 +75,13 @@ Feature: Logging In
     And I have a rejected as spam user "spammer@intersect.org.au"
     And I have a pending approval user "pending@intersect.org.au"
     And I am on the login page
-    When I fill in "Email" with "<email>"
+    When I fill in "Login" with "<login>"
     And I fill in "Password" with "<password>"
     And I press "Log in"
     Then I should see "Invalid email or password."
     And I should not see "Your account is not active."
   Examples:
-    | email                    | password |
+    | login                    | password |
     | deact@intersect.org.au   | pa       |
     | spammer@intersect.org.au | pa       |
     | pending@intersect.org.au | pa       |

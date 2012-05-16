@@ -1,11 +1,15 @@
 Given /^I have access requests$/ do |table|
   table.hashes.each do |hash|
+    if hash['email'] and not hash['login_attribute']
+      hash['login_attribute'] = hash['email']
+    end
     FactoryGirl.create(:user, hash.merge(:status => 'U'))
   end
 end
 
-Given /^I have users$/ do |table|
+Given /^I have (ldap )?users$/ do |ldap, table|
   table.hashes.each do |hash|
+    hash['is_ldap'] = true if ldap
     FactoryGirl.create(:user, hash.merge(:status => 'A'))
   end
 end
