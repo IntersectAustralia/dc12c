@@ -238,6 +238,7 @@ GEM
       sexp_processor (~> 3.0)
     ruby_parser (2.0.6)
       sexp_processor (~> 3.0)
+    rubygems-bundler (1.0.0)
     rubyzip (0.9.6.1)
     sass (3.1.15)
     sass-rails (3.2.4)
@@ -293,6 +294,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-oracle_enhanced-adapter (~> 1.4.1)
+  bundler
   cancan
   capistrano
   capistrano-ext
@@ -319,6 +321,7 @@ DEPENDENCIES
   rails (= 3.2.2)
   rspec-rails
   ruby-oci8 (~> 2.1.0)
+  rubygems-bundler
   sass-rails (~> 3.2.3)
   shoulda
   simplecov (>= 0.3.8)
