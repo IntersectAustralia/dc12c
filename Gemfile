@@ -26,7 +26,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
-gem 'devise_ldap_authenticatable', git: 'git@github.com:ryanbraganza/devise_ldap_authenticatable.git'
+gem 'devise_ldap_authenticatable', git: 'http://github.com/ryanbraganza/devise_ldap_authenticatable.git'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
