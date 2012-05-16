@@ -9,7 +9,6 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    Saikuro (1.1.0)
     actionmailer (3.2.2)
       actionpack (= 3.2.2)
       mail (~> 2.4.0)
@@ -143,7 +142,6 @@ GEM
       treetop (~> 1.4.8)
     main (4.7.1)
     metric_fu (2.1.1)
-      Saikuro (>= 1.1.0)
       activesupport (>= 2.0.0)
       chronic (~> 0.3.0)
       churn (>= 0.0.7)
@@ -153,6 +151,7 @@ GEM
       rcov (>= 0.8.3.3)
       reek (>= 1.2.6)
       roodi (>= 2.1.0)
+      saikuro (>= 1.2.1)
       syntax
     metrical (0.1.0)
       metric_fu (~> 2.1.1)
@@ -323,7 +322,6 @@ DEPENDENCIES
   rspec-rails
   ruby-oci8 (~> 2.1.0)
   rubygems-bundler
-  saikuro (~> 1.2.1)
   sass-rails (~> 3.2.3)
   shoulda
   simplecov (>= 0.3.8)
