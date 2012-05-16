@@ -208,7 +208,6 @@ Feature: Searching Papyri
     And I press "Search"
     And I should see search results "MQT 52, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 53, 77, 78, 79"
     
-  @wip
   @papyrus_per_page_is_infinite
   Scenario: researcher should find results in authorized fields for simple search of hidden
     Given I am logged in as "researcher@intersect.org.au"
@@ -240,4 +239,4 @@ Feature: Searching Papyri
     And I am on the home page
     Then I fill in "Search" with "abcd 123"
     And I press "Search"
-    And I should see search results "MQT 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 53, 77, 78, 79"
+    And I should see search results "MQT 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 53, 77, 78, 79"

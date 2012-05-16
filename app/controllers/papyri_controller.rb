@@ -90,7 +90,7 @@ class PapyriController < ApplicationController
     end
     if !search_fields.empty?
       @search_fields = search_fields
-      @papyri = Papyrus.advanced_search(current_user, search_fields).accessible_by(current_ability, :advanced_search).paginate(page: page, per_page: APP_CONFIG['number_of_papyri_per_page'])
+      @papyri = Papyrus.advanced_search(current_user, search_fields).paginate(page: page, per_page: APP_CONFIG['number_of_papyri_per_page'])
     else
       @search_fields = {}
       @papyri = []

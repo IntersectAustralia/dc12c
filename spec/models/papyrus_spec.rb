@@ -325,7 +325,8 @@ describe Papyrus do
 
     def make_papyrus(user, number, visibility, values)
       ## hack >> papyrus = FactoryGirl.create(:papyrus, values.merge(visibility: visibility, modern_textual_dates:number.to_s)), modif papyrus.inspect as well
-      papyrus = FactoryGirl.create(:papyrus, values.merge(visibility: visibility, modern_textual_dates:number.to_s))
+      has_user = (user ? ' *ACCESS' : '')
+      papyrus = FactoryGirl.create(:papyrus, values.merge(visibility: visibility, modern_textual_dates:"[#{number} #{visibility} #{values}#{has_user}]"))
       instance_variable_set("@p#{number}", papyrus)
       FactoryGirl.create(:access_request, papyrus: papyrus, user: user, status: AccessRequest::APPROVED, date_requested: Time.new - 10, date_approved: Time.new) if user
     end
@@ -647,53 +648,53 @@ describe Papyrus do
 
         it "should find by general note" do
           results = Papyrus.advanced_search(@user, general_note: 'screen')
-          results.should eq [@p3, @p103, @p203]
+          results.should eq [@p203]
         end
-        it "should find by note" do
+        it "should find by lines of text" do
           results = Papyrus.advanced_search(@user, lines_of_text: 'light bulb')
-          results.should eq [@p4, @p104, @p204]
+          results.should eq [@p104, @p204]
         end
         it "should find by paleographic description" do
           results = Papyrus.advanced_search(@user, paleographic_description: 'sydney')
-          results.should eq [@p5, @p105, @p205]
+          results.should eq [@p105, @p205]
         end
         it "should find by recto verso note" do
           results = Papyrus.advanced_search(@user, recto_verso_note: 'staedtler')
-          results.should eq [@p6, @p106, @p206]
+          results.should eq [@p206]
         end
         it "should find by origin details" do
           results = Papyrus.advanced_search(@user, origin_details: 'ever')
-          results.should eq [@p9, @p109, @p209]
+          results.should eq [@p109, @p209]
         end
         it "should find by source of acquisition" do
           results = Papyrus.advanced_search(@user, source_of_acquisition: 'ebay')
-          results.should eq [@p10, @p110, @p210]
+          results.should eq [@p210]
         end
         it "should find by preservation note" do
           results = Papyrus.advanced_search(@user, preservation_note: 'no biro please')
-          results.should eq [@p11, @p111, @p211]
+          results.should eq [@p211]
         end
         it "should find by language note" do
           results = Papyrus.advanced_search(@user, language_note: 'funny')
-          results.should eq [@p13, @p113, @p213]
+          results.should eq [@p213]
         end
         it "should find by summary" do
           results = Papyrus.advanced_search(@user, summary: "it's all greek to me")
-          results.should eq [@p14, @p114, @p214]
+          results.should eq [@p114, @p214]
         end
         it "should find by translated text" do
           results = Papyrus.advanced_search(@user, translated_text: 'Chinese strike')
-          results.should eq [@p15, @p115, @p215]
+          results.should eq [@p215]
         end
         it "should find by multiple parameters" do
           results = Papyrus.advanced_search(@user, language_note: 'looks', translated_text: 'me striKe The')
-          results.should eq [@p13, @p15, @p113, @p115, @p213, @p215]
+          results.should eq [@p213, @p215]
         end
       end # advanced mode
 
     end # by anonymous
 
-    pending "by registered" do
+    describe "by registered" do
 
       before :each do
         ordinary_role = FactoryGirl.create(:role, name: "NO_#{Role::SUPERUSER_ROLE_NAME}")
@@ -760,13 +761,13 @@ describe Papyrus do
           results.should eq [@p15, @p115, @p215, @p315, @p415, @p515]
         end
         it "should find date note" do
-          results = Papyrus.search(@user, ['aaa'])
-          results.should eq [@p20, @p120, @p220, @p320, @p420, @p520]
+          results = Papyrus.search(@user, ['ddd'])
+          results.should eq [@p23, @p123, @p223,@p323, @p423, @p523]
         end
         # mqt_note is full
         it "should find by mqt_note" do
           results = Papyrus.search(@user, ['aaa'])
-          results.should eq [@p320, @p420, @p520]
+          results.should eq [@p220, @p320, @p420, @p520]
         end
         it "should find by apis id" do
           results = Papyrus.search(@user, ['apis'])
@@ -806,7 +807,8 @@ describe Papyrus do
         end
         it "should find across multiple fields" do
           results = Papyrus.search(@user, ['Bulb', 'aLl'])
-          results.should eq [@p4, @p11, @p14, @p104, @p111, @p114, @p204, @p211, @p214]
+          results.should eq [@p4, @p11, @p14, @p104, @p111, @p114, @p204, @p211, @p214,
+                             @p304, @p311, @p314, @p404, @p411, @p414, @p504, @p511, @p514]
         end
         it "should find prefix of words in utf8 searches" do
           results = Papyrus.search(@user, ['Έμ'])
@@ -818,47 +820,48 @@ describe Papyrus do
 
         it "should find by general note" do
           results = Papyrus.advanced_search(@user, general_note: 'screen')
-          results.should eq [@p3, @p103, @p203]
+          results.should eq [@p3, @p103, @p203, @p303, @p403, @p503]
         end
         it "should find by note" do
           results = Papyrus.advanced_search(@user, lines_of_text: 'light bulb')
-          results.should eq [@p4, @p104, @p204]
+          results.should eq [@p4, @p104, @p204, @p304, @p404, @p504]
         end
         it "should find by paleographic description" do
           results = Papyrus.advanced_search(@user, paleographic_description: 'sydney')
-          results.should eq [@p5, @p105, @p205]
+          results.should eq [@p5, @p105, @p205, @p305, @p405, @p505]
         end
         it "should find by recto verso note" do
           results = Papyrus.advanced_search(@user, recto_verso_note: 'staedtler')
-          results.should eq [@p6, @p106, @p206]
+          results.should eq [@p206, @p306, @p406, @p506]
         end
         it "should find by origin details" do
           results = Papyrus.advanced_search(@user, origin_details: 'ever')
-          results.should eq [@p9, @p109, @p209]
+          results.should eq [@p9, @p109, @p209, @p309, @p409, @p509]
         end
         it "should find by source of acquisition" do
           results = Papyrus.advanced_search(@user, source_of_acquisition: 'ebay')
-          results.should eq [@p10, @p110, @p210]
+          results.should eq [@p10, @p110, @p210, @p310, @p410, @p510]
         end
         it "should find by preservation note" do
           results = Papyrus.advanced_search(@user, preservation_note: 'no biro please')
-          results.should eq [@p11, @p111, @p211]
+          results.should eq [@p11, @p111, @p211, @p311, @p411, @p511]
         end
         it "should find by language note" do
           results = Papyrus.advanced_search(@user, language_note: 'funny')
-          results.should eq [@p13, @p113, @p213]
+          results.should eq [@p13, @p113, @p213, @p313, @p413, @p513]
         end
         it "should find by summary" do
           results = Papyrus.advanced_search(@user, summary: "it's all greek to me")
-          results.should eq [@p14, @p114, @p214]
+          results.should eq [@p14, @p114, @p214, @p314, @p414, @p514]
         end
         it "should find by translated text" do
           results = Papyrus.advanced_search(@user, translated_text: 'Chinese strike')
-          results.should eq [@p15, @p115, @p215]
+          results.should eq [@p15, @p115, @p215, @p315, @p415, @p515]
         end
         it "should find by multiple parameters" do
           results = Papyrus.advanced_search(@user, language_note: 'looks', translated_text: 'me striKe The')
-          results.should eq [@p13, @p15, @p113, @p115, @p213, @p215]
+          results.should eq [@p13, @p15, @p113, @p115, @p213, @p215,
+                             @p313, @p315, @p413, @p415, @p513, @p515]
         end
       end # advanced mode
 

@@ -149,14 +149,7 @@ class Papyrus < ActiveRecord::Base
     genre.name if genre
   end
 
-  def self.search user, search_terms
-    search_terms = search_terms.map {|term| "%#{UnicodeUtils.upcase(term)}%"}
-    simple_fields = [:inventory_number, :general_note, :lines_of_text,
-          :paleographic_description, :recto_verso_note, :origin_details, :source_of_acquisition,
-          :preservation_note, :language_note, :summary, :mqt_note, :apis_id,
-          :trismegistos_id, :physical_location, :dimensions, :date_note, :conservation_note,
-          :other_characteristics, :material, :type_of_text, :translated_text]
-    ability = Ability.new(user)
+  def self.search_context user
     registered = user && user.role.present?
     super_role = user && (Role.superuser_roles.include? user.role)
     if user
@@ -164,6 +157,20 @@ class Papyrus < ActiveRecord::Base
     else
       papyri_id_list = []
     end
+    [registered, super_role, papyri_id_list]
+  end
+
+  def self.search user, search_terms
+    search_terms = search_terms.map {|term| "%#{UnicodeUtils.upcase(term)}%"}
+    simple_fields = [:inventory_number, :general_note, :lines_of_text,
+          :paleographic_description, :recto_verso_note, :origin_details, :source_of_acquisition,
+          :preservation_note, :language_note, :summary, :mqt_note, :apis_id,
+          :trismegistos_id, :physical_location, :dimensions, :date_note, :conservation_note,
+          :other_characteristics, :material, :type_of_text, :translated_text]
+
+    ability = Ability.new(user)
+    registered, super_role, papyri_id_list = search_context(user)
+
     # genre.name, language.name are added by hand later
     results = Papyrus.joins { languages.outer }.joins{genre.outer}.where do
       clauses = simple_fields.map do |field_name|
@@ -191,16 +198,34 @@ class Papyrus < ActiveRecord::Base
 
   def self.advanced_search user, search_fields
 
+    ability = Ability.new(user)
+    registered, super_role, papyri_id_list = search_context(user)
+
     search_fields = search_fields.reduce({}) do |acc, (k, v)|
-      acc.merge k => v.split(/\s+/).map{|term| "%#{UnicodeUtils.upcase(term)}%"}
+      acc.merge k.to_sym => v.split(/\s+/).map{|term| "%#{UnicodeUtils.upcase(term)}%"}
     end
 
     Papyrus.where do
       clauses = search_fields.map do |field_name, search_terms|
-        upper(__send__(field_name)).like_any search_terms
+        ## this code couldn't be refactored :(
+        if Papyrus.basic_field(field_name)
+          upper(__send__(field_name)).like_any search_terms
+        elsif Papyrus.detailed_field(field_name)
+          if registered
+            upper(__send__(field_name)).like_any search_terms
+          else
+            upper(__send__(field_name)).like_any(search_terms) & visibility.eq("PUBLIC")
+          end
+        else
+          if super_role
+            upper(__send__(field_name)).like_any search_terms
+          else
+            upper(__send__(field_name)).like_any(search_terms) & (visibility.eq("PUBLIC") | id.in(papyri_id_list))
+          end
+        end
       end
       clauses.reduce {|a, b| a | b }
-    end
+    end.accessible_by(ability, :advanced_search)
   end
 
 #  def inspect
