@@ -37,13 +37,13 @@ def set_role(email, role)
 end
 
 def create_user(attrs)
-  u = User.new(attrs.merge(:password => @password, :login_attribute => attrs[:email]))
+  u = User.new(attrs.merge(:password => @password, :login_attribute => attrs[:email], :is_ldap => false))
   u.activate
   u.save!
 end
 
 def create_unapproved_user(attrs)
-  u = User.create!(attrs.merge(:password => @password, :login_attribute => attrs[:email]))
+  u = User.create!(attrs.merge(:password => @password, :login_attribute => attrs[:email], :is_ldap => false))
   u.save!
 end
 

@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   has_many :access_requests
 
   # Setup accessible attributes (status/approved flags should NEVER be accessible by mass assignment)
-  attr_accessible :email, :password, :password_confirmation, :first_name, :last_name, :login_attribute, :dn
+  attr_accessible :email, :password, :password_confirmation, :first_name, :last_name, :login_attribute, :dn, :is_ldap
 
   validates_presence_of :first_name
   validates_presence_of :last_name

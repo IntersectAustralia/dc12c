@@ -69,6 +69,7 @@ title: Mr
 description: Vladimir Markovic
 givenName: Vladimir
 mail: vladimir.markovic@mq.edu.au
+userpassword: mypassword
 
 dn: CN=mq20101139,OU=ITS,OU=Staff,OU=Active,OU=MQ-Users,DC=mqauth,DC=uni,DC=mq,DC=edu,DC=au
 objectClass: top
@@ -81,6 +82,7 @@ title: Mr
 description: Grant Sayer
 givenName: Grant
 mail: grant.sayer@mq.edu.au
+userpassword: mypassword
 
 dn: CN=mq98002113,OU=ART,OU=Staff,OU=Active,OU=MQ-Users,DC=mqauth,DC=uni,DC=mq,DC=edu,DC=au
 objectClass: top
@@ -93,6 +95,7 @@ title: Dr
 description: Trevor Evans
 givenName: Trevor
 mail: trevor.evans@mq.edu.au
+userpassword: mypassword
 
 dn: CN=mq31095291,OU=ART,OU=Staff,OU=Active,OU=MQ-Users,DC=mqauth,DC=uni,DC=mq,DC=edu,DC=au
 objectClass: top
@@ -105,6 +108,7 @@ title: Dr
 description: Malcolm Choat
 givenName: Malcolm
 mail: malcolm.choat@mq.edu.au
+userpassword: mypassword
 
 ## Affiliated Staff
 dn: CN=mqx804005,OU=Affiliated-Staff,OU=Active,OU=MQ-Users,DC=mqauth,DC=uni,DC=mq,DC=edu,DC=au
@@ -131,6 +135,7 @@ title: Mr
 description: Ryan2 Braganza
 givenName: Ryan2
 mail: ryan2.braganza@mq.edu.au
+userpassword: mypassword
 
 dn: CN=mqx803999,OU=Affiliated-Staff,OU=Active,OU=MQ-Users,DC=mqauth,DC=uni,DC=mq,DC=edu,DC=au
 objectClass: top
@@ -143,6 +148,7 @@ title: Mr
 description: Carlos Aya
 givenName: Carlos
 mail: carlos.aya@mq.edu.au
+userpassword: mypassword
 
 ## Students
 dn: CN=41231211,OU=sART,OU=Students,OU=Active,OU=MQ-Users,DC=mqauth,DC=uni,DC=mq,DC=edu,DC=au
@@ -156,6 +162,7 @@ title: Mr
 description: Some Body
 givenName: Some
 mail: some.body@students.mq.edu.au
+userpassword: mypassword
 
 dn: CN=41231201,OU=sART,OU=Students,OU=Active,OU=MQ-Users,DC=mqauth,DC=uni,DC=mq,DC=edu,DC=au
 objectClass: top
@@ -167,6 +174,7 @@ title: Mr
 description: Nomail Lastname
 givenName: Nomail
 sn: LastName
+userpassword: mypassword
 
 ## Decoys
 dn: CN=fake1,OU=Decoy,OU=Active,OU=MQ-Users,DC=mqauth,DC=uni,DC=mq,DC=edu,DC=au
