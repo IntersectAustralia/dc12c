@@ -236,3 +236,10 @@ Feature: In order to associate new images with papyri records
     Then I should see "The record could not be saved"
     And I should see "Caption can't be blank"
 
+  Scenario: Delete
+    Given I am logged in as "admin@intersect.org.au"
+    And I am on the edit image page for "test.tiff" for "MQT 3"
+    When I press "Delete"
+# and i confirm the popup
+    Then I should see "Your image was deleted."
+    And I should be on the "MQT 3" papyrus page

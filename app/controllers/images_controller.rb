@@ -36,4 +36,9 @@ class ImagesController < ApplicationController
   def high_res
     send_file @image.image.path(:original), filename: @image.high_res_filename
   end
+
+  def destroy
+    @image.destroy
+    redirect_to papyrus_path(@papyrus), notice: 'Your image was deleted.'
+  end
 end
