@@ -5,16 +5,6 @@
     %small User Details...
   .page-content
     %div
-      - if @user.pending_approval?
-        .user_details_menu
-          - if can?(:approve, @user) then
-            = link_to "Approve", edit_approval_user_path(@user), :method => :get, :class => "btn"
-            &nbsp;
-          - if can?(:reject, @user) then
-            = link_to "Reject", reject_user_path(@user), :method => :put, :class => "btn"
-            = link_to "Reject as Spam", reject_as_spam_user_path(@user), :method => :put, :class => "btn"
-            = link_to 'Back', access_requests_users_path, class: 'btn'
-
       - if @user.approved?
         .user_details_menu
           - if can?(:update_role, User)
@@ -38,12 +28,11 @@
       = render_field "Email", @user.email
       = render_field "First name", @user.first_name
       = render_field "Last name", @user.last_name
-      - if !@user.pending_approval?
-        = render_field_with_block "Last Logged In" do
-          - if @user.last_sign_in_at.nil?
-            Never logged in
-          - else
-            = @user.last_sign_in_at.localtime.strftime("%d/%m/%Y %I:%M%p")
+      = render_field_with_block "Last Logged In" do
+        - if @user.last_sign_in_at.nil?
+          Never logged in
+        - else
+          = @user.last_sign_in_at.localtime.strftime("%d/%m/%Y %I:%M%p")
       = render_field "Role", (@user.role ? @user.role.name : "")
       = render_field_with_block "Status" do
         - if @user.status == 'A'

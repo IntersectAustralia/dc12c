@@ -14,10 +14,6 @@ class UsersController < ApplicationController
   def show
   end
 
-  def access_requests
-    @users = User.pending_approval
-  end
-
   def deactivate
     if !@user.check_number_of_superusers(params[:id], current_user.id) 
       redirect_to(@user, :alert => "You cannot deactivate this account as it is the only account with Administrator privileges.")
@@ -116,7 +112,7 @@ class UsersController < ApplicationController
   def sanitise_search_fields(params)
     params = params.slice(:one_id, :first_name, :last_name)
     params.reduce({}) do |attrs, (k, v)|
-      attrs.merge k => v.tr('*()', '')
+      attrs.merge k.to_sym => v.tr('*()', '')
     end
   end
 end

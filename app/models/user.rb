@@ -3,7 +3,6 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :ldap_authenticatable, :registerable, :lockable, :recoverable, :trackable, :validatable, :timeoutable
 
   belongs_to :role
-  has_many :access_requests
 
   # Setup accessible attributes (status/approved flags should NEVER be accessible by mass assignment)
   attr_accessible :email, :password, :password_confirmation, :first_name, :last_name, :login_attribute, :dn, :is_ldap
@@ -32,7 +31,6 @@ class User < ActiveRecord::Base
 
   before_validation :initialize_status
 
-  scope :pending_approval, where(:status => 'U').order(:email)
   scope :approved, where(:status => 'A').order(:email)
   scope :deactivated_or_approved, where("status = 'D' or status = 'A' ").order(:email)
   scope :approved_superusers, joins(:role).merge(User.approved).merge(Role.superuser_roles)
@@ -66,7 +64,7 @@ class User < ActiveRecord::Base
       generate_reset_password_token!
       ::Devise.mailer.reset_password_instructions(self).deliver
     else
-      if pending_approval? or deactivated?
+      if deactivated?
         Notifier.notify_user_that_they_cant_reset_their_password(self).deliver
       end
     end
@@ -106,10 +104,6 @@ class User < ActiveRecord::Base
     self.status == 'A'
   end
 
-  def pending_approval?
-    self.status == 'U'
-  end
-
   def deactivated?
     self.status == 'D'
   end
@@ -126,26 +120,6 @@ class User < ActiveRecord::Base
   def activate
     self.status = 'A'
     save!(:validate => false)
-  end
-
-  def approve_access_request
-    self.status = 'A'
-    save!(:validate => false)
-
-    # send an email to the user
-    Notifier.notify_user_of_approved_request(self).deliver
-  end
-
-  def reject_access_request
-    self.status = 'R'
-    save!(:validate => false)
-
-    # send an email to the user
-    Notifier.notify_user_of_rejected_request(self).deliver
-  end
-
-  def notify_admin_by_email
-    Notifier.notify_superusers_of_access_request(self).deliver
   end
 
   def check_number_of_superusers(id, current_user_id)

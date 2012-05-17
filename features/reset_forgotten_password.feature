@@ -34,15 +34,6 @@ Feature: Reset forgotten password
     When I open the email
     Then I should see "Someone has requested a link to change your password on the Papyri Data Capture site. However your account is not active so you cannot reset your password." in the email body
 
-  Scenario: Pending approval user gets an email saying they can't reset their password
-    Given I have a pending approval user "pa@intersect.org.au"
-    When I request a reset for "pa@intersect.org.au"
-    Then I should see "If the email address you entered was valid, you will receive an email with instructions about how to reset your password in a few minutes."
-    And I should be on the login page
-    And "pa@intersect.org.au" should receive an email
-    When I open the email
-    Then I should see "Someone has requested a link to change your password on the Papyri Data Capture site. However your account is not active so you cannot reset your password." in the email body
-
   Scenario: Rejected as spam user trying to request a reset just sees default message but doesn't get email (so we don't reveal which users exist)
     Given I have a rejected as spam user "spam@intersect.org.au"
     When I request a reset for "spam@intersect.org.au"

@@ -43,7 +43,6 @@ Dc12c::Application.routes.draw do
   resources :users, :only => [:show] do
 
     collection do
-      get :access_requests
       get :index
       get :new_one_id
       post :create_one_id
