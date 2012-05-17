@@ -86,7 +86,7 @@ class UsersController < ApplicationController
   def new_one_id
     @search_fields = {}
     excluded_one_ids = User.existing_one_ids
-    @search_fields = params.slice(:one_id, :first_name, :last_name)
+    @search_fields = sanitise_search_fields(params)
     page = make_page(params[:page])
 
     if @search_fields.any?{|k,v|v.present?}
@@ -109,5 +109,14 @@ class UsersController < ApplicationController
     u.save!
 
     redirect_to(u)
+  end
+
+  private
+
+  def sanitise_search_fields(params)
+    params = params.slice(:one_id, :first_name, :last_name)
+    params.reduce({}) do |attrs, (k, v)|
+      attrs.merge k => v.tr('*()', '')
+    end
   end
 end
