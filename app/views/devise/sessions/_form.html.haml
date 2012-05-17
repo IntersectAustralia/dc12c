@@ -1,9 +1,9 @@
 .page-header.record
   %h2 Log In to DC.12C
-  %small Please enter your email and password to log in
+  %small Please enter your email (or One ID if you have one) and password to log in
 .page-content
   .control-group
-    = f.label :login_attribute, :class => "control-label"
+    = f.label :login_attribute, 'Login', :class => "control-label"
     .controls
       = f.text_field :login_attribute
   .control-group
