@@ -31,6 +31,24 @@
     = renderer.render('Original Text', :original_text)
     = renderer.render('Translated Text', :translated_text)
 
+  %h4 Names
+  - if can? :create, Name
+    = link_to 'Add Name', new_papyrus_name_path(papyrus), class: 'btn'
+  -# names are basic access
+  - if papyrus.names.count == 0
+    No Names
+  - else
+    - papyrus.names.each do |name|
+      .name_container
+        = render_field 'Name', name.name, "name_name"
+        = render_field 'Role', name.human_readable_role, "name_role"
+        = render_field 'Role Note', name.role_note, "name_role_note"
+        = render_field 'Added Information', name.added_information, "name_added_information"
+        = render_field 'Date', name.date, "name_date"
+
+        - if can? :update, name
+          = link_to 'Edit', edit_papyrus_name_path(@papyrus, name), id: "edit_name_#{name.id}"
+
 .page-content-images
   %h3 Papyrus Images
   %ul(class="image-list")
