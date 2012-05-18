@@ -3,3 +3,6 @@
     %h2 Edit Image
   .page-content
     = render partial: 'form', locals: {image: @image, papyrus: @papyrus, is_edit: true}
+    - if can? :destroy, @image
+      = form_for @image, url: papyrus_image_path(@papyrus, @image), html: {method: :delete} do |f|
+        = f.submit 'Delete', confirm: 'Are you sure you want to delete this image?'

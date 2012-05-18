@@ -3,19 +3,9 @@ require 'spec_helper'
 describe User do
   describe "Associations" do
     it { should belong_to(:role) }
-    it {should have_many :access_requests}
   end
 
   describe "Named Scopes" do
-    describe "Users Pending Approval Scope" do
-      it "should return users that are unapproved ordered by email address" do
-        u1 = FactoryGirl.create(:user, :status => 'U', :email => "fasdf1@intersect.org.au")
-        u2 = FactoryGirl.create(:user, :status => 'A')
-        u3 = FactoryGirl.create(:user, :status => 'U', :email => "asdf1@intersect.org.au")
-        u2 = FactoryGirl.create(:user, :status => 'R')
-        User.pending_approval.should eq([u3,u1])
-      end
-    end
     describe "Approved Users Scope" do
       it "should return users that are approved ordered by email address" do
         u1 = FactoryGirl.create(:user, :status => 'A', :email => "fasdf1@intersect.org.au")
@@ -50,31 +40,11 @@ describe User do
     end
   end
 
-  describe "Approve Access Request" do
-    it "should set the status flag to A" do
-      user = FactoryGirl.create(:user, :status => 'U')
-      user.approve_access_request
-      user.status.should eq("A")
-    end
-  end
-
-  describe "Reject Access Request" do
-    it "should set the status flag to R" do
-      user = FactoryGirl.create(:user, :status => 'U')
-      user.reject_access_request
-      user.status.should eq("R")
-    end
-  end
-
   describe "Status Methods" do
     context "Active" do
       it "should be active" do
         user = FactoryGirl.create(:user, :status => 'A')
         user.approved?.should be_true
-      end
-      it "should not be pending approval" do
-        user = FactoryGirl.create(:user, :status => 'A')
-        user.pending_approval?.should be_false
       end
     end
 
@@ -83,20 +53,12 @@ describe User do
         user = FactoryGirl.create(:user, :status => 'U')
         user.approved?.should be_false
       end
-      it "should be pending approval" do
-        user = FactoryGirl.create(:user, :status => 'U')
-        user.pending_approval?.should be_true
-      end
     end
 
     context "Rejected" do
       it "should not be active" do
         user = FactoryGirl.create(:user, :status => 'R')
         user.approved?.should be_false
-      end
-      it "should not be pending approval" do
-        user = FactoryGirl.create(:user, :status => 'R')
-        user.pending_approval?.should be_false
       end
     end
   end

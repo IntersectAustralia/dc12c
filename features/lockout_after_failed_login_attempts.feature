@@ -9,26 +9,26 @@ Feature: Locking out users after multiple failed password attempts
 
   Scenario: 3 consecutive failed logins results in account being locked.
     When I attempt to login with "georgina@intersect.org.au" and "blah"
-    Then I should see "Invalid email or password."
+    Then I should see "Invalid login or password."
     And I should be on the login page
     When I attempt to login with "georgina@intersect.org.au" and "blah"
-    Then I should see "Invalid email or password."
+    Then I should see "Invalid login or password."
     And I should be on the login page
     When I attempt to login with "georgina@intersect.org.au" and "blah"
     Then I should see "You entered an incorrect password 3 times in a row. For security reasons your account has been locked for one hour."
 
   Scenario: A successful login after 2 failures resets the failure count to zero
     When I attempt to login with "georgina@intersect.org.au" and "blah"
-    Then I should see "Invalid email or password."
+    Then I should see "Invalid login or password."
     When I attempt to login with "georgina@intersect.org.au" and "blah"
-    Then I should see "Invalid email or password."
+    Then I should see "Invalid login or password."
     And the failed attempt count for "georgina@intersect.org.au" should be "2"
     When I attempt to login with "georgina@intersect.org.au" and "Pas$w0rd"
     Then I should see "Logged in successfully."
     And the failed attempt count for "georgina@intersect.org.au" should be "0"
     When I follow "Logout"
     And I attempt to login with "georgina@intersect.org.au" and "blah"
-    Then I should see "Invalid email or password."
+    Then I should see "Invalid login or password."
     And the failed attempt count for "georgina@intersect.org.au" should be "1"
 
   Scenario: Can't login while locked even with correct password

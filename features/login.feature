@@ -45,7 +45,7 @@ Feature: Logging In
     When I fill in "Login" with "<login>"
     And I fill in "Password" with "<password>"
     And I press "Log in"
-    Then I should see "Invalid email or password."
+    Then I should see "Invalid login or password."
     And I should be on the login page
   Examples:
     | login                     | password | explanation      |
@@ -78,7 +78,7 @@ Feature: Logging In
     When I fill in "Login" with "<login>"
     And I fill in "Password" with "<password>"
     And I press "Log in"
-    Then I should see "Invalid email or password."
+    Then I should see "Invalid login or password."
     And I should not see "Your account is not active."
   Examples:
     | login                    | password |

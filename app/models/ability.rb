@@ -63,6 +63,7 @@ class Ability
       can :create, Image
       can :update, Image
       can :high_res, Image
+      can :destroy, Image
       can :accept_or_reject, AccessRequest
       can :read, User
       can :create, User
