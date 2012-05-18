@@ -193,7 +193,7 @@ class Papyrus < ActiveRecord::Base
       clauses << (upper(genre.name).like_any search_terms)
       clauses << (upper(languages.name).like_any search_terms)
       clauses.reduce {|a, b| a | b }
-    end.accessible_by(ability, :search)
+    end.uniq.accessible_by(ability, :search)
   end
 
   def self.advanced_search user, search_fields
@@ -227,10 +227,6 @@ class Papyrus < ActiveRecord::Base
       clauses.reduce {|a, b| a | b }
     end.accessible_by(ability, :advanced_search)
   end
-
-#  def inspect
-#    modern_textual_dates
-#  end
 
   private
 

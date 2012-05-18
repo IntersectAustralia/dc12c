@@ -321,6 +321,8 @@ describe Papyrus do
   describe "search" do
 
     let(:latin) { FactoryGirl.create(:language, name: 'Latin') }
+    let(:demotic) { FactoryGirl.create(:language, name: 'Demotic') }
+    let(:coptic) { FactoryGirl.create(:language, name: 'Coptic') }
     let(:drama) { FactoryGirl.create(:genre, name: 'Drama') }
 
     def make_papyrus(user, number, visibility, values)
@@ -332,7 +334,7 @@ describe Papyrus do
     end
 
     def make_papyri(start_number, visibility, user = nil)
-      make_papyrus(user, start_number + 1, visibility, inventory_number: "l23")
+      make_papyrus(user, start_number + 1, visibility, inventory_number: "l23", languages:[demotic, coptic])
       make_papyrus(user, start_number + 2, visibility, languages: [latin])
       make_papyrus(user, start_number + 3, visibility, general_note: "screen wipe")
       make_papyrus(user, start_number + 4, visibility, lines_of_text: "light bulb")
