@@ -112,6 +112,14 @@ module NavigationHelpers
         name = papyrus.names.find_by_name! name
         edit_papyrus_name_path(papyrus, name)
 
+      when /the edit connection page for "(.*)" for papyrus "MQT (.*)"/
+        related_mqt_number = $1
+        mqt_number = $2
+        papyrus = Papyrus.find_by_mqt_number! mqt_number
+        related_papyrus = Papyrus.find_by_mqt_number! related_mqt_number
+        connection = papyrus.connections.find_by_related_papyrus_id!(related_papyrus)
+        edit_papyrus_connection_path(papyrus, connection)
+        
 
 # Add more mappings here.
 # Here is an example that pulls values out of the Regexp:

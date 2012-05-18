@@ -123,6 +123,7 @@ describe Papyrus do
     it { should have_many :access_requests }
     it { should have_many :images }
     it { should have_many :names }
+    it { should have_many :connections }
   end
   describe "validations" do
     it { should validate_presence_of :mqt_number }

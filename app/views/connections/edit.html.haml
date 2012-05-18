@@ -1,0 +1,8 @@
+.page-inner
+  .page-header.record
+    %h2 Edit Connection
+  .page-content
+    = render partial: 'form', locals: {connection: @connection, papyrus: @papyrus}
+    - if can? :destroy, @connection
+      = form_for @connection, url: papyrus_connection_path(@papyrus, @connection), html: {method: :delete} do |f|
+        = f.submit 'Delete', confirm: 'Are you sure you want to delete this connection?'

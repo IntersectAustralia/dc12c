@@ -49,6 +49,23 @@
         - if can? :update, name
           = link_to 'Edit', edit_papyrus_name_path(@papyrus, name), id: "edit_name_#{name.id}"
 
+  %h4 Connections
+  - if can? :create, Connection
+    = link_to 'Add Connection', new_papyrus_connection_path(papyrus), class: 'btn'
+  -# connections are basic access
+  - if papyrus.connections.count == 0
+    No Connections
+  - else
+    %ul
+      - papyrus.connections.each do |connection|
+        - if can? :read, connection.related_papyrus
+          %li.connection
+            %span
+            = link_to "MQT #{connection.related_papyrus.mqt_number}", papyrus_path(connection.related_papyrus)
+            = "- #{connection.description}"
+          - if can? :update, connection
+            = link_to 'Edit', edit_papyrus_connection_path(@papyrus, connection), id: "edit_connection_#{connection.id}"
+
 .page-content-images
   %h3 Papyrus Images
   %ul(class="image-list")

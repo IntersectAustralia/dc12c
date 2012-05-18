@@ -1,0 +1,7 @@
+= render partial: 'shared/error_messages', locals: {target: connection}
+= form_for([papyrus, connection]) do |f|
+  = render_field('Related mqt number', text_field_tag('mqt', connection.related_papyrus.mqt_number, id: 'connection_mqt', max_length: 10))
+  = render_field('Description', text_field_tag(:description, connection.description, id: 'connection_description', max_length: 255))
+  .form-actions
+    = f.submit 'Save', class: "btn btn-blue"
+    = link_to 'Cancel', papyrus_path(papyrus), class: "btn"

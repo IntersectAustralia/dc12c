@@ -27,6 +27,7 @@ Dc12c::Application.routes.draw do
 
     resources :images, only: [:new, :create, :edit, :update, :destroy]
     resources :names, only: [:new, :create, :edit, :update, :destroy]
+    resources :connections, only: [:new, :create, :edit, :update, :destroy]
   end
 
   match 'papyrus/:papyrus_id/image/:id/thumbnail' => 'Images#thumbnail'

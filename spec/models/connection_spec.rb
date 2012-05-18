@@ -10,6 +10,11 @@ describe Connection do
     it { should validate_presence_of :related_papyrus_id }
     it { should validate_presence_of :description }
 
+    it "should validate related_papyrus_id is not equal to papyrus_id" do
+      p = FactoryGirl.create(:papyrus)
+      FactoryGirl.build(:connection, papyrus: p, related_papyrus: p).should_not be_valid
+    end
+
     it "should validate uniqueness of related_papyrus_id scoped to papyrus_id" do
       p = FactoryGirl.create(:papyrus)
       p2 = FactoryGirl.create(:papyrus)

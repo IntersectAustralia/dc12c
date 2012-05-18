@@ -32,6 +32,7 @@ class Papyrus < ActiveRecord::Base
   has_many :access_requests
   has_many :images
   has_many :names
+  has_many :connections
 
   validates :mqt_number, presence: true, uniqueness: true
   validates :visibility, presence: true, inclusion: [HIDDEN, VISIBLE, PUBLIC]
