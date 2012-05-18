@@ -25,8 +25,8 @@ module ApplicationHelper
   end
 
   # convenience method to render a field on a view screen - saves repeating the div/span etc each time
-  def render_field(label, value)
-    render_field_content(label, (h value))
+  def render_field(label, value, additional_classes='')
+    render_field_content(label, (h value), additional_classes)
   end
 
   def render_field_if_not_empty(label, value)
@@ -45,7 +45,7 @@ module ApplicationHelper
   end
 
   private
-  def render_field_content(label, content)
+  def render_field_content(label, content, additional_classes='')
     div_class = cycle("field_bg","field_nobg")
     div_id = label.tr(" ,.", "_").downcase
     html = "<div class='#{div_class} control-group' id='display_#{div_id}'>"
@@ -53,12 +53,11 @@ module ApplicationHelper
     html << (h label)
     html << ":"
     html << '</label>'
-    html << '<div class="controls">'
+    html << "<div class='controls #{additional_classes}'>"
     html << content
     html << '</div>'
     html << '</div>'
     html.html_safe
   end
-
 
 end

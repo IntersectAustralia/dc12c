@@ -105,6 +105,13 @@ module NavigationHelpers
       when /the create One ID user page/
         new_one_id_users_path
 
+      when /the edit name page for "(.*)" for "MQT (\d+)"/
+        name = $1
+        mqt_number = $2
+        papyrus = Papyrus.find_by_mqt_number! mqt_number
+        name = papyrus.names.find_by_name! name
+        edit_papyrus_name_path(papyrus, name)
+
 
 # Add more mappings here.
 # Here is an example that pulls values out of the Regexp:

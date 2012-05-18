@@ -122,6 +122,7 @@ describe Papyrus do
     it { should have_and_belong_to_many :languages }
     it { should have_many :access_requests }
     it { should have_many :images }
+    it { should have_many :names }
   end
   describe "validations" do
     it { should validate_presence_of :mqt_number }

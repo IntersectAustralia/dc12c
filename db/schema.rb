@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120516020105) do
+ActiveRecord::Schema.define(:version => 20120517072145) do
 
   create_table "access_requests", :force => true do |t|
     t.integer  "user_id",        :precision => 38, :scale => 0
@@ -44,6 +44,16 @@ ActiveRecord::Schema.define(:version => 20120516020105) do
     t.integer "papyrus_id",  :precision => 38, :scale => 0
   end
 
+  create_table "names", :force => true do |t|
+    t.integer "papyrus_id",                       :precision => 38, :scale => 0, :null => false
+    t.string  "name",              :limit => 64,                                 :null => false
+    t.string  "role",              :limit => 32
+    t.string  "role_note",         :limit => 127
+    t.string  "added_information"
+    t.string  "date"
+    t.string  "ordering",          :limit => 1
+  end
+
   create_table "papyri", :force => true do |t|
     t.string  "inventory_number"
     t.string  "general_note"
@@ -60,13 +70,9 @@ ActiveRecord::Schema.define(:version => 20120516020105) do
     t.integer "genre_id",                                 :precision => 38, :scale => 0
     t.string  "visibility",                                                              :default => "HIDDEN"
     t.string  "dimensions",               :limit => 511
-    t.integer "mqt_number",                               :precision => 38, :scale => 0,                       :null => false
     t.integer "date_from",                                :precision => 38, :scale => 0
     t.integer "date_to",                                  :precision => 38, :scale => 0
-    t.string  "mqt_note"
-    t.string  "apis_id",                  :limit => 32
-    t.integer "trismegistos_id",                          :precision => 38, :scale => 0
-    t.string  "physical_location"
+    t.integer "mqt_number",                               :precision => 38, :scale => 0,                       :null => false
     t.string  "date_note"
     t.string  "material"
     t.string  "conservation_note",        :limit => 1023
@@ -75,6 +81,10 @@ ActiveRecord::Schema.define(:version => 20120516020105) do
     t.string  "type_of_text"
     t.string  "modern_textual_dates",     :limit => 511
     t.string  "publications",             :limit => 127
+    t.string  "mqt_note"
+    t.string  "apis_id",                  :limit => 32
+    t.integer "trismegistos_id",                          :precision => 38, :scale => 0
+    t.string  "physical_location"
     t.string  "volume_number",            :limit => 4
     t.integer "item_number",                              :precision => 38, :scale => 0
     t.string  "keywords"
