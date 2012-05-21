@@ -30,6 +30,7 @@
     = renderer.render('Summary', :summary)
     = renderer.render('Original Text', :original_text)
     = renderer.render('Translated Text', :translated_text)
+    = renderer.render('Keywords', :keywords)
 
   %h4 Names
   - if can? :create, Name

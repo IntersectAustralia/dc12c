@@ -19,11 +19,11 @@ class Papyrus < ActiveRecord::Base
   PUBLIC = 'PUBLIC'
   HIDDEN = 'HIDDEN'
 
-  attr_accessible :mqt_number, :mqt_note, :inventory_number, :apis_id, :trismegistos_id, :physical_location, :date_from, :date_to, :date_note, :general_note, :lines_of_text, :paleographic_description, :origin_details, :source_of_acquisition, :preservation_note, :conservation_note, :summary, :language_note, :original_text, :translated_text, :dimensions, :genre_id, :language_ids, :other_characteristics, :material, :recto_verso_note, :type_of_text, :modern_textual_dates, :publications, :volume_number, :item_number
+  attr_accessible :mqt_number, :mqt_note, :inventory_number, :apis_id, :trismegistos_id, :physical_location, :date_from, :date_to, :date_note, :general_note, :lines_of_text, :paleographic_description, :origin_details, :source_of_acquisition, :preservation_note, :conservation_note, :summary, :language_note, :original_text, :translated_text, :dimensions, :genre_id, :language_ids, :other_characteristics, :material, :recto_verso_note, :type_of_text, :modern_textual_dates, :publications, :volume_number, :item_number, :keywords
 
   attr_field_security BASIC, :formatted_mqt_number, :inventory_number, :apis_id, :trismegistos_id, :formatted_date, :lines_of_text, :paleographic_description, :origin_details, :summary, :dimensions, :genre_name, :languages_csv, :material, :publications, :formatted_pmacq_number
 
-  attr_field_security DETAILED, :physical_location, :date_note, :general_note, :source_of_acquisition, :preservation_note, :conservation_note, :language_note, :translated_text, :other_characteristics, :type_of_text
+  attr_field_security DETAILED, :physical_location, :date_note, :general_note, :source_of_acquisition, :preservation_note, :conservation_note, :language_note, :translated_text, :other_characteristics, :type_of_text, :keywords
 
   attr_field_security FULL, :mqt_note, :original_text, :recto_verso_note, :modern_textual_dates
 

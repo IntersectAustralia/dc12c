@@ -48,5 +48,6 @@
   = render_field('Summary', f.text_area(:summary, rows: 10))
   = render_field('Original Text', f.text_area(:original_text, rows: 10))
   = render_field('Translated Text', f.text_area(:translated_text, rows: 10))
+  = render_field('Keywords', f.text_area(:keywords, rows: 4))
   .form-actions
     = f.submit 'Save', class: "btn"

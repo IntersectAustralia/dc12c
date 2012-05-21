@@ -92,6 +92,7 @@ Feature: Manage Papyrus
       | Original Text            |       |
       | Translated Text          |       |
       | Other Characteristics    |       |
+      | Keywords                 |       |
 
     When I enter the following papyrus details
       | field                    | value                     |
@@ -125,6 +126,7 @@ Feature: Manage Papyrus
       | Original Text            | περιοχής για να τιμήσουμε |
       | Translated Text          | area to honor             |
       | Other Characteristics    | other                     |
+      | Keywords                 | some keywords             |
 
     And I press "Save"
     Then I should see "Your Papyrus record has been created."
@@ -160,6 +162,7 @@ Feature: Manage Papyrus
       | Original Text            | περιοχής για να τιμήσουμε |
       | Translated Text          | area to honor             |
       | Other Characteristics    | other                     |
+      | Keywords                 | some keywords             |
     And "MQT 5" should have a visibility of "HIDDEN"
 
   Scenario: Researcher cannot create a papyrus record
