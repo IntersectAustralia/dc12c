@@ -30,10 +30,15 @@ class LdapSearcher
   private
 
   def self.ldapsearch(base, opts)
-    ldap = Net::LDAP.new(config)
+
+    connect_opts = config['ssl'] ? {encryption: :simple_tls} : {}
+
+    ldap = Net::LDAP.new(connect_opts)
+
     ldap.host = config['host']
     ldap.port = config['port']
-    ldap.encryption = :simple_tls if config['ssl']
+
+    ldap.auth config['admin_user'], config['admin_password']
 
     ldap.open do |ldap|
       ldap.search(filter: filter(opts), base: base)
