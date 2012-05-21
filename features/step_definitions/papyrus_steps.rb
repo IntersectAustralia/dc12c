@@ -152,7 +152,7 @@ Given /^I have papyri with visibility "([^"]*)" and a field filled with "([^"]*)
     field_name = attrs[:populated_field]
     papyrus = Papyrus.new(mqt_number: mqt_number, inventory_number: mqt_number)
     if 'languages' == field_name
-      language = Language.new(name: str_value)
+      language = FactoryGirl.create(:language, name: str_value)
       language.save!
       papyrus.languages = [language]
     elsif 'genre' == field_name
