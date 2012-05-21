@@ -36,7 +36,7 @@
             <%= tab.logout "Logout", destroy_user_session_path, :class => "logout" %>
             <% else %>
               <ul class="nav pull-right">
-                <%= tab.signup "Sign Up", new_user_registration_path, :class => "signup" %>
+                <%= tab.signin "Sign In", new_user_session_path %>
               </ul>
             <% end %>
           </ul>

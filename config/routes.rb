@@ -35,6 +35,7 @@ Dc12c::Application.routes.draw do
   match 'papyrus/:papyrus_id/image/:id/original' => 'Images#high_res'
   match 'admin/index' => 'Admin#index'
 
+  match 'users/sign_up' => "Pages#not_found" # render default 404 and override's devise's routes as it comes first
   devise_for :users, controllers: {registrations: "user_registers", passwords: "user_passwords"}
   devise_scope :user do
     get "/users/profile", :to => "user_registers#profile" #page which gives options to edit details or change password
