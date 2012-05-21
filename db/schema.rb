@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120518045521) do
+ActiveRecord::Schema.define(:version => 20120521004851) do
 
   create_table "access_requests", :force => true do |t|
     t.integer  "user_id",        :precision => 38, :scale => 0
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(:version => 20120518045521) do
 
   create_table "languages", :force => true do |t|
     t.string "name"
+    t.string "code", :limit => 10
   end
 
   create_table "languages_papyri", :id => false, :force => true do |t|
