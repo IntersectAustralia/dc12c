@@ -40,7 +40,7 @@ jenkins:
   username: ruby
   password: ruby123
 
-<% `. /etc/profile; env| grep PAPYRI`.split("\n").map{|line|k,v = line.split('='); ENV[k] = v} %>
+<% `. /etc/profile; env| grep PAPYRI`.split("\n", 2).map{|line|k,v = line.split('='); ENV[k] = v} %>
 showcase:
   adapter: oracle_enhanced
   database: <%= ENV['PAPYRI_DATABASE_NAME'] %>
