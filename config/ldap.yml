@@ -65,12 +65,13 @@ jenkins:
   admin_password: adminpassword
   port: 54321
 
+<% `. /etc/profile; env| grep PAPYRI`.split("\n").map{|line|k,v = line.split('='); ENV[k] = v} %>
 production:
-  host: fixme
-  port: 12345
+  host: <%= ENV['PAPYRI_LDAP_HOST'] %>
+  port: <%= ENV['PAPYRI_LDAP_PORT'] %>
   attribute: sAMAccountName
   one_id_key: sAMAccountName
-  base: fixme
-  admin_user: fixme
-  admin_password: fixme
+  base: OU=Active,OU=MQ-Users,DC=mqauth,DC=uni,DC=mq,DC=edu,DC=au
+  admin_user: <%= ENV['PAPYRI_LDAP_USER'] %>
+  admin_password: <%= ENV['PAPYRI_LDAP_PASSWORD'] %>
   ssl: true
