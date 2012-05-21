@@ -193,7 +193,7 @@ task :generate_database_yml, :roles => :app do
   require "yaml"
   set :production_database_password, proc { Capistrano::CLI.password_prompt("Database password: ") }
 
-  buffer = YAML::load_file('config/database.yml')
+  buffer = YAML::load(ERB.new(File.read('config/database.yml')).result)
   # get rid of unneeded configurations
   buffer.delete('test')
   buffer.delete('development')
