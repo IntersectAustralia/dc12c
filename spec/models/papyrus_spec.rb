@@ -274,9 +274,9 @@ describe Papyrus do
   describe "languages_csv" do
     it "should return the languages in alphabetical order" do
       p = FactoryGirl.create(:papyrus)
-      p.languages.create(name: 'B')
-      p.languages.create(name: 'A')
-      p.languages.create(name: 'C')
+      p.languages.create!(name: 'B', code: 'x')
+      p.languages.create!(name: 'A', code: 'y')
+      p.languages.create!(name: 'C', code: 'z')
 
       p.languages_csv.should eq 'A, B, C'
     end
