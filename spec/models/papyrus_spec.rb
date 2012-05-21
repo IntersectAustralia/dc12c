@@ -151,6 +151,7 @@ describe Papyrus do
     it { should ensure_length_of(:type_of_text).is_at_most(255) }
     it { should ensure_length_of(:modern_textual_dates).is_at_most(511) }
     it { should ensure_length_of(:publications).is_at_most(511) }
+    it { should ensure_length_of(:keywords).is_at_most(255) }
 
     it "should validate mqt number is unique" do
       FactoryGirl.create(:papyrus)
