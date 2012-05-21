@@ -8,9 +8,24 @@ end
 
 def create_languages
   language_names = %w{Greek Latin English Demotic}
+  language_data = [
+    ['Arabic', 'ara'],
+    ['Aramaic', 'arc'],
+    ['Egyptian\Coptic', 'cop'],
+    ['Egyptian\Demotic', 'dem'],
+    ['Greek', 'grc'],
+    ['Hebrew', 'heb'],
+    ['Egyptian\Hieroglyphic', 'hig'],
+    ['Egyptian\Hieratic', 'hir'],
+    ['Parthian', 'ira'],
+    ['Italian', 'ita'],
+    ['Latin', 'lat'],
+    ['Middle Persian', 'pal'],
+    ['Syriac', 'syr']
+  ]
   Language.delete_all
-  language_names.each do |name|
-    Language.create! name: name
+  language_data.each do |name, code|
+    Language.create! name: name, code: code
   end
 end
 

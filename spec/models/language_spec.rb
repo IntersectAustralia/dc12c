@@ -16,4 +16,13 @@ describe Language do
       should validate_uniqueness_of :code
     end
   end
+
+  it "should default to ordering by name" do
+    FactoryGirl.create(:language, name: 'A', code: 'C')
+    FactoryGirl.create(:language, name: 'D', code: 'E')
+    FactoryGirl.create(:language, name: 'C', code: 'F')
+    FactoryGirl.create(:language, name: 'B', code: 'A')
+
+    Language.all.map(&:name).should eq %w(A B C D)
+  end
 end
