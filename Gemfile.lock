@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: http://github.com/ryanbraganza/ruby-net-ldap.git
-  revision: 05640940bca2f7a7005cb651ac8e72d64db866e4
+  revision: b66d69526c5edf287d6d58eb2d2c56a421251da5
   specs:
     net-ldap (0.2.20110317223538)
 
