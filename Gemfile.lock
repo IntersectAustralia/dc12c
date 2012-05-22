@@ -1,16 +1,16 @@
 GIT
-  remote: git@github.com:ryanbraganza/ruby-net-ldap.git
-  revision: 05640940bca2f7a7005cb651ac8e72d64db866e4
-  specs:
-    net-ldap (0.2.20110317223538)
-
-GIT
   remote: http://github.com/ryanbraganza/devise_ldap_authenticatable.git
   revision: 64ee8a455fb62cba9148550ef73df3541a621694
   specs:
     devise_ldap_authenticatable (0.4.6)
       devise (~> 2.0.4)
       net-ldap (~> 0.2.2)
+
+GIT
+  remote: http://github.com/ryanbraganza/ruby-net-ldap.git
+  revision: 05640940bca2f7a7005cb651ac8e72d64db866e4
+  specs:
+    net-ldap (0.2.20110317223538)
 
 GEM
   remote: https://rubygems.org/

@@ -45,7 +45,7 @@ gem 'devise_ldap_authenticatable', git: 'http://github.com/ryanbraganza/devise_l
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 #gem "net-ldap", '~> 0.2.2' # NOT 0.3.1 due to encoding errors
-gem "net-ldap", git: 'git@github.com:ryanbraganza/ruby-net-ldap.git'
+gem "net-ldap", git: 'http://github.com/ryanbraganza/ruby-net-ldap.git'
     
 gem "therubyracer" # TODO should this be in group :assets ?
 group :development, :test, :jenkins, :qa, :staging do
