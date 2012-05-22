@@ -41,7 +41,7 @@ class LdapSearcher
     ldap.auth config['admin_user'], config['admin_password']
 
     ldap.open do |ldap|
-      ldap.search(filter: filter(opts), base: base)
+      ldap.search(filter: filter(opts), base: base, attributes: ['givenname', 'sn', config['one_id_key'], 'mail'])
     end
   end
 

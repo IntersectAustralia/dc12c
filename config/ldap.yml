@@ -65,7 +65,7 @@ jenkins:
   admin_password: adminpassword
   port: 54321
 
-<% `. /etc/profile; env| grep PAPYRI`.split("\n", 2).map{|line|k,v = line.split('='); ENV[k] = v} %>
+<% `. /etc/profile; env| grep PAPYRI`.split("\n").map{|line|k,v = line.split('=', 2); ENV[k] = v} %>
 production:
   host: <%= ENV['PAPYRI_LDAP_HOST'] %>
   port: <%= ENV['PAPYRI_LDAP_PORT'] %>
