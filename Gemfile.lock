@@ -1,10 +1,16 @@
 GIT
+  remote: git@github.com:ryanbraganza/ruby-net-ldap.git
+  revision: 05640940bca2f7a7005cb651ac8e72d64db866e4
+  specs:
+    net-ldap (0.2.20110317223538)
+
+GIT
   remote: http://github.com/ryanbraganza/devise_ldap_authenticatable.git
-  revision: 8ac204b411e75a2f63a74763e37b30c79b1d123f
+  revision: 64ee8a455fb62cba9148550ef73df3541a621694
   specs:
     devise_ldap_authenticatable (0.4.6)
       devise (~> 2.0.4)
-      net-ldap (~> 0.3.1)
+      net-ldap (~> 0.2.2)
 
 GEM
   remote: https://rubygems.org/
@@ -129,7 +135,7 @@ GEM
     jquery-rails (2.0.1)
       railties (>= 3.2.0, < 5.0)
       thor (~> 0.14)
-    json (1.6.5)
+    json (1.7.3)
     json_pure (1.6.5)
     ladle (0.2.0)
       open4 (~> 1.0.0)
@@ -157,8 +163,7 @@ GEM
       metric_fu (~> 2.1.1)
       rcov (~> 0.9)
     mime-types (1.18)
-    multi_json (1.3.4)
-    net-ldap (0.3.1)
+    multi_json (1.3.5)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-sftp (2.0.5)
@@ -168,7 +173,7 @@ GEM
       net-ssh (>= 1.99.1)
     nokogiri (1.5.0)
     open4 (1.0.1)
-    orm_adapter (0.0.6)
+    orm_adapter (0.0.7)
     paperclip (3.0.3)
       activemodel (>= 3.0.0)
       activerecord (>= 3.0.0)
@@ -260,7 +265,7 @@ GEM
       multi_json (~> 1.0)
       simplecov-html (~> 0.5.3)
     simplecov-html (0.5.3)
-    sprockets (2.1.2)
+    sprockets (2.1.3)
       hike (~> 1.2)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
@@ -316,7 +321,7 @@ DEPENDENCIES
   ladle
   launchy
   metrical
-  net-ldap
+  net-ldap!
   paperclip
   rails (= 3.2.2)
   rspec-rails
