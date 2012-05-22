@@ -84,4 +84,4 @@ showcase:
   base: OU=Active,OU=MQ-Users,DC=mqauth,DC=uni,DC=mq,DC=edu,DC=au
   admin_user: <%= ENV['PAPYRI_LDAP_USER'] %>
   admin_password: <%= ENV['PAPYRI_LDAP_PASSWORD'] %>
-  ssl: false
+  ssl: true
