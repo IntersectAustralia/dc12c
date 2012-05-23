@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/sample_data_populator.rb'
 require File.dirname(__FILE__) + '/fmp_import.rb'
 
 def confirm?
-  puts "Are you sure you wish to continue?"
+  print "Are you sure you wish to continue? (Type 'yes' to continue.) "
   'yes' == STDIN.gets.chomp
 end
 begin  
@@ -13,7 +13,15 @@ begin
     end
     desc "Import data from filemaker pro - overwrites existing papyri"
     task :import_fmp, [:filename, :image_root] => :environment do |task, args|
-      import_from_filemaker_pro args.filename, args.image_root
+      filename = args.filename
+      image_root = args.image_root
+      raise 'usage: rake "db:import_fmp[csv_filename, image_root]"' unless filename.present? && image_root.present?
+      puts "This will delete all your data before importing"
+      if confirm?
+        import_from_filemaker_pro filename, image_root
+      else
+        puts "exiting"
+      end
     end
   end  
 rescue LoadError  
