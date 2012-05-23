@@ -48,7 +48,7 @@
         = render_field 'Date', name.date, "name_date"
 
         - if can? :update, name
-          = link_to 'Edit', edit_papyrus_name_path(@papyrus, name), id: "edit_name_#{name.id}"
+          = link_to 'Edit', edit_papyrus_name_path(papyrus, name), id: "edit_name_#{name.id}"
 
   %h4 Connections
   - if can? :create, Connection
