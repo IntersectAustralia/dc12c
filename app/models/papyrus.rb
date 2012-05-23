@@ -29,10 +29,10 @@ class Papyrus < ActiveRecord::Base
 
   belongs_to :genre
   has_and_belongs_to_many :languages
-  has_many :access_requests
-  has_many :images
-  has_many :names
-  has_many :connections
+  has_many :access_requests, dependent: :destroy
+  has_many :images, dependent: :destroy
+  has_many :names, dependent: :destroy
+  has_many :connections, dependent: :destroy
 
   validates :mqt_number, presence: true, uniqueness: true
   validates :visibility, presence: true, inclusion: [HIDDEN, VISIBLE, PUBLIC]

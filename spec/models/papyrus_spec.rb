@@ -3,6 +3,29 @@ require 'spec_helper'
 
 
 describe Papyrus do
+  it "deletes images, access_requests, names, connections on destroy" do
+    p = FactoryGirl.create(:papyrus)
+    FactoryGirl.create(:access_request, papyrus: p)
+    FactoryGirl.create(:name, papyrus: p)
+    FactoryGirl.create(:image, papyrus: p)
+
+    related_papyrus = FactoryGirl.create(:papyrus)
+    FactoryGirl.create(:connection, papyrus: p, related_papyrus: related_papyrus)
+
+    AccessRequest.count.should eq 1
+    Name.count.should eq 1
+    Image.count.should eq 1
+    Connection.count.should eq 1
+    Papyrus.count.should eq 2
+
+    p.destroy
+
+    AccessRequest.count.should eq 0
+    Name.count.should eq 0
+    Image.count.should eq 0
+    Connection.count.should eq 0
+    Papyrus.all.should eq [related_papyrus]
+  end
   describe "formatted_pmacq_number" do
     it "concatenates volume number and item number" do
       FactoryGirl.build(:papyrus, volume_number: 'X', item_number: 123).formatted_pmacq_number.should eq 'X 123'
