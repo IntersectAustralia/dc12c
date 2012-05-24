@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120521054356) do
+ActiveRecord::Schema.define(:version => 20120524004602) do
 
   create_table "access_requests", :force => true do |t|
     t.integer  "user_id",        :precision => 38, :scale => 0
@@ -62,15 +62,15 @@ ActiveRecord::Schema.define(:version => 20120521054356) do
   end
 
   create_table "papyri", :force => true do |t|
-    t.string  "inventory_number"
-    t.string  "general_note"
+    t.string  "inventory_number",         :limit => 64
+    t.string  "general_note",             :limit => 512
     t.string  "lines_of_text",            :limit => 1023
     t.string  "paleographic_description", :limit => 1023
     t.string  "origin_details"
     t.string  "source_of_acquisition"
     t.string  "preservation_note",        :limit => 1023
     t.string  "language_note"
-    t.string  "summary"
+    t.string  "summary",                  :limit => 1024
     t.string  "original_text"
     t.string  "translated_text"
     t.integer "genre_id",                                 :precision => 38, :scale => 0
@@ -86,8 +86,8 @@ ActiveRecord::Schema.define(:version => 20120521054356) do
     t.string  "recto_verso_note",         :limit => 511
     t.string  "type_of_text"
     t.string  "modern_textual_dates",     :limit => 511
-    t.string  "publications",             :limit => 127
-    t.string  "mqt_note"
+    t.string  "publications"
+    t.string  "mqt_note",                 :limit => 2048
     t.string  "apis_id",                  :limit => 32
     t.integer "trismegistos_id",                          :precision => 38, :scale => 0
     t.string  "physical_location"
