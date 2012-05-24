@@ -1,17 +1,79 @@
+# coding: UTF-8
+
 require 'csv'
 
 def import_from_filemaker_pro filename, image_root
+  Papyrus.delete_all
+  AccessRequest.delete_all
+  Name.delete_all
+  Connection.delete_all
+  # TODO transactionally
   puts "importing from CSV: #{filename} image_root: #{image_root}"
   papyri_data = read_hashes_from_csv(filename)
+  post_processing = []
   papyri_data.each do |hash|
-    to_attrs(hash)
+    mqt_numbers, papyri_attrs, names = to_attrs(hash)
+    if mqt_numbers.empty?
+      post_processing << [papyri_attrs, names]
+    else
+      original_attrs = papyri_attrs
+      papyri_attrs = papyri_attrs.dup
+      genre = papyri_attrs.delete :genre
+      languages = papyri_attrs.delete :languages
+      mqt_numbers.each do |mqt_number|
+        begin
+          p = Papyrus.create!(papyri_attrs.merge(mqt_number: mqt_number))
+          p.genre = genre
+          p.languages = languages
+          p.save!
+          names.each do |ordering, attrs|
+            if attrs['name'].present?
+              p.names.create!(attrs.merge(ordering: ordering))
+            end
+          end
+        rescue ActiveRecord::RecordInvalid => e
+          post_processing << [original_attrs, names, "original mqt_number: #{mqt_number}"]
+        end
+      end
+    end
+  end
+  #raise post_processing.map{|pp, names, additional_notes| pp[:languages].inspect}.sort.inspect
+  post_processing.each do |papyri_attrs, names, additional_notes|
+    genre = papyri_attrs.delete :genre
+    languages = papyri_attrs.delete :languages
+    mqt_number = make_next_mqt_number
+    p = Papyrus.create!(papyri_attrs.merge(mqt_number: mqt_number))
+    p.genre = genre
+    p.languages = languages unless languages.nil?
+    p.save!
+    names.each do |ordering, attrs|
+      if attrs['name'].present?
+        name_attrs = attrs.dup
+        loop do
+          begin
+            name_attrs['role'] = name_attrs['role'].strip.upcase.tr('?','') if name_attrs['role']
+            name_attrs['role'] = nil if name_attrs['role'] == ''
+            p.names.create!(name_attrs.merge(ordering: ordering))
+            break
+          rescue ActiveRecord::RecordInvalid => e
+            puts e.inspect
+            puts "WARN:  duplicate name #{name_attrs['name']}"
+            name_attrs['name'] += '_2'
+          end
+        end
+      end
+    end
   end
 end
 
+def make_next_mqt_number
+  Papyrus.maximum(:mqt_number) + 1
+end
+
 def read_hashes_from_csv(file_name)
-  csv_data = CSV.read(file_name)
+  csv_data = CSV.read(file_name, encoding: 'UTF-8')
   headers = csv_data.shift.map { |i| i.to_s }
-  string_data = csv_data.map { |row| row.map { |cell| cell.to_s } }
+  string_data = csv_data.map { |row| row.map { |cell| cell.to_s}}
   string_data.map { |row| Hash[*headers.zip(row).flatten] }
 end
 
@@ -45,6 +107,8 @@ def to_attrs(hash)
   ('a'..'j').each do |letter|
     names[letter] = {}
   end
+
+  errors = []
 
   names['a']['added_information'] =  hash.delete "Added name information"
   names['b']['added_information'] =  hash.delete "Added name b information"
@@ -94,14 +158,38 @@ def to_attrs(hash)
   normalised[:dimensions] = hash.delete 'Dimensions'
   normalised[:general_note] = hash.delete 'General Note'
 
-  #normalised[:inventory_number] = hash.delete "Inventory number" # TODO
   original_inventory_number = hash.delete 'Inventory number'
-  normalise_inventory_numbers(original_inventory_number)
+  normalised[:inventory_number] = original_inventory_number
+  inventory_numbers = normalise_inventory_numbers(original_inventory_number)
 
-  #normalised[:genre] = Genre.find_by_name! hash.delete('Genre')
-  #hash.delete('Genre') #normalised[:genre] = Genre.find_by_name! hash.delete('Genre')
-  #normalised[:language] = Language.find_by_code! hash.delete('Language Code')
-  #hash.delete('Language Code') #normalised[:language] = Language.find_by_code! hash.delete('Language Code')
+  genre_name = hash.delete('Genre')
+  if genre_name == 'Subliterary'
+    genre_name = 'Sub literary'
+  elsif genre_name == 'Literary'
+    genre_name = 'Literary Text'
+  end
+  begin
+    normalised[:genre] = Genre.find_by_name!(genre_name) if genre_name.strip.present?
+  rescue ActiveRecord::RecordNotFound
+    errors << "bad genre: #{genre_name}"
+  end
+
+  language_code = hash.delete('Language Code')
+  language_code.gsub!('?', '')
+  language_codes = language_code.split(/[,; ]/).map do |lc|
+    modded = lc.downcase
+    if ['gc', 'greek', 'grc', 'grd'].include? modded
+      'grc'
+    elsif ['cpt'].include? modded
+      'cop'
+    elsif modded.blank?
+      nil
+    else
+      modded
+    end
+  end.compact
+  normalised[:languages] = language_codes.map{|code| Language.find_by_code!(code)}
+
   normalised[:language_note] = hash.delete 'Language note'
 
   normalised[:physical_location] = hash.delete 'Location of originals'
@@ -129,39 +217,35 @@ def to_attrs(hash)
   mqt.gsub!('MGT', 'MQT')
   mqt_numbers = mqt.split(/MQT (\d+)/).map(&:strip).select{|x|x != ''}.map{|x|Integer(x)}
 
-# TODO
-#  if mqt =~ /\AMQT (\d+)\Z/
-#    normalised[:mqt_number ] = $1.to_i
-#  else
-#    raise "unrecognised mqt: #{mqt}"
-#  end
+  normalised[:conservation_note] = hash.delete 'Conservation ststus' # not a typo
+  normalised[:modern_textual_dates] = hash.delete 'Modern textual dates'
 
-  # hash.delete 'Dates for searching' # TODO
+  date_string = hash.delete 'Dates for searching'
+  normalised[:date_note] = date_string
+  normalised.merge(normalised_dates(date_string))
   # hash.delete 'Local Note' # TODO
   # hash.delete 'Physical Type' # TODO
   # connections = hash.delete 'Connections' # TODO
 
-  normalised[:conservation_note] = hash.delete 'Conservation ststus' # not a typo
-  normalised[:modern_textual_dates] = hash.delete 'Modern textual dates'
-
-  normalised[:mqt_note] = hash.inspect # TODO
+  normalised[:mqt_note] = hash.merge(errors: errors.inspect)# TODO
+  [mqt_numbers, normalised, names] # TODO connections??
 end
 
 def normalise_inventory_numbers(str)
   str = str.dup
   str.strip!
   if str =~ /\Ap\. ?macquarie inv( |\. ?|\.?  )(\d+)( \(\d+\))?\Z/i
-    Integer($2)
+    [Integer($2)]
   elsif str =~ /\AMS\. Macquarie\.1 \(Inv\. (\d+)\)\Z/
-    Integer($1)
+    [Integer($1)]
   elsif str.gsub(' ', '') =~ /\AMS\.?Macq\.(\d+)\(Inv\.(\d+)\)\Z/
     [Integer($1), Integer($2)]
   elsif str.gsub(' ', '')  =~ /\ATL\.?Macq\.Inv\.(\d+)\Z/i
-    Integer($1)
+    [Integer($1)]
   elsif str =~ /\A(Lead|Silver) Inv\.? (\d+)\Z/
-    Integer($2)
+    [Integer($2)]
   elsif str =~ /\AP\. Oxy( |\.X\.)(\d+)\Z/
-    Integer($2)
+    [Integer($2)]
   else
     if str.downcase.start_with? 'p. macquarie inv.'
       str = str.slice('P. Macquarie inv.'.length..-1)
@@ -173,12 +257,18 @@ def normalise_inventory_numbers(str)
 
       tokens = str.split(/[,\+ ]/)
       sth = tokens.map do |str|
-        Integer(str) rescue nil
+        Integer(str) rescue puts("WARN unrecognised inventory numbers: #{str}")
       end.compact
-      puts sth
-      
+    else
+      puts "WARN unrecognised inventory numbers: |#{str}|"
     end
-    puts "|#{str}|"
-    #raise str.inspect
+  end
+end
+
+def normalised_dates(date_string)
+  if date_string.tr('–', '-') =~ /(-?\d+).*?-.*?(-?\d+)/
+    {date_from: $1.to_i, date_to: $2.to_i}
+  else
+    {}
   end
 end

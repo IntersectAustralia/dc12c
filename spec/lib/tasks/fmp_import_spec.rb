@@ -1,15 +1,23 @@
+# coding: utf-8
+
 rails_root = File.dirname(__FILE__) + '/../../..'
 require "#{rails_root}/lib/tasks/fmp_import.rb"
 
+require "#{rails_root}/db/seed_helper.rb"
+
 require 'set'
-#require 'spec_helper'
+require 'spec_helper'
 
 describe "FMP import" do
   test_data_path = "#{rails_root}/spec/test_data"
-  #let (:filename){"#{test_data_path}/test.csv"}
-  let (:filename){"/home/devel/papyri.csv"}
+  let (:filename){"#{test_data_path}/test.csv"}
+  #let (:filename){"/home/devel/papyri.csv"}
   let (:image_root){"#{test_data_path}/images/"}
   let (:empty_root){"#{test_data_path}/images/empty"}
+  before :each do
+    create_languages
+    create_genres
+  end
 
   it "works" do
     
@@ -69,14 +77,29 @@ describe "FMP import" do
     end
   end
   describe "normalise_inventory_numbers" do
-    it { normalise_inventory_numbers("Lead Inv. 123").should eq 123 }
-    it { normalise_inventory_numbers("P. Oxy.X.1300 ").should eq 1300 }
+    it { normalise_inventory_numbers("Lead Inv. 123").should eq [123] }
+    it { normalise_inventory_numbers("P. Oxy.X.1300 ").should eq [1300] }
     it "should not modify the original string" do
       str = 'p. macquarie inv. 3 '
       original = str.dup
       normalise_inventory_numbers(str)
       str.should eq original
 
+    end
+  end
+
+  describe "normalise_dates" do
+    [
+      '', {},
+      '800-999 AD', {date_from: 800, date_to: 999},
+      '-199  –  -100-199  –  -100', {date_from: -199, date_to: -100},
+      '6 lines', {},
+      '-199  –  -100', {date_from: -199, date_to: -100},
+      '100  – 299', {date_from: 100, date_to: 299},
+    ].each_slice(2) do |input, expected|
+      it "(#{input}).should eq #{expected}" do
+        normalised_dates(input).should eq expected
+      end
     end
   end
   

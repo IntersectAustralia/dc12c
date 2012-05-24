@@ -31,7 +31,7 @@ def create_languages
 end
 
 def create_genres
-  genre_names = ["Account", "Contract", "Fragment", "Letter", "List", "Literary Text", "Memorandum", "Petition", "Receipt", "Report"]
+  genre_names = ["Account", "Contract", "Document", "Drawing", "Fragment", "Letter", "List", "Literary Text", "Memorandum", "Petition", "Receipt", "Report", "Sub literary", "Survey", "Tax receipt"]
   Genre.delete_all
   genre_names.each do |name|
     Genre.create! name: name
