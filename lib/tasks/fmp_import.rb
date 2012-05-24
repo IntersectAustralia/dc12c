@@ -222,7 +222,7 @@ def to_attrs(hash)
 
   date_string = hash.delete 'Dates for searching'
   normalised[:date_note] = date_string
-  normalised.merge(normalised_dates(date_string))
+  normalised.merge!(normalised_dates(date_string))
   # hash.delete 'Local Note' # TODO
   # hash.delete 'Physical Type' # TODO
   # connections = hash.delete 'Connections' # TODO
