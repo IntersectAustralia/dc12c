@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120524004602) do
+ActiveRecord::Schema.define(:version => 20120525000540) do
 
   create_table "access_requests", :force => true do |t|
     t.integer  "user_id",        :precision => 38, :scale => 0
@@ -19,6 +19,17 @@ ActiveRecord::Schema.define(:version => 20120524004602) do
     t.string   "status"
     t.datetime "date_requested"
     t.datetime "date_approved"
+  end
+
+  create_table "collections", :force => true do |t|
+    t.string "title"
+    t.string "description", :limit => 512
+    t.string "keywords"
+  end
+
+  create_table "collections_papyri", :id => false, :force => true do |t|
+    t.integer "collection_id", :precision => 38, :scale => 0
+    t.integer "papyrus_id",    :precision => 38, :scale => 0
   end
 
   create_table "connections", :force => true do |t|

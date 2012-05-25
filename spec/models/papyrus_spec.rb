@@ -147,6 +147,7 @@ describe Papyrus do
     it { should have_many :images }
     it { should have_many :names }
     it { should have_many :connections }
+    it { should have_and_belong_to_many :collections }
   end
   describe "validations" do
     it { should validate_presence_of :mqt_number }

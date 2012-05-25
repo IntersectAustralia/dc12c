@@ -33,6 +33,7 @@ class Papyrus < ActiveRecord::Base
   has_many :images, dependent: :destroy
   has_many :names, dependent: :destroy
   has_many :connections, dependent: :destroy
+  has_and_belongs_to_many :collections
 
   validates :mqt_number, presence: true, uniqueness: true
   validates :visibility, presence: true, inclusion: [HIDDEN, VISIBLE, PUBLIC]
