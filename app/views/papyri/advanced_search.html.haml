@@ -23,7 +23,7 @@
         No Results Found
     -else
       %h1 Search Results
-      = render partial: 'table', locals: {table_id: 'search_results'}
+      = render partial: 'table', locals: {table_id: 'search_results', papyri: @papyri}
       %br
       = will_paginate @papyri
 

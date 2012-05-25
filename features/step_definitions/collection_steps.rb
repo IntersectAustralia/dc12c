@@ -1,0 +1,44 @@
+Given /^I have collections "([^"]*)" with description "([^"]*)"$/ do |arg1, arg2, table|
+  table.hashes.each do |hash|
+    title = hash.fetch 'title'
+    description = hash.fetch 'description'
+    mqts = hash.fetch('mqts').split(', ').map(&:to_i)
+    papyri = Papyrus.where(mqt_number: mqts)
+    FactoryGirl.create(:collection, title: title, description: description, papyri: papyri)
+  end
+end
+
+Then /^I should see collections$/ do |expected_table|
+  collections = all('#collections li')
+  actual = collections.map do |elem|
+    title = elem.find('a.title').text
+    description = elem.find('.description').text
+    {
+      "title" => title,
+      "description" => description
+    }
+  end
+  actual.should eq expected_table.hashes
+end
+
+Then /^I should see collection$/ do |expected_table|
+  hash = expected_table.hashes.first
+
+  title = hash.fetch "title"
+  description = hash.fetch "description"
+  keywords = hash.fetch "description"
+
+  mqts = hash.fetch("mqts").split(", ").map(&:to_i)
+  papyri = Papyrus.where(mqt_number: mqts)
+
+  rows = all('#collection_papyri tbody tr')
+  actual = rows.map do |row|
+    row.all('td').map(&:text)
+  end
+
+  expected = papyri.map do |papyrus|
+    ["MQT #{papyrus.mqt_number}", papyrus.inventory_number.to_s, papyrus.lines_of_text.to_s, papyrus.human_readable_has_translation, "\n"]
+  end
+
+  actual.should eq expected
+end

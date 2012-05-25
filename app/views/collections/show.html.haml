@@ -1,0 +1,9 @@
+.page-inner
+  .page-header.record
+    %h2.collection_title= "Collection: #{@collection.title}"
+
+  .page-content
+    = render partial: 'papyri/table', locals: {table_id: 'collection_papyri', papyri: @collection.papyri}
+
+    .form-actions
+      = link_to 'Back', papyri_path, class: "btn"

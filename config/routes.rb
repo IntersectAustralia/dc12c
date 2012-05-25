@@ -30,6 +30,8 @@ Dc12c::Application.routes.draw do
     resources :connections, only: [:new, :create, :edit, :update, :destroy]
   end
 
+  resources :collections, only: [:index, :show]
+
   match 'papyrus/:papyrus_id/image/:id/thumbnail' => 'Images#thumbnail'
   match 'papyrus/:papyrus_id/image/:id/low_res' => 'Images#low_res'
   match 'papyrus/:papyrus_id/image/:id/original' => 'Images#high_res'

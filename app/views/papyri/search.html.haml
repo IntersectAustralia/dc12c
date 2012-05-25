@@ -5,6 +5,6 @@
     - if @papyri.empty?
       No Results Found
     - else
-      = render partial: 'table', locals: {table_id: 'search_results'}
+      = render partial: 'table', locals: {table_id: 'search_results', papyri: @papyri}
       %br
       = will_paginate @papyri

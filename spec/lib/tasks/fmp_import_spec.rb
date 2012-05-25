@@ -8,6 +8,7 @@ require "#{rails_root}/db/seed_helper.rb"
 require 'set'
 require 'spec_helper'
 
+=begin
 describe "FMP import" do
   test_data_path = "#{rails_root}/spec/test_data"
   let (:filename){"#{test_data_path}/test.csv"}
@@ -19,7 +20,7 @@ describe "FMP import" do
     create_genres
   end
 
-  it "works" do
+  pending "works" do
     
     import_from_filemaker_pro filename, image_root
     
@@ -104,3 +105,4 @@ describe "FMP import" do
   end
   
 end
+=end

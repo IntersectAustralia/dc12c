@@ -5,5 +5,5 @@
     .control-group
       - if can? :create, Papyrus
         = link_to 'New Papyrus', new_papyrus_path, class: 'btn'
-    = render partial: 'table', locals: {table_id: 'papyri_table'}
+    = render partial: 'table', locals: {table_id: 'papyri_table', papyri: @papyri}
     = will_paginate @papyri

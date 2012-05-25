@@ -26,6 +26,7 @@
         <ul class="nav">
           <%= tab.home 'Home', root_url %>
           <%= tab.about 'About', root_url %> 
+          <%= tab.about 'Collections', collections_path %>
         </ul>
         <% if user_signed_in? %>
           <ul class="nav pull-right">
