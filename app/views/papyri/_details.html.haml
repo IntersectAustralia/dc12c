@@ -65,7 +65,7 @@
             = link_to "MQT #{connection.related_papyrus.mqt_number}", papyrus_path(connection.related_papyrus)
             = "- #{connection.description}"
           - if can? :update, connection
-            = link_to 'Edit', edit_papyrus_connection_path(@papyrus, connection), id: "edit_connection_#{connection.id}"
+            = link_to 'Edit', edit_papyrus_connection_path(papyrus, connection), id: "edit_connection_#{connection.id}"
 
 .page-content-images
   %h3 Papyrus Images
