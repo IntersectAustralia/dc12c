@@ -1,6 +1,6 @@
 .page-content-record
-  %h3 Papyrus details
   - with_renderer_for(papyrus, current_user) do |renderer|
+    %h3 Identification and Inventory
     = renderer.render('MQT Number', :formatted_mqt_number)
     = renderer.render('MQT Note', :mqt_note)
     = renderer.render('Inventory Number', :inventory_number)
@@ -8,31 +8,33 @@
     = renderer.render('APIS ID', :apis_id)
     = renderer.render('Trismegistos ID', :trismegistos_id)
     = renderer.render('Physical location', :physical_location)
-    = renderer.render('Languages', :languages_csv)
+    = renderer.render('Source of Acquisition', :source_of_acquisition)
+    %h3 Physical properties
     = renderer.render('Dimensions', :dimensions)
     = renderer.render('Material', :material)
-    = renderer.render('Date', :formatted_date)
-    = renderer.render('Date Note', :date_note)
-    = renderer.render('General Note', :general_note)
-    = renderer.render('Lines of Text', :lines_of_text)
-    = renderer.render('Other Characteristics', :other_characteristics)
-    = renderer.render('Paleographic Description', :paleographic_description)
-    = renderer.render('Recto Verso Note', :recto_verso_note)
-    = renderer.render('Type of Text', :type_of_text)
-    = renderer.render('Modern Textual Dates', :modern_textual_dates)
-    = renderer.render('Publications', :publications)
-    = renderer.render('Origin Details', :origin_details)
-    = renderer.render('Source of Acquisition', :source_of_acquisition)
     = renderer.render('Preservation Note', :preservation_note)
     = renderer.render('Conservation Note', :conservation_note)
-    = renderer.render('Genre', :genre_name)
+    = renderer.render('Paleographic Description', :paleographic_description)
+    = renderer.render('Date', :formatted_date)
+    = renderer.render('Date Note', :date_note)
+    = renderer.render('Lines of Text', :lines_of_text)
+    = renderer.render('Other Characteristics', :other_characteristics)
+    %h3 Content
+    = renderer.render('Languages', :languages_csv)
     = renderer.render('Language Note', :language_note)
+    = renderer.render('Genre', :genre_name)
+    = renderer.render('Type of Text', :type_of_text)
+    = renderer.render('General Note', :general_note)
+    = renderer.render('Recto Verso Note', :recto_verso_note)
+    = renderer.render('Modern Textual Dates', :modern_textual_dates)
     = renderer.render('Summary', :summary)
+    = renderer.render('Keywords', :keywords)
+    = renderer.render('Origin Details', :origin_details)
     = renderer.render('Original Text', :original_text)
     = renderer.render('Translated Text', :translated_text)
-    = renderer.render('Keywords', :keywords)
+    = renderer.render('Publications', :publications)
 
-  %h4 Names
+  %h3 Names
   - if can? :create, Name
     = link_to 'Add Name', new_papyrus_name_path(papyrus), class: 'btn'
   -# names are basic access
@@ -50,7 +52,7 @@
         - if can? :update, name
           = link_to 'Edit', edit_papyrus_name_path(papyrus, name), id: "edit_name_#{name.id}"
 
-  %h4 Connections
+  %h3 Connections
   - if can? :create, Connection
     = link_to 'Add Connection', new_papyrus_connection_path(papyrus), class: 'btn'
   -# connections are basic access
