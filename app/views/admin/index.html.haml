@@ -15,5 +15,6 @@
     = link_to 'Approved requests', approved_access_requests_path, class: 'btn'
 
   %hr
+    = link_to 'Trismegistos CSV', download_trismegistos_index_path, class: 'btn'
     - if can? :create, Collection
       = link_to 'New Collection', new_collection_path, class: 'btn'

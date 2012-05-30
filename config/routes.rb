@@ -36,6 +36,11 @@ Dc12c::Application.routes.draw do
   match 'papyrus/:papyrus_id/image/:id/low_res' => 'Images#low_res'
   match 'papyrus/:papyrus_id/image/:id/original' => 'Images#high_res'
   match 'admin/index' => 'Admin#index'
+  resources :trismegistos, only: [] do
+    collection do
+      get 'download'
+    end
+  end
 
   match 'users/sign_up' => "Pages#not_found" # render default 404 and override's devise's routes as it comes first
   devise_for :users, controllers: {registrations: "user_registers", passwords: "user_passwords"}
