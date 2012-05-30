@@ -42,3 +42,20 @@ Then /^I should see collection$/ do |expected_table|
 
   actual.should eq expected
 end
+Given /^I fill in collection details$/ do |table|
+  details = table.hashes.first.each do |field_name, value|
+    if field_name == 'mqts'
+      papyri = Papyrus.where(mqt_number: value.split(', ').map(&:to_i))
+      papyri.each do |p|
+        find("#collection_papyrus_ids_#{p.id}").set 'checked'
+      end
+    else
+      find("#collection_#{field_name}").set value
+    end
+  end
+end
+
+When /^I follow edit for collection "([^"]*)"$/ do |title|
+  c = Collection.find_by_title! title
+  find("#edit_collection_#{c.id}").click
+end

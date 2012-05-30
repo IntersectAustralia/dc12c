@@ -44,6 +44,8 @@ class Ability
     can :read_full_field, Papyrus, visibility: [Papyrus::PUBLIC]
     can :read_detailed_field, Papyrus, visibility: [Papyrus::PUBLIC]
 
+    can :read, Collection
+
     return unless user and user.role
 
     can :request_access, Papyrus do |papyrus|
@@ -81,6 +83,7 @@ class Ability
       can :make_visible, Papyrus, visibility: [Papyrus::HIDDEN, Papyrus::PUBLIC]
       can :make_public, Papyrus, visibility: [Papyrus::HIDDEN, Papyrus::VISIBLE]
       can :make_hidden, Papyrus, visibility: [Papyrus::PUBLIC, Papyrus::VISIBLE]
+      can :manage, Collection
     end
 
     can :read_detailed_field, Papyrus

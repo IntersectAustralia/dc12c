@@ -1,9 +1,10 @@
 .page-inner
   .page-header.record
     %h2.collection_title= "Collection: #{@collection.title}"
+    = link_to "Edit", edit_collection_path(@collection)
 
   .page-content
-    = render partial: 'papyri/table', locals: {table_id: 'collection_papyri', papyri: @collection.papyri}
+    = render partial: 'papyri/table', locals: {table_id: 'collection_papyri', papyri: @collection.papyri.accessible_by(current_ability)}
 
     .form-actions
       = link_to 'Back', papyri_path, class: "btn"

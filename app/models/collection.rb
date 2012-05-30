@@ -1,4 +1,5 @@
 class Collection < ActiveRecord::Base
+  attr_accessible :title, :description, :keywords, :papyrus_ids
   has_and_belongs_to_many :papyri
 
   validates_presence_of :title

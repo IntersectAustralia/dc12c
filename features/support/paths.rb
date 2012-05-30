@@ -119,7 +119,11 @@ module NavigationHelpers
         related_papyrus = Papyrus.find_by_mqt_number! related_mqt_number
         connection = papyrus.connections.find_by_related_papyrus_id!(related_papyrus)
         edit_papyrus_connection_path(papyrus, connection)
-        
+
+      when /the "(.*)" collection page/
+        title = $1
+        collection = Collection.find_by_title! title
+        collection_path(collection)
 
 # Add more mappings here.
 # Here is an example that pulls values out of the Regexp:

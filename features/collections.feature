@@ -39,5 +39,78 @@ Feature: Collections
       | MyOtherCollection | My other description. |
     When I follow "MyOtherCollection"
     Then I should see collection
+      | title             | description           | keywords | mqts |
+      | MyOtherCollection | My other description. | other    | 3, 4 |
+
+  Scenario Outline: View Collections researcher/admin
+    Given I am on the home page
+    And I am logged in as "<user>@intersect.org.au"
+    And I follow "Collections"
+    Then I should see collections
+      | title             | description           |
+      | MyCollection      | My description.       |
+      | MyOtherCollection | My other description. |
+    When I follow "MyOtherCollection"
+    Then I should see collection
       | title             | description           | keywords | mqts    |
       | MyOtherCollection | My other description. | other    | 3, 4, 5 |
+    Examples:
+      | user       |
+      | researcher |
+      | admin      |
+
+  Scenario: Researcher/Anonymous can't create collection
+    Given I am on the new collection page
+    Then I should see "You are not authorized to access this page."
+
+    Given I am logged in as "researcher@intersect.org.au"
+    When I am on the new collection page
+    Then I should see "You are not authorized to access this page."
+
+  Scenario: Admin creates collection
+    Given I am logged in as "admin@intersect.org.au"
+    And I am on the admin page
+    And I follow "New Collection"
+    And I fill in collection details
+      | title | description | keywords | mqts |
+      | ttle  | dcription   | kwords   | 3    |
+    And I press "Save"
+    Then I should see "The collection was successfully created."
+
+    When I am on the collections page
+    And I follow "ttle"
+    Then I should see collection
+      | title | description | keywords | mqts |
+      | ttle  | dcription   | kwords   | 3    |
+
+  Scenario: Admin creates collection fail
+    Given I am logged in as "admin@intersect.org.au"
+    And I am on the admin page
+    And I follow "New Collection"
+    And I fill in collection details
+      | title | description | keywords | mqts |
+      |       | dcription   | kwords   | 3    |
+    And I press "Save"
+    Then I should see "The record could not be saved"
+
+  Scenario: Admin edits collection
+    Given I am logged in as "admin@intersect.org.au"
+    And I am on the "MyCollection" collection page
+    When I follow "Edit"
+    And I fill in "collection_title" with "New Title"
+    And I press "Save"
+    Then I should see "The collection was successfully updated."
+    And I should see collection
+      | title     | description     | keywords | mqts    |
+      | New Title | My description. | first    | 3, 4, 5 |
+
+  Scenario: Admin edits collection fail
+    Given I am logged in as "admin@intersect.org.au"
+    And I am on the "MyCollection" collection page
+    When I follow "Edit"
+    And I fill in "collection_title" with ""
+    And I press "Save"
+    Then I should see "The record could not be saved"
+
+  @wip
+  Scenario: XML checking

@@ -1,0 +1,16 @@
+= render partial: 'shared/error_messages', locals: {target: collection}
+= form_for(collection) do |f|
+  = render_field('Title', f.text_field(:title, max_length: 255))
+  = render_field('Description', f.text_field(:description, max_length: 512))
+  = render_field('Keywords', f.text_field(:keywords, max_length: 255))
+  = render_field_with_block('MQT Numbers') do
+    - selected_papyri_ids = collection.papyri.pluck(:id)
+    - Papyrus.all.each do |p|
+      %span.checkbox
+        - id = "collection_papyrus_ids_#{p.id}"
+        = check_box_tag "collection[papyrus_ids][]", p.id, selected_papyri_ids.include?(p.id), id: id
+        = label_tag id do
+          = link_to "MQT #{p.mqt_number}", papyrus_path(p)
+  .form-actions
+    = f.submit 'Save', class: "btn btn-blue"
+    = link_to 'Cancel', admin_index_path, class: "btn"

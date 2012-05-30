@@ -4,12 +4,16 @@
     %h2 User Management
   .page-content
     - if can?(:read, User)
-      = link_to "List Users", users_path, :class => "btn"
+      = link_to "List Users", users_path, class: "btn"
     = link_to "New OneID Account", new_one_id_users_path, class: 'btn'
   .page-header
     %h2 Access Request Management
   .page-content
     - if can?(:accept_or_reject, AccessRequest)
-      = link_to "Pending requests", pending_access_requests_path, :class => "btn"
+      = link_to "Pending requests", pending_access_requests_path, class: "btn"
 
     = link_to 'Approved requests', approved_access_requests_path, class: 'btn'
+
+  %hr
+    - if can? :create, Collection
+      = link_to 'New Collection', new_collection_path, class: 'btn'
