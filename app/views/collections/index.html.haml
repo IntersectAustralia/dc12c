@@ -1,5 +1,5 @@
 %ul#collections
-  = @collections.each do |collection|
+  - @collections.each do |collection|
     %li
       = link_to collection.title, collection_path(collection), class: 'title'
       .description= collection.description
