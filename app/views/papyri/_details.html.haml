@@ -1,6 +1,6 @@
 .page-content-record
   - with_renderer_for(papyrus, current_user) do |renderer|
-    %h3 Identification and Inventory
+    %h3 Identification
     = renderer.render('MQT Number', :formatted_mqt_number)
     = renderer.render('MQT Note', :mqt_note)
     = renderer.render('Inventory Number', :inventory_number)
