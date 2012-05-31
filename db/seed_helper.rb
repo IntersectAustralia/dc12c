@@ -17,7 +17,7 @@ def create_languages
     ['Hebrew', 'heb'],
     ['Egyptian\Hieroglyphic', 'hig'],
     ['Egyptian\Hieratic', 'hir'],
-    ['Egyptian\Nubian', 'nub'],
+    ['Nubian', 'nub'],
     ['Parthian', 'ira'],
     ['Italian', 'ita'],
     ['Latin', 'lat'],
