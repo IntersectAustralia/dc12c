@@ -5,6 +5,7 @@
 ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'papyrus', 'papyri'
   inflect.uncountable 'trismegistos'
+  inflect.uncountable 'papyriinfo'
 end
 #
 # These inflection rules are supported but not enabled by default:

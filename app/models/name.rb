@@ -3,7 +3,9 @@ class Name < ActiveRecord::Base
 
   attr_accessible :name, :role, :role_note, :added_information, :date, :ordering
 
-  ROLE_OPTIONS = {'Author' => 'AUT', 'Associate' => 'ASN'}
+  AUTHOR = 'AUT'
+  ASSOCIATE = 'ASN'
+  ROLE_OPTIONS = {'Author' => AUTHOR, 'Associate' => ASSOCIATE}
 
   validates_inclusion_of :role, in: ROLE_OPTIONS.values, allow_nil: true
 

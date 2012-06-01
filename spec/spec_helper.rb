@@ -50,3 +50,20 @@ def make_ldap_server
   port = ldap_config['port']
   Ladle::Server.new(quiet: true, ldif: Rails.root.join('config', 'test_ldap_data.ldif').to_s, tmpdir: '/tmp', domain: 'dc=mqauth,dc=uni,dc=mq,dc=edu,dc=au', port: port)
 end
+
+# adapted/from http://drawohara.com/post/89110816/ruby-comparing-xml
+require 'rexml/document'
+
+def normalise_xml(a)
+  a = REXML::Document.new(a.to_s)
+
+  normalized = Class.new(REXML::Formatters::Pretty) do
+    def write_text(node, output)
+      super(node.to_s.strip, output)
+    end
+  end
+
+  normalized.new(indentation=0,ie_hack=false).write(node=a, a_normalized='')
+
+  a_normalized
+end

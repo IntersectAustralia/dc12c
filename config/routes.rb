@@ -38,7 +38,12 @@ Dc12c::Application.routes.draw do
   match 'admin/index' => 'Admin#index'
   resources :trismegistos, only: [] do
     collection do
-      get 'download'
+      get :download
+    end
+  end
+  resources :papyriinfo, only: [] do
+    collection do
+      get :download_zip
     end
   end
 

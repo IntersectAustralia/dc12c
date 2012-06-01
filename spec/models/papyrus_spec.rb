@@ -897,5 +897,27 @@ describe Papyrus do
     end # by admin
 
   end #search
+  describe "authors" do
+    it "returns authors only, not associates" do
+      papyrus = FactoryGirl.create(:papyrus)
+      a1 = FactoryGirl.create(:name, papyrus: papyrus, role: Name::AUTHOR, name: 'a1')
+      FactoryGirl.create(:name, papyrus: papyrus, role: Name::ASSOCIATE)
+      a2 = FactoryGirl.create(:name, papyrus: papyrus, role: Name::AUTHOR, name: 'a2')
+
+      papyrus.authors.should eq [a1, a2]
+
+    end
+  end
+
+  describe "split_keywords" do
+    it "splits on whitespace" do
+      keywords = "a b c\nd\te"
+      p = FactoryGirl.create(:papyrus, keywords: keywords)
+      p.split_keywords.should eq %w(a b c d e)
+    end
+    it "handles nil" do
+      FactoryGirl.create(:papyrus).split_keywords.should eq []
+    end
+  end
 
 end

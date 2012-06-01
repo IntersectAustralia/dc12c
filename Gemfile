@@ -14,6 +14,7 @@ gem 'unicode_utils'
 gem 'paperclip'
 gem 'bundler'
 gem 'rubygems-bundler'
+gem 'rubyzip', require: 'zip/zip'
 
 # Gems used only for assets and not required
 # in production environments by default.

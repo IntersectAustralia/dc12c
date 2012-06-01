@@ -232,6 +232,18 @@ class Papyrus < ActiveRecord::Base
     end.accessible_by(ability, :advanced_search)
   end
 
+  def authors
+    names.where(role: Name::AUTHOR).order('name')
+  end
+
+  def split_keywords
+    if keywords
+      keywords.split
+    else
+      []
+    end
+  end
+
   private
 
   def date_to_greater_than_date_from

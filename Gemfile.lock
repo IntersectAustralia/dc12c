@@ -327,6 +327,7 @@ DEPENDENCIES
   rspec-rails
   ruby-oci8 (~> 2.1.0)
   rubygems-bundler
+  rubyzip
   sass-rails (~> 3.2.3)
   shoulda
   simplecov (>= 0.3.8)

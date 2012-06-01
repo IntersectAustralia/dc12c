@@ -1,6 +1,10 @@
 class Ability
   include CanCan::Ability
 
+  def self.none
+    new(nil)
+  end
+
   def initialize(user)
     # alias edit_role to update_role so that they don't have to be declared separately
     alias_action :edit_role, :to => :update_role

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.stoa.org/epidoc/schema/latest/tei-epidoc.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title><%= papyrus.type_of_text %></title>
+            <% papyrus.authors.each do |author| %>
+              <author><%= author.name %></author>
+            <% end %>
+         </titleStmt>
+         <publicationStmt>
+            <authority>APIS</authority>
+            <idno type="apisid">macquarie.apis.<%= papyrus.id %></idno>
+            <idno type="MQTNumber"><%= papyrus.mqt_number %></idno>
+         </publicationStmt>
+         <sourceDesc>
+            <msDesc>
+               <msIdentifier>
+                  <idno type="invNo"><%= papyrus.inventory_number %></idno>
+               </msIdentifier>
+               <msContents>
+                  <summary><%= papyrus.summary %></summary>
+                  <msItemStruct>
+                     <note type="general">Location: Macquarie Museum, <%= papyrus.physical_location %></note>
+                     <% if papyrus.languages.count == 1 %>
+                       <% lang = papyrus.languages.first %>
+                       <textLang mainLang="<%= lang.code %>"><%= lang.name %></textLang>
+                     <% else %>
+                       <% papyrus.languages.order('name').each do |lang| %>
+                         <textLang otherLangs="<%= lang.code %>"><%= lang.name %></textLang>
+                       <% end %>
+                     <% end %>
+                  </msItemStruct>
+               </msContents>
+               <physDesc>
+                  <objectDesc>
+                     <supportDesc>
+                        <support><%= papyrus.material %> <%= papyrus.dimensions %></support>
+                        <condition>
+                           <ab type="conservation"><%= papyrus.conservation_note %></ab>
+                           <ab type="preservation"><%= papyrus.preservation_note %></ab>
+                           <ab type="other"><%= papyrus.other_characteristics %></ab>
+                        </condition>
+                     </supportDesc>
+                     <layoutDesc>
+                        <layout>
+                           <ab type="lines"><%= papyrus.lines_of_text %></ab>
+                           <ab type="recto-verso"><%= papyrus.recto_verso_note %></ab>
+                        </layout>
+                     </layoutDesc>
+                  </objectDesc>
+                  <handDesc>
+                     <p><%= papyrus.paleographic_description %></p>
+                  </handDesc>
+               </physDesc>
+               <% if [papyrus.date_from, papyrus.origin_details, papyrus.names, papyrus.source_of_acquisition].any?(&:present?) %>
+               <history>
+                  <origin>
+                     <origDate notBefore="<%= papyrus.date_from %>" notAfter="<%= papyrus.date_to %>"><%= papyrus.formatted_date %> <%= papyrus.date_note %></origDate>
+                     <origPlace><%= papyrus.origin_details %></origPlace>
+                     <% papyrus.names.each do |name| %>
+                       <persName type="<%= name.human_readable_role %>"><%= name.name %></persName>
+                     <% end %>
+                  </origin>
+                  <% if papyrus.source_of_acquisition.present? %>
+                    <provenance>
+                       <p><%= papyrus.source_of_acquisition %></p>
+                    </provenance>
+                  <% end %>
+               </history>
+               <% end %>
+            </msDesc>
+         </sourceDesc>
+      </fileDesc>
+      <% if [papyrus.keywords, papyrus.genre].any?(&:present?) %>
+      <encodingDesc>
+         <classDecl>
+            <taxonomy xml:id="macquarie">
+               <desc>Macquarie keywords are controlled locally at the institution level. They are not necessarily consistent.</desc>
+            </taxonomy>
+         </classDecl>
+      </encodingDesc>
+      <% end %>
+      <% if [papyrus.languages, papyrus.split_keywords, papyrus.genre].any?(&:present?) %>
+      <profileDesc>
+         <% if papyrus.languages.present? %>
+         <langUsage>
+          <% papyrus.languages.order('name').each do |lang| %>
+            <language ident="<%= lang.code %>"><%= lang.name %></language>
+          <% end %>
+         </langUsage>
+         <% end %>
+         <% if [papyrus.split_keywords, papyrus.genre].any?(&:present?) %>
+         <textClass>
+            <keywords scheme="#macquarie">
+               <% papyrus.split_keywords.each do |keyword| %>
+                 <term><%= keyword %></term>
+               <% end %>
+               <% if papyrus.genre.present? %>
+                 <term type="genre_form"><%= papyrus.genre.name %></term>
+               <% end %>
+            </keywords>
+         </textClass>
+         <% end %>
+      </profileDesc>
+      <% end %>
+   </teiHeader>
+   <text>
+      <body>
+         <% if papyrus.original_text %>
+         <div type="textpart">
+            <ab><%= papyrus.original_text %></ab>
+         </div>
+         <% end %>
+         <% if papyrus.translated_text %>
+         <div type="translation">
+            <ab><%= papyrus.translated_text %></ab>
+         </div>
+         <% end %>
+         <div type="bibliography" subtype="citations">
+            <% if papyrus.publications %>
+            <listBibl>
+               <bibl><%= papyrus.publications %></bibl>
+            </listBibl>
+            <p>
+            <% end %>
+            <ref target="<%= the_papyrus_url %>">Original record</ref>.</p>
+         </div>
+      </body>
+   </text>
+</TEI>
+
