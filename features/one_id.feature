@@ -92,3 +92,14 @@ Feature: OneID
   @wip
   @ldap
   Scenario: equivalent ldap tests for database tests in login.feature
+
+  @wip
+  @ldap
+  Scenario: OneID user changing password redirects to MQU page
+    Given I have ldap users
+      | dn                                                                                         | one_id    | login_attribute | first_name | last_name | email                   |
+      | CN=mqx804005,OU=Affiliated-Staff,OU=Active,OU=MQ-Users,DC=mqauth,DC=uni,DC=mq,DC=edu,DC=au | mqx804005 | mqx804005       | Ryan       | Braganza  | ryan.braganza@mq.edu.au |
+    When I login as one id user "mqx804005" with password "mypassword"
+    And I am on the reset password page
+    Then show me the page
+    Then I should be at the one id change password page

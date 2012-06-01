@@ -4,6 +4,7 @@ defaults: &defaults
   number_of_papyri_per_page: 20
   number_of_one_ids_per_page: 20
   image_root: /tmp
+  one_id_password_reset_url: http://mypassword.mq.edu.au
 
 development:
   <<: *defaults

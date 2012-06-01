@@ -6,6 +6,8 @@ class UserRegistersController < Devise::RegistrationsController
 
   prepend_before_filter :authenticate_scope!, :only => [:edit, :update, :destroy, :edit_password, :update_password, :profile]
 
+  before_filter :redirect_one_id_to_change_password_at_mq, only: [:edit_password, :update_password]
+
   def profile
 
   end
@@ -63,6 +65,13 @@ class UserRegistersController < Devise::RegistrationsController
     else
       clean_up_passwords(resource)
       respond_with(resource)
+    end
+  end
+
+  def redirect_one_id_to_change_password_at_mq
+    if current_user.try(:is_ldap)
+      redirect_to APP_CONFIG['one_id_password_reset_url']
+      false
     end
   end
 
