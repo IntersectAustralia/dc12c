@@ -62,9 +62,12 @@ group :development, :test, :jenkins, :qa, :staging do
   gem "cucumber"
   gem "capybara"
   gem "database_cleaner"
-  #gem "spork"
   gem "launchy"    # So you can do Then show me the page
   gem 'ladle'
+end
+
+group :development, :test do
+  gem 'spork'
 end
 
 group :test, :jenkins do
