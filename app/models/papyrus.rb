@@ -21,7 +21,7 @@ class Papyrus < ActiveRecord::Base
 
   attr_accessible :mqt_number, :mqt_note, :inventory_number, :apis_id, :trismegistos_id, :physical_location, :date_from, :date_to, :date_note, :general_note, :lines_of_text, :paleographic_description, :origin_details, :source_of_acquisition, :preservation_note, :conservation_note, :summary, :language_note, :original_text, :translated_text, :dimensions, :genre_id, :language_ids, :other_characteristics, :material, :recto_verso_note, :type_of_text, :modern_textual_dates, :publications, :volume_number, :item_number, :keywords
 
-  attr_field_security BASIC, :formatted_mqt_number, :inventory_number, :apis_id, :trismegistos_id, :formatted_date, :lines_of_text, :paleographic_description, :origin_details, :summary, :dimensions, :genre_name, :languages_csv, :material, :publications, :formatted_pmacq_number
+  attr_field_security BASIC, :formatted_mqt_number, :inventory_number, :apis_id, :trismegistos_id, :formatted_date, :lines_of_text, :paleographic_description, :origin_details, :summary, :dimensions, :genre_name, :languages_csv, :material, :publications, :formatted_pmacq_number, :date_from, :date_to, :genre, :language_ids, :item_number, :mqt_number, :volume_number, :id
 
   attr_field_security DETAILED, :physical_location, :date_note, :general_note, :source_of_acquisition, :preservation_note, :conservation_note, :language_note, :translated_text, :other_characteristics, :type_of_text, :keywords
 
@@ -241,6 +241,23 @@ class Papyrus < ActiveRecord::Base
       keywords.split
     else
       []
+    end
+  end
+
+  def anonymous_view
+    case visibility
+      when PUBLIC
+        self
+      when VISIBLE
+        Papyrus.new do |p|
+          BASIC.each do |method|
+            assign_method = (method.to_s + '=')
+            if p.respond_to? assign_method
+              p.send(assign_method, self.send(method))
+            end
+          end
+        end
+      else raise "Cannot restricted_view papyrus with visibility #{visibility.inspect}"
     end
   end
 

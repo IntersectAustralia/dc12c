@@ -16,7 +16,9 @@ class Papyriinfo
   private
 
   def self.xml_data(papyrus)
-    the_papyrus_url = Rails.application.routes.url_helpers.papyrus_url(papyrus)
+    url_opts = ActionController::Base.default_url_options
+    the_papyrus_url = Rails.application.routes.url_helpers.papyrus_url(papyrus, url_opts)
+    papyrus = papyrus.anonymous_view
 
 # "the_papyrus_url" and "papyrus" are used by the template. do not modify their names here without also modifying them in the ERB!
 

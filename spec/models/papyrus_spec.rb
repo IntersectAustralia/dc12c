@@ -919,5 +919,117 @@ describe Papyrus do
       FactoryGirl.create(:papyrus).split_keywords.should eq []
     end
   end
+  describe "anonymous view" do
+    it "does nothing for public records" do
+      p = FactoryGirl.create(:papyrus, visibility: Papyrus::PUBLIC)
+      p.anonymous_view.should eq p
+    end
+    it "dies on hidden records" do
+      p = FactoryGirl.create(:papyrus, visibility: Papyrus::HIDDEN)
+      proc { p.anonymous_view }.should raise_error
+    end
+    it "hides information for visible records" do
+      genre = FactoryGirl.create(:genre, name: 'genre')
+      coptic = FactoryGirl.create(:language, code: 'cop', name: 'Coptic')
+      greek = FactoryGirl.create(:language, code: 'grc', name: 'Greek')
+
+      name_a = FactoryGirl.create(:name, name: 'a', ordering: 'A')
+      name_b = FactoryGirl.create(:name, name: 'b', ordering: 'B')
+
+      related_papyrus = FactoryGirl.create(:papyrus)
+
+      connection = FactoryGirl.create(:connection, related_papyrus: related_papyrus, description: 'something')
+
+      attrs = {
+        id: 12345,
+        mqt_number: 2,
+        inventory_number: 'inventory_number',
+        apis_id: 'apis_id',
+        trismegistos_id: 22,
+        date_from: -1,
+        date_to: 5,
+        lines_of_text: 'lines_of_text',
+        paleographic_description: 'paleographic_description',
+        origin_details: 'origin_details',
+        summary: 'summary',
+        dimensions: 'dimensions',
+        genre: genre,
+        language_ids: [coptic.id, greek.id],
+        material: 'material',
+        publications: 'publications',
+        volume_number: 'I',
+        item_number: 3,
+        name_ids: [name_a.id, name_b.id],
+        connection_ids: [connection.id],
+
+        physical_location: 'physical_location',
+        date_note: 'date_note',
+        general_note: 'general_note',
+        source_of_acquisition: 'source_of_acquisition',
+        preservation_note: 'preservation_note',
+        conservation_note: 'conservation_note',
+        language_note: 'language_note',
+        translated_text: 'translated_text',
+        other_characteristics: 'other_characteristics',
+        type_of_text: 'type_of_text',
+        keywords: 'keywords',
+
+        mqt_note: 'mqt_note',
+        original_text: 'original_text',
+        recto_verso_note: 'recto_verso_note',
+        modern_textual_dates: 'modern_textual_dates'
+      }
+
+      p = FactoryGirl.create(:papyrus, attrs.merge(visibility: Papyrus::VISIBLE))
+
+      anonymous = p.anonymous_view
+      p.equal?(anonymous).should be_false # bug in rspec so we use a weird spec: https://github.com/rspec/rspec-expectations/issues/115
+
+      expected_values = {
+        id: 12345,
+        mqt_number: 2,
+        inventory_number: 'inventory_number',
+        apis_id: 'apis_id',
+        trismegistos_id: 22,
+        date_from: -1,
+        date_to: 5,
+        lines_of_text: 'lines_of_text',
+        paleographic_description: 'paleographic_description',
+        origin_details: 'origin_details',
+        summary: 'summary',
+        dimensions: 'dimensions',
+        genre: genre,
+        language_ids: [coptic.id, greek.id],
+        material: 'material',
+        publications: 'publications',
+        volume_number: 'I',
+        item_number: 3,
+        names: [name_a, name_b],
+        connections: [connection],
+
+        physical_location: nil,
+        date_note: nil,
+        general_note: nil,
+        source_of_acquisition: nil,
+        preservation_note: nil,
+        conservation_note: nil,
+        language_note: nil,
+        translated_text: nil,
+        other_characteristics: nil,
+        type_of_text: nil,
+        keywords: nil,
+
+        mqt_note: nil,
+        original_text: nil,
+        recto_verso_note: nil,
+        modern_textual_dates: nil
+      }
+      actual_values = expected_values.keys.reduce({}) do |actual, method|
+        actual.merge(method => anonymous.send(method))
+      end
+
+      actual_values.should eq expected_values
+    end
+  end
 
 end

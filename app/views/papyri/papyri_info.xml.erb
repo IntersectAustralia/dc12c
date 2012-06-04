@@ -22,7 +22,7 @@
                <msContents>
                   <summary><%= papyrus.summary %></summary>
                   <msItemStruct>
-                     <note type="general">Location: Macquarie Museum, <%= papyrus.physical_location %></note>
+                     <note type="general">Location: Macquarie Museum<%= papyrus.physical_location.present? ? ", #{papyrus.physical_location}" : '' %></note>
                      <% if papyrus.languages.count == 1 %>
                        <% lang = papyrus.languages.first %>
                        <textLang mainLang="<%= lang.code %>"><%= lang.name %></textLang>
@@ -38,15 +38,23 @@
                      <supportDesc>
                         <support><%= papyrus.material %> <%= papyrus.dimensions %></support>
                         <condition>
-                           <ab type="conservation"><%= papyrus.conservation_note %></ab>
-                           <ab type="preservation"><%= papyrus.preservation_note %></ab>
-                           <ab type="other"><%= papyrus.other_characteristics %></ab>
+                           <% if papyrus.conservation_note.present? %>
+                             <ab type="conservation"><%= papyrus.conservation_note %></ab>
+                           <% end %>
+                           <% if papyrus.preservation_note.present? %>
+                             <ab type="preservation"><%= papyrus.preservation_note %></ab>
+                           <% end %>
+                           <% if papyrus.other_characteristics.present? %>
+                             <ab type="other"><%= papyrus.other_characteristics %></ab>
+                           <% end %>
                         </condition>
                      </supportDesc>
                      <layoutDesc>
                         <layout>
                            <ab type="lines"><%= papyrus.lines_of_text %></ab>
-                           <ab type="recto-verso"><%= papyrus.recto_verso_note %></ab>
+                           <% if papyrus.recto_verso_note.present? %>
+                             <ab type="recto-verso"><%= papyrus.recto_verso_note %></ab>
+                           <% end %>
                         </layout>
                      </layoutDesc>
                   </objectDesc>

@@ -14,13 +14,13 @@ describe Papyriinfo do
     end
   end
   describe "xml_data" do
-    it "should work" do
+    before :each do
       greek = FactoryGirl.create(:language, code: 'grc', name: 'Greek')
       coptic = FactoryGirl.create(:language, code: 'cop', name: 'Coptic')
-      
+
       paraliterary = FactoryGirl.create(:genre, name: 'Paraliterary')
 
-      opts = {
+      @opts = {
         id: 12345,
         mqt_number: 123,
         inventory_number: 'p.macq.4321',
@@ -47,16 +47,30 @@ describe Papyriinfo do
         lines_of_text: '11 lines on the front',
         recto_verso_note: 'ltr recto',
       }
-      p = FactoryGirl.create(:papyrus, opts)
+    end
+    it "works for public records" do
+      p = FactoryGirl.create(:papyrus, @opts.merge(visibility: Papyrus::PUBLIC))
 
-      FactoryGirl.create(:name, papyrus: p, role: 'AUT', name: 'Author Two', ordering: 'B') # TODO DRY up role
-      FactoryGirl.create(:name, papyrus: p, role: 'AUT', name: 'Author One', ordering: 'A') # TODO DRY up role
-      FactoryGirl.create(:name, papyrus: p, role: 'ASN', name: 'Non-author', ordering: 'C') # TODO DRY up role
+      FactoryGirl.create(:name, papyrus: p, role: Name::AUTHOR, name: 'Author Two', ordering: 'B')
+      FactoryGirl.create(:name, papyrus: p, role: Name::AUTHOR, name: 'Author One', ordering: 'A')
+      FactoryGirl.create(:name, papyrus: p, role: Name::ASSOCIATE, name: 'Non-author', ordering: 'C')
 
       expected = File.read(Rails.root.join('spec', 'sample.xml'))
       actual = Papyriinfo.send(:xml_data, p)
 
-      normalise_xml(expected).should eq normalise_xml(actual)
+      normalise_xml(actual).should eq normalise_xml(expected)
+    end
+    it "works correctly for visible records" do
+      p = FactoryGirl.create(:papyrus, @opts.merge(visibility: Papyrus::VISIBLE))
+
+      FactoryGirl.create(:name, papyrus: p, role: Name::AUTHOR, name: 'Author Two', ordering: 'B')
+      FactoryGirl.create(:name, papyrus: p, role: Name::AUTHOR, name: 'Author One', ordering: 'A')
+      FactoryGirl.create(:name, papyrus: p, role: Name::ASSOCIATE, name: 'Non-author', ordering: 'C')
+
+      expected = File.read(Rails.root.join('spec', 'visible.xml'))
+      actual = Papyriinfo.send(:xml_data, p)
+
+      normalise_xml(actual).should eq normalise_xml(expected)
     end
   end
 end
