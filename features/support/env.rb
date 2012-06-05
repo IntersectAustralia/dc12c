@@ -83,3 +83,10 @@ Around('@ldap') do |scenario, block|
   block.call
   server.stop
 end
+Around('@urlhack') do |scenario, block|
+  old_url_options = ActionController::Base.default_url_options
+  new_url_options = {host: 'localhost:3000'}
+  ActionController::Base.default_url_options = new_url_options
+  block.call
+  ActionController::Base.default_url_options = old_url_options
+end
