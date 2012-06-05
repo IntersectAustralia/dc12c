@@ -4,7 +4,15 @@ require 'rexml/document'
 
 describe Papyriinfo do
   describe "with_zip" do
-    it "something" do
+    it "deletes the temp archive" do
+      FactoryGirl.create(:papyrus, visibility: Papyrus::VISIBLE)
+      saved_zip_file = nil
+      Papyriinfo.with_zip do |zip_file|
+        saved_zip_file = zip_file
+      end
+      saved_zip_file.path.should be_nil # i.e. has been "unlink"ed
+    end
+    it "matches the expected structures" do
       FactoryGirl.create(:papyrus, visibility: Papyrus::VISIBLE)
       saved_zip_file = nil
       Papyriinfo.with_zip do |zip_file|
@@ -55,7 +63,7 @@ describe Papyriinfo do
       FactoryGirl.create(:name, papyrus: p, role: Name::AUTHOR, name: 'Author One', ordering: 'A')
       FactoryGirl.create(:name, papyrus: p, role: Name::ASSOCIATE, name: 'Non-author', ordering: 'C')
 
-      expected = File.read(Rails.root.join('spec', 'sample.xml'))
+      expected = File.read(Rails.root.join('spec', 'test_data', 'public.xml'))
       actual = Papyriinfo.send(:xml_data, p)
 
       normalise_xml(actual).should eq normalise_xml(expected)
@@ -67,7 +75,7 @@ describe Papyriinfo do
       FactoryGirl.create(:name, papyrus: p, role: Name::AUTHOR, name: 'Author One', ordering: 'A')
       FactoryGirl.create(:name, papyrus: p, role: Name::ASSOCIATE, name: 'Non-author', ordering: 'C')
 
-      expected = File.read(Rails.root.join('spec', 'visible.xml'))
+      expected = File.read(Rails.root.join('spec', 'test_data', 'visible.xml'))
       actual = Papyriinfo.send(:xml_data, p)
 
       normalise_xml(actual).should eq normalise_xml(expected)

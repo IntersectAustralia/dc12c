@@ -25,14 +25,19 @@ def save_response_as_zip_and_unpack(response_source)
   zip = File.open(tempfile.path, "wb")
   zip.write(response_source)
   zip.close
+
+  extract_returning_files_hash(zip)
+end
+
+def extract_returning_files_hash(zip)
   temp_dir = Dir.mktmpdir
 
-  downloaded_files = {}
+  files = {}
   Zip::ZipFile.foreach(zip.path) do |file|
     path = File.join(temp_dir, file.name)
     file.extract(path)
     downloaded_files[file.name] = path
   end
 
-  downloaded_files
+  files
 end

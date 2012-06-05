@@ -89,3 +89,16 @@ def normalise_xml(a)
 
   a_normalized
 end
+
+def extract_returning_files_hash(zip)
+  temp_dir = Dir.mktmpdir
+
+  files = {}
+  Zip::ZipFile.foreach(zip.path) do |file|
+    path = File.join(temp_dir, file.name)
+    file.extract(path)
+    downloaded_files[file.name] = path
+  end
+
+  files
+end

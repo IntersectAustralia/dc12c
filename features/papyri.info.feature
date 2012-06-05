@@ -12,6 +12,7 @@ Feature: In order to integrate with papyri.info
       | Letter |
       | Book   |
 
+  @wip
   Scenario: link exists
     When I am on the admin page
     And I follow "Download papyri.info zip"
