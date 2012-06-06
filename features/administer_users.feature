@@ -14,11 +14,16 @@ Feature: Administer users
 
   Scenario: View a list of users
     Given "raul@intersect.org.au" is deactivated
+    And I have ldap users
+      | dn                                                                                         | one_id    | login_attribute | first_name | last_name | email                   |
+      | CN=mqx804005,OU=Affiliated-Staff,OU=Active,OU=MQ-Users,DC=mqauth,DC=uni,DC=mq,DC=edu,DC=au | mqx804005 | mqx804005       | Ryan       | Braganza  | ryan.braganza@mq.edu.au |
+    And "ryan.braganza@mq.edu.au" has role "Researcher"
     When I am on the list users page
     Then I should see "users" table with
-      | First name | Last name | Email                     | Role          | Status |
-      | Georgina   | Edwards   | georgina@intersect.org.au | Administrator | Active |
-      | Raul       | Carrizo   | raul@intersect.org.au     |               | Deactivated |
+      | First name | Last name | One ID    | Email                     | Role          | Status      |
+      | Georgina   | Edwards   |           | georgina@intersect.org.au | Administrator | Active      |
+      | Raul       | Carrizo   |           | raul@intersect.org.au     |               | Deactivated |
+      | Ryan       | Braganza  | mqx804005 | ryan.braganza@mq.edu.au   | Researcher    | Active      |
 
   Scenario: View user details
     Given "raul@intersect.org.au" has role "Researcher"
@@ -29,6 +34,21 @@ Feature: Administer users
     And I should see field "Last name" with value "Carrizo"
     And I should see field "Role" with value "Researcher"
     And I should see field "Status" with value "Active"
+    And I should see field "One ID" with value ""
+
+  Scenario: View ldap user details
+    Given I have ldap users
+      | dn                                                                                         | one_id    | login_attribute | first_name | last_name | email                   |
+      | CN=mqx804005,OU=Affiliated-Staff,OU=Active,OU=MQ-Users,DC=mqauth,DC=uni,DC=mq,DC=edu,DC=au | mqx804005 | mqx804005       | Ryan       | Braganza  | ryan.braganza@mq.edu.au |
+    And "ryan.braganza@mq.edu.au" has role "Researcher"
+    And I am on the list users page
+    When I follow "View Details" for "ryan.braganza@mq.edu.au"
+    Then I should see field "Email" with value "ryan.braganza@mq.edu.au"
+    And I should see field "First name" with value "Ryan"
+    And I should see field "Last name" with value "Braganza"
+    And I should see field "Role" with value "Researcher"
+    And I should see field "Status" with value "Active"
+    And I should see field "One ID" with value "mqx804005"
 
   Scenario: Go back from user details
     Given I am on the list users page

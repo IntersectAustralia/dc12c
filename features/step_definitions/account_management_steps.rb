@@ -47,7 +47,7 @@ When /^I follow "Reject as Spam" for "([^"]*)"$/ do |email|
 end
 
 When /^I follow "View Details" for "([^"]*)"$/ do |email|
-  user = User.where(:email => email).first
+  user = User.find_by_email!(email)
   click_link("view_#{user.id}")
 end
 

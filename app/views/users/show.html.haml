@@ -26,6 +26,7 @@
 
     #userdetails
       = render_field "Email", @user.email
+      = render_field "One ID", @user.one_id
       = render_field "First name", @user.first_name
       = render_field "Last name", @user.last_name
       = render_field_with_block "Last Logged In" do
