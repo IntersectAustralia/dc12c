@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120525000540) do
+ActiveRecord::Schema.define(:version => 20120606050232) do
 
   create_table "access_requests", :force => true do |t|
     t.integer  "user_id",        :precision => 38, :scale => 0
@@ -82,26 +82,26 @@ ActiveRecord::Schema.define(:version => 20120525000540) do
     t.string  "preservation_note",        :limit => 1023
     t.string  "language_note"
     t.string  "summary",                  :limit => 1024
-    t.string  "original_text"
-    t.string  "translated_text"
+    t.string  "original_text",            :limit => 4000
+    t.string  "translated_text",          :limit => 4000
     t.integer "genre_id",                                 :precision => 38, :scale => 0
     t.string  "visibility",                                                              :default => "HIDDEN"
     t.string  "dimensions",               :limit => 511
-    t.integer "mqt_number",                               :precision => 38, :scale => 0,                       :null => false
     t.integer "date_from",                                :precision => 38, :scale => 0
     t.integer "date_to",                                  :precision => 38, :scale => 0
-    t.string  "mqt_note",                 :limit => 2048
-    t.string  "apis_id",                  :limit => 32
-    t.integer "trismegistos_id",                          :precision => 38, :scale => 0
-    t.string  "physical_location"
-    t.string  "date_note"
+    t.integer "mqt_number",                               :precision => 38, :scale => 0,                       :null => false
+    t.string  "date_note",                :limit => 511
     t.string  "material"
     t.string  "conservation_note",        :limit => 1023
     t.string  "other_characteristics",    :limit => 1023
     t.string  "recto_verso_note",         :limit => 511
     t.string  "type_of_text"
     t.string  "modern_textual_dates",     :limit => 511
-    t.string  "publications"
+    t.string  "publications",             :limit => 511
+    t.string  "mqt_note",                 :limit => 2048
+    t.string  "apis_id",                  :limit => 32
+    t.integer "trismegistos_id",                          :precision => 38, :scale => 0
+    t.string  "physical_location"
     t.string  "volume_number",            :limit => 4
     t.integer "item_number",                              :precision => 38, :scale => 0
     t.string  "keywords"

@@ -46,7 +46,7 @@ class Papyrus < ActiveRecord::Base
 
   validates_numericality_of :mqt_number, greater_than: 0, only_integer: true
 
-  validates_length_of :mqt_note, maximum: 255
+  validates_length_of :mqt_note, maximum: 2048
   validates_length_of :inventory_number, maximum: 64
   validates_length_of :apis_id, maximum: 32
   validates_length_of :physical_location, maximum: 255
@@ -60,8 +60,8 @@ class Papyrus < ActiveRecord::Base
   validates_length_of :conservation_note, maximum: 1023
   validates_length_of :summary, maximum: 1024
   validates_length_of :language_note, maximum: 255
-  validates_length_of :original_text, maximum: 4096
-  validates_length_of :translated_text, maximum: 4096
+  validates_length_of :original_text, maximum: 4000
+  validates_length_of :translated_text, maximum: 4000
   validates_length_of :date_note, maximum: 511
   validates_length_of :other_characteristics, maximum: 1023
   validates_length_of :material, maximum: 255

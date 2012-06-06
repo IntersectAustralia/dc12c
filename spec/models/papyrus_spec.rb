@@ -151,7 +151,7 @@ describe Papyrus do
   end
   describe "validations" do
     it { should validate_presence_of :mqt_number }
-    it { should ensure_length_of(:mqt_note).is_at_most(255) }
+    it { should ensure_length_of(:mqt_note).is_at_most(2048) }
     it { should ensure_length_of(:inventory_number).is_at_most(64) }
     it { should ensure_length_of(:apis_id).is_at_most(32) }
     it { should ensure_length_of(:physical_location).is_at_most(255) }
@@ -159,19 +159,18 @@ describe Papyrus do
     it { should ensure_length_of(:general_note).is_at_most(512) }
     it { should ensure_length_of(:lines_of_text).is_at_most(1023) }
     it { should ensure_length_of(:paleographic_description).is_at_most(1023) }
-    it { should ensure_length_of(:recto_verso_note).is_at_most(511) }
     it { should ensure_length_of(:origin_details).is_at_most(255) }
     it { should ensure_length_of(:source_of_acquisition).is_at_most(255) }
     it { should ensure_length_of(:preservation_note).is_at_most(1023) }
     it { should ensure_length_of(:conservation_note).is_at_most(1023) }
-    it { should ensure_length_of(:paleographic_description).is_at_most(1023) }
     it { should ensure_length_of(:summary).is_at_most(1024) }
     it { should ensure_length_of(:language_note).is_at_most(255) }
-    it { should ensure_length_of(:original_text).is_at_most(4096) }
-    it { should ensure_length_of(:translated_text).is_at_most(4096) }
+    it { should ensure_length_of(:original_text).is_at_most(4000) }
+    it { should ensure_length_of(:translated_text).is_at_most(4000) }
     it { should ensure_length_of(:date_note).is_at_most(511) }
-    it { should ensure_length_of(:material).is_at_most(255) }
     it { should ensure_length_of(:other_characteristics).is_at_most(1023) }
+    it { should ensure_length_of(:material).is_at_most(255) }
+    it { should ensure_length_of(:recto_verso_note).is_at_most(511) }
     it { should ensure_length_of(:type_of_text).is_at_most(255) }
     it { should ensure_length_of(:modern_textual_dates).is_at_most(511) }
     it { should ensure_length_of(:publications).is_at_most(511) }
