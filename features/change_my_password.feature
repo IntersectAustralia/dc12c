@@ -16,6 +16,7 @@ Feature: Change my password
     And I fill in "Current password" with "Pas$w0rd"
     And I press "Update"
     Then I should see "Your password has been updated."
+    And I should be on the user profile page
     And I should see link "Logout"
     And I should be able to log in with "georgina@intersect.org.au" and "Pass.123"
 

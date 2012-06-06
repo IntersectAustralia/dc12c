@@ -61,7 +61,8 @@ class UserRegistersController < Devise::RegistrationsController
     if resource.update_password(params[resource_name])
       set_flash_message :notice, :password_updated if is_navigational_format?
       sign_in resource_name, resource, :bypass => true
-      respond_with resource, :location => after_update_path_for(resource)
+      #respond_with resource, :location => after_update_path_for(resource)
+      redirect_to :users_profile
     else
       clean_up_passwords(resource)
       render :edit_password
