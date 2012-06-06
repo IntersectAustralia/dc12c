@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.stoa.org/epidoc/schema/latest/tei-epidoc.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Title</title>
+              <author>Author One</author>
+              <author>Author Two</author>
+         </titleStmt>
+         <publicationStmt>
+            <authority>APIS</authority>
+            <idno type="apisid">macquarie.apis.23456</idno>
+            <idno type="MQTNumber">234</idno>
+         </publicationStmt>
+         <sourceDesc>
+            <msDesc>
+               <msIdentifier>
+                  <idno type="invNo">p.macq.4321</idno>
+               </msIdentifier>
+               <msContents>
+                  <summary>A summary</summary>
+                  <msItemStruct>
+                     <note type="general">Location: Macquarie Museum, Second cupboard from the right</note>
+                       <textLang otherLangs="cop">Coptic</textLang>
+                       <textLang otherLangs="grc">Greek</textLang>
+                  </msItemStruct>
+               </msContents>
+               <physDesc>
+                  <objectDesc>
+                     <supportDesc>
+                        <support>papyrus 24 x 11 mm</support>
+                        <condition>
+                           <ab type="conservation">taped together</ab>
+                           <ab type="preservation">held in glass</ab>
+                           <ab type="other">lovely</ab>
+                        </condition>
+                     </supportDesc>
+                     <layoutDesc>
+                        <layout>
+                           <ab type="lines">11 lines on the front</ab>
+                           <ab type="recto-verso">ltr recto</ab>
+                        </layout>
+                     </layoutDesc>
+                  </objectDesc>
+                  <handDesc>
+                     <p>Paleographic description.</p>
+                  </handDesc>
+               </physDesc>
+               <history>
+                  <origin>
+                     <origDate notBefore="-123" notAfter="123">123 BCE - 123 CE Date details</origDate>
+                     <origPlace>Details of origin</origPlace>
+                       <persName type="Author">Author One</persName>
+                       <persName type="Author">Author Two</persName>
+                       <persName type="Associate">Non-author</persName>
+                  </origin>
+                  <provenance>
+                     <p>Acquisition Source</p>
+                  </provenance>
+               </history>
+            </msDesc>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <classDecl>
+            <taxonomy xml:id="macquarie">
+               <desc>Macquarie keywords are controlled locally at the institution level. They are not necessarily consistent.</desc>
+            </taxonomy>
+         </classDecl>
+      </encodingDesc>
+      <profileDesc>
+         <langUsage>
+               <language ident="cop">Coptic</language>
+               <language ident="grc">Greek</language>
+         </langUsage>
+         <textClass>
+            <keywords scheme="#macquarie">
+                 <term>abc</term>
+                 <term>def</term>
+                 <term>ghi</term>
+                 <term type="genre_form">Paraliterary</term>
+            </keywords>
+         </textClass>
+      </profileDesc>
+   </teiHeader>
+   <text>
+      <body>
+         <div type="textpart">
+            <ab>The original text</ab>
+         </div>
+         <div type="translation">
+            <ab>The translated text</ab>
+         </div>
+         <div type="bibliography" subtype="citations">
+            <listBibl>
+               <bibl>the publications</bibl>
+            </listBibl>
+            <p>
+            <ref target="http://localhost:3000/papyri/23456">Original record</ref>.</p>
+         </div>
+      </body>
+   </text>
+</TEI>
+

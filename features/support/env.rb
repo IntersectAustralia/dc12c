@@ -90,3 +90,21 @@ Around('@urlhack') do |scenario, block|
   block.call
   ActionController::Base.default_url_options = old_url_options
 end
+
+# adapted/from http://drawohara.com/post/89110816/ruby-comparing-xml
+require 'rexml/document'
+
+def normalise_xml(a)
+  # TODO non-DRY - copied from spec/spec_helper.rb
+  a = REXML::Document.new(a.to_s)
+
+  normalized = Class.new(REXML::Formatters::Pretty) do
+    def write_text(node, output)
+      super(node.to_s.strip, output)
+    end
+  end
+
+  normalized.new(indentation=0,ie_hack=false).write(node=a, a_normalized='')
+
+  a_normalized
+end
