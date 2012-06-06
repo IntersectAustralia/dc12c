@@ -5,7 +5,9 @@ Then /^I should receive a zip file matching "([^"]*)"$/ do |directory|
 end
 
 def compare_zip_to_expected_files(response_source, directory)
-  downloaded_files = save_response_as_zip_and_unpack(response_source)
+  zip = save_response_to_file(response_source)
+  downloaded_files = extract_returning_files_hash(zip)
+
   expected_files = Dir.glob(File.join(Rails.root, directory, "/*"))
 
   downloaded_files.size.should eq(expected_files.size)
@@ -19,14 +21,14 @@ def compare_zip_to_expected_files(response_source, directory)
   end
 
 end
-def save_response_as_zip_and_unpack(response_source)
+def save_response_to_file(response_source)
   tempfile = Tempfile.new(["temp_file", ".zip"])
   tempfile.close
-  zip = File.open(tempfile.path, "wb")
-  zip.write(response_source)
-  zip.close
+  file = File.open(tempfile.path, "wb")
+  file.write(response_source)
+  file.close
 
-  extract_returning_files_hash(zip)
+  file
 end
 
 def extract_returning_files_hash(zip)

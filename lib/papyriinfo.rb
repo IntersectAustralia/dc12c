@@ -3,7 +3,7 @@ class Papyriinfo
     saved_zip_file = Tempfile.new('some_zip_file')
     Zip::ZipOutputStream.open(saved_zip_file.path) do |zos|
       Papyrus.accessible_by(Ability.none).each do |p|
-        zos.put_next_entry("file#{p.id}.xml")
+        zos.put_next_entry("macquarie.apis.#{p.id}.xml")
         zos << xml_data(p)
       end
     end

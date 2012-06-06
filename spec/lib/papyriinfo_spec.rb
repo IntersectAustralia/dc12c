@@ -19,7 +19,6 @@ describe Papyriinfo do
     paraliterary = FactoryGirl.create(:genre, name: 'Paraliterary')
 
     @opts = {
-      id: 12345,
       mqt_number: 123,
       inventory_number: 'p.macq.4321',
       type_of_text: 'Title',
@@ -57,22 +56,39 @@ describe Papyriinfo do
       saved_zip_file.path.should be_nil # i.e. has been "unlink"ed
     end
     it "matches the expected structures" do
-      FactoryGirl.create(:papyrus, @opts.merge(visibility: Papyrus::VISIBLE))
-      saved_zip_file = nil
+      expected_files = Dir.glob(Rails.root.join('spec', 'test_data', 'expected_zip', "*").to_s)
+      expected_filenames = expected_files.map {|path| File.basename(path)}
+
+      p = FactoryGirl.create(:papyrus, @opts.merge(visibility: Papyrus::VISIBLE, id: 12345, mqt_number: 123))
+      make_names(p)
+
+      q = FactoryGirl.create(:papyrus, @opts.merge(visibility: Papyrus::PUBLIC, id: 23456, mqt_number: 234))
+      make_names(q)
+
       Papyriinfo.with_zip do |zip_file|
-        saved_zip_file = zip_file
-        expected_files = Dir.glob(Rails.root.join('spec', 'test_data', 'visible', "/*"))
+        files_hash = extract_returning_files_hash(zip_file)
+
+        files_hash.keys.sort.should eq expected_filenames.sort
+        expected_files.each do |path_to_expected_file|
+          name_of_expected_file = File.basename(path_to_expected_file)
+          actual_file_path = files_hash[name_of_expected_file]
+
+          if actual_file_path.nil?
+            raise "Expected downloaded zip to include file #{name_of_expected_file} but did not find it. Found #{files_hash.keys}."
+          else
+            actual = File.read(actual_file_path)
+            expected = File.read(path_to_expected_file)
+            normalise_xml(actual).should eq normalise_xml(expected)
+          end
+        end
+
       end
-      saved_zip_file.path.should be_nil # i.e. has been "unlink"ed
     end
   end
   describe "xml_data" do
     it "works for public records" do
-      p = FactoryGirl.create(:papyrus, @opts.merge(visibility: Papyrus::PUBLIC))
-
-      FactoryGirl.create(:name, papyrus: p, role: Name::AUTHOR, name: 'Author Two', ordering: 'B')
-      FactoryGirl.create(:name, papyrus: p, role: Name::AUTHOR, name: 'Author One', ordering: 'A')
-      FactoryGirl.create(:name, papyrus: p, role: Name::ASSOCIATE, name: 'Non-author', ordering: 'C')
+      p = FactoryGirl.create(:papyrus, @opts.merge(visibility: Papyrus::PUBLIC, id: 12345))
+      make_names(p)
 
       expected = File.read(Rails.root.join('spec', 'test_data', 'public.xml'))
       actual = Papyriinfo.send(:xml_data, p)
@@ -80,11 +96,8 @@ describe Papyriinfo do
       normalise_xml(actual).should eq normalise_xml(expected)
     end
     it "works correctly for visible records" do
-      p = FactoryGirl.create(:papyrus, @opts.merge(visibility: Papyrus::VISIBLE))
-
-      FactoryGirl.create(:name, papyrus: p, role: Name::AUTHOR, name: 'Author Two', ordering: 'B')
-      FactoryGirl.create(:name, papyrus: p, role: Name::AUTHOR, name: 'Author One', ordering: 'A')
-      FactoryGirl.create(:name, papyrus: p, role: Name::ASSOCIATE, name: 'Non-author', ordering: 'C')
+      p = FactoryGirl.create(:papyrus, @opts.merge(visibility: Papyrus::VISIBLE, id: 12345))
+      make_names(p)
 
       expected = File.read(Rails.root.join('spec', 'test_data', 'visible.xml'))
       actual = Papyriinfo.send(:xml_data, p)
@@ -92,4 +105,9 @@ describe Papyriinfo do
       normalise_xml(actual).should eq normalise_xml(expected)
     end
   end
+end
+def make_names(papyrus)
+    FactoryGirl.create(:name, papyrus: papyrus, role: Name::AUTHOR, name: 'Author Two', ordering: 'B')
+    FactoryGirl.create(:name, papyrus: papyrus, role: Name::AUTHOR, name: 'Author One', ordering: 'A')
+    FactoryGirl.create(:name, papyrus: papyrus, role: Name::ASSOCIATE, name: 'Non-author', ordering: 'C')
 end

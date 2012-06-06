@@ -91,13 +91,14 @@ def normalise_xml(a)
 end
 
 def extract_returning_files_hash(zip)
+  # TODO this code is not DRY - copied from features/step_definitions/papyri_info_steps.rb
   temp_dir = Dir.mktmpdir
 
   files = {}
   Zip::ZipFile.foreach(zip.path) do |file|
     path = File.join(temp_dir, file.name)
     file.extract(path)
-    downloaded_files[file.name] = path
+    files[file.name] = path
   end
 
   files
