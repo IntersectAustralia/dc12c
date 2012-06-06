@@ -27,6 +27,7 @@ Feature: Change my password
     And I fill in "Confirm new password" with "Pass.123"
     And I press "Update"
     Then I should see "Current password can't be blank"
+    And I should see "Change Password"
     And I should be able to log in with "georgina@intersect.org.au" and "Pas$w0rd"
 
   Scenario: Change password not allowed if current password is incorrect
