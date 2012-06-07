@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  APPROVED = 'A'
+
   # Include devise modules
   devise :database_authenticatable, :ldap_authenticatable, :registerable, :lockable, :recoverable, :trackable, :validatable, :timeoutable
 
@@ -132,6 +134,24 @@ class User < ActiveRecord::Base
 
   def full_name
     "#{first_name} #{last_name}".strip
+  end
+
+  def assign_random_password
+    # should match lib/password_format_validator.rb... unless value =~ /^.*(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#%;:'"$^&*()_+={}|<>?,.~`\-\[\]\/\\]).*$/
+    lowercase = ('a'..'z').to_a
+    uppercase = ('A'..'Z').to_a
+    symbols = ['!', '@', '#', '$', '%', ';', ':', '\'',  '^',  '*', '(', '\)', '_', '+', '=', '{', '}']
+    digits = ('1'..'9').to_a
+
+    lowercase_chars = 4.times.map { lowercase.sample }
+    uppercase_chars = 4.times.map { uppercase.sample }
+    symbol_chars = 2.times.map { symbols.sample }
+    digit_chars = 2.times.map { digits.sample }
+
+    password = lowercase_chars + uppercase_chars + symbol_chars + digit_chars
+    password.shuffle!
+
+    self.password = password.join
   end
 
   private

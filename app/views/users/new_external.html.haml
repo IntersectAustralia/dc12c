@@ -1,0 +1,14 @@
+.page-inner
+  .page-header.record
+    %h2 New External Account
+  .page-content
+    = render partial: 'shared/error_messages', locals: {target: @user}
+    = form_for(@user, url: { action: 'create_external'}) do |f|
+      = render_field('First Name', f.text_field(:first_name, maxlength: 50))
+      = render_field('Last Name', f.text_field(:last_name, maxlength: 50))
+      = render_field('Email', f.text_field(:email, maxlength: 50))
+      = render_field('Role', f.collection_select(:role_id, Role.by_name, :id, :name, {:include_blank => false}))
+
+      .form-actions
+        = submit_tag 'Save', class: "btn btn-blue"
+        = link_to 'Cancel', admin_index_path, class: "btn"

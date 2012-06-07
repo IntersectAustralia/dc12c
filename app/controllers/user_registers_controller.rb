@@ -11,27 +11,6 @@ class UserRegistersController < Devise::RegistrationsController
   def profile
 
   end
-#
-#  # Override the create method in the RegistrationsController to add the notification hook
-#  def create
-#    build_resource
-#
-#    if resource.save
-#      Notifier.notify_superusers_of_access_request(resource).deliver
-#      if resource.active_for_authentication?
-#        set_flash_message :notice, :signed_up if is_navigational_format?
-#        sign_in(resource_name, resource)
-#        respond_with resource, :location => after_sign_up_path_for(resource)
-#      else
-#        set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_navigational_format?
-#        expire_session_data_after_sign_in!
-#        respond_with resource, :location => after_inactive_sign_up_path_for(resource)
-#      end
-#    else
-#      clean_up_passwords resource
-#      respond_with resource
-#    end
-#  end
 
   # Override the update method in the RegistrationsController so that we don't require password on update
   def update

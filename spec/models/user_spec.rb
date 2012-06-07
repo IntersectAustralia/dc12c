@@ -238,5 +238,20 @@ describe User do
       User.existing_one_ids.should eq ['1', '2', '3', '4']
     end
   end
+
+  describe "assign_random_password" do
+    it "sets a password that is valid" do
+      u = FactoryGirl.build(:user)
+      u.password = "Pass.123"
+      u.save!
+
+      u.assign_random_password
+      u.password.should_not eq "Pass.123"
+
+      u.save!
+      u.reload
+      u.password.should_not eq "Pass.123" # TODO it shouldn't, but it won't anyway as it is encrypted
+    end
+  end
   
 end

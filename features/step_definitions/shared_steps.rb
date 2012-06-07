@@ -106,3 +106,7 @@ Then /^pause$/ do
   puts "Press Enter to continue"
   STDIN.getc
 end
+
+Then /^FYI/ do
+  # a commenting step
+end

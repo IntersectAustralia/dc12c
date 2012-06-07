@@ -6,6 +6,7 @@
     - if can?(:read, User)
       = link_to "List Users", users_path, class: "btn"
     = link_to "New OneID Account", new_one_id_users_path, class: 'btn'
+    = link_to "New External Account", new_external_users_path, class: 'btn'
   .page-header
     %h2 Access Request Management
   .page-content

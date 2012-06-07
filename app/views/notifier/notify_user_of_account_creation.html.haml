@@ -1,0 +1,16 @@
+%p An account has been created for you with the following details:
+%p
+  Email: #{@user.email}
+  %br/
+  First name: #{@user.first_name}
+  %br/
+  Last name: #{@user.last_name}
+
+%p Please login with:
+%p Login: #{@user.email}
+%p Password: #{@user.password}
+%p= link_to 'Login to Macquarie Papyri', new_user_session_path
+
+%p
+  After logging in, please
+= link_to 'Change your password', edit_user_password_path

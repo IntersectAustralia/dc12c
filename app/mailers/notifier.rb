@@ -1,6 +1,6 @@
 class Notifier < ActionMailer::Base
 
-  PREFIX = "Papyri Data Capture - "
+  PREFIX = "Macquarie Papyri - "
 
   def notify_user_that_they_cant_reset_their_password(user)
     @user = user
@@ -20,6 +20,14 @@ class Notifier < ActionMailer::Base
           :reply_to => APP_CONFIG['papyrus_access_request_email_sender'],
           :subject => PREFIX + "Papyrus access request")
    
+  end
+
+  def notify_user_of_account_creation(user)
+    @user = user
+    mail( to: @user.email,
+          from: APP_CONFIG['papyrus_created_email_sender'],
+          reply_to: APP_CONFIG['papyrus_created_email_sender'],
+          subject: PREFIX + "Account Created" )
   end
 
 end

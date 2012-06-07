@@ -107,6 +107,27 @@ class UsersController < ApplicationController
     redirect_to(u)
   end
 
+  def new_external
+    @user = User.new
+    @user.role = Role.find_by_name!("Researcher")
+  end
+  def create_external
+    role_id = params[:user].delete(:role_id)
+    @user = User.new(params[:user]) do |u|
+      u.role_id = role_id
+      u.is_ldap = false
+      u.login_attribute = u.email
+      u.status = User::APPROVED
+    end
+    @user.assign_random_password
+    if @user.save
+      Notifier.notify_user_of_account_creation(@user).deliver
+      redirect_to user_path(@user), notice: "The user was successfully created. An e-mail has been sent to them with details of how to log in."
+    else
+      render :new_external
+    end
+  end
+
   private
 
   def sanitise_search_fields(params)

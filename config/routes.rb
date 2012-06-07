@@ -61,6 +61,9 @@ Dc12c::Application.routes.draw do
       get :index
       get :new_one_id
       post :create_one_id
+
+      get :new_external
+      post :create_external
     end
 
     member do

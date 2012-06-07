@@ -5,6 +5,7 @@ defaults: &defaults
   number_of_one_ids_per_page: 20
   image_root: /tmp
   one_id_password_reset_url: http://mypassword.mq.edu.au
+  papyrus_created_email_sender: papyrus-account-created@intersect.org.au
 
 development:
   <<: *defaults

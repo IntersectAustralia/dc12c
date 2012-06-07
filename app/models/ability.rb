@@ -30,6 +30,9 @@ class Ability
     alias_action :new_one_id, to: :create
     alias_action :create_one_id, to: :create
 
+    alias_action :new_external, to: :create
+    alias_action :create_external, to: :create
+
 
     can :read, Papyrus, visibility: [Papyrus::PUBLIC, Papyrus::VISIBLE]
 
