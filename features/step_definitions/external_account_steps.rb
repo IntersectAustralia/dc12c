@@ -22,7 +22,6 @@ When /^I sign in with the credentials in the email$/ do
       password = $1
     end
   end
-  #raise "#{email_body.inspect}\n'#{login.inspect}'\n'#{password.inspect}'"
 
   if login.nil? or password.nil?
     raise "login: #{login.inspect} password: #{password.inspect}\ncouldn't find login/password in:\n#{email_body}"
@@ -33,7 +32,6 @@ When /^I sign in with the credentials in the email$/ do
 end
 
 def login_with(login, password)
-  #raise User.find_by_login_attribute(login).inspect
   visit path_to("the login page")
   fill_in("user_login_attribute", with: login)
   fill_in("user_password", with: password)
