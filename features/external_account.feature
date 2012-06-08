@@ -25,20 +25,36 @@ Feature: In order to grant access to the system
       | Role         | Researcher   |
       | Status       | Active       |
       | One ID       |              |
+    Then I logout
 
     And "bob@bobo.com" should receive an email
     When I open the email
     Then I should see "An account has been created for you with the following details" in the email body
-    When I sign in with the credentials in the email
+    Given I am on the list papyri page # so we are not on the front page with a sign-in form
+    When I follow "Login to Macquarie Papyri" in the email
+    And I sign in with the credentials in the email
     Then I should see "Logged in successfully."
 
   Scenario: Create a user fail
     Given I am logged in as "admin@intersect.org.au"
     When I am on the admin page
     And I follow "New External Account"
-# And I don't fill anything in
+    But FYI I didn't fill anything in
     And I press "Save"
     Then I should see "The record could not be saved"
+
+  Scenario: not seeing warnings about is_ldap nor login_attribute
+    Given I am logged in as "admin@intersect.org.au"
+    When I am on the admin page
+    And I follow "New External Account"
+    And I fill in external user info
+      | first_name | last_name |
+      | dupe       | dupe      |
+    And I press "Save"
+    Then I should see "The record could not be saved"
+    And I should not see "Login can't be blank"
+    And I should not see "login attribute nil should eq email"
+    And I should not see "Is ldap is not included in the list"
 
   Scenario: researcher can't create
     Given I am logged in as "researcher@intersect.org.au"

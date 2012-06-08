@@ -1,7 +1,6 @@
 When /^I fill in external user info$/ do |table|
   table.hashes.first.each do |field_name, value|
     if field_name == 'role'
-      save_and_open_page
       select value, from: 'user_role_id'
     else
       find("#user_#{field_name}").set value
@@ -27,12 +26,10 @@ When /^I sign in with the credentials in the email$/ do
     raise "login: #{login.inspect} password: #{password.inspect}\ncouldn't find login/password in:\n#{email_body}"
   end
 
-  logout # from login_steps.rb
   login_with(login, password)
 end
 
 def login_with(login, password)
-  visit path_to("the login page")
   fill_in("user_login_attribute", with: login)
   fill_in("user_password", with: password)
   click_button("Log in")

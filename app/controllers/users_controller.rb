@@ -116,7 +116,11 @@ class UsersController < ApplicationController
     @user = User.new(params[:user]) do |u|
       u.role_id = role_id
       u.is_ldap = false
-      u.login_attribute = u.email
+      if u.email.present?
+        u.login_attribute = u.email
+      else
+        u.login_attribute = 'junk' # suppresses the login_attribute validation error
+      end
       u.status = User::APPROVED
     end
     @user.assign_random_password

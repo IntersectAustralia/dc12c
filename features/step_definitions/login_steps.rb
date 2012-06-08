@@ -67,6 +67,10 @@ And /^I request a reset for "([^"]*)"$/ do |email|
   click_button "Send me reset password instructions"
 end
 
+Given /^I logout$/ do
+  logout
+end
+
 def login(email)
   visit path_to("the login page")
   fill_in("user_login_attribute", :with => email)

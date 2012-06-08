@@ -9,8 +9,8 @@
 %p Please login with:
 %p Login: #{@user.email}
 %p Password: #{@user.password}
-%p= link_to 'Login to Macquarie Papyri', new_user_session_path
+%p= link_to 'Login to Macquarie Papyri', new_user_session_url
 
 %p
   After logging in, please
-= link_to 'Change your password', edit_user_password_path
+  = link_to 'Change your password', edit_user_password_url
