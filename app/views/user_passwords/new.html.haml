@@ -10,6 +10,6 @@
       .control-group
         = f.label :email, class: "control-label"
         .controls
-          = f.text_field :email
+          = f.text_field :email, maxlength: 50
       .form-actions
         = f.submit "Send me reset password instructions", class: "btn btn-blue"
