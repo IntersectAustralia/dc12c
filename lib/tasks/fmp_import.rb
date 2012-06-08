@@ -9,12 +9,18 @@ def import_from_filemaker_pro filename, image_root
   Connection.delete_all
   # TODO transactionally
   puts "importing from CSV: #{filename} image_root: #{image_root}"
+
   papyri_data = read_hashes_from_csv(filename)
-  post_processing = []
+  needs_new_mqt_numbers = make_papyri_returning_those_needing_new_mqt_numbers(papyri_data)
+  save_with_new_mqt_numbers(needs_new_mqt_numbers)
+end
+
+def make_papyri_returning_those_needing_new_mqt_numbers(papyri_data)
+  needs_new_mqt_numbers = []
   papyri_data.each do |hash|
     mqt_numbers, papyri_attrs, names = to_attrs(hash)
     if mqt_numbers.empty?
-      post_processing << [papyri_attrs, names]
+      needs_new_mqt_numbers << [papyri_attrs, names]
     else
       original_attrs = papyri_attrs
       papyri_attrs = papyri_attrs.dup
@@ -32,13 +38,19 @@ def import_from_filemaker_pro filename, image_root
             end
           end
         rescue ActiveRecord::RecordInvalid => e
-          post_processing << [original_attrs, names, "original mqt_number: #{mqt_number}"]
+          # if validation fails here, it is because of a duplicate MQT number (or possibly long strings)
+          needs_new_mqt_numbers << [original_attrs, names, "original mqt_number: #{mqt_number}"]
         end
       end
     end
   end
-  #raise post_processing.map{|pp, names, additional_notes| pp[:languages].inspect}.sort.inspect
-  post_processing.each do |papyri_attrs, names, additional_notes|
+  needs_new_mqt_numbers
+end
+
+def save_with_new_mqt_numbers(papyri_details)
+  # make records for those that have no MQT number
+
+  papyri_details.each do |papyri_attrs, names, additional_notes|
     genre = papyri_attrs.delete :genre
     languages = papyri_attrs.delete :languages
     mqt_number = make_next_mqt_number
@@ -82,16 +94,21 @@ def candidate_images(directory_name)
   tifs = all_filenames.select{|filename| filename =~ /tif$/i }
 
   images = {}
+  unrecognised = []
   tifs.each do |tif|
     inv_id = extract_inventory_id(tif)
-    if !images.has_key? inv_id
-      images[inv_id] = []
+    if inv_id.nil?
+      unrecognised << tif
+    else
+      if !images.has_key?(inv_id)
+        images[inv_id] = []
+      end
+      images[inv_id] << tif
+      images[inv_id].sort! # for easier testing
     end
-    images[inv_id] << tif
-    images[inv_id].sort! # for easier testing
   end
   puts "WARNING: unrecognised images: #{images[nil].join ', '}" if images.has_key? nil
-  images
+  [images, unrecognised]
 end
 
 def extract_inventory_id(pathname)

@@ -8,7 +8,6 @@ require "#{rails_root}/db/seed_helper.rb"
 require 'set'
 require 'spec_helper'
 
-=begin
 describe "FMP import" do
   test_data_path = "#{rails_root}/spec/test_data"
   let (:filename){"#{test_data_path}/test.csv"}
@@ -28,26 +27,28 @@ describe "FMP import" do
 
   describe "candidate_images" do
     it "should return an empty hash for an empty directory" do
-      empty_hash = {}
-      candidate_images(empty_root).should eq empty_hash
+      candidate_images(empty_root).should eq [{}, []]
     end
     it "should return a hash keyed on inventory number to file paths" do
       x = ->(*filenames){filenames.map{|filename| File.expand_path("#{image_root}/#{filename}")}}
-      expected = {
-        11 => x["inv011b.tif"],
-        597 => x['597a.tif'],
-        433 => x['Inv433.tif'],
+      mapped = {
         1 => x['inv001a.tif'],
+        11 => x["inv011b.tif"],
         11 => x['inv011b.tif'],
-        19 => x['inv019ABCa.tif'],
         111 => x['inv111aa.tif'],
+        19 => x['inv019ABCa.tif'],
+        433 => x['Inv433.tif'],
         584 => x['inv584_3a.tif'],
         587 => x['inv587_det.tif'],
+        597 => x['597a.tif'],
         624 => x['inv624.tif'],
         632 => x['inv632_detail_a.tif'],
-        nil => x['last_extras_a.tif', 'last_extras_b.tif']
       }
-      candidate_images(image_root).should eq expected
+      unmapped = x['last_extras_a.tif', 'last_extras_b.tif']
+      actual_mapped, actual_unmapped = candidate_images(image_root)
+
+      Hash[actual_mapped.sort].should eq Hash[mapped.sort]
+      actual_unmapped.sort.should eq unmapped.sort
     end
   end
 
@@ -105,4 +106,3 @@ describe "FMP import" do
   end
   
 end
-=end
