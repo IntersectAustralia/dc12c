@@ -73,4 +73,3 @@ def load_password
   end
 
 end
-
