@@ -163,13 +163,18 @@ def to_attrs(hash)
   inventory_numbers = normalise_inventory_numbers(original_inventory_number)
 
   genre_name = hash.delete('Genre')
-  if genre_name == 'Subliterary'
-    genre_name = 'Sub literary'
+  genre_name = genre_name.strip
+  genre_name = genre_name.slice(0...-1) if genre_name.ends_with? '?'
+  genre_name = genre_name.strip
+  genre_name = genre_name.slice(0...-1) if genre_name.ends_with? '?'
+
+  if ['Subliterary', 'Sub literary'].include? genre_name
+    genre_name = 'Paraliterary'
   elsif genre_name == 'Literary'
     genre_name = 'Literary Text'
   end
   begin
-    normalised[:genre] = Genre.find_by_name!(genre_name) if genre_name.strip.present?
+    normalised[:genre] = Genre.find_by_name!(genre_name) if genre_name.present?
   rescue ActiveRecord::RecordNotFound
     errors << "bad genre: #{genre_name}"
   end
