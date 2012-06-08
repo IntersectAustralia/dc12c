@@ -53,7 +53,7 @@ Feature: In order to grant access to the system
     And I press "Save"
     Then I should see "The record could not be saved"
     And I should not see "Login can't be blank"
-    And I should not see "login attribute nil should eq email"
+    And I should not see "should eq"
     And I should not see "Is ldap is not included in the list"
 
   Scenario: researcher can't create

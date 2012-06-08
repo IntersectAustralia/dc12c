@@ -116,11 +116,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user]) do |u|
       u.role_id = role_id
       u.is_ldap = false
-      if u.email.present?
-        u.login_attribute = u.email
-      else
-        u.login_attribute = 'junk' # suppresses the login_attribute validation error
-      end
+      u.login_attribute = u.email
       u.status = User::APPROVED
     end
     @user.assign_random_password
@@ -128,6 +124,9 @@ class UsersController < ApplicationController
       Notifier.notify_user_of_account_creation(@user).deliver
       redirect_to user_path(@user), notice: "The user was successfully created. An e-mail has been sent to them with details of how to log in."
     else
+      @user.errors.instance_eval do # hack to hide error messages
+        @messages = @messages.reject{|k,v| k == :login_attribute}
+      end
       render :new_external
     end
   end
