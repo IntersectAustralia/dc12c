@@ -32,17 +32,17 @@ describe "FMP import" do
     it "should return a hash keyed on inventory number to file paths" do
       x = ->(*filenames){filenames.map{|filename| File.expand_path("#{image_root}/#{filename}")}}
       mapped = {
-        1 => x['inv001a.tif'],
-        11 => x["inv011b.tif"],
-        11 => x['inv011b.tif'],
-        111 => x['inv111aa.tif'],
-        19 => x['inv019ABCa.tif'],
-        433 => x['Inv433.tif'],
-        584 => x['inv584_3a.tif'],
-        587 => x['inv587_det.tif'],
-        597 => x['597a.tif'],
-        624 => x['inv624.tif'],
-        632 => x['inv632_detail_a.tif'],
+        1 => {assigned: false, paths: x['inv001a.tif']},
+        11 => {assigned: false, paths: x["inv011b.tif"]},
+        11 => {assigned: false, paths: x['inv011b.tif']},
+        111 => {assigned: false, paths: x['inv111aa.tif']},
+        19 => {assigned: false, paths: x['inv019ABCa.tif']},
+        433 => {assigned: false, paths: x['Inv433.tif']},
+        584 => {assigned: false, paths: x['inv584_3a.tif']},
+        587 => {assigned: false, paths: x['inv587_det.tif']},
+        597 => {assigned: false, paths: x['597a.tif']},
+        624 => {assigned: false, paths: x['inv624.tif']},
+        632 => {assigned: false, paths: x['inv632_detail_a.tif']},
       }
       unmapped = x['last_extras_a.tif', 'last_extras_b.tif']
       actual_mapped, actual_unmapped = candidate_images(image_root)
