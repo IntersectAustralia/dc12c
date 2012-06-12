@@ -1,5 +1,5 @@
 Dc12c::Application.routes.draw do
-  resources :access_requests, only: [:index, :show] do
+  resources :access_requests, only: [:show] do
     member do
       put :approve
       put :reject
@@ -8,7 +8,6 @@ Dc12c::Application.routes.draw do
     collection do
       get :pending
       get :approved
-      get :rejected
     end
   end
 
