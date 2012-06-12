@@ -16,7 +16,7 @@ Feature: Reset forgotten password
     And I should be on the login page
     And "georgina@intersect.org.au" should receive an email
     When I open the email
-    Then I should see "Someone has requested a link to change your password on the Papyri Data Capture site, and you can do this through the link below." in the email body
+    Then I should see "Someone has requested a link to change your password on the Macquarie Papyri site, and you can do this through the link below." in the email body
     When I follow "Change my password" in the email
     Then I should see "Change Your Password"
     When I fill in "Password" with "Pass.456"
@@ -32,7 +32,7 @@ Feature: Reset forgotten password
     And I should be on the login page
     And "deac@intersect.org.au" should receive an email
     When I open the email
-    Then I should see "Someone has requested a link to change your password on the Papyri Data Capture site. However your account is not active so you cannot reset your password." in the email body
+    Then I should see "Someone has requested a link to change your password on the Macquarie Papyri site. However your account is not active so you cannot reset your password." in the email body
 
   Scenario: Rejected as spam user trying to request a reset just sees default message but doesn't get email (so we don't reveal which users exist)
     Given I have a rejected as spam user "spam@intersect.org.au"
