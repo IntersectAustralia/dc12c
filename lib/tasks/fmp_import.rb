@@ -3,35 +3,63 @@
 require 'csv'
 
 def import_from_filemaker_pro filename, image_root
+  # TODO transactionally
   Papyrus.delete_all
   AccessRequest.delete_all
   Name.delete_all
   Connection.delete_all
-  # TODO transactionally
+
   puts "importing from CSV: #{filename} image_root: #{image_root}"
 
   papyri_data = read_hashes_from_csv(filename)
-  needs_new_mqt_numbers = make_papyri_returning_those_needing_new_mqt_numbers(papyri_data)
+
+  mapped_images, unmapped_images = candidate_images(image_root)
+
+  needs_new_mqt_numbers = make_papyri_returning_those_needing_new_mqt_numbers(papyri_data, mapped_images)
+
   save_with_new_mqt_numbers(needs_new_mqt_numbers)
+
+  stray_images = mapped_images.select{|inv_id, hsh| hsh[:assigned] == false}
+
+  make_blank_records(unmapped_images, stray_images)
 end
 
-def make_papyri_returning_those_needing_new_mqt_numbers(papyri_data)
+def make_blank_records(unmapped_images, stray_images)
+  stray_images.each do |inferred_inventory_number, hsh|
+    hsh[:paths].each do |filepath|
+      make_new_papyrus_for_image_with_new_mqt_number(filepath, inventory_number: "guessing: #{inferred_inventory_number}", mqt_note: "couldn't find a matching FMP record for this image")
+    end
+  end
+  unmapped_images.each do |filepath|
+    make_new_papyrus_for_image_with_new_mqt_number(filepath, mqt_note: "couldn't find a match for this image")
+  end
+end
+def make_new_papyrus_for_image_with_new_mqt_number(filepath, papyri_attrs)
+  mqt_number = make_next_mqt_number
+  p = Papyrus.create!(papyri_attrs.merge(mqt_number: mqt_number))
+  create_image_for_papyrus(p, filepath)
+end
+
+def create_image_for_papyrus(p, filepath)
+  image = p.images.build
+  image.caption = File.basename(filepath)
+  image.image = File.new(filepath)
+  image.save!
+end
+
+def make_papyri_returning_those_needing_new_mqt_numbers(papyri_data, mapped_images)
   needs_new_mqt_numbers = []
   papyri_data.each do |hash|
-    mqt_numbers, papyri_attrs, names = to_attrs(hash)
+    mqt_numbers, papyri_attrs, names, inventory_numbers = to_attrs(hash)
     if mqt_numbers.empty?
       needs_new_mqt_numbers << [papyri_attrs, names]
     else
       original_attrs = papyri_attrs
       papyri_attrs = papyri_attrs.dup
-      genre = papyri_attrs.delete :genre
-      languages = papyri_attrs.delete :languages
       mqt_numbers.each do |mqt_number|
         begin
           p = Papyrus.create!(papyri_attrs.merge(mqt_number: mqt_number))
-          p.genre = genre
-          p.languages = languages
-          p.save!
+          create_images_for_papyrus(p, inventory_numbers, mapped_images)
           names.each do |ordering, attrs|
             if attrs['name'].present?
               p.names.create!(attrs.merge(ordering: ordering))
@@ -46,32 +74,35 @@ def make_papyri_returning_those_needing_new_mqt_numbers(papyri_data)
   end
   needs_new_mqt_numbers
 end
+def create_images_for_papyrus(papyrus, inventory_numbers, mapped_images)
+  inventory_numbers.each do |inventory_number|
+    hash = mapped_images[inventory_number]
+    if hash
+      hash[:paths].each do |path|
+        create_image_for_papyrus(papyrus, path)
+      end
+      hash[:assigned] = true
+    end
+  end
+end
 
 def save_with_new_mqt_numbers(papyri_details)
   # make records for those that have no MQT number
 
   papyri_details.each do |papyri_attrs, names, additional_notes|
-    genre = papyri_attrs.delete :genre
-    languages = papyri_attrs.delete :languages
     mqt_number = make_next_mqt_number
     p = Papyrus.create!(papyri_attrs.merge(mqt_number: mqt_number))
-    p.genre = genre
-    p.languages = languages unless languages.nil?
-    p.save!
-    names.each do |ordering, attrs|
-      if attrs['name'].present?
-        name_attrs = attrs.dup
-        loop do
-          begin
-            name_attrs['role'] = name_attrs['role'].strip.upcase.tr('?','') if name_attrs['role']
-            name_attrs['role'] = nil if name_attrs['role'] == ''
-            p.names.create!(name_attrs.merge(ordering: ordering))
-            break
-          rescue ActiveRecord::RecordInvalid => e
-            puts e.inspect
-            puts "WARN:  duplicate name #{name_attrs['name']}"
-            name_attrs['name'] += '_2'
-          end
+    names.select{|name| name['name'].present?}.each do |ordering, name_attrs|
+      name_attrs['role'] = name_attrs['role'].strip.upcase.tr('?','') if name_attrs['role']
+      name_attrs['role'] = nil if name_attrs['role'] == ''
+      loop do
+        begin
+          p.names.create!(name_attrs.merge(ordering: ordering))
+          break
+        rescue ActiveRecord::RecordInvalid => e
+          puts e.inspect
+          puts "WARN:  duplicate name #{name_attrs['name']}"
+          name_attrs['name'] += '_2' # TODO increase this number each time instead of simply  appending _2 (but this will have no effect for the current database)
         end
       end
     end
@@ -90,7 +121,7 @@ def read_hashes_from_csv(file_name)
 end
 
 def candidate_images(directory_name)
-  all_filenames = Dir.glob("#{directory_name}/**").map{|filename| File.expand_path(filename)}
+  all_filenames = Dir.glob("#{directory_name}/**/*").map{|filename| File.expand_path(filename)}
   tifs = all_filenames.select{|filename| filename =~ /tif$/i }
 
   images = {}
@@ -101,10 +132,10 @@ def candidate_images(directory_name)
       unrecognised << tif
     else
       if !images.has_key?(inv_id)
-        images[inv_id] = []
+        images[inv_id] = { assigned: false, paths: []}
       end
-      images[inv_id] << tif
-      images[inv_id].sort! # for easier testing
+      images[inv_id][:paths] << tif
+      images[inv_id][:paths].sort! # for easier testing
     end
   end
   puts "WARNING: unrecognised images: #{images[nil].join ', '}" if images.has_key? nil
@@ -170,8 +201,8 @@ def to_attrs(hash)
   names['h']['role'] = hash.delete 'Name h role'
   names['i']['role'] = hash.delete 'Name i role'
   names['j']['role'] = hash.delete 'Name j role'
-  
-  normalised[:apis_id] = hash.delete "APIS ID" 
+
+  normalised[:apis_id] = hash.delete "APIS ID"
   normalised[:dimensions] = hash.delete 'Dimensions'
   normalised[:general_note] = hash.delete 'General Note'
 
@@ -191,7 +222,7 @@ def to_attrs(hash)
     genre_name = 'Literary Text'
   end
   begin
-    normalised[:genre] = Genre.find_by_name!(genre_name) if genre_name.present?
+    normalised[:genre_id] = Genre.find_by_name!(genre_name).id if genre_name.present?
   rescue ActiveRecord::RecordNotFound
     errors << "bad genre: #{genre_name}"
   end
@@ -210,7 +241,7 @@ def to_attrs(hash)
       modded
     end
   end.compact
-  normalised[:languages] = language_codes.map{|code| Language.find_by_code!(code)}
+  normalised[:language_ids] = language_codes.map{|code| Language.find_by_code!(code).id}
 
   normalised[:language_note] = hash.delete 'Language note'
 
@@ -250,7 +281,7 @@ def to_attrs(hash)
   # connections = hash.delete 'Connections' # TODO
 
   normalised[:mqt_note] = hash.merge(errors: errors.inspect)# TODO
-  [mqt_numbers, normalised, names] # TODO connections??
+  [mqt_numbers, normalised, names, inventory_numbers]
 end
 
 def normalise_inventory_numbers(str)
@@ -279,10 +310,10 @@ def normalise_inventory_numbers(str)
 
       tokens = str.split(/[,\+ ]/)
       sth = tokens.map do |str|
-        Integer(str) rescue puts("WARN unrecognised inventory numbers: #{str}")
+        Integer(str) rescue puts("WARN unrecognised inventory numbers: #{str}") unless str.strip.blank?
       end.compact
     else
-      puts "WARN unrecognised inventory numbers: |#{str}|"
+      puts "WARN unrecognised inventory numbers: |#{str}|" unless str.strip.blank?
     end
   end
 end
