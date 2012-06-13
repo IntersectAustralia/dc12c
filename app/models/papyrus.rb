@@ -145,6 +145,10 @@ class Papyrus < ActiveRecord::Base
     languages.order("name").map(&:name).join(", ")
   end
 
+  def language_codes_space_separated
+    languages.order("name").map(&:code).join(" ")
+  end
+
   def human_readable_has_translation
     translated_text.present? ? 'Yes' : 'No'
   end

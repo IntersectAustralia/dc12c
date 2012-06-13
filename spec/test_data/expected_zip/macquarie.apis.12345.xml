@@ -22,8 +22,7 @@
                   <summary>A summary</summary>
                   <msItemStruct>
                      <note type="general">Location: Macquarie Museum</note>
-                       <textLang otherLangs="cop">Coptic</textLang>
-                       <textLang otherLangs="grc">Greek</textLang>
+                       <textLang otherLangs="cop grc">Coptic, Greek</textLang>
                   </msItemStruct>
                </msContents>
                <physDesc>

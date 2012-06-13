@@ -26,10 +26,8 @@
                      <% if papyrus.languages.count == 1 %>
                        <% lang = papyrus.languages.first %>
                        <textLang mainLang="<%= lang.code %>"><%= lang.name %></textLang>
-                     <% else %>
-                       <% papyrus.languages.order('name').each do |lang| %>
-                         <textLang otherLangs="<%= lang.code %>"><%= lang.name %></textLang>
-                       <% end %>
+                     <% elsif papyrus.languages.count > 1%>
+                       <textLang otherLangs="<%= papyrus.language_codes_space_separated %>"><%= papyrus.languages_csv %></textLang>
                      <% end %>
                   </msItemStruct>
                </msContents>
