@@ -65,7 +65,7 @@
                <% if [papyrus.date_from, papyrus.origin_details, papyrus.names, papyrus.source_of_acquisition].any?(&:present?) %>
                <history>
                   <origin>
-                     <origDate notBefore="<%= papyrus.date_from %>" notAfter="<%= papyrus.date_to %>"><%= papyrus.formatted_date %> <%= papyrus.date_note %></origDate>
+                     <origDate notBefore="<%= papyrus.xml_date_from %>" notAfter="<%= papyrus.xml_date_to %>"><%= papyrus.formatted_date %> <%= papyrus.date_note %></origDate>
                      <origPlace><%= papyrus.origin_details %></origPlace>
                      <% papyrus.names.each do |name| %>
                        <persName type="<%= name.human_readable_role %>"><%= name.name %></persName>

@@ -261,7 +261,23 @@ class Papyrus < ActiveRecord::Base
     end
   end
 
+  def xml_date_from
+    to_xml_date(date_from)
+  end
+  def xml_date_to
+    to_xml_date(date_to)
+  end
+
   private
+
+  def to_xml_date date
+    # creates a date string suitable for use in a papyri.info-formatted XML document
+    if date
+# 4 digits, starting with a negative sign
+# lstrip to remove the leading space in the case of a positive number
+      ("% 05d" % date).lstrip
+    end
+  end
 
   def date_to_greater_than_date_from
     if date_to and date_from

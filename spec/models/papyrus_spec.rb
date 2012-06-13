@@ -1031,4 +1031,22 @@ describe Papyrus do
     end
   end
 
+  describe "xml date functions" do
+    it "should return nil for nils" do
+      p = FactoryGirl.build(:papyrus)
+
+      p.xml_date_from.should be_nil
+      p.xml_date_to.should be_nil
+    end
+    it "should pad with zeros" do
+      FactoryGirl.build(:papyrus, date_from: -1).xml_date_from.should eq "-0001"
+      FactoryGirl.build(:papyrus, date_to: 1).xml_date_to.should eq "0001"
+    end
+    it "doesn't add too many zeroes" do
+      FactoryGirl.build(:papyrus, date_from: -1000).xml_date_from.should eq "-1000"
+      FactoryGirl.build(:papyrus, date_to: 1000).xml_date_to.should eq "1000"
+
+    end
+  end
+
 end

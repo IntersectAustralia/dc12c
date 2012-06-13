@@ -45,7 +45,7 @@
                </physDesc>
                <history>
                   <origin>
-                     <origDate notBefore="-123" notAfter="123">123 BCE - 123 CE</origDate>
+                     <origDate notBefore="-0123" notAfter="0123">123 BCE - 123 CE</origDate>
                      <origPlace>Details of origin</origPlace>
                        <persName type="Author">Author One</persName>
                        <persName type="Author">Author Two</persName>
