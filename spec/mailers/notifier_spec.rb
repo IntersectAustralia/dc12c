@@ -38,6 +38,7 @@ describe Notifier do
       body = email.body
       body.should =~ /Login: first\.last@example\.com/
       body.should =~ /Password: Pass\.123/
+      body.should =~ /#{Rails.application.routes.url_helpers.users_edit_password_path}/
     end
   end
  
