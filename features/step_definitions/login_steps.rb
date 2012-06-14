@@ -61,7 +61,7 @@ Then /^the failed attempt count for "([^"]*)" should be "([^"]*)"$/ do |email, c
 end
 
 And /^I request a reset for "([^"]*)"$/ do |email|
-  visit path_to("the home page")
+  visit path_to("the login page")
   click_link "Forgot your password?"
   fill_in "Email", :with => email
   click_button "Send me reset password instructions"

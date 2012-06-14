@@ -8,7 +8,7 @@ Feature: Reset forgotten password
 
   Scenario: Reset forgotten password
     Given I have a user "georgina@intersect.org.au"
-    And I am on the home page
+    And I am on the login page
     When I follow "Forgot your password?"
     And I fill in "Email" with "georgina@intersect.org.au"
     And I press "Send me reset password instructions"
@@ -42,21 +42,21 @@ Feature: Reset forgotten password
     But "spam@intersect.org.au" should receive no emails
 
   Scenario: Non existent user trying to request a reset just sees default message but doesn't get email (so we don't reveal which users exist)
-    Given I am on the home page
+    Given I am on the login page
     When I request a reset for "noexist@intersect.org.au"
     Then I should see "If the email address you entered was valid, you will receive an email with instructions about how to reset your password in a few minutes."
     And I should be on the login page
     But "noexist@intersect.org.au" should receive no emails
 
   Scenario: Non existent user trying to request a reset just sees default message but doesn't get email (so we don't reveal which users exist)
-    Given I am on the home page
+    Given I am on the login page
     When I request a reset for "noexist@intersect.org.au"
     Then I should see "If the email address you entered was valid, you will receive an email with instructions about how to reset your password in a few minutes."
     And I should be on the login page
     But "noexist@intersect.org.au" should receive no emails
 
   Scenario: Error displayed if email left blank
-    Given I am on the home page
+    Given I am on the login page
     When I request a reset for ""
     Then I should see "Email can't be blank"
     And I should see "Forgot Your Password?"

@@ -12,3 +12,28 @@
  *= require master
  *= require dc12c
 */
+.pagination {
+  margin:26px auto 0;
+  width:100px;
+}
+
+.pagination li {
+  float:left;
+  margin:0 1px;
+  list-style:none;
+}
+
+.pagination li a {
+  display:block;
+  width:12px;
+  height:0;
+  padding-top:12px;
+  background-image:url(/assets/pagination.png);
+  background-position:0 0;
+  float:left;
+  overflow:hidden;
+}
+
+.pagination li.current a {
+  background-position:0 -12px;
+}

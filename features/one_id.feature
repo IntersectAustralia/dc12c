@@ -82,7 +82,7 @@ Feature: OneID
     Given I have ldap users
       | dn                                                                                         | one_id    | login_attribute | first_name | last_name | email                   |
       | CN=mqx804005,OU=Affiliated-Staff,OU=Active,OU=MQ-Users,DC=mqauth,DC=uni,DC=mq,DC=edu,DC=au | mqx804005 | mqx804005       | Ryan       | Braganza  | ryan.braganza@mq.edu.au |
-    When I am on the home page
+    When I am on the login page
     And I fill in "Login" with "mqx804005"
     And I fill in "Password" with "mypassword"
     And I press "Log in"

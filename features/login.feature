@@ -19,14 +19,6 @@ Feature: Logging In
     Then I should see "Logged in successfully."
     And I should be on the home page
 
-  Scenario: Successful login from home page
-    Given I am on the home page
-    When I fill in "Login" with "georgina@intersect.org.au"
-    And I fill in "Password" with "Pas$w0rd"
-    And I press "Log in"
-    Then I should see "Logged in successfully."
-    And I should be on the home page
-
   Scenario: Should be redirected to the login page when trying to access a secure page
     Given I am on the list users page
     Then I should see "You need to log in before continuing."

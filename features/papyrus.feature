@@ -57,8 +57,8 @@ Feature: Manage Papyrus
 
   Scenario: Creating Papyrus
     Given I am logged in as "admin@intersect.org.au"
-    And I am on the home page
-    When I follow "Create Papyrus"
+    And I am on the list papyri page
+    When I follow "New Papyrus"
     Then I should see fields displayed
       | field                    | value |
       | MQT Number               |       |
@@ -167,23 +167,23 @@ Feature: Manage Papyrus
 
   Scenario: Researcher cannot create a papyrus record
     Given I am logged in as "researcher@intersect.org.au"
-    When I am on the homepage
-    Then I should not see "Create Papyrus"
+    When I am on the list papyri page
+    Then I should not see "New Papyrus"
     When I am on the new papyrus page
     Then I should be on the home page
     And I should see "You are not authorized to access this page"
 
   Scenario: If not logged in I cannot create a papyrus record
-    When I am on the homepage
-    Then I should not see "Create Papyrus"
+    When I am on the list papyri page
+    Then I should not see "New Papyrus"
     When I am on the new papyrus page
     Then I should be on the home page
     And I should see "You are not authorized to access this page"
 
   Scenario: Creating Papyrus with only mandatory fields
     Given I am logged in as "admin@intersect.org.au"
-    And I am on the home page
-    When I follow "Create Papyrus"
+    And I am on the list papyri page
+    When I follow "New Papyrus"
     When I enter the following papyrus details
       | field        | value |
       | MQT Number   | 6     |
@@ -224,8 +224,8 @@ Feature: Manage Papyrus
 
   Scenario: Creating Papyrus with wrong fields
     Given I am logged in as "admin@intersect.org.au"
-    And I am on the home page
-    When I follow "Create Papyrus"
+    And I am on the list papyri page
+    When I follow "New Papyrus"
     When I enter the following papyrus details
       | field            | value |
       | MQT Number       | 3     |
@@ -240,8 +240,8 @@ Feature: Manage Papyrus
 
   Scenario: Clicking cancel on the create page should take you to the list papyri page
     Given I am logged in as "admin@intersect.org.au"
-    And I am on the home page
-    Then I follow "Create Papyrus"
+    And I am on the list papyri page
+    Then I follow "New Papyrus"
     And I follow "Cancel"
     Then I should be on the list papyri page
 
@@ -445,8 +445,7 @@ Feature: Manage Papyrus
 
   Scenario: Date field can be blank on edit
     Given I am logged in as "admin@intersect.org.au"
-    And I am on the home page
-    And I follow "Create Papyrus"
+    And I am on the new papyrus page
     And I enter the following papyrus details
       | field        | value   |
       | MQT Number   | 6       |
