@@ -11,15 +11,17 @@
       = link_to "List all papyri records", papyri_path, class: "btn"
   .page-content
     #slides
-      .slides_container{style: "width:1050px"}
-        = image_tag '1050-PMac.I.jpg'
-        = image_tag '1050-inv332a.tif.jpg'
-        = image_tag '1050-inv332a.tif.jpg'
-        = image_tag '1050-inv360a.tif.jpg'
-        = image_tag '1050-inv360b.tif.jpg'
-        = image_tag '1050-inv586_2a.tif.jpg'
+      .slides_container
+        .img_container= image_tag '1050-PMac.I.jpg'
+        .img_container= image_tag '1050-inv332a.tif.jpg'
+        .img_container= image_tag '1050-inv360a.tif.jpg'
+        .img_container= image_tag '1050-inv360b.tif.jpg'
+        .img_container= image_tag '1050-inv586_2a.tif.jpg'
 
 :javascript
   $('#slides').slides({
-    play: 3000,
+    play: 8000,
+    autoHeight: true,
+    slideSpeed: 2000,
+    slideEasing: "easeInOutQuad"
   });
