@@ -80,7 +80,13 @@ Dc12c::Application.routes.draw do
 
   root :to => "pages#home"
 
-  get "pages/home"
+  resources :pages, only: [] do
+    collection do
+      get :home
+      get :about
+    end
+  end
+    
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
