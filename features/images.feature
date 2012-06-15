@@ -197,8 +197,7 @@ Feature: In order to associate new images with papyri records
       | 2   | test3.tiff | someth. | a        |
       | 4   | test2.tiff | someth. | a        |
       | 5   | test.tiff  | someth. | a        |
-    When I am on the home page
-    And I follow "List all papyri records"
+    When I am on the list papyri page
     Then I should see thumbnail image for "test3.tiff" of papyrus "MQT 2"
     Then I should see thumbnail image for "test2.tiff" of papyrus "MQT 4"
     Then I should see thumbnail image for "test.tiff" of papyrus "MQT 5"

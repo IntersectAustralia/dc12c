@@ -812,7 +812,7 @@ Feature: Manage Papyrus
   Scenario: Admin should see a list of all the papyri
     Given I am logged in as "admin@intersect.org.au"
     And I am on the home page
-    When I follow "List all papyri records"
+    When I follow "List All Macquarie Papyri"
     Then I should be on the papyri page
     And I should see the list papyri table
       | MQT Number | Text Type (Genre) | Origin        | Date   | Language/Script | Image |
@@ -831,7 +831,7 @@ Feature: Manage Papyrus
   Scenario: Researcher should see list of visible and public papyri
     Given I am logged in as "researcher@intersect.org.au"
     And I am on the home page
-    When I follow "List all papyri records"
+    When I follow "List All Macquarie Papyri"
     Then I should be on the papyri page
     And I should see the list papyri table
       | MQT Number | Text Type (Genre) | Origin        | Date   | Language/Script | Image |
@@ -841,7 +841,7 @@ Feature: Manage Papyrus
 
   Scenario: Anonymous user should see list of visible and public papyri
     Given I am on the home page
-    When I follow "List all papyri records"
+    When I follow "List All Macquarie Papyri"
     Then I should be on the papyri page
     And I should see the list papyri table
       | MQT Number | Text Type (Genre) | Origin        | Date   | Language/Script | Image |
