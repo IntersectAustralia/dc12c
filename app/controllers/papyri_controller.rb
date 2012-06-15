@@ -3,6 +3,7 @@ class PapyriController < ApplicationController
   # GET /papyri
   # GET /papyri.json
   def index
+    set_tab :list
     page = make_page(params[:page])
     @papyri = @papyri.paginate(page: page, per_page: APP_CONFIG['number_of_papyri_per_page'])
     respond_to do |format|

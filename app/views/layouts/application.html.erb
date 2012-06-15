@@ -24,9 +24,9 @@
       <div class="container">
       <%= tabs_tag(:builder => MenuTabBuilder) do |tab| %>
         <ul class="nav">
-          <%= tab.home 'Home', root_url %>
+          <%= tab.list 'List All Macquarie Papyri', papyri_path %>
+          <%= tab.collections 'Collections', collections_path %>
           <%= tab.about 'About', about_pages_path %> 
-          <%= tab.about 'Collections', collections_path %>
         </ul>
         <% if user_signed_in? %>
           <ul class="nav pull-right">
