@@ -36,8 +36,8 @@ Then /^I should see collection$/ do |expected_table|
     row.all('td').map(&:text)
   end
 
-  expected = papyri.map do |papyrus|
-    ["MQT #{papyrus.mqt_number}", papyrus.inventory_number.to_s, papyrus.lines_of_text.to_s, papyrus.human_readable_has_translation, "\n"]
+  expected = papyri.map do |p|
+    [p.formatted_mqt_number, p.genre.try(:name) || '', p.origin_details || '', p.formatted_date || '', p.languages_csv, "\n"]
   end
 
   actual.should eq expected
