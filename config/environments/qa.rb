@@ -1,6 +1,7 @@
 Dc12c::Application.configure do
 
   config.action_mailer.default_url_options = { :host => 'gsw1-dc12c-papyri-qa-vm.intersect.org.au' }
+  config.action_controller.default_url_options = { host: 'gsw1-dc12c-papyri-qa-vm.intersect.org.au' }
 
   # Settings specified here will take precedence over those in config/application.rb
 
