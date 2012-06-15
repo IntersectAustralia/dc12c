@@ -38,93 +38,93 @@ Feature: List Papyrus
     When I am logged in as "admin@intersect.org.au"
     And I am on the papyri page
     Then I should see the list papyri table
-      | MQT Number | Lines of Text | Translation |
-      | MQT 1      |               | No          |
-      | MQT 2      |               | No          |
-      | MQT 3      |               | No          |
-      | MQT 4      |               | No          |
-      | MQT 5      |               | No          |
-      | MQT 6      |               | No          |
-      | MQT 7      |               | No          |
-      | MQT 8      |               | No          |
-      | MQT 9      |               | No          |
-      | MQT 10     |               | No          |
-      | MQT 11     |               | No          |
-      | MQT 12     |               | No          |
-      | MQT 13     |               | No          |
-      | MQT 14     |               | No          |
-      | MQT 15     |               | No          |
-      | MQT 16     |               | No          |
-      | MQT 17     |               | No          |
-      | MQT 18     |               | No          |
-      | MQT 19     |               | No          |
-      | MQT 20     |               | No          |
+      | MQT Number | Text Type (Genre) | Origin | Date | Language/Script |
+      | MQT 1      |                   |        |      |                 |
+      | MQT 2      |                   |        |      |                 |
+      | MQT 3      |                   |        |      |                 |
+      | MQT 4      |                   |        |      |                 |
+      | MQT 5      |                   |        |      |                 |
+      | MQT 6      |                   |        |      |                 |
+      | MQT 7      |                   |        |      |                 |
+      | MQT 8      |                   |        |      |                 |
+      | MQT 9      |                   |        |      |                 |
+      | MQT 10     |                   |        |      |                 |
+      | MQT 11     |                   |        |      |                 |
+      | MQT 12     |                   |        |      |                 |
+      | MQT 13     |                   |        |      |                 |
+      | MQT 14     |                   |        |      |                 |
+      | MQT 15     |                   |        |      |                 |
+      | MQT 16     |                   |        |      |                 |
+      | MQT 17     |                   |        |      |                 |
+      | MQT 18     |                   |        |      |                 |
+      | MQT 19     |                   |        |      |                 |
+      | MQT 20     |                   |        |      |                 |
    And I should see the pagination controls
 
   Scenario: View page two
     When I am logged in as "admin@intersect.org.au"
     And I am on page 2 of the papyri index
     Then I should see the list papyri table
-      | MQT Number | Lines of Text | Translation |
-      | MQT 21     |               | No          |
-      | MQT 22     |               | No          |
-      | MQT 23     |               | No          |
-      | MQT 24     |               | No          |
-      | MQT 25     |               | No          |
-      | MQT 26     |               | No          |
+      | MQT Number | Text Type (Genre) | Origin | Date | Language/Script |
+      | MQT 21     |                   |        |      |                 |
+      | MQT 22     |                   |        |      |                 |
+      | MQT 23     |                   |        |      |                 |
+      | MQT 24     |                   |        |      |                 |
+      | MQT 25     |                   |        |      |                 |
+      | MQT 26     |                   |        |      |                 |
     And I should see the pagination controls
 
   Scenario: Public users should not see hidden records
     Given I am on the papyri page
     Then I should see the list papyri table
-      | MQT Number | Lines of Text | Translation |
-      | MQT 2      |               | No          |
-      | MQT 4      |               | No          |
-      | MQT 6      |               | No          |
-      | MQT 8      |               | No          |
-      | MQT 9      |               | No          |
-      | MQT 10     |               | No          |
-      | MQT 11     |               | No          |
-      | MQT 12     |               | No          |
-      | MQT 14     |               | No          |
-      | MQT 15     |               | No          |
-      | MQT 16     |               | No          |
-      | MQT 17     |               | No          |
-      | MQT 19     |               | No          |
-      | MQT 20     |               | No          |
-      | MQT 21     |               | No          |
-      | MQT 22     |               | No          |
-      | MQT 23     |               | No          |
-      | MQT 24     |               | No          |
-      | MQT 25     |               | No          |
-      | MQT 26     |               | No          |
+      | MQT Number | Text Type (Genre) | Origin | Date | Language/Script |
+      | MQT 2      |                   |        |      |                 |
+      | MQT 4      |                   |        |      |                 |
+      | MQT 6      |                   |        |      |                 |
+      | MQT 8      |                   |        |      |                 |
+      | MQT 9      |                   |        |      |                 |
+      | MQT 10     |                   |        |      |                 |
+      | MQT 11     |                   |        |      |                 |
+      | MQT 12     |                   |        |      |                 |
+      | MQT 14     |                   |        |      |                 |
+      | MQT 15     |                   |        |      |                 |
+      | MQT 16     |                   |        |      |                 |
+      | MQT 17     |                   |        |      |                 |
+      | MQT 19     |                   |        |      |                 |
+      | MQT 20     |                   |        |      |                 |
+      | MQT 21     |                   |        |      |                 |
+      | MQT 22     |                   |        |      |                 |
+      | MQT 23     |                   |        |      |                 |
+      | MQT 24     |                   |        |      |                 |
+      | MQT 25     |                   |        |      |                 |
+      | MQT 26     |                   |        |      |                 |
     And I should not see the pagination controls
 
   Scenario Outline: ensure invalid page numbers default to show page 1
     When I am logged in as "admin@intersect.org.au"
     And I am on page <page> of the papyri index
     Then I should see the list papyri table
-      | MQT Number | Lines of Text | Translation |
-      | MQT 1      |               | No          |
-      | MQT 2      |               | No          |
-      | MQT 3      |               | No          |
-      | MQT 4      |               | No          |
-      | MQT 5      |               | No          |
-      | MQT 6      |               | No          |
-      | MQT 7      |               | No          |
-      | MQT 8      |               | No          |
-      | MQT 9      |               | No          |
-      | MQT 10     |               | No          |
-      | MQT 11     |               | No          |
-      | MQT 12     |               | No          |
-      | MQT 13     |               | No          |
-      | MQT 14     |               | No          |
-      | MQT 15     |               | No          |
-      | MQT 16     |               | No          |
-      | MQT 17     |               | No          |
-      | MQT 18     |               | No          |
-      | MQT 19     |               | No          |
-      | MQT 20     |               | No          |
+      | MQT Number | Text Type (Genre) | Origin | Date | Language/Script |
+      | MQT 1      |                   |        |      |                 |
+      | MQT 2      |                   |        |      |                 |
+      | MQT 3      |                   |        |      |                 |
+      | MQT 4      |                   |        |      |                 |
+      | MQT 5      |                   |        |      |                 |
+      | MQT 6      |                   |        |      |                 |
+      | MQT 7      |                   |        |      |                 |
+      | MQT 8      |                   |        |      |                 |
+      | MQT 9      |                   |        |      |                 |
+      | MQT 10     |                   |        |      |                 |
+      | MQT 11     |                   |        |      |                 |
+      | MQT 12     |                   |        |      |                 |
+      | MQT 13     |                   |        |      |                 |
+      | MQT 14     |                   |        |      |                 |
+      | MQT 15     |                   |        |      |                 |
+      | MQT 16     |                   |        |      |                 |
+      | MQT 17     |                   |        |      |                 |
+      | MQT 18     |                   |        |      |                 |
+      | MQT 19     |                   |        |      |                 |
+      | MQT 20     |                   |        |      |                 |
     And I should see the pagination controls
   Examples:
     | page |
@@ -135,7 +135,7 @@ Feature: List Papyrus
   Scenario: Entering a page number greater than max doesn't throw an error
     Given I am on page 1000000000 of the papyri index
     Then I should see the list papyri table
-      | MQT Number | Lines of Text | Translation |
+      | MQT Number | Text Type (Genre) | Origin | Date | Language/Script |
     And I should not see the pagination controls
 
   Scenario: new papyrus link is not displayed on list page for researcher

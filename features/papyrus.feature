@@ -19,11 +19,11 @@ Feature: Manage Papyrus
       | Book Fragment |
     And I have a papyrus
       | mqt_number | mqt_note | inventory_number | apis_id  | trismegistos_id | physical_location | languages     | dimensions             | date_from | date_note | general_note | lines_of_text | paleographic_description | recto_verso_note | origin_details | source_of_acquisition | preservation_note | conservation_note | genre   | language_note | summary             | original_text            | translated_text | other_characteristics | material | type_of_text | modern_textual_dates | publications | mq_publication | visibility |
-      | 2          | note too | p.macq2      |          |                 |                   | Coptic, Greek | 5 x 6 cm               | 88 CE     | some date | General Blah | Specific blah | Paleo Diet               | Rectangle        | It's Greek.    | Got it from Greece    | poorly preserved  | conservative      | Book    | Fancy Greek   | don't understand it | περιοχής                 | area            | some other            | fabric   | text type    | some dates           | some pub'ns  | I 1            | PUBLIC     |
-    And I have papyri
-      | mqt_number | inventory_number | languages       | dimensions     | date_from   | general_note  | lines_of_text  | visibility |
-      | 3          | hidden.macq  | Coptic, Demotic | 5 x 7 cm       | 488 CE      | General stuff | Specific stuff | HIDDEN     |
-      | 4          | visible.macq | Coptic, Demotic | 5 x 8 cm       | 488 CE      | General stuff | Specific stuff | VISIBLE    |
+      | 2          | note too | p.macq2          |          |                 |                   | Coptic, Greek | 5 x 6 cm               | 88 CE     | some date | General Blah | Specific blah | Paleo Diet               | Rectangle        | It's Greek.    | Got it from Greece    | poorly preserved  | conservative      | Book    | Fancy Greek   | don't understand it | περιοχής                 | area            | some other            | fabric   | text type    | some dates           | some pub'ns  | I 1            | PUBLIC     |
+     And I have papyri
+      | mqt_number | genre         | origin_details | inventory_number | languages       | dimensions | date_from   | general_note  | lines_of_text  | visibility |
+      | 3          | Letter        | from the left  | hidden.macq      | Coptic, Demotic | 5 x 7 cm   | 488 CE      | General stuff | Specific stuff | HIDDEN     |
+      | 4          | Book Fragment | from v. left   | visible.macq     | Coptic, Demotic | 5 x 8 cm   | 488 CE      | General stuff | Specific stuff | VISIBLE    |
 
   Scenario: no era
     Given I am logged in as "admin@intersect.org.au"
@@ -815,10 +815,10 @@ Feature: Manage Papyrus
     When I follow "List all papyri records"
     Then I should be on the papyri page
     And I should see the list papyri table
-      | MQT Number | Inventory Number | Lines of Text  | Translation |
-      | MQT 2      | p.macq2          | Specific blah  | Yes         |
-      | MQT 3      | hidden.macq      | Specific stuff | No          |
-      | MQT 4      | visible.macq     | Specific stuff | No          |
+      | MQT Number | Text Type (Genre) | Origin        | Date   | Language/Script | Image |
+      | MQT 2      | Book              | It's Greek.   | 88 CE  | Coptic, Greek   |       |
+      | MQT 3      | Letter            | from the left | 488 CE | Coptic, Demotic |       |
+      | MQT 4      | Book Fragment     | from v. left  | 488 CE | Coptic, Demotic |       |
     When I follow "MQT 3"
     Then I should be on the "MQT 3" papyrus page
     When I am on the papyri page
@@ -834,19 +834,19 @@ Feature: Manage Papyrus
     When I follow "List all papyri records"
     Then I should be on the papyri page
     And I should see the list papyri table
-      | MQT Number | Inventory Number | Lines of Text  | Translation |
-      | MQT 2      | p.macq2          | Specific blah  | Yes         |
-      | MQT 3      | hidden.macq      | Specific stuff | No          |
-      | MQT 4      | visible.macq     | Specific stuff | No          |
+      | MQT Number | Text Type (Genre) | Origin        | Date   | Language/Script | Image |
+      | MQT 2      | Book              | It's Greek.   | 88 CE  | Coptic, Greek   |       |
+      | MQT 3      | Letter            | from the left | 488 CE | Coptic, Demotic |       |
+      | MQT 4      | Book Fragment     | from v. left  | 488 CE | Coptic, Demotic |       |
 
   Scenario: Anonymous user should see list of visible and public papyri
     Given I am on the home page
     When I follow "List all papyri records"
     Then I should be on the papyri page
     And I should see the list papyri table
-      | MQT Number | Inventory Number | Lines of Text  | Translation |
-      | MQT 2      | p.macq2          | Specific blah  | Yes         |
-      | MQT 4      | visible.macq     | Specific stuff | No          |
+      | MQT Number | Text Type (Genre) | Origin        | Date   | Language/Script | Image |
+      | MQT 2      | Book              | It's Greek.   | 88 CE  | Coptic, Greek   |       |
+      | MQT 4      | Book Fragment     | from v. left  | 488 CE | Coptic, Demotic |       |
 
   Scenario: Only a Cancel link on edit page instead of Show and Cancel
     Given I am logged in as "admin@intersect.org.au"
