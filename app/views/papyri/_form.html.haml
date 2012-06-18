@@ -1,10 +1,5 @@
 = form_for @papyrus do |f|
-  -if @papyrus.errors.any?
-    #error_explanation.formerror.alert.alert-error
-      %h3= "#{pluralize(@papyrus.errors.count, "error")} prohibited this papyrus from being saved:"
-      %ul
-        - @papyrus.errors.full_messages.each do |msg|
-          %li= msg
+  = render partial: 'shared/error_messages', locals: {target: @papyrus}
 
   %h3 Identification
   = render_field('MQT Number', f.text_field(:mqt_number, maxlength: 32))

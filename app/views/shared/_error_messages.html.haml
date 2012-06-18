@@ -1,6 +1,7 @@
 - if target.errors.any?
-  .formerror.alert.alert-error
+  #error_explanation.alert-error
     %h3 The record could not be saved
     .notification{:id => "*.errors"}
-      - target.errors.full_messages.each do |msg|
-        %li= msg
+      %ul
+        - target.errors.full_messages.each do |msg|
+          %li= msg
