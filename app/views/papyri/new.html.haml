@@ -3,5 +3,4 @@
   .page-header.record
     %h2 New papyrus
   .page-content
-    = render 'form' 
-    = link_to 'Cancel', papyri_path, class: "btn"
+    = render partial: 'form', locals: {is_edit: false}
