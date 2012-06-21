@@ -15,6 +15,7 @@ gem 'paperclip'
 gem 'bundler'
 gem 'rubygems-bundler'
 gem 'rubyzip', require: 'zip/zip'
+gem 'jekyll', require: false
 
 # Gems used only for assets and not required
 # in production environments by default.

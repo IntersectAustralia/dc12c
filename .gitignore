@@ -19,3 +19,5 @@ coverage/
 .DS_Store
 .idea/
 dc21.ids
+
+public/manual

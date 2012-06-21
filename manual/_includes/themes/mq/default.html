@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{{ page.title }}</title>
+    {% if page.description %}<meta name="description" content="{{ page.description }}">{% endif %}
+  <link href="{{ ASSET_PATH }}/css/reset.css" rel="stylesheet" type="text/css" media="all">
+  <link href="{{ ASSET_PATH }}/css/application.css" rel="stylesheet" type="text/css" media="all">
+  </head>
+
+  <body>
+<div id="header">
+  <div class="header-inner">
+    <div class="logo"><a href="{{ HOME_PATH }}"><strong>Macquarie Papyri</strong></a></div>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <ul class="nav">
+          <li><a href="/papyri">tab 1</a></li>
+          <li><a href="/papyri">tab 2</a></li>
+          </ul>
+          <ul class="nav pull-right">
+            <li><a href="/papyri">tab right</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id='page'>
+  <div class="page-inner">
+    <div class="page-header">
+      {{ page.title }}
+    </div>
+    <div class="page-content">
+      {{ content }}
+    </div>
+  </div>
+</div>
+
+<div id="footer">
+  <div class="footer-inner">
+    <a target="_about" href="http://www.intersect.org.au/attribution-policy" class="logo"></a>Developed by
+    Intersect Australia Ltd
+  </div>
+</div>
+</body>
+</html>
