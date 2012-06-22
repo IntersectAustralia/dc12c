@@ -146,6 +146,7 @@ namespace :deploy do
     update
     rebundle
     refresh_db
+    regenerate_manual
   end
 
   # Helper task which re-creates the database
