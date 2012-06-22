@@ -232,7 +232,7 @@ class Papyrus < ActiveRecord::Base
           end
         end
       end
-      clauses.reduce {|a, b| a | b }
+      clauses.reduce {|a, b| a & b }
     end.accessible_by(ability, :advanced_search)
   end
 

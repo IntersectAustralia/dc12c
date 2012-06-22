@@ -550,9 +550,9 @@ describe Papyrus do
           results = Papyrus.advanced_search(@user, translated_text: 'Chinese strike')
           results.should eq [@p15, @p115, @p215]
         end
-        it "should find by multiple parameters" do
+        it "should not find by multiple parameters" do
           results = Papyrus.advanced_search(@user, language_note: 'looks', translated_text: 'me striKe The')
-          results.should eq [@p13, @p15, @p113, @p115, @p213, @p215]
+          results.should eq []
         end
       end # advanced mode
 
@@ -714,9 +714,9 @@ describe Papyrus do
           results = Papyrus.advanced_search(@user, translated_text: 'Chinese strike')
           results.should eq [@p215]
         end
-        it "should find by multiple parameters" do
+        it "should not find by multiple parameters" do
           results = Papyrus.advanced_search(@user, language_note: 'looks', translated_text: 'me striKe The')
-          results.should eq [@p213, @p215]
+          results.should eq []
         end
       end # advanced mode
 
@@ -886,10 +886,9 @@ describe Papyrus do
           results = Papyrus.advanced_search(@user, translated_text: 'Chinese strike')
           results.should eq [@p15, @p115, @p215, @p315, @p415, @p515]
         end
-        it "should find by multiple parameters" do
+        it "should AND multiple parameters" do
           results = Papyrus.advanced_search(@user, language_note: 'looks', translated_text: 'me striKe The')
-          results.should eq [@p13, @p15, @p113, @p115, @p213, @p215,
-                             @p313, @p315, @p413, @p415, @p513, @p515]
+          results.should eq []
         end
       end # advanced mode
 

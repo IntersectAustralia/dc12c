@@ -240,3 +240,33 @@ Feature: Searching Papyri
     Then I fill in "Search" with "abcd 123"
     And I press "Search"
     And I should see search results "MQT 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 53, 77, 78, 79"
+
+  Scenario: check pagination for advanced search results
+    Given I am logged in as "researcher@intersect.org.au"
+    And I have papyri
+      | mqt_number | inventory_number | general_note | visibility |
+      | 1          | inv1             | gen1         | HIDDEN     |
+      | 2          | inv2             | gen2         | HIDDEN     |
+
+    When I am on the advanced search page
+    And I fill in "inventory_number" with "inv1"
+    And I press "Search"
+    Then I should see search results "MQT 1"
+
+    When I am on the advanced search page
+    And I fill in "general_note" with "gen1"
+    And I press "Search"
+    Then I should see search results "MQT 1"
+
+    When I am on the advanced search page
+    And I fill in "general_note" with "gen1"
+    And I fill in "inventory_number" with "inv1"
+    And I press "Search"
+    Then I should see search results "MQT 1"
+
+    When I am on the advanced search page
+    And I fill in "general_note" with "gen1"
+    And I fill in "inventory_number" with "inv2"
+    And I press "Search"
+    Then I should not see the search results table
+    And I should see "No Results Found"
