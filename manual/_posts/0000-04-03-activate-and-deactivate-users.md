@@ -1,7 +1,7 @@
 ---
 layout: post
 category: User Accounts
-title: User Management
+title: Activate and Deactivate Users
 group: manual
 ---
 Create external account

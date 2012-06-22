@@ -7,7 +7,7 @@ category: Papyri Admin
 {% include JB/setup %}
 
 <ul>
-{% for post in site.categories["Papyri Admin"] %}
+{% for post in site.categories["Papyri Admin"] reversed %}
   <li>
     <a href="{{BASE_PATH}}{{ post.url }}">{{ post.title }}</a>
   </li>

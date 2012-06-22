@@ -1,7 +1,7 @@
 ---
 layout: post
 category : Papyri Admin
-title: Managing Papyri
+title: Managing Papyri Names
 group: manual
 ---
 {% include JB/setup %}

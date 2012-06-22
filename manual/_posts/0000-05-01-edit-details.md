@@ -1,7 +1,7 @@
 ---
 layout: post
-category : User Accounts
-title: Personal Account Management
+category : My Account
+title: Edit Account Details
 group: manual
 ---
 {% include JB/setup %}

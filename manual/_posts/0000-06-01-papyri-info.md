@@ -1,7 +1,7 @@
 ---
 layout: post
 category : External Interfaces
-title: Papyri.info and Trismegistos.org
+title: Papyri.info
 group: manual
 ---
 {% include JB/setup %}

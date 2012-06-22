@@ -7,7 +7,7 @@ category: User Accounts
 {% include JB/setup %}
 
 <ul>
-{% for post in site.categories["User Accounts"] %}
+{% for post in site.categories["User Accounts"] reversed %}
   <li>
     <a href="{{BASE_PATH}}{{ post.url }}">{{ post.title }}</a>
   </li>

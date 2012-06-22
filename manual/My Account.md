@@ -1,13 +1,13 @@
 ---
 layout: page
-title: External Interfaces
+title: My Account
 group: none
-category: External Interfaces
+category: My Account
 ---
 {% include JB/setup %}
 
 <ul>
-{% for post in site.categories["External Interfaces"] reversed %}
+{% for post in site.categories["My Account"] reversed %}
   <li>
     <a href="{{BASE_PATH}}{{ post.url }}">{{ post.title }}</a>
   </li>

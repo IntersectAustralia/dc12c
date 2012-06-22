@@ -1,7 +1,7 @@
 ---
 layout: post
 category: Papyri
-title: Browsing and Searching
+title: Simple Search
 group: manual
 ---
 list
