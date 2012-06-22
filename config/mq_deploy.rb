@@ -95,7 +95,7 @@ after 'deploy:finalize_update' do
   run "cd #{release_path} && bundle install --verbose --deployment;"
   run "cd #{release_path}; RAILS_ENV=#{rails_env} bundle exec rake db:migrate"
   run "cd #{release_path}; RAILS_ENV=#{rails_env} bundle exec rake assets:precompile"
-
+  run("cd #{release_path} && rm -rf public/manual/* && jekyll manual/ public/manual/")
   deploy.restart
 end
 

@@ -78,6 +78,7 @@ end
 after 'deploy:update' do
   server_setup.logging.rotation
   server_setup.config.apache
+  deploy.regenerate_manual
   deploy.restart
   deploy.additional_symlinks
 end
@@ -166,6 +167,10 @@ namespace :deploy do
     else
       puts "Skipping database nuke"
     end
+  end
+
+  task :regenerate_manual do
+    run("cd #{current_path} && rm -rf public/manual/* && jekyll manual/ public/manual/")
   end
 end
 
