@@ -1,6 +1,6 @@
 ---
 layout: post
-category : Papyri
+category : Papyri Admin
 title: Managing Papyri
 group: manual
 ---

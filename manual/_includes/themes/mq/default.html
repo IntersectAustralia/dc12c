@@ -9,18 +9,24 @@
   </head>
 
   <body>
+
 <div id="header">
   <div class="header-inner">
-    <div class="logo"><a href="{{ HOME_PATH }}"><strong>Macquarie Papyri</strong></a></div>
+    <div class="logo"><a href="{{ HOME_PATH }}"><strong>Macquarie Papyri Manual</strong></a></div>
     <div class="navbar">
       <div class="navbar-inner">
         <div class="container">
           <ul class="nav">
-          <li><a href="/papyri">tab 1</a></li>
-          <li><a href="/papyri">tab 2</a></li>
+            {% for category in site.categories %}
+              <li {% if page.category == category[0] %} class="active" {% endif %} >
+                <a id="{{ category[0] }}-ref" href="{{BASE_PATH}}/{{category[0]}}">
+                  {{ category[0] | join: "/" }}
+                </a>
+              </li>
+            {% endfor %}
           </ul>
           <ul class="nav pull-right">
-            <li><a href="/papyri">tab right</a></li>
+            <li><a href="/">Back To Macquarie Papyri</a></li>
           </ul>
         </div>
       </div>

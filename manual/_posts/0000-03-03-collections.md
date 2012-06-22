@@ -1,6 +1,6 @@
 ---
 layout: post
-category : Collections
+category: Papyri
 title: Collections
 group: manual
 ---

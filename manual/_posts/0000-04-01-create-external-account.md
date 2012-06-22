@@ -1,6 +1,6 @@
 ---
 layout: post
-category: Admin
+category: User Accounts
 title: User Management
 group: manual
 ---

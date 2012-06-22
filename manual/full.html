@@ -6,7 +6,7 @@ group: none
 ---
 {% include JB/setup %}
 
-{% for post in site.posts %}
+{% for post in site.posts reversed %}
   <h1 class="all-in-one-header"><a href="{{ post.url }}">{{ post.title }}</a></h1>
   {{ post.content }}
   <hr/>
