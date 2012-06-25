@@ -11,13 +11,13 @@
   = render_field('Trismegistos ID', f.text_field(:trismegistos_id, maxlength: 32))
   = render_field('MQT Note', f.text_area(:mqt_note, :class => "medium"))
   = render_field('Physical location', f.text_field(:physical_location))
-  = render_field('Source of Acquisition', f.text_area(:source_of_acquisition, :class => "small"))
+  = render_field('Source of Acquisition', f.text_area(:source_of_acquisition, rows: 2))
   %h3 Physical properties
   = render_field('Dimensions', f.text_area(:dimensions, :class => "medium"))
-  = render_field('Material', f.text_area(:material, :class => "small"))
-  = render_field('Preservation Note', f.text_area(:preservation_note, :class => "large"))
-  = render_field('Conservation Note', f.text_area(:conservation_note, :class => "large"))
-  = render_field('Paleographic Description', f.text_area(:paleographic_description, :class => "large"))
+  = render_field('Material', f.text_field(:material))
+  = render_field('Preservation Note', f.text_area(:preservation_note, rows: 6))
+  = render_field('Conservation Note', f.text_area(:conservation_note, rows: 6))
+  = render_field('Paleographic Description', f.text_area(:paleographic_description, rows: 4))
   = render_field_with_block('Date From') do
     = text_field_tag(:papyrus_date_from_year, @papyrus.date_from_year || '', class: 'input-mini')
     - from_options = options_for_select([['CE'], ['BCE']], selected = @papyrus.date_from_era)
@@ -26,27 +26,27 @@
     = text_field_tag(:papyrus_date_to_year, @papyrus.date_to_year || '', class: 'input-mini')
     - to_options = options_for_select([['CE'], ['BCE']], selected = @papyrus.date_to_era)
     = select_tag(:papyrus_date_to_era, to_options, include_blank: true)
-  = render_field('Date Note', f.text_area(:date_note, :class => "small"))
-  = render_field('Lines of Text', f.text_area(:lines_of_text, :class => "medium"))
-  = render_field('Other Characteristics', f.text_area(:other_characteristics, :class => "medium"))
+  = render_field('Date Note', f.text_area(:date_note, rows: 2))
+  = render_field('Lines of Text', f.text_area(:lines_of_text, rows: 4))
+  = render_field('Other Characteristics', f.text_area(:other_characteristics, rows: 4))
   %h3 Content
   = render_field_with_block('Languages') do
     - Language.all.each do |l|
       .checkbox
         = check_box_tag "papyrus[language_ids][]", l.id, @papyrus.languages.include?(l), id: "papyrus_language_ids_#{l.id}", class: 'papyrus_language_checkbox'
         = label_tag "papyrus_language_ids_#{l.id}", l.name
-  = render_field('Language Note', f.text_area(:language_note, :class => "small"))
+  = render_field('Language Note', f.text_area(:language_note, rows: 2))
   = render_field('Genre', f.select(:genre_id, Genre.all.map{|g| [g.name, g.id]}, {include_blank: true}, id: 'papyrus_genre'))
-  = render_field('Type of Text', f.text_area(:type_of_text, :class => "small"))
-  = render_field('General Note', f.text_area(:general_note, :class => "medium"))
-  = render_field('Recto Verso Note', f.text_area(:recto_verso_note, :class => "small"))
-  = render_field('Modern Textual Dates', f.text_area(:modern_textual_dates, :class => "small"))
-  = render_field('Summary', f.text_area(:summary, :class => "xlarge"))
-  = render_field('Keywords', f.text_area(:keywords, :class => "large"))
-  = render_field('Origin Details', f.text_area(:origin_details, :class => "medium"))
-  = render_field('Original Text', f.text_area(:original_text, :class => "xlarge"))
-  = render_field('Translated Text', f.text_area(:translated_text, :class => "xlarge"))
-  = render_field('Publications', f.text_area(:publications, :class => "large"))
+  = render_field('Type of Text', f.text_field(:type_of_text))
+  = render_field('General Note', f.text_area(:general_note, rows: 4))
+  = render_field('Recto Verso Note', f.text_area(:recto_verso_note, rows: 2))
+  = render_field('Modern Textual Dates', f.text_field(:modern_textual_dates))
+  = render_field('Summary', f.text_area(:summary, rows: 10))
+  = render_field('Keywords', f.text_area(:keywords, rows: 2))
+  = render_field('Origin Details', f.text_field(:origin_details))
+  = render_field('Original Text', f.text_area(:original_text, rows: 10))
+  = render_field('Translated Text', f.text_area(:translated_text, rows: 10))
+  = render_field('Publications', f.text_area(:publications, rows: 4))
   .form-actions
     = f.submit 'Save', class: "btn"
     - if is_edit

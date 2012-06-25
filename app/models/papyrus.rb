@@ -69,7 +69,7 @@ class Papyrus < ActiveRecord::Base
   validates_length_of :type_of_text, maximum: 255
   validates_length_of :modern_textual_dates, maximum: 511
   validates_length_of :publications, maximum: 511
-  validates_length_of :keywords, maximum: 255
+  validates_length_of :keywords, maximum: 511
 
   validates_inclusion_of :volume_number, in: %w(I II III IV V VI VII VIII IX X), allow_nil: true
   validates_numericality_of :item_number, only_integer: true, allow_nil: true, greater_than: 0

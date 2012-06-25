@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120606050232) do
+ActiveRecord::Schema.define(:version => 20120625005640) do
 
   create_table "access_requests", :force => true do |t|
     t.integer  "user_id",        :precision => 38, :scale => 0
@@ -104,7 +104,7 @@ ActiveRecord::Schema.define(:version => 20120606050232) do
     t.string  "physical_location"
     t.string  "volume_number",            :limit => 4
     t.integer "item_number",                              :precision => 38, :scale => 0
-    t.string  "keywords"
+    t.string  "keywords",                 :limit => 511
   end
 
   create_table "roles", :force => true do |t|
