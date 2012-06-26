@@ -4,6 +4,7 @@
     %h2 Advanced Search
   .page-content
     = form_tag advanced_search_papyri_path, method: :get do
+      = render partial: 'shared/error_messages_only', locals: {messages: @errors}
 
       = render_field('Inventory Number', search_field_tag(:inventory_number, @search_fields[:inventory_number], maxlength: 50))
       = render_field('General Note', search_field_tag(:general_note,  @search_fields[:general_note], maxlength: 50))
@@ -17,14 +18,21 @@
       = render_field('Summary', search_field_tag(:summary, @search_fields[:summary], maxlength: 50))
       = render_field('Original Text', search_field_tag(:original_text, @search_fields[:original_text], maxlength: 50))
       = render_field('Translated Text', search_field_tag(:translated_text, @search_fields[:translated_text], maxlength: 50))
+      = render_field_with_block('Date From') do
+        = text_field_tag(:date_from_year, @search_fields[:date_from_year], class: 'input-mini')
+        - from_options = options_for_select([['CE'], ['BCE']], @search_fields[:date_from_era])
+        = select_tag(:date_from_era, from_options, include_blank: true)
+      = render_field_with_block('Date To') do
+        = text_field_tag(:date_to_year, @search_fields[:date_to_year], class: 'input-mini')
+        - to_options = options_for_select([['CE'], ['BCE']], selected = @search_fields[:date_to_era])
+        = select_tag(:date_to_era, to_options, include_blank: true)
       .form-actions
         = submit_tag 'Search', class: "btn btn-blue"
     -if @papyri.empty?
-      -if @with_params
+      -if @with_params and @errors.empty?
         No Results Found
     -else
       %h1 Search Results
       = render partial: 'table', locals: {table_id: 'search_results', papyri: @papyri}
       %br
       = will_paginate @papyri
-

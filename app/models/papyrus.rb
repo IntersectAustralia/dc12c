@@ -80,6 +80,17 @@ class Papyrus < ActiveRecord::Base
 
   default_scope order: 'mqt_number'
 
+  before_save do
+    # If a user enters only a "date_from" it is considered to be an exact date.
+    # The search_date_to field makes search code simpler
+    if date_to
+      self.search_date_to = date_to
+    else
+      self.search_date_to = date_from
+    end
+  end
+
+
   def self.basic_field(field_name)
     BASIC.include? field_name
   end
@@ -209,9 +220,13 @@ class Papyrus < ActiveRecord::Base
     ability = Ability.new(user)
     registered, super_role, papyri_id_list = search_context(user)
 
+    from = search_fields.delete(:date_from)
+    to = search_fields.delete(:date_to)
+
     search_fields = search_fields.reduce({}) do |acc, (k, v)|
       acc.merge k.to_sym => v.split(/\s+/).map{|term| "%#{UnicodeUtils.upcase(term)}%"}
     end
+
 
     Papyrus.where do
       clauses = search_fields.map do |field_name, search_terms|
@@ -232,6 +247,8 @@ class Papyrus < ActiveRecord::Base
           end
         end
       end
+      clauses << (date_from.gte(from) | search_date_to.gte(from)) if from
+      clauses << (date_from.lte(to) | search_date_to.lte(to)) if to
       clauses.reduce {|a, b| a & b }
     end.accessible_by(ability, :advanced_search)
   end

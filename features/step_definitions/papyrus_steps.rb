@@ -111,13 +111,13 @@ And /^I have (a papyrus|papyri)$/ do |_, table|
 
     papyrus = Papyrus.new(attrs)
 
-    if date_from
+    if date_from.present?
       if date_from.ends_with? 'BCE'
         papyrus.date_from = -date_from.to_i
       else
         papyrus.date_from = date_from.to_i
       end
-      if date_to
+      if date_to.present?
         if date_to.ends_with? 'BCE'
           papyrus.date_to = -date_to.to_i
         else

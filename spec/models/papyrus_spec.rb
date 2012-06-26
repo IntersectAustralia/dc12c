@@ -1030,6 +1030,33 @@ describe Papyrus do
     end
   end
 
+  describe "advanced searching by dates" do
+    before :each do
+      super_role = FactoryGirl.create(:role, name: Role::SUPERUSER_ROLE_NAME)
+
+      @one_bce = FactoryGirl.create(:papyrus, date_from: -1, visibility: Papyrus::HIDDEN)
+      @one_ce = FactoryGirl.create(:papyrus, date_from: 1, visibility: Papyrus::HIDDEN)
+      @admin = FactoryGirl.create(:user)
+      @admin.role = super_role
+      @admin.save
+    end
+
+    it "should find by exact year" do
+      Papyrus.advanced_search(@admin, date_from: 1, date_to: 1).should eq [@one_ce]
+    end
+    it "should find gte" do
+      Papyrus.advanced_search(@admin, date_from: -2).should eq [@one_bce, @one_ce]
+      Papyrus.advanced_search(@admin, date_from: -1).should eq [@one_bce, @one_ce]
+      Papyrus.advanced_search(@admin, date_from: 1).should eq [@one_ce]
+    end
+    it "should find lte" do
+      Papyrus.advanced_search(@admin, date_to: 2).should eq [@one_bce, @one_ce]
+      Papyrus.advanced_search(@admin, date_to: 1).should eq [@one_bce, @one_ce]
+      Papyrus.advanced_search(@admin, date_to: -1).should eq [@one_bce]
+    end
+  end
+# TODO We elect to not write researcher/anonymous tests for date searching as this file is getting too long (and logically, they are well-covered)
+
   describe "xml date functions" do
     it "should return nil for nils" do
       p = FactoryGirl.build(:papyrus)

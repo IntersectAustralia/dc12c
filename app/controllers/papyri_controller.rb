@@ -85,15 +85,18 @@ class PapyriController < ApplicationController
   def advanced_search
     page = make_page(params[:page])
     @with_params = params.include?(:utf8)
+    date_params, @errors = date_params_to_hash(params)
+
     fields = ['inventory_number', 'general_note', 'lines_of_text', 'paleographic_description', 'recto_verso_note', 'origin_details', 'source_of_acquisition', 'preservation_note', 'language_note', 'summary', 'original_text', 'translated_text']
-    search_fields = params.keep_if do |name, value|
+    @search_fields = params.keep_if do |name, value|
       value.present? && fields.include?(name.to_s)
     end
-    if !search_fields.empty?
-      @search_fields = search_fields
-      @papyri = Papyrus.advanced_search(current_user, search_fields).paginate(page: page, per_page: APP_CONFIG['number_of_papyri_per_page'])
+
+    @search_fields.merge! date_params
+
+    if !@search_fields.empty? and !@errors.present?
+      @papyri = Papyrus.advanced_search(current_user, @search_fields).paginate(page: page, per_page: APP_CONFIG['number_of_papyri_per_page'])
     else
-      @search_fields = {}
       @papyri = []
     end
   end
@@ -157,6 +160,55 @@ class PapyriController < ApplicationController
     params[:papyrus][:item_number] = nil if params[:papyrus][:item_number] == ''
     papyrus.volume_number = nil if papyrus.volume_number == ''
     papyrus.item_number = nil if papyrus.item_number == ''
+  end
+
+  def date_params_to_hash(params)
+    hash = {}
+    if [params[:date_from_era], params[:date_from_year]].all?(&:present?)
+      hash[:date_from] = params[:date_from_year].to_i * ('CE' == params[:date_from_era] ? 1 : -1)
+    end
+    if [params[:date_to_era], params[:date_to_year]].all?(&:present?)
+      hash[:date_to] = params[:date_to_year].to_i * ('CE' == params[:date_to_era] ? 1 : -1)
+    end
+
+    errors = date_errors(params, hash[:date_from], hash[:date_to])
+
+    [hash, errors]
+  end
+
+  def date_errors(params, date_from, date_to)
+    # TODO DRY this up with the above date code, and maybe the validations in the papyrus model
+    errors = []
+    from_era = params[:date_from_era]
+    to_era = params[:date_to_era]
+    from_year = params[:date_from_year]
+    to_year = params[:date_to_year]
+
+    if from_era.present? and from_year.blank?
+      errors << "Date From must have a year"
+    end
+    if from_year.present? and from_era.blank?
+      errors << "Date From must have an era"
+    end
+
+    if to_era.present? and to_year.blank?
+      errors << "Date To must have a year"
+    end
+    if to_year.present? and to_era.blank?
+      errors << "Date To must have an era"
+    end
+
+    if date_from == 0
+      errors << "Date From must not be zero"
+    end
+    if date_to == 0
+      errors << "Date To must not be zero"
+    end
+    if date_from and date_to and date_to < date_from
+      errors << "Date To must not be less than Date From"
+    end
+
+    errors
   end
 
 end
