@@ -76,7 +76,7 @@
 
 .page-content-images
   %h3 Papyrus Images
-  %ul(class="image-list")
+  %ul.image-list
     - papyrus.images.each do |image|
       -if can? :low_res, image
         %li
