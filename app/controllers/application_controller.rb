@@ -1,4 +1,8 @@
 class ApplicationController < ActionController::Base
+  before_filter do
+    # not worth it to define a custom controller just for this change
+    set_tab :signin if action_name == 'new'
+  end
 
   rescue_from DeviseLdapAuthenticatable::LdapException do |exception|
     render :text => exception, :status => 500
