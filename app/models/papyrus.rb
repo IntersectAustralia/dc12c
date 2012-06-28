@@ -173,7 +173,7 @@ class Papyrus < ActiveRecord::Base
     simple_fields = [:inventory_number, :general_note, :lines_of_text,
           :paleographic_description, :recto_verso_note, :origin_details, :source_of_acquisition,
           :preservation_note, :language_note, :summary, :mqt_note, :apis_id,
-          :trismegistos_id, :physical_location, :dimensions, :date_note, :conservation_note,
+          :trismegistos_id, :physical_location, :dimensions, :date_note, :conservation_note, :mqt_number,
           :other_characteristics, :material, :type_of_text, :translated_text]
 
     ability = Ability.new(user)

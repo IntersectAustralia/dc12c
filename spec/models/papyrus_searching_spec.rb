@@ -2,6 +2,29 @@
 require 'spec_helper'
 
 describe Papyrus do
+  describe "search by mqt_number" do
+    it "should find by mqt_number" do
+      super_role = FactoryGirl.create(:role, name: Role::SUPERUSER_ROLE_NAME)
+      admin = FactoryGirl.create(:user, role: super_role, status: "A")
+      researcher_role = FactoryGirl.create(:role, name: Role::RESEARCHER_ROLE_NAME)
+      researcher = FactoryGirl.create(:user, role: researcher_role, status: 'A')
+
+      visible = FactoryGirl.create(:papyrus, mqt_number: 123, visibility: Papyrus::VISIBLE)
+      hidden = FactoryGirl.create(:papyrus, mqt_number: 234, visibility: Papyrus::HIDDEN)
+
+      anonymous = nil
+
+      Papyrus.search(anonymous, [visible.mqt_number.to_s]).should eq [visible]
+      Papyrus.search(researcher, [visible.mqt_number.to_s]).should eq [visible]
+      Papyrus.search(admin, [visible.mqt_number.to_s]).should eq [visible]
+
+      Papyrus.search(anonymous, [hidden.mqt_number.to_s]).should eq []
+      Papyrus.search(researcher, [hidden.mqt_number.to_s]).should eq [hidden]
+      Papyrus.search(admin, [hidden.mqt_number.to_s]).should eq [hidden]
+
+      Papyrus.search(admin, ['12']).should eq [visible] # partial match
+    end
+  end
   describe "search" do
 
     let(:latin) { FactoryGirl.create(:language, name: 'Latin') }
