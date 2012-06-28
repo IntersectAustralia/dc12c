@@ -6,7 +6,7 @@
     %th Email
     %th
   - search_results.each do |sr|
-    %tr
+    %tr{class: cycle("field_bg", "field_nobg")}
       %td= sr[:one_id]
       %td= sr[:first_name]
       %td= sr[:last_name]

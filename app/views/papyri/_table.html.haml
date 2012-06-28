@@ -10,7 +10,7 @@
 
   %tbody
     - papyri.each do |papyrus|
-      %tr
+      %tr{class: cycle("field_bg", "field_nobg")}
         %td= link_to papyrus.formatted_mqt_number, papyrus
         %td= papyrus.genre.try(:name)
         %td= papyrus.origin_details

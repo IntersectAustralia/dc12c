@@ -7,7 +7,7 @@
       %th Date requested
   %tbody
     - requests.each do |access_request|
-      %tr
+      %tr{class: cycle("field_bg", "field_nobg")}
         %td= link_to access_request.papyrus.formatted_mqt_number, access_request_path(access_request)
         %td= access_request.papyrus.inventory_number
         %td= access_request.user.email
