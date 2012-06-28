@@ -168,17 +168,6 @@ class Papyrus < ActiveRecord::Base
     genre.name if genre
   end
 
-  def self.search_context user
-    registered = user && user.role.present?
-    super_role = user && (Role.superuser_roles.include? user.role)
-    if user
-      papyri_id_list = AccessRequest.where(user_id: user.id, status: AccessRequest::APPROVED).pluck(:papyrus_id)
-    else
-      papyri_id_list = []
-    end
-    [registered, super_role, papyri_id_list]
-  end
-
   def self.search user, search_terms
     search_terms = search_terms.map {|term| "%#{UnicodeUtils.upcase(term)}%"}
     simple_fields = [:inventory_number, :general_note, :lines_of_text,
@@ -321,5 +310,16 @@ class Papyrus < ActiveRecord::Base
     if date
       date > 0 ? 'CE' : 'BCE'
     end
+  end
+
+  def self.search_context user
+    registered = user && user.role.present?
+    super_role = user && (Role.superuser_roles.include? user.role)
+    if user
+      papyri_id_list = AccessRequest.where(user_id: user.id, status: AccessRequest::APPROVED).pluck(:papyrus_id)
+    else
+      papyri_id_list = []
+    end
+    [registered, super_role, papyri_id_list]
   end
 end
