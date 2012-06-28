@@ -1,8 +1,10 @@
 - title "View Collection"
 .page-inner
   .page-header.record
-    %h2.collection_title= "Collection: #{@collection.title}"
-    = link_to "Edit", edit_collection_path(@collection)
+    %h2.collection_title= @collection.title
+
+    - if can? :update, @collection
+      = link_to "Edit", edit_collection_path(@collection), class: 'btn'
 
   .page-content
     = render partial: 'papyri/table', locals: {table_id: 'collection_papyri', papyri: @collection.papyri.accessible_by(current_ability)}

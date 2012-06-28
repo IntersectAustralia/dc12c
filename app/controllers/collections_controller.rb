@@ -1,12 +1,12 @@
 class CollectionsController < ApplicationController
   load_and_authorize_resource :collection
 
+  set_tab :collections
+
   def index
-    @collections = Collection.all
   end
 
   def show
-    @collection = Collection.find_by_id! params[:id]
   end
 
   def new

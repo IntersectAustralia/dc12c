@@ -69,7 +69,7 @@ Feature: Collections
 
   Scenario: Admin creates collection
     Given I am logged in as "admin@intersect.org.au"
-    And I am on the admin page
+    And I am on the collections page
     And I follow "New Collection"
     And I fill in collection details
       | title | description | keywords | mqts |
@@ -85,8 +85,7 @@ Feature: Collections
 
   Scenario: Admin creates collection fail
     Given I am logged in as "admin@intersect.org.au"
-    And I am on the admin page
-    And I follow "New Collection"
+    And I am on the new collection  page
     And I fill in collection details
       | title | description | keywords | mqts |
       |       | dcription   | kwords   | 3    |
@@ -111,6 +110,11 @@ Feature: Collections
     And I fill in "collection_title" with ""
     And I press "Save"
     Then I should see "The record could not be saved"
+
+  Scenario: Researcher can't edit collection
+    Given I am logged in as "researcher@intersect.org.au"
+    And I am on the "MyCollection" collection page
+    Then I should not see "Edit"
 
   @wip
   Scenario: XML checking

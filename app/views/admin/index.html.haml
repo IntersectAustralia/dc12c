@@ -18,5 +18,3 @@
   %hr
     = link_to 'Trismegistos CSV', download_trismegistos_index_path, class: 'btn'
     = link_to 'Download papyri.info zip', download_zip_papyriinfo_index_path, class: 'btn'
-    - if can? :create, Collection
-      = link_to 'New Collection', new_collection_path, class: 'btn'

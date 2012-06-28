@@ -1,6 +1,12 @@
 - title "Collections"
-%ul#collections
-  - @collections.each do |collection|
-    %li
-      = link_to collection.title, collection_path(collection), class: 'title'
-      .description= collection.description
+.page-inner
+  .page-header
+    %h2 Collections
+    - if can? :create, Collection
+      = link_to 'New Collection', new_collection_path, class: 'btn'
+  .page-content
+    %ul#collections
+      - @collections.each do |collection|
+        %li
+          %strong.collection-title= link_to collection.title, collection_path(collection), class: 'title'
+          .description= collection.description
