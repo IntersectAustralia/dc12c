@@ -34,40 +34,45 @@
     = renderer.render('Translated Text', :translated_text)
     = renderer.render('Publications', :publications)
 
-  %h3 Names
-  - if can? :create, Name
-    = link_to 'Add Name', new_papyrus_name_path(papyrus), class: 'btn'
-  -# names are basic access
-  - if papyrus.names.count == 0
-    No Names
-  - else
-    - papyrus.names.each do |name|
-      .name_container
-        = render_field 'Name', name.name, "name_name"
-        = render_field 'Role', name.human_readable_role, "name_role"
-        = render_field 'Role Note', name.role_note, "name_role_note"
-        = render_field 'Added Information', name.added_information, "name_added_information"
-        = render_field 'Date', name.date, "name_date"
+  %h3
+    Names
+    - if can? :create, Name
+      = link_to 'Add Name', new_papyrus_name_path(papyrus), class: 'btn'
+  #display_names.control-group
+    -# names are basic access
+    - if papyrus.names.count == 0
+      .controls No Names
+    - else
+      - papyrus.names.each do |name|
+        .name_container
+          - if can? :update, name
+            .controls= link_to 'Edit', edit_papyrus_name_path(papyrus, name), id: "edit_name_#{name.id}", class: 'btn'
+          = render_field 'Name', name.name, "name_name"
+          = render_field 'Role', name.human_readable_role, "name_role"
+          = render_field 'Role Note', name.role_note, "name_role_note"
+          = render_field 'Added Information', name.added_information, "name_added_information"
+          = render_field 'Date', name.date, "name_date"
 
-        - if can? :update, name
-          = link_to 'Edit', edit_papyrus_name_path(papyrus, name), id: "edit_name_#{name.id}"
 
-  %h3 Connections
-  - if can? :create, Connection
-    = link_to 'Add Connection', new_papyrus_connection_path(papyrus), class: 'btn'
-  -# connections are basic access
-  - if papyrus.connections.count == 0
-    No Connections
-  - else
-    %ul
-      - papyrus.connections.each do |connection|
-        - if can? :read, connection.related_papyrus
-          %li.connection
-            %span
-            = link_to "MQT #{connection.related_papyrus.mqt_number}", papyrus_path(connection.related_papyrus)
-            = "- #{connection.description}"
-          - if can? :update, connection
-            = link_to 'Edit', edit_papyrus_connection_path(papyrus, connection), id: "edit_connection_#{connection.id}"
+  %h3
+    Connections
+    - if can? :create, Connection
+      = link_to 'Add Connection', new_papyrus_connection_path(papyrus), class: 'btn'
+  #display_connections.control-group
+    .controls
+      -# connections are basic access
+      - if papyrus.connections.count == 0
+        No Connections
+      - else
+        %ul
+          - papyrus.connections.each do |connection|
+            - if can? :read, connection.related_papyrus
+              %li.connection
+                %span
+                = link_to "MQT #{connection.related_papyrus.mqt_number}", papyrus_path(connection.related_papyrus)
+                = "- #{connection.description}"
+              - if can? :update, connection
+                = link_to 'Edit', edit_papyrus_connection_path(papyrus, connection), id: "edit_connection_#{connection.id}", class: 'btn'
 
 .page-content-images
   %h3 Papyrus Images
