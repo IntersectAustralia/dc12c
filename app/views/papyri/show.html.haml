@@ -4,6 +4,7 @@
     %h2 Viewing papyrus
     - if can? :view_visibility, @papyrus
       %small= "Record is #{@papyrus.visibility.downcase}"
+      %br
 
     - if can? :request_access, @papyrus
       = form_tag request_access_papyrus_path(@papyrus) do
