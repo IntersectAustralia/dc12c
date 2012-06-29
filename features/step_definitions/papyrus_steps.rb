@@ -206,7 +206,7 @@ Then /^I should see papyrus fields displayed$/ do |table|
           value = Genre.find_by_name!(value).id
         end
         field_id = field.downcase.gsub ' ', '_'
-        get_papyrus_field(field_id).should eq value.to_s
+        get_papyrus_field(field_id).strip.should eq value.to_s
     end
   end
 end

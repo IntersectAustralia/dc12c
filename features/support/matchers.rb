@@ -10,7 +10,7 @@ module RSpec::Matchers
       if @value
         if actual
           @actual = actual.text
-          @value == actual.text
+          @value == actual.text.strip
         else
           false
         end
