@@ -1,11 +1,11 @@
 = render partial: 'shared/error_messages', locals: {target: image}
 = form_for([papyrus, image]) do |f|
   - if is_edit
-    = image_tag image.image.url(:low_res), title: image.caption
+    = image_tag image.image.url(:low_res), title: image.caption, style: "display: block; margin: 0 auto; margin-bottom: 10px;"
   - else
-    = render_field('Image', f.file_field(:image))
-  = render_field('Caption', f.text_area(:caption, max_length: 255))
-  = render_field('Ordering', f.text_field(:ordering, max_length: 1))
+    = render_field('Image', f.file_field(:image), :image_image)
+  = render_field('Caption', f.text_area(:caption, max_length: 255, rows: 2), :image_caption)
+  = render_field('Ordering', f.text_field(:ordering, max_length: 1), :image_ordering)
   .form-actions
     - if is_edit
       = f.submit 'Update', class: "btn btn-blue"
