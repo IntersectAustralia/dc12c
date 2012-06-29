@@ -3,7 +3,7 @@
   .page-header
     %h2= "Edit Role for #{@user.email}"
   .page-content
-    = form_for(@user, :url => update_role_user_path(@specimen)) do |f|
+    = form_for(@user, :url => update_role_user_path(@user)) do |f|
       = render "shared/error_messages", :target => @user
       .field
         = f.label :role_id, "Role"
