@@ -1,11 +1,11 @@
 = render partial: 'shared/error_messages', locals: {target: name}
 = form_for([papyrus, name]) do |f|
-  = render_field('Name', f.text_field(:name, max_length: 64))
-  = render_field('Role', f.select(:role, Name::ROLE_OPTIONS, include_blank: true))
-  = render_field('Role Note', f.text_field(:role_note, max_length: 127))
-  = render_field('Added Information', f.text_field(:added_information, max_length: 255))
-  = render_field('Date', f.text_field(:date, max_length: 255))
-  = render_field('Ordering', f.text_field(:ordering, max_length: 1))
+  = render_field('Name', f.text_field(:name, max_length: 64), :name_name)
+  = render_field('Role', f.select(:role, Name::ROLE_OPTIONS, include_blank: true), :name_role)
+  = render_field('Role Note', f.text_field(:role_note, max_length: 127), :name_role_note)
+  = render_field('Added Information', f.text_field(:added_information, max_length: 255), :name_added_information)
+  = render_field('Date', f.text_field(:date, max_length: 255), :name_date)
+  = render_field('Ordering', f.text_field(:ordering, max_length: 1), :name_ordering)
   .form-actions
     = f.submit 'Save', class: "btn btn-blue"
     = link_to 'Cancel', papyrus_path(papyrus), class: "btn"

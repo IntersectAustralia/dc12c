@@ -47,11 +47,11 @@
         .name_container
           - if can? :update, name
             .controls= link_to 'Edit', edit_papyrus_name_path(papyrus, name), id: "edit_name_#{name.id}", class: 'btn'
-          = render_field 'Name', name.name, "name_name"
-          = render_field 'Role', name.human_readable_role, "name_role"
-          = render_field 'Role Note', name.role_note, "name_role_note"
-          = render_field 'Added Information', name.added_information, "name_added_information"
-          = render_field 'Date', name.date, "name_date"
+          = render_field 'Name', name.name, nil, "name_name"
+          = render_field 'Role', name.human_readable_role, nil, "name_role"
+          = render_field 'Role Note', name.role_note, nil, "name_role_note"
+          = render_field 'Added Information', name.added_information, nil, "name_added_information"
+          = render_field 'Date', name.date, nil, "name_date"
 
 
   %h3

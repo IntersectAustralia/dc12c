@@ -5,10 +5,10 @@
   .page-content
     = render partial: 'shared/error_messages', locals: {target: @user}
     = form_for(@user, url: { action: 'create_external'}) do |f|
-      = render_field('First Name', f.text_field(:first_name, maxlength: 50))
-      = render_field('Last Name', f.text_field(:last_name, maxlength: 50))
-      = render_field('Email', f.text_field(:email, maxlength: 50))
-      = render_field('Role', f.collection_select(:role_id, Role.by_name, :id, :name, {:include_blank => false}))
+      = render_field('First Name', f.text_field(:first_name, maxlength: 50), :user_first_name)
+      = render_field('Last Name', f.text_field(:last_name, maxlength: 50), :user_last_name)
+      = render_field('Email', f.text_field(:email, maxlength: 50), :user_email)
+      = render_field('Role', f.collection_select(:role_id, Role.by_name, :id, :name, {:include_blank => false}), :user_role_id)
 
       .form-actions
         = submit_tag 'Save', class: "btn btn-blue"

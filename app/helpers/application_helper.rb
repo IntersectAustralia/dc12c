@@ -25,8 +25,8 @@ module ApplicationHelper
   end
 
   # convenience method to render a field on a view screen - saves repeating the div/span etc each time
-  def render_field(label, value, additional_classes='')
-    render_field_content(label, (h value), additional_classes)
+  def render_field(label, value, edit_label_id=nil, additional_classes='')
+    render_field_content(label, (h value), edit_label_id, additional_classes)
   end
 
   def render_field_if_not_empty(label, value)
@@ -34,9 +34,9 @@ module ApplicationHelper
   end
 
   # as above but takes a block for the field value
-  def render_field_with_block(label, &block)
+  def render_field_with_block(label, edit_label_id=nil, &block)
     content = with_output_buffer(&block)
-    render_field_content(label, content)
+    render_field_content(label, content, edit_label_id)
   end
 
   def with_renderer_for(papyrus, current_user, &block)
@@ -45,14 +45,21 @@ module ApplicationHelper
   end
 
   private
-  def render_field_content(label, content, additional_classes='')
+  def render_field_content(label, content, edit_label_id=nil, additional_classes='')
     div_class = cycle("field_bg","field_nobg")
     div_id = label.tr(" ,.", "_").downcase
     html = "<div class='#{div_class} control-group' id='display_#{div_id}'>"
-    html << '<label class="control-label">'
-    html << (h label)
-    html << ":"
-    html << '</label>'
+    if edit_label_id
+      html << "<label class='control-label' for='#{edit_label_id}'>"
+      html << (h label)
+      html << ":"
+      html << '</label>'
+    else
+      html << '<span class="control-label">'
+      html << (h label)
+      html << ":"
+      html << '</span>'
+    end
     html << "<div class='controls #{additional_classes}'>"
     html << content
     html << '</div>'
