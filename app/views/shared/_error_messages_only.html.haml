@@ -1,5 +1,6 @@
-#error_explanation.alert-error
-  .notification{:id => "*.errors"}
-    %ul
-      - messages.each do |msg|
-        %li= msg
+- if messages.present?
+  #error_explanation.alert-error
+    .notification{:id => "*.errors"}
+      %ul
+        - messages.each do |msg|
+          %li= msg
