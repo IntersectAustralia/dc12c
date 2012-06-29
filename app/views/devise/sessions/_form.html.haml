@@ -1,5 +1,6 @@
+- title "Log In"
 .page-header.record
-  %h2 Log In to DC.12C
+  %h2 Log In to Macquarie Papyri
   %small Please enter your email (or One ID if you have one) and password to log in
 .page-content
   .control-group
@@ -13,3 +14,5 @@
   .form-actions
     = f.submit "Log in", :class => "btn"
     = link_to "Forgot your password?", new_user_password_path, :class => "btn"
+  .form-actions
+    %small Contact #{APP_CONFIG['account_contact']} for an account.

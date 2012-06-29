@@ -6,6 +6,7 @@ defaults: &defaults
   image_root: /tmp
   one_id_password_reset_url: http://mypassword.mq.edu.au
   papyrus_created_email_sender: papyrus-account-created@intersect.org.au
+  account_contact: contactme@example.com
 
 development:
   <<: *defaults
