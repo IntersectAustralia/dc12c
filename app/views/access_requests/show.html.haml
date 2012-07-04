@@ -6,9 +6,9 @@
       %small #{@access_request.user.first_name} #{@access_request.user.last_name} is requesting access to this record
       %br
       = form_for(@access_request, url: approve_access_request_path(@access_request)) do |f|
-        = f.submit 'Approve'
+        = f.submit 'Approve', class: 'btn blue'
       = form_for(@access_request, url: reject_access_request_path(@access_request)) do |f|
-        = f.submit 'Reject'
+        = f.submit 'Reject', class: 'btn red'
     -elsif @access_request.status == AccessRequest::APPROVED
       %small #{@access_request.user.first_name} #{@access_request.user.last_name} has had access to this record since #{@access_request.formatted_date_approved}
       %br

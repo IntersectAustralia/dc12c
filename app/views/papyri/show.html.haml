@@ -12,7 +12,7 @@
 
     - if can? :cancel_access_request, @papyrus
       = form_tag cancel_access_request_papyrus_path(@papyrus) do
-        = submit_tag 'Cancel Access'
+        = submit_tag 'Cancel Access', class: "btn"
 
     - if can? :create, Image
       = link_to 'Upload', new_papyrus_image_path(@papyrus), class: "btn"
@@ -22,15 +22,15 @@
 
     - if can? :make_visible, @papyrus
       = form_tag make_visible_papyrus_path(@papyrus) do
-        = submit_tag 'Make Visible'
+        = submit_tag 'Make Visible', class: "btn blue"
 
     - if can? :make_hidden, @papyrus
       = form_tag make_hidden_papyrus_path(@papyrus) do
-        = submit_tag 'Make Hidden'
+        = submit_tag 'Make Hidden', class: "btn blue"
 
     - if can? :make_public, @papyrus
       = form_tag make_public_papyrus_path(@papyrus) do
-        = submit_tag 'Make Public'
+        = submit_tag 'Make Public', class: "btn blue"
 
   .page-content
     = render partial: 'details', locals: {papyrus: @papyrus}
