@@ -85,8 +85,8 @@
             = image_tag image.image.url(:low_res), title: image.caption
             %div
               = image.caption
-              = link_to 'Download in low resolution', image.image.url(:low_res), id: "download_low_res_#{image.id}", class: "btn"
+              %div= link_to 'Download in low resolution', image.image.url(:low_res), id: "download_low_res_#{image.id}"
               - if can? :high_res, image
-                = link_to 'Download in high resolution', image.image.url(:original), id: "download_high_res_#{image.id}", class: "btn"
+                %div= link_to 'Download in high resolution', image.image.url(:original), id: "download_high_res_#{image.id}"
               - if can? :update, image
-                = link_to 'Edit', edit_papyrus_image_path(papyrus, image), id: "edit_image_#{image.id}", class: "btn"
+                %div= link_to 'Edit', edit_papyrus_image_path(papyrus, image), id: "edit_image_#{image.id}", class: "btn"
