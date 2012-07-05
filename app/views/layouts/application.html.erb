@@ -25,6 +25,7 @@
       <div class="container">
       <%= tabs_tag(:builder => MenuTabBuilder) do |tab| %>
         <ul class="nav">
+          <%= tab.home 'Search', root_path %>
           <%= tab.list 'List All Macquarie Papyri', papyri_path %>
           <%= tab.collections 'Collections', collections_path %>
           <%= tab.about 'About', about_pages_path %> 

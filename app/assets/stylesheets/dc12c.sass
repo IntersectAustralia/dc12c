@@ -718,7 +718,7 @@ label.inlinelabel
 
 .pagination
   height: 36px
-  margin: 18px 0
+  margin: 54px 0 18px 0
 
 
 .pagination ul
@@ -739,13 +739,15 @@ label.inlinelabel
   display: inline
 
 
-.pagination a
-  float: left
+.pagination a, .pagination span
+  //float: left
+  margin: 0
   padding: 0 14px
   line-height: 34px
   text-decoration: none
   border: 1px solid #ddd
   border-left-width: 0
+  display: inline-block
 
 .pagination em
   padding: 0 14px
@@ -753,6 +755,11 @@ label.inlinelabel
   text-decoration: none
   border: 1px solid #ddd
   border-left-width: 0
+  display: inline-block
+
+.pagination em.current
+  background: #EE5F5B
+  color: #FFF
 
 .pagination a.previous_page
   border-left-width: 1px
@@ -764,6 +771,13 @@ label.inlinelabel
   -webkit-border-radius: 0 3px 3px 0
   -moz-border-radius: 0 3px 3px 0
   border-radius: 0 3px 3px 0
+
+.pagination span.previous_page
+  border-left-width: 1px
+  -webkit-border-radius: 3px 0 0 3px
+  -moz-border-radius: 3px 0 0 3px
+  border-radius: 3px 0 0 3px
+  display: inline-block
 
 .pagination a:hover,
 .pagination .active a
