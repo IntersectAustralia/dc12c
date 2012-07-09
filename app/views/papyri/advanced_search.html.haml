@@ -10,7 +10,7 @@
           = label_tag(:date_from_year, 'Year', class: 'inlinelabel')
           \/
           = label_tag(:date_from_era, 'Era', class: 'inlinelabel')
-          = text_field_tag(:date_from_year, @search_fields[:date_from_year], class: 'input-mini')
+          = text_field_tag(:date_from_year, @search_fields[:date_from_year], class: 'input-mini', maxlength: 4)
           - from_options = options_for_select([['CE'], ['BCE']], @search_fields[:date_from_era])
           = select_tag(:date_from_era, from_options, include_blank: true)
 
@@ -26,7 +26,7 @@
           = label_tag(:date_to_year, 'Year', class: 'inlinelabel')
           \/
           = label_tag(:date_to_era, 'Era', class: 'inlinelabel')
-          = text_field_tag(:date_to_year, @search_fields[:date_to_year], class: 'input-mini')
+          = text_field_tag(:date_to_year, @search_fields[:date_to_year], class: 'input-mini', maxlength: 4)
           - to_options = options_for_select([['CE'], ['BCE']], selected = @search_fields[:date_to_era])
           = select_tag(:date_to_era, to_options, include_blank: true)
         = render_field('Source of Acquisition', search_field_tag(:source_of_acquisition, @search_fields[:source_of_acquisition], maxlength: 50), :source_of_acquisition)
