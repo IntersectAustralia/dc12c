@@ -480,19 +480,33 @@ describe Papyrus do
   end
 
   describe "xml date functions" do
-    it "should return nil for nils" do
-      p = FactoryGirl.build(:papyrus)
+    describe "date functions" do
+      it "should return nil for nils" do
+        p = FactoryGirl.build(:papyrus)
 
-      p.xml_date_from.should be_nil
-      p.xml_date_to.should be_nil
+        p.xml_date_from.should be_nil
+        p.xml_date_to.should be_nil
+      end
+      it "should pad with zeros" do
+        FactoryGirl.build(:papyrus, date_from: -1).xml_date_from.should eq "-0001"
+        FactoryGirl.build(:papyrus, date_to: 1).xml_date_to.should eq "0001"
+      end
+      it "doesn't add too many zeroes" do
+        FactoryGirl.build(:papyrus, date_from: -1000).xml_date_from.should eq "-1000"
+        FactoryGirl.build(:papyrus, date_to: 1000).xml_date_to.should eq "1000"
+
+      end
     end
-    it "should pad with zeros" do
-      FactoryGirl.build(:papyrus, date_from: -1).xml_date_from.should eq "-0001"
-      FactoryGirl.build(:papyrus, date_to: 1).xml_date_to.should eq "0001"
-    end
-    it "doesn't add too many zeroes" do
-      FactoryGirl.build(:papyrus, date_from: -1000).xml_date_from.should eq "-1000"
-      FactoryGirl.build(:papyrus, date_to: 1000).xml_date_to.should eq "1000"
+
+    describe "title" do
+      it "should return the title if it exists" do
+        title = "abc"
+        FactoryGirl.build(:papyrus, type_of_text: title).xml_title.should eq title
+      end
+      it "should return the formatted mqt number otherwise" do
+        mqt = 122
+        FactoryGirl.build(:papyrus, mqt_number: mqt).xml_title.should eq "MQT 122"
+      end
 
     end
   end

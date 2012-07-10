@@ -4,7 +4,7 @@
    <teiHeader>
       <fileDesc>
          <titleStmt>
-            <title><%= papyrus.type_of_text %></title>
+            <title><%= papyrus.xml_title %></title>
             <% papyrus.authors.each do |author| %>
               <author><%= author.name %></author>
             <% end %>
@@ -19,6 +19,7 @@
                <msIdentifier>
                   <idno type="invNo"><%= papyrus.inventory_number %></idno>
                </msIdentifier>
+               <institution>Macquarie Museum</institution>
                <msContents>
                   <summary><%= papyrus.summary %></summary>
                   <msItemStruct>
@@ -34,18 +35,20 @@
                <physDesc>
                   <objectDesc>
                      <supportDesc>
-                        <support><%= papyrus.material %> <%= papyrus.dimensions %></support>
-                        <condition>
-                           <% if papyrus.conservation_note.present? %>
-                             <ab type="conservation"><%= papyrus.conservation_note %></ab>
-                           <% end %>
-                           <% if papyrus.preservation_note.present? %>
-                             <ab type="preservation"><%= papyrus.preservation_note %></ab>
-                           <% end %>
-                           <% if papyrus.other_characteristics.present? %>
-                             <ab type="other"><%= papyrus.other_characteristics %></ab>
-                           <% end %>
-                        </condition>
+                        <support><%= papyrus.material %>
+                               <%= papyrus.other_characteristics %>
+                          <note type="dimensions"><%= papyrus.dimensions %></note>
+                        </support>
+                        <% if [papyrus.conservation_note, papyrus.preservation_note].any?(&:present?) %>
+                          <condition>
+                             <% if papyrus.conservation_note.present? %>
+                               <ab type="conservation"><%= papyrus.conservation_note %></ab>
+                             <% end %>
+                             <% if papyrus.preservation_note.present? %>
+                               <ab type="preservation"><%= papyrus.preservation_note %></ab>
+                             <% end %>
+                          </condition>
+                        <% end %>
                      </supportDesc>
                      <layoutDesc>
                         <layout>
@@ -70,9 +73,9 @@
                      <% end %>
                   </origin>
                   <% if papyrus.source_of_acquisition.present? %>
-                    <provenance>
+                    <acquisition>
                        <p><%= papyrus.source_of_acquisition %></p>
-                    </provenance>
+                    </acquisition>
                   <% end %>
                </history>
                <% end %>
@@ -82,8 +85,8 @@
       <% if [papyrus.keywords, papyrus.genre].any?(&:present?) %>
       <encodingDesc>
          <classDecl>
-            <taxonomy xml:id="macquarie">
-               <desc>Macquarie keywords are controlled locally at the institution level. They are not necessarily consistent.</desc>
+            <taxonomy xml:id="apis">
+               <desc>APIS keywords are controlled locally at the institution level. They are not necessarily consistent.</desc>
             </taxonomy>
          </classDecl>
       </encodingDesc>
@@ -99,7 +102,7 @@
          <% end %>
          <% if [papyrus.split_keywords, papyrus.genre].any?(&:present?) %>
          <textClass>
-            <keywords scheme="#macquarie">
+            <keywords scheme="#apis">
                <% papyrus.split_keywords.each do |keyword| %>
                  <term><%= keyword %></term>
                <% end %>
@@ -129,8 +132,8 @@
             <listBibl>
                <bibl><%= papyrus.publications %></bibl>
             </listBibl>
-            <p>
             <% end %>
+            <p>
             <ref target="<%= the_papyrus_url %>">Original record</ref>.</p>
          </div>
       </body>

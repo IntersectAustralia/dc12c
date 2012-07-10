@@ -18,6 +18,7 @@
                <msIdentifier>
                   <idno type="invNo">p.macq.4321</idno>
                </msIdentifier>
+               <institution>Macquarie Museum</institution>
                <msContents>
                   <summary>A summary</summary>
                   <msItemStruct>
@@ -28,11 +29,10 @@
                <physDesc>
                   <objectDesc>
                      <supportDesc>
-                        <support>papyrus 24 x 11 mm</support>
+                        <support>papyrus lovely<note type="dimensions">24 x 11 mm</note></support>
                         <condition>
                            <ab type="conservation">taped together</ab>
                            <ab type="preservation">held in glass</ab>
-                           <ab type="other">lovely</ab>
                         </condition>
                      </supportDesc>
                      <layoutDesc>
@@ -54,17 +54,17 @@
                        <persName type="Author">Author Two</persName>
                        <persName type="Associate">Non-author</persName>
                   </origin>
-                  <provenance>
+                  <acquisition>
                      <p>Acquisition Source</p>
-                  </provenance>
+                  </acquisition>
                </history>
             </msDesc>
          </sourceDesc>
       </fileDesc>
       <encodingDesc>
          <classDecl>
-            <taxonomy xml:id="macquarie">
-               <desc>Macquarie keywords are controlled locally at the institution level. They are not necessarily consistent.</desc>
+            <taxonomy xml:id="apis">
+               <desc>APIS keywords are controlled locally at the institution level. They are not necessarily consistent.</desc>
             </taxonomy>
          </classDecl>
       </encodingDesc>
@@ -74,7 +74,7 @@
                <language ident="grc">Greek</language>
          </langUsage>
          <textClass>
-            <keywords scheme="#macquarie">
+            <keywords scheme="#apis">
                  <term>abc</term>
                  <term>def</term>
                  <term>ghi</term>

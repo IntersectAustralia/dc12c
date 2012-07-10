@@ -271,11 +271,19 @@ class Papyrus < ActiveRecord::Base
     end
   end
 
+# papyri.info XML functions
   def xml_date_from
     to_xml_date(date_from)
   end
   def xml_date_to
     to_xml_date(date_to)
+  end
+  def xml_title
+    if type_of_text.present?
+      type_of_text
+    else
+      formatted_mqt_number
+    end
   end
 
   private
