@@ -171,7 +171,7 @@ namespace :deploy do
   end
 
   task :regenerate_manual do
-    run("cd #{current_path} && rm -rf public/manual/* && jekyll manual/ public/manual/")
+    run("cd #{current_path} && rm -rf public/manual/* && bundle exec jekyll manual/ public/manual/")
   end
 end
 
