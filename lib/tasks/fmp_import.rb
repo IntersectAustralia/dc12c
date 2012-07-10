@@ -235,6 +235,8 @@ def to_attrs(hash)
       'grc'
     elsif ['cpt'].include? modded
       'cop'
+    elsif ['dem'].include? modded
+      'egy-Egyd'
     elsif modded.blank?
       nil
     else
