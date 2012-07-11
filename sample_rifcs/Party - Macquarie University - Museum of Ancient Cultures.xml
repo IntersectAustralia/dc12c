@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<registryObjects xmlns="http://ands.org.au/standards/rif-cs/registryObjects">
+  <registryObject group="Macquarie University">
+    <key>http://nla.gov.au/nla.party-1460842</key>
+    <originatingSource>http://services.ands.org.au/home/orca/register_my_data</originatingSource>
+    <party dateModified="2012-06-24T00:00:00Z" type="group">
+      <name field_id="name_1" tab_id="name" type="primary">
+        <namePart field_id="name_1_namePart_1" tab_id="name" type="">Macquarie University - Museum of Ancient Cultures</namePart>
+      </name>
+      <description field_id="description_1" tab_id="description" type="full">&lt;p&gt;
+	The Museum of Ancient Cultures is a leading museum of Macquarie University. It is an archaeological museum that introduces modern minds to a number of cultures from the ancient world through its research and publications, learning, teaching and outreach programs, and its displays and exhibitions.&amp;nbsp; It was originally founded in 1974 as the Ancient History Teaching Collection (AHTC).&amp;nbsp; In 1994, following the completion of Building X5B, with a tailor-made space for the Ancient History Teaching Collection, its name was changed to the Museum of Ancient Cultures.&lt;/p&gt;
+&lt;p&gt;
+	The archaeological collection held by the museum, especially its inscriptional material, provides excellent source materials for the study of Ancient History from a source-based approach. Providing a collection of archaeological material that represents the everyday life of past cultures is a very useful way to explore the arts, crafts, technology and design of ancient peoples, as it reflects their social, economic, political and religious life, and enables scholars to observe developments in these over time.&lt;/p&gt;
+</description>
+      <identifier field_id="identifier_1" tab_id="identifier" type="AU-ANL:PEAU">http://nla.gov.au/nla.party-1460842</identifier>
+      <location field_id="location_1" tab_id="location">
+        <address field_id="location_1_address_1" tab_id="location">
+          <physical field_id="location_1_address_1_physical_1" tab_id="location" type="streetAddress">
+            <addressPart field_id="location_1_address_1_physical_1_addressPart_1" tab_id="location" type="addressLine">Building W6A&lt;br /&gt;
+Macquarie University&lt;br /&gt;
+NSW 2109&lt;br /&gt;
+Australia</addressPart>
+          </physical>
+        </address>
+      </location>
+      <relatedObject field_id="relatedObject_1" tab_id="relatedObject">
+        <key field_id="relatedObject_1_key_1" roclass="Collection" tab_id="relatedObject">MQ-MAC-Papyri-Literary</key>
+        <relation field_id="relatedObject_1_relation_1" tab_id="relatedObject" type="isOwnerOf">
+          <url field_id="relatedObject_1_relation_1_url_1" tab_id="relatedObject"></url>
+        </relation>
+      </relatedObject>
+      <relatedObject field_id="relatedObject_2" tab_id="relatedObject">
+        <key field_id="relatedObject_2_key_1" roclass="Collection" tab_id="relatedObject">MQ-MAC-Papyri-Demotic</key>
+        <relation field_id="relatedObject_2_relation_1" tab_id="relatedObject" type="isOwnerOf">
+          <url field_id="relatedObject_2_relation_1_url_1" tab_id="relatedObject"></url>
+        </relation>
+      </relatedObject>
+      <relatedObject field_id="relatedObject_3" tab_id="relatedObject">
+        <key field_id="relatedObject_3_key_1" roclass="Collection" tab_id="relatedObject">MQ-MAC-Papyri-Bilingual</key>
+        <relation field_id="relatedObject_3_relation_1" tab_id="relatedObject" type="isOwnerOf">
+          <url field_id="relatedObject_3_relation_1_url_1" tab_id="relatedObject"></url>
+        </relation>
+      </relatedObject>
+      <subject field_id="subject_1" tab_id="subject" type="anzsrc-for">210105</subject>
+      <subject field_id="subject_2" tab_id="subject" type="anzsrc-for">200305</subject>
+      <subject field_id="subject_3" tab_id="subject" type="anzsrc-for">210306</subject>
+      <existenceDates field_id="existenceDates_1" tab_id="existenceDates">
+        <startDate dateFormat="W3CDTF" field_id="existenceDates_1_startDate_1" tab_id="existenceDates">1974-01-01T00:00:00Z</startDate>
+      </existenceDates>
+    </party>
+  </registryObject>
+</registryObjects>

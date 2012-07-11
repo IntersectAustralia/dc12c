@@ -18,6 +18,8 @@ gem 'rubyzip', require: 'zip/zip'
 gem 'jekyll', git: 'https://github.com/mojombo/jekyll.git', require: false
 gem 'google-analytics-rails'
 
+gem 'rif-cs'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<registryObjects xmlns="http://ands.org.au/standards/rif-cs/registryObjects">
+  <registryObject group="Macquarie University">
+    <key>MQ-MAC-Papyri-Demotic</key>
+    <originatingSource>http://services.ands.org.au/home/orca/register_my_data</originatingSource>
+    <collection dateAccessioned="2012-06-24T00:00:00Z" type="collection">
+      <name field_id="name_1" tab_id="name" type="primary">
+        <namePart field_id="name_1_namePart_1" tab_id="name" type="">Macquarie Papyri - Demotic (Egyptian) Items</namePart>
+      </name>
+      <description field_id="description_1" tab_id="description" type="full">The Macquarie Papyri include 24 Demotic Egyptian Items, probably from the Ptolemaic era.&amp;nbsp; These range from very small fragments to a complete and unusually well-preserved letter.&amp;nbsp; The latter is a remarkable document mentioning a proxy note held in the Duke University collection in North Carolina, USA.&amp;nbsp; There is also at least one contract and several financial accounts.&amp;nbsp; The collection includes several Demotic-Greek bilingual texts.&amp;nbsp; </description>
+      <rights field_id="rights_1" tab_id="rights">
+        <rightsStatement field_id="rights_1_rightsStatement_1" tab_id="rights">Owned by the Museum of Ancient Cultures, Macquarie University.  Permission must be sought before publishing images of this collection.</rightsStatement>
+        <accessRights field_id="rights_1_accessRights_1" rightsUri="http://www.tbc" tab_id="rights">Low resolution images are available via the website for downloading.  
+Researchers may 
+apply to Trevor Evans, the chair of the Macquarie Papyri R&amp;D Committee to request access to high-resolution versions of the images. Please apply via the website or email shown below.
+Physical access rights only by permission of the director of the Ancient Cultures Museum AND the chair of Macquarie Papyri R&amp;D Committee.  Please Apply via the website or email shown below.</accessRights>
+      </rights>
+      <identifier field_id="identifier_1" tab_id="identifier" type="local">MQ-MAC-Papyri-Demotic</identifier>
+      <location field_id="location_1" tab_id="location">
+        <address field_id="location_1_address_1" tab_id="location">
+          <electronic field_id="location_1_address_1_electronic_1" tab_id="location" type="url">
+            <value field_id="location_1_address_1_electronic_1_value_1" tab_id="location">http://www.tbc</value>
+          </electronic>
+          <electronic field_id="location_1_address_1_electronic_2" tab_id="location" type="email">
+            <value field_id="location_1_address_1_electronic_2_value_1" tab_id="location">trevor.evans@mq.edu.au</value>
+          </electronic>
+          <physical field_id="location_1_address_1_physical_1" tab_id="location" type="streetAddress">
+            <addressPart field_id="location_1_address_1_physical_1_addressPart_1" tab_id="location" type="addressLine">&lt;p&gt;
+	Building X5B Level 3&lt;br /&gt;
+	Macquarie University&lt;br /&gt;
+	NSW 2109&lt;br /&gt;
+	Australia&lt;/p&gt;
+</addressPart>
+          </physical>
+        </address>
+      </location>
+      <relatedObject field_id="relatedObject_1" tab_id="relatedObject">
+        <key field_id="relatedObject_1_key_1" roclass="Party" tab_id="relatedObject">http://nla.gov.au/nla.party-1460842</key>
+        <relation field_id="relatedObject_1_relation_1" tab_id="relatedObject" type="isOwnedBy">
+          <url field_id="relatedObject_1_relation_1_url_1" tab_id="relatedObject"></url>
+        </relation>
+      </relatedObject>
+      <subject field_id="subject_1" tab_id="subject" type="anzsrc-for">210105</subject>
+      <subject field_id="subject_2" tab_id="subject" type="anzsrc-for">200305 </subject>
+      <subject field_id="subject_3" tab_id="subject" type="anzsrc-for">210306</subject>
+      <subject field_id="subject_4" tab_id="subject" type="local">Demotic</subject>
+      <subject field_id="subject_5" tab_id="subject" type="local">Papyri</subject>
+      <subject field_id="subject_6" tab_id="subject" type="local">Papyrology</subject>
+      <subject field_id="subject_7" tab_id="subject" type="local">Ptolemaic Egypt</subject>
+      <subject field_id="subject_8" tab_id="subject" type="local">Egyptian Language</subject>
+      <subject field_id="subject_9" tab_id="subject" type="local">Ancient Greek</subject>
+      <coverage field_id="coverage_1" tab_id="coverage">
+        <temporal field_id="coverage_1_temporal_1" tab_id="coverage">
+          <text field_id="coverage_1_temporal_1_text_1" tab_id="coverage">Approx 330 BCE to 1 CE (Ptolemaic and early Roman period)</text>
+        </temporal>
+        <spatial field_id="coverage_1_spatial_1" tab_id="coverage" type="text">Egypt, especially Fayum</spatial>
+      </coverage>
+      <citationInfo field_id="citationInfo_1" tab_id="citationInfo">
+        <fullCitation field_id="citationInfo_1_fullCitation_1" style="Datacite" tab_id="citationInfo">To be provided by researchers through the Intersect web application</fullCitation>
+      </citationInfo>
+    </collection>
+  </registryObject>
+</registryObjects>

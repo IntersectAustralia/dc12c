@@ -16,4 +16,11 @@ describe Collection do
       should validate_uniqueness_of :title
     end
   end
+  describe "rif-cs" do
+    it "makes the right xml" do
+      collection = FactoryGirl.create(:collection)
+      collection.to_rifcs.should be_present
+      raise collection.to_rifcs.to_xml.inspect
+    end
+  end
 end
