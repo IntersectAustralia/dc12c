@@ -7486,4 +7486,6 @@ p {
 }
 .page-content ul li{
   list-style-type: disc;
+  padding-left: 5px;
+  padding-right: 5px;
 }
