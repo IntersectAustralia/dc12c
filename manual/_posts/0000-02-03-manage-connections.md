@@ -6,8 +6,32 @@ group: manual
 ---
 {% include JB/setup %}
 
-Content goes here. This should include
-* manage papyrus
-* manage name
-* manage connection
-* manage image
+If you are an administrator, you will be able to edit the details of papyri connections.
+
+When you are viewing a papyrus, you will have the following options:
+
+## Add a Connection
+Click "Add Connection"
+
+(TODO add image)
+
+A connection has two fields: the related papyrus MQT number, and a description.
+Both are required.
+
+Click "Save" or "Cancel" once you are done.
+
+## Edit a Connection
+Click "Edit" near the connection you wish to edit.
+
+(TODO add image)
+
+The fields are the same as on the new connection page.
+Update them as you wish.
+
+Click "Save" or "Cancel" once you are done.
+
+## Delete a Connection
+Once you are on an edit connection page, you can click delete to remove a connection.
+Be careful, as there is no undo when deleting a connection.
+
+(TODO add image)
