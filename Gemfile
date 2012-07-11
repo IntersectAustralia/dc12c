@@ -15,7 +15,7 @@ gem 'paperclip'
 gem 'bundler'
 gem 'rubygems-bundler'
 gem 'rubyzip', require: 'zip/zip'
-gem 'jekyll', require: false
+gem 'jekyll', git: 'https://github.com/mojombo/jekyll.git', require: false
 gem 'google-analytics-rails'
 
 # Gems used only for assets and not required
