@@ -216,7 +216,7 @@ describe Papyrus do
           results.should eq [@p10, @p110, @p210]
         end
         it "should find by preservation note" do
-          results = Papyrus.advanced_search(@user, preservation_note: 'no biro please')
+          results = Papyrus.advanced_search(@user, preservation_note: 'no biro')
           results.should eq [@p11, @p111, @p211]
         end
         it "should find by language note" do
@@ -380,7 +380,7 @@ describe Papyrus do
           results.should eq [@p210]
         end
         it "should find by preservation note" do
-          results = Papyrus.advanced_search(@user, preservation_note: 'no biro please')
+          results = Papyrus.advanced_search(@user, preservation_note: 'no biro')
           results.should eq [@p211]
         end
         it "should find by language note" do
@@ -552,7 +552,7 @@ describe Papyrus do
           results.should eq [@p10, @p110, @p210, @p310, @p410, @p510]
         end
         it "should find by preservation note" do
-          results = Papyrus.advanced_search(@user, preservation_note: 'no biro please')
+          results = Papyrus.advanced_search(@user, preservation_note: 'no biro')
           results.should eq [@p11, @p111, @p211, @p311, @p411, @p511]
         end
         it "should find by language note" do
@@ -603,4 +603,17 @@ describe Papyrus do
     end
   end
   # TODO We elect to not write researcher/anonymous tests for date searching as this file is getting too long (and logically, they are well-covered)
+
+  describe "advanced searching should AND subterms " do
+    before :each do
+      @p1 = FactoryGirl.create(:papyrus, inventory_number: 'pmacq1', visibility: Papyrus::PUBLIC)
+      @p2 = FactoryGirl.create(:papyrus, inventory_number: 'pmacq2', visibility: Papyrus::PUBLIC)
+      @p3 = FactoryGirl.create(:papyrus, inventory_number: 'pmacq3', visibility: Papyrus::PUBLIC)
+
+      @anonymous = nil
+    end
+    specify do
+      Papyrus.advanced_search(@anonymous, inventory_number: 'pmacq 1').should eq [@p1]
+    end
+  end
 end

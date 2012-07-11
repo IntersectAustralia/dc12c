@@ -221,18 +221,18 @@ class Papyrus < ActiveRecord::Base
       clauses = search_fields.map do |field_name, search_terms|
         ## this code couldn't be refactored :(
         if Papyrus.basic_field(field_name)
-          upper(__send__(field_name)).like_any search_terms
+          upper(__send__(field_name)).like_all search_terms
         elsif Papyrus.detailed_field(field_name)
           if registered
-            upper(__send__(field_name)).like_any search_terms
+            upper(__send__(field_name)).like_all search_terms
           else
-            upper(__send__(field_name)).like_any(search_terms) & visibility.eq("PUBLIC")
+            upper(__send__(field_name)).like_all(search_terms) & visibility.eq("PUBLIC")
           end
         else
           if super_role
-            upper(__send__(field_name)).like_any search_terms
+            upper(__send__(field_name)).like_all search_terms
           else
-            upper(__send__(field_name)).like_any(search_terms) & (visibility.eq("PUBLIC") | id.in(papyri_id_list))
+            upper(__send__(field_name)).like_all(search_terms) & (visibility.eq("PUBLIC") | id.in(papyri_id_list))
           end
         end
       end
