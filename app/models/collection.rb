@@ -1,6 +1,9 @@
 class Collection < ActiveRecord::Base
   include RIFCS::Collection
 
+  FOR_CODES= ['210105', '200305', '210306']
+  DATE_FORMAT = '%Y-%m-%dT%H:%M:%SZ'
+
   attr_accessible :title, :description, :keywords, :papyrus_ids
   has_and_belongs_to_many :papyri
 
@@ -13,26 +16,152 @@ class Collection < ActiveRecord::Base
   validates_length_of :title, maximum: 255
   validates_length_of :description, maximum: 512
   validates_length_of :keywords, maximum: 255
+  validates_length_of :spatial_coverage, maximum: 255
+  validates_length_of :temporal_coverage, maximum: 255
 
 # required by RIFCS::Collection
   def collection_group
-    "FIXME GROUP"
+    "Macquarie University"
   end
   def collection_key
-    "FIXME KEY"
+    view_url
   end
   def collection_originating_source
-    "FIXME ORIGINATING SOURCE"
+    url_opts = ActionController::Base.default_url_options
+    Rails.application.routes.url_helpers.root_url(url_opts)
   end
 
   def collection_date_modified
-    created_at
+    updated_at.strftime(DATE_FORMAT)
   end
   def collection_date_accessioned
-    updated_at
+    created_at.strftime(DATE_FORMAT)
   end
 
   def collection_type
-    'FIXME TYPE'
+    'collection'
+  end
+
+  def collection_rights
+    [
+      {
+        rights_statement: {
+          value: 'Owned by the Museum of Ancient Cultures, Macquarie University.  Permission must be sought before publishing images of this collection.',
+          rights_uri: 'tbc'
+        },
+        access_rights: {
+          value: 'Low resolution images are available via the website below for downloading.  Researchers may apply to Trevor Evans, the chair of the Macquarie Papyri R&D Committee to request access to high-resolution versions of the images. Please apply via the website or email shown below.  Physical access rights only by permission of the director of the Ancient Cultures Museum AND the chair of Macquarie Papyri R&D Committee.  Please Apply via the website or email shown below.',
+          rights_uri: 'tbc'
+        }
+      }
+    ]
+  end
+  def collection_names
+    [
+      {
+        xmllang: 'en',
+        name_parts: [
+          {
+            value: title,
+            type: 'type'
+          }
+        ]
+      }
+    ]
+  end
+
+  def collection_descriptions
+    [
+      {
+        value: description,
+        type: 'full'
+      }
+    ]
+  end
+
+  def collection_locations
+    [
+      {
+        addresses: [
+          {
+            electronic: [
+              {
+                type: 'email',
+                value: APP_CONFIG['rifcs_collection_location_email']
+              },
+              {
+                type: 'url',
+                value: view_url,
+              }
+            ],
+            physical: [
+              {
+                type: 'streetAddress',
+                address_parts: [
+                  {
+                    type: 'addressLine',
+                    value: 'Building X5B Level 3<br /> Macquarie University<br /> NSW 2109<br /> Australia'
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  end
+  def collection_related_objects
+    {
+      is_owned_by: [
+        {
+          key: 'http://nla.gov.au/nla.party-1460842'
+        }
+      ]
+    }
+  end
+  def collection_subjects
+    for_codes = FOR_CODES.map do |code|
+      {
+        value: code,
+        type: 'anzsrc-for'
+      }
+    end
+    keywords = split_keywords.map do |keyword|
+      {
+        value: keyword,
+        type: 'local'
+      }
+    end
+    for_codes + keywords
+  end
+
+  def collection_coverage
+    [
+      {
+        spatials: [
+          {
+            value: spatial_coverage,
+            type: 'text'
+          }
+        ],
+        temporals: [
+          {
+            dates: [
+            ],
+            text: [temporal_coverage]
+          }
+        ]
+      }
+    ]
+  end
+
+  private
+
+  def split_keywords
+    keywords.split(';').map {|keyword| keyword.strip }
+  end
+  def view_url
+    url_opts = ActionController::Base.default_url_options
+    Rails.application.routes.url_helpers.collection_url(self, url_opts)
   end
 end
