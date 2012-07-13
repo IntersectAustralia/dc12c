@@ -44,4 +44,4 @@
       %h1 Search Results
       = render partial: 'table', locals: {table_id: 'search_results', papyri: @papyri}
       %br
-      = will_paginate @papyri
+      = will_paginate @papyri, params: @search_fields

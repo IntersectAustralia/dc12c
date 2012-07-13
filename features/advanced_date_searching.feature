@@ -61,6 +61,11 @@ Feature: Advanced Searching With Dates
     And I fill in date search information "1234 BCE" "432 CE"
     And I press "Search"
     Then I should see date search information "1234" "BCE" "432" "CE"
+    And I should see search results "MQT 1"
+    When I follow "2"
+    Then I should see search results "MQT 3"
+    When I follow "3"
+    Then I should see search results "MQT 4"
 
   @wip
   Scenario: researcher and anonymous tests
