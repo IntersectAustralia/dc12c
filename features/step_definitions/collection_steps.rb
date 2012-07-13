@@ -2,9 +2,10 @@ Given /^I have collections "([^"]*)" with description "([^"]*)"$/ do |arg1, arg2
   table.hashes.each do |hash|
     title = hash.fetch 'title'
     description = hash.fetch 'description'
+    keywords = hash.fetch 'keywords'
     mqts = hash.fetch('mqts').split(', ').map(&:to_i)
     papyri = Papyrus.where(mqt_number: mqts)
-    FactoryGirl.create(:collection, title: title, description: description, papyri: papyri)
+    FactoryGirl.create(:collection, title: title, description: description, papyri: papyri, keywords: keywords)
   end
 end
 
@@ -26,7 +27,7 @@ Then /^I should see collection$/ do |expected_table|
 
   title = hash.fetch "title"
   description = hash.fetch "description"
-  keywords = hash.fetch "description"
+  keywords = hash.fetch "keywords"
 
   mqts = hash.fetch("mqts").split(", ").map(&:to_i)
   papyri = Papyrus.where(mqt_number: mqts)
@@ -41,6 +42,9 @@ Then /^I should see collection$/ do |expected_table|
   end
 
   actual.should eq expected
+
+  find('p.description').text.should eq description
+  find('p.keywords').text.should eq keywords
 end
 Given /^I fill in collection details$/ do |table|
   details = table.hashes.first.each do |field_name, value|

@@ -7,9 +7,8 @@
       = link_to "Edit", edit_collection_path(@collection), class: 'btn'
 
   .page-content
-    %p= @collection.description
+    %p.keywords= @collection.keywords
+    %p.description= @collection.description
     = render partial: 'papyri/table', locals: {table_id: 'collection_papyri', papyri: @collection.papyri.accessible_by(current_ability)}
-    = @collection.to_rifcs.to_xml.inspect
-
     .form-actions
       = link_to 'Back', papyri_path, class: "btn"
