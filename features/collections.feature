@@ -30,6 +30,7 @@ Feature: Collections
       | MyCollection      | My description.       | first    | 3, 4, 5 |
       | MyOtherCollection | My other description. | other    | 3, 4, 5 |
 
+  @urlhack
   Scenario: View Collections anonymous
     Given I am on the home page
     And I follow "Collections"
@@ -42,6 +43,7 @@ Feature: Collections
       | title             | description           | keywords | mqts |
       | MyOtherCollection | My other description. | other    | 3, 4 |
 
+  @urlhack
   Scenario Outline: View Collections researcher/admin
     Given I am on the home page
     And I am logged in as "<user>@intersect.org.au"
@@ -67,6 +69,7 @@ Feature: Collections
     When I am on the new collection page
     Then I should see "You are not authorized to access this page."
 
+  @urlhack
   Scenario: Admin creates collection
     Given I am logged in as "admin@intersect.org.au"
     And I am on the collections page
@@ -83,6 +86,7 @@ Feature: Collections
       | title | description | keywords | mqts |
       | ttle  | dcription   | kwords   | 3    |
 
+  @urlhack
   Scenario: Admin creates collection fail
     Given I am logged in as "admin@intersect.org.au"
     And I am on the new collection  page
@@ -92,6 +96,7 @@ Feature: Collections
     And I press "Save"
     Then I should see "The record could not be saved"
 
+  @urlhack
   Scenario: Admin edits collection
     Given I am logged in as "admin@intersect.org.au"
     And I am on the "MyCollection" collection page
@@ -103,6 +108,7 @@ Feature: Collections
       | title     | description     | keywords | mqts    |
       | New Title | My description. | first    | 3, 4, 5 |
 
+  @urlhack
   Scenario: Admin edits collection fail
     Given I am logged in as "admin@intersect.org.au"
     And I am on the "MyCollection" collection page
@@ -111,6 +117,7 @@ Feature: Collections
     And I press "Save"
     Then I should see "The record could not be saved"
 
+  @urlhack
   Scenario: Researcher can't edit collection
     Given I am logged in as "researcher@intersect.org.au"
     And I am on the "MyCollection" collection page
