@@ -24,6 +24,17 @@ begin
       end
     end
   end  
+
+  desc "Create a superuser"
+  task :create_superuser, [:first_name, :last_name, :email, :password] => :environment do |task, args|
+    first_name = args.first_name
+    last_name = args.last_name
+    email = args.email
+    password = args.password
+
+    raise 'usage: rake "create_superuser[First Name, Last Name, email, password"' unless [first_name, last_name, email, password].all?(&:present?)
+    create_superuser(first_name, last_name, email, password)
+  end
 rescue LoadError  
   puts "It looks like some Gems are missing: please run bundle install"  
 end
