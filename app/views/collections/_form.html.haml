@@ -3,6 +3,8 @@
   = render_field('Title', f.text_field(:title, max_length: 255), :collection_title)
   = render_field('Description', f.text_field(:description, max_length: 512), :collection_description)
   = render_field('Keywords', f.text_field(:keywords, max_length: 255), :collection_keywords)
+  = render_field('Spatial Coverage', f.text_field(:spatial_coverage, max_length: 255), :collection_spatial_coverage)
+  = render_field('Temporal Coverage', f.text_field(:temporal_coverage, max_length: 255), :collection_temporal_coverage)
   = render_field_with_block('MQT Numbers') do
     - selected_papyri_ids = collection.papyri.pluck(:id)
     - papyri = Papyrus.all
