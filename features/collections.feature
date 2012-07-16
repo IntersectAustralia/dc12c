@@ -26,9 +26,9 @@ Feature: Collections
       | Book          |
       | Book Fragment |
     And I have collections "MyCollection" with description "My description"
-      | title             | description           | keywords | mqts    |
-      | MyCollection      | My description.       | first    | 3, 4, 5 |
-      | MyOtherCollection | My other description. | other    | 3, 4, 5 |
+      | title             | description           | keywords | spatial_coverage | temporal_coverage | mqts    |
+      | MyCollection      | My description.       | first    | first spatial    | first temporal    | 3, 4, 5 |
+      | MyOtherCollection | My other description. | other    | 2nd spatial      | 2nd temporal      | 3, 4, 5 |
 
   @urlhack
   Scenario: View Collections anonymous
@@ -40,8 +40,8 @@ Feature: Collections
       | MyOtherCollection | My other description. |
     When I follow "MyOtherCollection"
     Then I should see collection
-      | title             | description           | keywords | mqts |
-      | MyOtherCollection | My other description. | other    | 3, 4 |
+      | title             | description           | keywords | spatial_coverage | temporal_coverage | mqts |
+      | MyOtherCollection | My other description. | other    | 2nd spatial      | 2nd temporal      | 3, 4 |
 
   @urlhack
   Scenario Outline: View Collections researcher/admin
@@ -54,8 +54,8 @@ Feature: Collections
       | MyOtherCollection | My other description. |
     When I follow "MyOtherCollection"
     Then I should see collection
-      | title             | description           | keywords | mqts    |
-      | MyOtherCollection | My other description. | other    | 3, 4, 5 |
+      | title             | description           | keywords | spatial_coverage | temporal_coverage | mqts    |
+      | MyOtherCollection | My other description. | other    | 2nd spatial      | 2nd temporal      | 3, 4, 5 |
     Examples:
       | user       |
       | researcher |
@@ -75,16 +75,16 @@ Feature: Collections
     And I am on the collections page
     And I follow "New Collection"
     And I fill in collection details
-      | title | description | keywords | mqts |
-      | ttle  | dcription   | kwords   | 3    |
+      | title | description | keywords | spatial_coverage | temporal_coverage | mqts |
+      | ttle  | dcription   | kwords   | sptial           | tmporal           | 3    |
     And I press "Save"
     Then I should see "The collection was successfully created."
 
     When I am on the collections page
     And I follow "ttle"
     Then I should see collection
-      | title | description | keywords | mqts |
-      | ttle  | dcription   | kwords   | 3    |
+      | title | description | keywords | spatial_coverage | temporal_coverage | mqts |
+      | ttle  | dcription   | kwords   | sptial           | tmporal           | 3    |
 
   @urlhack
   Scenario: Admin creates collection fail
@@ -105,8 +105,8 @@ Feature: Collections
     And I press "Save"
     Then I should see "The collection was successfully updated."
     And I should see collection
-      | title     | description     | keywords | mqts    |
-      | New Title | My description. | first    | 3, 4, 5 |
+      | title     | description     | keywords | spatial_coverage | temporal_coverage | mqts    |
+      | New Title | My description. | first    | first spatial    | first temporal    | 3, 4, 5 |
 
   @urlhack
   Scenario: Admin edits collection fail

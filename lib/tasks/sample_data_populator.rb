@@ -6,6 +6,16 @@ def populate_data
   create_test_users
 end
 
+def create_superuser(first_name, last_name, email, password)
+  u = User.new(first_name: first_name, last_name: last_name, email: email, password: password, is_ldap: false) do |u|
+    u.login_attribute = email
+  end
+  role = Role.superuser_roles.first
+  u.role = role
+  u.save!
+  u.activate # performs save
+end
+
 def create_test_users
   create_user(:email => "sean@intersect.org.au", :first_name => "Sean", :last_name => "McCarthy")
   create_user(:email => "georgina@intersect.org.au", :first_name => "Georgina", :last_name => "Edwards")

@@ -4,7 +4,7 @@ class Collection < ActiveRecord::Base
   FOR_CODES= ['210105', '200305', '210306']
   DATE_FORMAT = '%Y-%m-%dT%H:%M:%SZ'
 
-  attr_accessible :title, :description, :keywords, :papyrus_ids
+  attr_accessible :title, :description, :keywords, :papyrus_ids, :spatial_coverage, :temporal_coverage
   has_and_belongs_to_many :papyri
 
   validates_presence_of :title
