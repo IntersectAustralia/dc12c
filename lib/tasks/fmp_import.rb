@@ -3,25 +3,26 @@
 require 'csv'
 
 def import_from_filemaker_pro filename, image_root
-  # TODO transactionally
-  Papyrus.delete_all
-  AccessRequest.delete_all
-  Name.delete_all
-  Connection.delete_all
+  ActiveRecord::Base.transaction do
+    Papyrus.delete_all
+    AccessRequest.delete_all
+    Name.delete_all
+    Connection.delete_all
 
-  puts "importing from CSV: #{filename} image_root: #{image_root}"
+    puts "importing from CSV: #{filename} image_root: #{image_root}"
 
-  papyri_data = read_hashes_from_csv(filename)
+    papyri_data = read_hashes_from_csv(filename)
 
-  mapped_images, unmapped_images = candidate_images(image_root)
+    mapped_images, unmapped_images = candidate_images(image_root)
 
-  needs_new_mqt_numbers = make_papyri_returning_those_needing_new_mqt_numbers(papyri_data, mapped_images)
+    needs_new_mqt_numbers = make_papyri_returning_those_needing_new_mqt_numbers(papyri_data, mapped_images)
 
-  save_with_new_mqt_numbers(needs_new_mqt_numbers)
+    save_with_new_mqt_numbers(needs_new_mqt_numbers)
 
-  stray_images = mapped_images.select{|inv_id, hsh| hsh[:assigned] == false}
+    stray_images = mapped_images.select{|inv_id, hsh| hsh[:assigned] == false}
 
-  make_blank_records(unmapped_images, stray_images)
+    make_blank_records(unmapped_images, stray_images)
+  end
 end
 
 def make_blank_records(unmapped_images, stray_images)
@@ -280,7 +281,7 @@ def to_attrs(hash)
   normalised.merge!(normalised_dates(date_string))
 
   # mqt_note contains Local Note, Physical Type, Connections, Errors
-  hash.merge!(errors: errors.inspect)
+  hash.merge!(errors: errors.inspect) unless errors.empty?
   normalised[:mqt_note] = hash_format(hash)
   [mqt_numbers, normalised, names, inventory_numbers]
 end
@@ -329,6 +330,6 @@ end
 
 def hash_format(hash)
   hash.map do |field, val|
-    "#{field}: #{val}"
-  end.join("\n")
+    "#{field}: #{val}" if val.present?
+  end.compact.join("\n")
 end
