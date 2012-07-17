@@ -27,7 +27,7 @@ describe Collection do
       should validate_uniqueness_of :title
     end
   end
-  describe "rif-cs" do
+  describe "rif-cs and OAI" do
     subject do
       @id = 234
       @updated_at = Time.utc(2012, 12, 7, 16, 3, 45)
@@ -47,7 +47,7 @@ describe Collection do
       it
     end
 
-    it { should respond_to :to_rifcs }
+    it { should respond_to :to_rif }
 
     specify { subject.collection_group.should eq "Macquarie University" }
 
@@ -174,5 +174,16 @@ describe Collection do
         }
       ]
     end
+    it "should have sets of the right format" do
+      sets = subject.sets
+      sets.count.should eq 1
+
+      set = sets.first
+      set.name.should eq 'Collections'
+      set.spec.should eq 'class:collection'
+    end
+    specify { subject.oai_dc_identifier.should eq @view_url }
+    specify { subject.oai_dc_title.should eq @title }
+    specify { subject.oai_dc_description.should eq @description }
   end
 end
