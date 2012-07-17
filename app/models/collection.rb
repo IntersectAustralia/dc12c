@@ -154,6 +154,23 @@ class Collection < ActiveRecord::Base
       }
     ]
   end
+  def sets
+    [
+      OAI::Set.new({:name => 'Collections', :spec => 'class:collection'})
+    ]
+  end
+
+  def oai_dc_identifier
+    view_url
+  end
+
+  def oai_dc_title
+    title
+  end
+
+  def oai_dc_description
+    description
+  end
 
   private
 
