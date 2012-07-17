@@ -12,7 +12,7 @@ module ApplicationHelper
       if Papyrus.basic_field(field_name) ||
         (Papyrus.detailed_field(field_name) && @ability.can?(:read_detailed_field, @papyrus)) ||
         (Papyrus.full_field(field_name) && (@ability.can?(:read_full_field, @papyrus)))
-        @helper_module.render_field(label, simple_format(@papyrus.send(field_name)))
+        @helper_module.render_field(label, simple_format(@papyrus.send(field_name).to_s))
       end
     end
   end
