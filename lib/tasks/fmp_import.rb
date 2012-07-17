@@ -278,11 +278,10 @@ def to_attrs(hash)
   date_string = hash.delete 'Dates for searching'
   normalised[:date_note] = date_string
   normalised.merge!(normalised_dates(date_string))
-  # hash.delete 'Local Note' # TODO
-  # hash.delete 'Physical Type' # TODO
-  # connections = hash.delete 'Connections' # TODO
 
-  normalised[:mqt_note] = hash.merge(errors: errors.inspect)# TODO
+  # mqt_note contains Local Note, Physical Type, Connections, Errors
+  hash.merge!(errors: errors.inspect)
+  normalised[:mqt_note] = hash_format(hash)
   [mqt_numbers, normalised, names, inventory_numbers]
 end
 
@@ -326,4 +325,10 @@ def normalised_dates(date_string)
   else
     {}
   end
+end
+
+def hash_format(hash)
+  hash.map do |field, val|
+    "#{field}: #{val}"
+  end.join("\n")
 end
