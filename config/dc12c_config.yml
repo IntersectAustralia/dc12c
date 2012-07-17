@@ -9,6 +9,7 @@ defaults: &defaults
   account_contact: contactme@example.com
   rifcs_collection_location_email: somebody-maybethesameasabove@example.com
   oai_admin_email: oai_admin@example.com
+  devise_email: devise@example.com
 
 development:
   <<: *defaults
