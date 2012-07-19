@@ -104,10 +104,54 @@ describe Papyriinfo do
 
       normalise_xml(actual).should eq normalise_xml(expected)
     end
+    describe "changes requested by Hugh" do
+      it "returns the MQT number if a title doesn't exist" do
+        p = FactoryGirl.create(:papyrus, type_of_text: nil, mqt_number: 999, visibility: Papyrus::VISIBLE)
+        to_xml(p).should =~ /<title>MQT 999<\/title>/
+      end
+      it "contains an institution tag" do
+        p = FactoryGirl.create(:papyrus, type_of_text: nil, mqt_number: 999, visibility: Papyrus::VISIBLE)
+        REXML::XPath.first(to_dom(p), "/TEI/teiHeader/fileDesc/sourceDesc/msDesc/institution").text.should eq "Macquarie Museum"
+      end
+      it "omits condition tag if it has no content" do
+        p = FactoryGirl.create(:papyrus, visibility: Papyrus::VISIBLE)
+        REXML::XPath.first(to_dom(p), "//condition").should be_nil
+      end
+      it "uses the apis keyword scheme" do
+        p = FactoryGirl.create(:papyrus, keywords: 'something', visibility: Papyrus::PUBLIC)
+        document = to_dom(p)
+        REXML::XPath.first(document, "/TEI/teiHeader/encodingDesc/classDecl/taxonomy[@xml:id='apis']/desc").text.should eq "APIS keywords are controlled locally at the institution level. They are not necessarily consistent."
+        REXML::XPath.first(document, "//textClass/keywords/@scheme").value.should eq "#apis"
+      end
+      it "uses acquisition instead of provenance" do
+        p = FactoryGirl.create(:papyrus, source_of_acquisition: 'Acqui', visibility: Papyrus::PUBLIC)
+        document = to_dom(p)
+        REXML::XPath.first(document, "//provenance").should be_nil
+        REXML::XPath.first(document, "//acquisition/p").text.should eq "Acqui"
+      end
+      it "has the dimensions in a note" do
+        p = FactoryGirl.create(:papyrus, dimensions: '30x20cm', visibility: Papyrus::PUBLIC)
+        document = to_dom(p)
+        REXML::XPath.first(document, "//physDesc/objectDesc/supportDesc/support/note[@type='dimensions']").text.should eq "30x20cm"
+      end
+      it "has other_characteristics in the support tag" do
+        p = FactoryGirl.create(:papyrus, other_characteristics: 'other charas', visibility: Papyrus::PUBLIC)
+        document = to_dom(p)
+        REXML::XPath.first(document, "//ab[@type='other']").should be_nil
+        REXML::XPath.first(document, "//support").text.strip.should eq 'other charas'
+      end
+    end
   end
 end
 def make_names(papyrus)
-    FactoryGirl.create(:name, papyrus: papyrus, role: Name::AUTHOR, name: 'Author Two', ordering: 'B')
-    FactoryGirl.create(:name, papyrus: papyrus, role: Name::AUTHOR, name: 'Author One', ordering: 'A')
-    FactoryGirl.create(:name, papyrus: papyrus, role: Name::ASSOCIATE, name: 'Non-author', ordering: 'C')
+  FactoryGirl.create(:name, papyrus: papyrus, role: Name::AUTHOR, name: 'Author Two', ordering: 'B')
+  FactoryGirl.create(:name, papyrus: papyrus, role: Name::AUTHOR, name: 'Author One', ordering: 'A')
+  FactoryGirl.create(:name, papyrus: papyrus, role: Name::ASSOCIATE, name: 'Non-author', ordering: 'C')
+end
+
+def to_xml(papyrus)
+  Papyriinfo.send(:xml_data, papyrus)
+end
+def to_dom(papyrus)
+  REXML::Document.new(Papyriinfo.send(:xml_data, papyrus))
 end

@@ -2,9 +2,10 @@ Given /^I have collections "([^"]*)" with description "([^"]*)"$/ do |arg1, arg2
   table.hashes.each do |hash|
     title = hash.fetch 'title'
     description = hash.fetch 'description'
-    mqts = hash.fetch('mqts').split(', ').map(&:to_i)
+    keywords = hash.fetch 'keywords'
+    mqts = hash.delete('mqts').split(', ').map(&:to_i)
     papyri = Papyrus.where(mqt_number: mqts)
-    FactoryGirl.create(:collection, title: title, description: description, papyri: papyri)
+    FactoryGirl.create(:collection, hash.merge(papyri: papyri))
   end
 end
 
@@ -24,9 +25,11 @@ end
 Then /^I should see collection$/ do |expected_table|
   hash = expected_table.hashes.first
 
-  title = hash.fetch "title"
-  description = hash.fetch "description"
-  keywords = hash.fetch "description"
+  title = hash.fetch 'title'
+  description = hash.fetch 'description'
+  keywords = hash.fetch 'keywords'
+  spatial_coverage = hash.fetch 'spatial_coverage'
+  temporal_coverage = hash.fetch 'temporal_coverage'
 
   mqts = hash.fetch("mqts").split(", ").map(&:to_i)
   papyri = Papyrus.where(mqt_number: mqts)
@@ -41,6 +44,11 @@ Then /^I should see collection$/ do |expected_table|
   end
 
   actual.should eq expected
+
+  find('p.description').text.should eq description
+  find('p.keywords').text.should eq keywords
+  find('p.spatial_coverage').text.should eq spatial_coverage
+  find('p.temporal_coverage').text.should eq temporal_coverage
 end
 Given /^I fill in collection details$/ do |table|
   details = table.hashes.first.each do |field_name, value|

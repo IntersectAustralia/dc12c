@@ -7,8 +7,15 @@
       = link_to "Edit", edit_collection_path(@collection), class: 'btn'
 
   .page-content
-    %p= @collection.description
-    = render partial: 'papyri/table', locals: {table_id: 'collection_papyri', papyri: @collection.papyri.accessible_by(current_ability)}
+    %strong Keywords
+    %p.keywords= @collection.keywords
+    %strong Spatial Coverage
+    %p.spatial_coverage= @collection.spatial_coverage
+    %strong Temporal Coverage
+    %p.temporal_coverage= @collection.temporal_coverage
 
+    %strong Description
+    %p.description= @collection.description
+    = render partial: 'papyri/table', locals: {table_id: 'collection_papyri', papyri: @collection.papyri.accessible_by(current_ability)}
     .form-actions
       = link_to 'Back', papyri_path, class: "btn"

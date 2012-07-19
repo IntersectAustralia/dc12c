@@ -4,7 +4,7 @@
    <teiHeader>
       <fileDesc>
          <titleStmt>
-            <title></title>
+            <title>MQT 123</title>
               <author>Author One</author>
               <author>Author Two</author>
          </titleStmt>
@@ -18,6 +18,7 @@
                <msIdentifier>
                   <idno type="invNo">p.macq.4321</idno>
                </msIdentifier>
+               <institution>Macquarie Museum</institution>
                <msContents>
                   <summary>A summary</summary>
                   <msItemStruct>
@@ -28,9 +29,7 @@
                <physDesc>
                   <objectDesc>
                      <supportDesc>
-                        <support>papyrus 24 x 11 mm</support>
-                        <condition>
-                        </condition>
+                        <support>papyrus <note type="dimensions">24 x 11 mm</note></support>
                      </supportDesc>
                      <layoutDesc>
                         <layout>
@@ -56,8 +55,8 @@
       </fileDesc>
       <encodingDesc>
          <classDecl>
-            <taxonomy xml:id="macquarie">
-               <desc>Macquarie keywords are controlled locally at the institution level. They are not necessarily consistent.</desc>
+            <taxonomy xml:id="apis">
+               <desc>APIS keywords are controlled locally at the institution level. They are not necessarily consistent.</desc>
             </taxonomy>
          </classDecl>
       </encodingDesc>
@@ -67,7 +66,7 @@
                <language ident="grc">Greek</language>
          </langUsage>
          <textClass>
-            <keywords scheme="#macquarie">
+            <keywords scheme="#apis">
                  <term type="genre_form">Paraliterary</term>
             </keywords>
          </textClass>

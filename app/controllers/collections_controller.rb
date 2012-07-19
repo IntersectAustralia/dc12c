@@ -7,6 +7,10 @@ class CollectionsController < ApplicationController
   end
 
   def show
+    respond_to do |format|
+      format.html
+      format.xml { render xml: @collection.to_rifcs }
+    end
   end
 
   def new

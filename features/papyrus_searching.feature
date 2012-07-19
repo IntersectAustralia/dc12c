@@ -270,3 +270,10 @@ Feature: Searching Papyri
     And I press "Search"
     Then I should not see the search results table
     And I should see "No Results Found"
+
+  Scenario: Advanced searching should search by "like_all" instead of "like_any" in fields
+    Given I am logged in as "researcher@intersect.org.au"
+    And I am on the advanced search page
+    And I fill in "inventory_number" with "pmac 20"
+    And I press "Search"
+    Then I should see search results "MQT 20"

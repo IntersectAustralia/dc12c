@@ -12,7 +12,7 @@ def create_languages
     ['Arabic', 'ara'],
     ['Aramaic', 'arc'],
     ['Egyptian\Coptic', 'cop'],
-    ['Egyptian\Demotic', 'dem'],
+    ['Egyptian\Demotic', 'egy-Egyd'],
     ['Greek', 'grc'],
     ['Hebrew', 'heb'],
     ['Egyptian\Hieroglyphic', 'hig'],

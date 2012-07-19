@@ -88,14 +88,22 @@ class PapyriController < ApplicationController
     date_params, @errors = date_params_to_hash(params)
 
     fields = ['inventory_number', 'general_note', 'lines_of_text', 'paleographic_description', 'recto_verso_note', 'origin_details', 'source_of_acquisition', 'preservation_note', 'language_note', 'summary', 'original_text', 'translated_text']
-    @search_fields = params.keep_if do |name, value|
+    date_search_fields = ['date_from_era', 'date_to_era', 'date_from_year', 'date_to_year']
+
+    original_params = params.dup
+
+    model_search_fields = params.keep_if do |name, value|
       value.present? && fields.include?(name.to_s)
     end
 
-    @search_fields.merge! date_params
+    @search_fields = original_params.keep_if do |name, value|
+      value.present? && (fields + date_search_fields).include?(name.to_s)
+    end
 
-    if !@search_fields.empty? and !@errors.present?
-      @papyri = Papyrus.advanced_search(current_user, @search_fields).paginate(page: page, per_page: APP_CONFIG['number_of_papyri_per_page'])
+    model_search_fields.merge! date_params
+
+    if !model_search_fields.empty? and !@errors.present?
+      @papyri = Papyrus.advanced_search(current_user, model_search_fields).paginate(page: page, per_page: APP_CONFIG['number_of_papyri_per_page'])
     else
       @papyri = []
     end

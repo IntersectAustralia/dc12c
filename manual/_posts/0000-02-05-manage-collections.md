@@ -6,8 +6,8 @@ group: manual
 ---
 {% include JB/setup %}
 
-Content goes here. This should include
-* manage papyrus
-* manage name
-* manage connection
-* manage image
+* Create a collection
+* Description of RDA
+mention of visibility
+
+(TODO complete)

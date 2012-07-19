@@ -54,5 +54,18 @@ Feature: Advanced Searching With Dates
     | 0 CE      |         | Date From must not be zero                           |
     | 1 CE      | 1 BCE   | Date To must not be less than Date From              |
 
+  @papyrus_per_page_is_one
+  Scenario: Date information is retained after a search
+    Given I am logged in as "admin@intersect.org.au"
+    And I am on the advanced search page
+    And I fill in date search information "1234 BCE" "432 CE"
+    And I press "Search"
+    Then I should see date search information "1234" "BCE" "432" "CE"
+    And I should see search results "MQT 1"
+    When I follow "2"
+    Then I should see search results "MQT 3"
+    When I follow "3"
+    Then I should see search results "MQT 4"
+
   @wip
   Scenario: researcher and anonymous tests

@@ -26,10 +26,11 @@ Feature: Collections
       | Book          |
       | Book Fragment |
     And I have collections "MyCollection" with description "My description"
-      | title             | description           | keywords | mqts    |
-      | MyCollection      | My description.       | first    | 3, 4, 5 |
-      | MyOtherCollection | My other description. | other    | 3, 4, 5 |
+      | title             | description           | keywords | spatial_coverage | temporal_coverage | mqts    |
+      | MyCollection      | My description.       | first    | first spatial    | first temporal    | 3, 4, 5 |
+      | MyOtherCollection | My other description. | other    | 2nd spatial      | 2nd temporal      | 3, 4, 5 |
 
+  @urlhack
   Scenario: View Collections anonymous
     Given I am on the home page
     And I follow "Collections"
@@ -39,9 +40,10 @@ Feature: Collections
       | MyOtherCollection | My other description. |
     When I follow "MyOtherCollection"
     Then I should see collection
-      | title             | description           | keywords | mqts |
-      | MyOtherCollection | My other description. | other    | 3, 4 |
+      | title             | description           | keywords | spatial_coverage | temporal_coverage | mqts |
+      | MyOtherCollection | My other description. | other    | 2nd spatial      | 2nd temporal      | 3, 4 |
 
+  @urlhack
   Scenario Outline: View Collections researcher/admin
     Given I am on the home page
     And I am logged in as "<user>@intersect.org.au"
@@ -52,8 +54,8 @@ Feature: Collections
       | MyOtherCollection | My other description. |
     When I follow "MyOtherCollection"
     Then I should see collection
-      | title             | description           | keywords | mqts    |
-      | MyOtherCollection | My other description. | other    | 3, 4, 5 |
+      | title             | description           | keywords | spatial_coverage | temporal_coverage | mqts    |
+      | MyOtherCollection | My other description. | other    | 2nd spatial      | 2nd temporal      | 3, 4, 5 |
     Examples:
       | user       |
       | researcher |
@@ -67,22 +69,24 @@ Feature: Collections
     When I am on the new collection page
     Then I should see "You are not authorized to access this page."
 
+  @urlhack
   Scenario: Admin creates collection
     Given I am logged in as "admin@intersect.org.au"
     And I am on the collections page
     And I follow "New Collection"
     And I fill in collection details
-      | title | description | keywords | mqts |
-      | ttle  | dcription   | kwords   | 3    |
+      | title | description | keywords | spatial_coverage | temporal_coverage | mqts |
+      | ttle  | dcription   | kwords   | sptial           | tmporal           | 3    |
     And I press "Save"
     Then I should see "The collection was successfully created."
 
     When I am on the collections page
     And I follow "ttle"
     Then I should see collection
-      | title | description | keywords | mqts |
-      | ttle  | dcription   | kwords   | 3    |
+      | title | description | keywords | spatial_coverage | temporal_coverage | mqts |
+      | ttle  | dcription   | kwords   | sptial           | tmporal           | 3    |
 
+  @urlhack
   Scenario: Admin creates collection fail
     Given I am logged in as "admin@intersect.org.au"
     And I am on the new collection  page
@@ -92,6 +96,7 @@ Feature: Collections
     And I press "Save"
     Then I should see "The record could not be saved"
 
+  @urlhack
   Scenario: Admin edits collection
     Given I am logged in as "admin@intersect.org.au"
     And I am on the "MyCollection" collection page
@@ -100,9 +105,10 @@ Feature: Collections
     And I press "Save"
     Then I should see "The collection was successfully updated."
     And I should see collection
-      | title     | description     | keywords | mqts    |
-      | New Title | My description. | first    | 3, 4, 5 |
+      | title     | description     | keywords | spatial_coverage | temporal_coverage | mqts    |
+      | New Title | My description. | first    | first spatial    | first temporal    | 3, 4, 5 |
 
+  @urlhack
   Scenario: Admin edits collection fail
     Given I am logged in as "admin@intersect.org.au"
     And I am on the "MyCollection" collection page
@@ -111,6 +117,7 @@ Feature: Collections
     And I press "Save"
     Then I should see "The record could not be saved"
 
+  @urlhack
   Scenario: Researcher can't edit collection
     Given I am logged in as "researcher@intersect.org.au"
     And I am on the "MyCollection" collection page

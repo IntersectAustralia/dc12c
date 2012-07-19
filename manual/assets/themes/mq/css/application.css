@@ -7470,7 +7470,22 @@ table {
 
 div.pagination ul{
   text-align: center;
+  padding-bottom: 0;
 }
 .pagination li {
   display:inline;
+}
+
+.page-content p, .page-content ul, .page-content ol, .page-content h2 {
+  padding-bottom: 30px;
+}
+p {
+}
+.page-content ul, .page-content ol {
+  margin-left: 30px;
+}
+.page-content ul li{
+  list-style-type: disc;
+  padding-left: 5px;
+  padding-right: 5px;
 }

@@ -1,5 +1,5 @@
 $:.unshift(File.expand_path('./lib', ENV['rvm_path']))
-#require 'bundler/capistrano'
+require 'bundler/capistrano'
 require 'capistrano/ext/multistage'
 require 'capistrano_colors'
 require 'rvm/capistrano'
@@ -171,7 +171,7 @@ namespace :deploy do
   end
 
   task :regenerate_manual do
-    run("cd #{current_path} && rm -rf public/manual/* && jekyll manual/ public/manual/")
+    run("cd #{current_path} && rm -rf public/manual/* && bundle exec jekyll manual/ public/manual/")
   end
 end
 

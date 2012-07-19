@@ -7,6 +7,9 @@ defaults: &defaults
   one_id_password_reset_url: http://mypassword.mq.edu.au
   papyrus_created_email_sender: papyrus-account-created@intersect.org.au
   account_contact: contactme@example.com
+  rifcs_collection_location_email: somebody-maybethesameasabove@example.com
+  oai_admin_email: oai_admin@example.com
+  devise_email: devise@example.com
 
 development:
   <<: *defaults
