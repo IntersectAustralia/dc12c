@@ -104,6 +104,40 @@ describe Papyriinfo do
 
       normalise_xml(actual).should eq normalise_xml(expected)
     end
+    it "XML-escapes the content" do
+      p = FactoryGirl.create(:papyrus, @opts.merge(
+          publications: '&',
+          translated_text: '&',
+          original_text: '&',
+          keywords: '&',
+          source_of_acquisition: '&',
+          origin_details: '&',
+          date_note: '&',
+          paleographic_description: '&',
+          recto_verso_note: '&',
+          lines_of_text: '&',
+          preservation_note: '&',
+          conservation_note: '&',
+          dimensions: '&',
+          other_characteristics: '&',
+          material: '&',
+          physical_location: '&',
+          summary: '\'',
+          inventory_number: '>',
+          type_of_text: '&',
+          visibility: Papyrus::PUBLIC,
+          id: 12345
+
+        )
+      )
+      FactoryGirl.create(:name, papyrus: p, role: Name::AUTHOR, name: '<', ordering: 'A')
+      FactoryGirl.create(:name, papyrus: p, role: Name::ASSOCIATE, name: '&&', ordering: 'C')
+
+      expected = File.read(Rails.root.join('spec', 'test_data', 'escaped.xml'))
+      actual = Papyriinfo.send(:xml_data, p)
+
+      normalise_xml(actual).should eq normalise_xml(expected)
+    end
     describe "changes requested by Hugh" do
       it "returns the MQT number if a title doesn't exist" do
         p = FactoryGirl.create(:papyrus, type_of_text: nil, mqt_number: 999, visibility: Papyrus::VISIBLE)

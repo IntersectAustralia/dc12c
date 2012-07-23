@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.stoa.org/epidoc/schema/latest/tei-epidoc.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>&amp;</title>
+              <author>&lt;</author>
+         </titleStmt>
+         <publicationStmt>
+            <authority>APIS</authority>
+            <idno type="apisid">macquarie.apis.12345</idno>
+            <idno type="MQTNumber">123</idno>
+         </publicationStmt>
+         <sourceDesc>
+            <msDesc>
+               <msIdentifier>
+                  <idno type="invNo">&gt;</idno>
+               </msIdentifier>
+               <institution>Macquarie Museum</institution>
+               <msContents>
+                  <summary>'</summary>
+                  <msItemStruct>
+                     <note type="general">Location: Macquarie Museum, &amp;</note>
+                       <textLang otherLangs="cop grc">Coptic, Greek</textLang>
+                  </msItemStruct>
+               </msContents>
+               <physDesc>
+                  <objectDesc>
+                     <supportDesc>
+                        <support>&amp; &amp;<note type="dimensions">&amp;</note></support>
+                        <condition>
+                           <ab type="conservation">&amp;</ab>
+                           <ab type="preservation">&amp;</ab>
+                        </condition>
+                     </supportDesc>
+                     <layoutDesc>
+                        <layout>
+                           <ab type="lines">&amp;</ab>
+                           <ab type="recto-verso">&amp;</ab>
+                        </layout>
+                     </layoutDesc>
+                  </objectDesc>
+                  <handDesc>
+                     <p>&amp;</p>
+                  </handDesc>
+               </physDesc>
+               <history>
+                  <origin>
+                     <origDate notBefore="-0123" notAfter="0123">123 BCE - 123 CE &amp;</origDate>
+                     <origPlace>&amp;</origPlace>
+                       <persName type="Author">&lt;</persName>
+                       <persName type="Associate">&amp;&amp;</persName>
+                  </origin>
+                  <acquisition>
+                     <p>&amp;</p>
+                  </acquisition>
+               </history>
+            </msDesc>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <classDecl>
+            <taxonomy xml:id="apis">
+               <desc>APIS keywords are controlled locally at the institution level. They are not necessarily consistent.</desc>
+            </taxonomy>
+         </classDecl>
+      </encodingDesc>
+      <profileDesc>
+         <langUsage>
+               <language ident="cop">Coptic</language>
+               <language ident="grc">Greek</language>
+         </langUsage>
+         <textClass>
+            <keywords scheme="#apis">
+                 <term>&amp;</term>
+                 <term type="genre_form">Paraliterary</term>
+            </keywords>
+         </textClass>
+      </profileDesc>
+   </teiHeader>
+   <text>
+      <body>
+         <div type="textpart">
+            <ab>&amp;</ab>
+         </div>
+         <div type="translation">
+            <ab>&amp;</ab>
+         </div>
+         <div type="bibliography" subtype="citations">
+            <listBibl>
+               <bibl>&amp;</bibl>
+            </listBibl>
+            <p>
+            <ref target="http://localhost:3000/papyri/12345">Original record</ref>.</p>
+         </div>
+      </body>
+   </text>
+</TEI>
+

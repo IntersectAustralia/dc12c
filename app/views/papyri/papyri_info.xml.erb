@@ -4,9 +4,9 @@
    <teiHeader>
       <fileDesc>
          <titleStmt>
-            <title><%= papyrus.xml_title %></title>
+            <title><%= h papyrus.xml_title %></title>
             <% papyrus.authors.each do |author| %>
-              <author><%= author.name %></author>
+              <author><%= h author.name %></author>
             <% end %>
          </titleStmt>
          <publicationStmt>
@@ -17,13 +17,13 @@
          <sourceDesc>
             <msDesc>
                <msIdentifier>
-                  <idno type="invNo"><%= papyrus.inventory_number %></idno>
+                  <idno type="invNo"><%= h papyrus.inventory_number %></idno>
                </msIdentifier>
                <institution>Macquarie Museum</institution>
                <msContents>
-                  <summary><%= papyrus.summary %></summary>
+                  <summary><%= h papyrus.summary %></summary>
                   <msItemStruct>
-                     <note type="general">Location: Macquarie Museum<%= papyrus.physical_location.present? ? ", #{papyrus.physical_location}" : '' %></note>
+                     <note type="general">Location: Macquarie Museum<%= papyrus.physical_location.present? ? ", #{h papyrus.physical_location}" : '' %></note>
                      <% if papyrus.languages.count == 1 %>
                        <% lang = papyrus.languages.first %>
                        <textLang mainLang="<%= lang.code %>"><%= lang.name %></textLang>
@@ -35,46 +35,46 @@
                <physDesc>
                   <objectDesc>
                      <supportDesc>
-                        <support><%= papyrus.material %>
-                               <%= papyrus.other_characteristics %>
-                          <note type="dimensions"><%= papyrus.dimensions %></note>
+                        <support><%= h papyrus.material %>
+                               <%= h papyrus.other_characteristics %>
+                          <note type="dimensions"><%= h papyrus.dimensions %></note>
                         </support>
                         <% if [papyrus.conservation_note, papyrus.preservation_note].any?(&:present?) %>
                           <condition>
                              <% if papyrus.conservation_note.present? %>
-                               <ab type="conservation"><%= papyrus.conservation_note %></ab>
+                               <ab type="conservation"><%= h papyrus.conservation_note %></ab>
                              <% end %>
                              <% if papyrus.preservation_note.present? %>
-                               <ab type="preservation"><%= papyrus.preservation_note %></ab>
+                               <ab type="preservation"><%= h papyrus.preservation_note %></ab>
                              <% end %>
                           </condition>
                         <% end %>
                      </supportDesc>
                      <layoutDesc>
                         <layout>
-                           <ab type="lines"><%= papyrus.lines_of_text %></ab>
+                           <ab type="lines"><%= h papyrus.lines_of_text %></ab>
                            <% if papyrus.recto_verso_note.present? %>
-                             <ab type="recto-verso"><%= papyrus.recto_verso_note %></ab>
+                             <ab type="recto-verso"><%= h papyrus.recto_verso_note %></ab>
                            <% end %>
                         </layout>
                      </layoutDesc>
                   </objectDesc>
                   <handDesc>
-                     <p><%= papyrus.paleographic_description %></p>
+                     <p><%= h papyrus.paleographic_description %></p>
                   </handDesc>
                </physDesc>
                <% if [papyrus.date_from, papyrus.origin_details, papyrus.names, papyrus.source_of_acquisition].any?(&:present?) %>
                <history>
                   <origin>
-                     <origDate notBefore="<%= papyrus.xml_date_from %>" notAfter="<%= papyrus.xml_date_to %>"><%= papyrus.formatted_date %> <%= papyrus.date_note %></origDate>
-                     <origPlace><%= papyrus.origin_details %></origPlace>
+                     <origDate notBefore="<%= papyrus.xml_date_from %>" notAfter="<%= papyrus.xml_date_to %>"><%= papyrus.formatted_date %> <%= h papyrus.date_note %></origDate>
+                     <origPlace><%= h papyrus.origin_details %></origPlace>
                      <% papyrus.names.each do |name| %>
-                       <persName type="<%= name.human_readable_role %>"><%= name.name %></persName>
+                       <persName type="<%= name.human_readable_role %>"><%= h name.name %></persName>
                      <% end %>
                   </origin>
                   <% if papyrus.source_of_acquisition.present? %>
                     <acquisition>
-                       <p><%= papyrus.source_of_acquisition %></p>
+                       <p><%= h papyrus.source_of_acquisition %></p>
                     </acquisition>
                   <% end %>
                </history>
@@ -104,7 +104,7 @@
          <textClass>
             <keywords scheme="#apis">
                <% papyrus.split_keywords.each do |keyword| %>
-                 <term><%= keyword %></term>
+                 <term><%= h keyword %></term>
                <% end %>
                <% if papyrus.genre.present? %>
                  <term type="genre_form"><%= papyrus.genre.name %></term>
@@ -119,18 +119,18 @@
       <body>
          <% if papyrus.original_text %>
          <div type="textpart">
-            <ab><%= papyrus.original_text %></ab>
+            <ab><%= h papyrus.original_text %></ab>
          </div>
          <% end %>
          <% if papyrus.translated_text %>
          <div type="translation">
-            <ab><%= papyrus.translated_text %></ab>
+            <ab><%= h papyrus.translated_text %></ab>
          </div>
          <% end %>
          <div type="bibliography" subtype="citations">
             <% if papyrus.publications %>
             <listBibl>
-               <bibl><%= papyrus.publications %></bibl>
+               <bibl><%= h papyrus.publications %></bibl>
             </listBibl>
             <% end %>
             <p>
@@ -139,4 +139,3 @@
       </body>
    </text>
 </TEI>
-
