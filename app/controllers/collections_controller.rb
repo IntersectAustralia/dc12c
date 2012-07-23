@@ -9,7 +9,10 @@ class CollectionsController < ApplicationController
   def show
     respond_to do |format|
       format.html
-      format.xml { render xml: @collection.to_rifcs }
+      format.xml do
+        response.headers['Content-Disposition'] = "attachment; filename=\"#{@collection.id}.xml\""
+        render xml: @collection.to_rif
+      end
     end
   end
 
