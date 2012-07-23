@@ -3,5 +3,5 @@
   .page-header
     %h2 Approved Requests
   .page-content
-    = render partial: 'table', locals: {table_id: 'pending_requests', requests: @approved_access_requests}
+    = render partial: 'table', locals: {table_id: 'approved_requests', requests: @approved_access_requests, approve_mode: true}
     = link_to "Back", admin_index_path, class: 'btn'

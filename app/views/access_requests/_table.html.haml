@@ -3,8 +3,13 @@
     %tr
       %th MQT Number
       %th Inventory Number
-      %th User requesting access
+      - if approve_mode
+        %th User with access
+      - else
+        %th User requesting access
       %th Date requested
+      - if approve_mode
+        %th Date approved
   %tbody
     - requests.each do |access_request|
       %tr{class: cycle("field_bg", "field_nobg")}
@@ -12,3 +17,5 @@
         %td= access_request.papyrus.inventory_number
         %td= access_request.user.email
         %td= access_request.formatted_date_requested
+        - if approve_mode
+          %td= access_request.formatted_date_approved

@@ -3,5 +3,5 @@
   .page-header
     %h2 Pending Requests
   .page-content
-    = render partial: 'table', locals: {table_id: 'pending_requests', requests: @pending_access_requests}
+    = render partial: 'table', locals: {table_id: 'pending_requests', requests: @pending_access_requests, approve_mode: false}
     = link_to "Back", admin_index_path, class: 'btn'
