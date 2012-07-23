@@ -70,6 +70,8 @@ class PapyriController < ApplicationController
   end
 
   def search
+    set_tab :home
+
     page = make_page(params[:page])
     search_query = params[:search]
     search_terms = search_query.split /\s+/
@@ -83,6 +85,8 @@ class PapyriController < ApplicationController
   end
 
   def advanced_search
+    set_tab :home
+
     page = make_page(params[:page])
     @with_params = params.include?(:utf8)
     date_params, @errors = date_params_to_hash(params)

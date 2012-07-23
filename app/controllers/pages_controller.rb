@@ -1,8 +1,10 @@
 class PagesController < ApplicationController
   def home
+    set_tab :home
   end
 
   def about
+    set_tab :about
   end
 
   def not_found
