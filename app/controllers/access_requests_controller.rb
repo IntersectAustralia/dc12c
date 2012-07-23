@@ -1,5 +1,8 @@
 class AccessRequestsController < ApplicationController
   load_and_authorize_resource
+
+  set_tab :admin
+
   def index
   end
   def pending
