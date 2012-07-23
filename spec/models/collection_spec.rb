@@ -27,6 +27,14 @@ describe Collection do
       should validate_uniqueness_of :title
     end
   end
+  it "should sort by title by default" do
+    FactoryGirl.create(:collection, title: 'b')
+    FactoryGirl.create(:collection, title: 'c')
+    FactoryGirl.create(:collection, title: 'D')
+    FactoryGirl.create(:collection, title: 'A')
+
+    Collection.pluck(:title).should eq %w(A b c D)
+  end
   describe "rif-cs and OAI" do
     subject do
       @id = 234

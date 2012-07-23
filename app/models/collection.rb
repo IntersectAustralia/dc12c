@@ -18,6 +18,7 @@ class Collection < ActiveRecord::Base
   validates_length_of :keywords, maximum: 255
   validates_length_of :spatial_coverage, maximum: 255
   validates_length_of :temporal_coverage, maximum: 255
+  default_scope order: 'lower(title)'
 
 # required by RIFCS::Collection
   def collection_group
