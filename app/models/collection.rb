@@ -20,6 +20,8 @@ class Collection < ActiveRecord::Base
   validates_length_of :temporal_coverage, maximum: 255
   default_scope order: 'lower(title)'
 
+  validate :at_least_one_papyrus_selected
+
 # required by RIFCS::Collection
   def collection_group
     "Macquarie University"
@@ -181,5 +183,9 @@ class Collection < ActiveRecord::Base
   def view_url
     url_opts = ActionController::Base.default_url_options
     Rails.application.routes.url_helpers.collection_url(self, url_opts)
+  end
+
+  def at_least_one_papyrus_selected
+    errors[:base] << "You must select at least one papyrus" unless papyrus_ids.length > 0
   end
 end

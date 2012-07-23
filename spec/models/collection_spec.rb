@@ -23,15 +23,24 @@ describe Collection do
     it { should ensure_length_of(:temporal_coverage).is_at_most(255) }
     it { should ensure_length_of(:spatial_coverage).is_at_most(255) }
     it "should validate title is unique" do
-      FactoryGirl.create(:collection)
+      p = FactoryGirl.create(:papyrus)
+      FactoryGirl.create(:collection, papyrus_ids: [p.id])
       should validate_uniqueness_of :title
+    end
+    it "should validate that at least one papyrus is selected" do
+      c = Collection.new(title: 'Some Title', keywords: 'Some; Keywords', description: 'some desc')
+      c.should_not be_valid
+
+      c.papyrus_ids = [FactoryGirl.create(:papyrus).id]
+      c.should be_valid
     end
   end
   it "should sort by title by default" do
-    FactoryGirl.create(:collection, title: 'b')
-    FactoryGirl.create(:collection, title: 'c')
-    FactoryGirl.create(:collection, title: 'D')
-    FactoryGirl.create(:collection, title: 'A')
+    papyrus = FactoryGirl.create(:papyrus)
+    FactoryGirl.create(:collection, title: 'b', papyrus_ids: [papyrus.id])
+    FactoryGirl.create(:collection, title: 'c', papyrus_ids: [papyrus.id])
+    FactoryGirl.create(:collection, title: 'D', papyrus_ids: [papyrus.id])
+    FactoryGirl.create(:collection, title: 'A', papyrus_ids: [papyrus.id])
 
     Collection.pluck(:title).should eq %w(A b c D)
   end
@@ -50,7 +59,8 @@ describe Collection do
       APP_CONFIG['rifcs_collection_location_email'] = @rifcs_email
       @view_url = "http://localhost:3000/collections/#{@id}"
 
-      it = FactoryGirl.create(:collection, id: @id, updated_at: @updated_at, created_at: @created_at, title: @title, description: @description, spatial_coverage: @spatial_coverage, temporal_coverage: @temporal_coverage, keywords: @keywords)
+      papyrus = FactoryGirl.create(:papyrus)
+      it = FactoryGirl.create(:collection, id: @id, updated_at: @updated_at, created_at: @created_at, title: @title, description: @description, spatial_coverage: @spatial_coverage, temporal_coverage: @temporal_coverage, keywords: @keywords, papyrus_ids: [papyrus.id])
       it.save!
       it
     end
