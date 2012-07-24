@@ -40,7 +40,24 @@ module Jekyll
       end
     end
   end
+  class PicTag < Liquid::Tag
+    def initialize(tag_name, text, tokens)
+      @tag_name = tag_name
+      @text = text
+      @tokens = tokens
+      args = text.split($-F, 2)
+      raise "wrong number of args. expected [src, alt], got #{args}" if args.length != 2
+      @image_name, @alt = args
+    end
+    def render(context)
+      site = context.registers[:site]
+      base_path = site.config['JB']['BASE_PATH']
+
+      "![#{@alt}](#{base_path}/images/#{@image_name}.tiff.png)"
+    end
+  end
 end
 
 Liquid::Template.register_tag('my_debug', Jekyll::DebugTag)
 Liquid::Template.register_tag('link_to_post', Jekyll::LinkToPostTag)
+Liquid::Template.register_tag('pic', Jekyll::PicTag)

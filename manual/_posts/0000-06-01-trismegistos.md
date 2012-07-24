@@ -10,4 +10,4 @@ group: manual
 
 The link to the CSV file is available from the admin page.
 
-(TODO image)
+{% pic externalinterfaces Trismegistos CSV %}

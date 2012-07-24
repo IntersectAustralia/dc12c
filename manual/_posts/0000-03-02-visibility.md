@@ -21,13 +21,13 @@ If you are interested in a particular record to research, you should request acc
 
 ## Changing Visibility
 Administrators can change the visibility of a record by using the controls at the top of the view page.
-(TODO image)
+{% pic visibilitycontrols Visibility Controls %}
 
 ## Requesting Access
 Once you are logged in and viewing the record you would like full access to, click "Request Access" at the top.
 If an administrator approves your request, you will then be able to view it in full detail (as if it were a public record).
 
-(TODO image)
+{% pic requestaccess Request Access%}
 
 ## Approving and Rejecting Requests
 From the admin page:
@@ -35,15 +35,11 @@ From the admin page:
 2. Choose the request you are interested in
 3. Select Approve or Reject
 
-(TODO image)
-
 ## Revoking Access
 From the admin page:
 1. View the approved requests
 2. Choose the request you are interested in.
 3. Select Revoke Access
-
-(TODO image)
 
 ## Summary of field visibility
 

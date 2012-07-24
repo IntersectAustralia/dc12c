@@ -12,7 +12,11 @@ If you are an administrator, you will be able to edit the details of papyri reco
 If you need to enter a new record, you can do so from the "Papyri List" page.
 Click "New Papyrus"
 
-(TODO add image)
+{% pic newpapyrus New Papyrus%}
+
+## View Papyrus
+
+Select an MQT number to view a papyrus.
 
 The papyrus fields are grouped into categories:
 1. Identification
@@ -23,7 +27,7 @@ The papyrus fields are grouped into categories:
 6. Images
 
 From the view page, there is a link at the top to edit Identification, Physical Properties and Content.
-(TODO add image)
+{% pic editpapyrus Edit Papyrus %}
 
 Of particular note are the date fields.
 
@@ -34,4 +38,4 @@ Fill in the date from to specify an exact date. Alternatively, you can fill in b
 Once on the edit page, fill in any updated information, and click "Save" at the bottom of the page.
 If you have made changes and wish to cancel, click "Cancel" at the bottom of the page.
 
-(TODO add image)
+{% pic papyruseditactions Edit Papyrus Actions %}

@@ -6,7 +6,7 @@ group: manual
 ---
 From the simple search page, click Advanced
 
-(TODO add image)
+{% pic advanced %}
 
 On this page, any terms (space-separated) that you type must all be matched for a search result to match.
 
@@ -26,6 +26,5 @@ The fields that are searched are:
 * Summary
 * Translated Text
 
-As with the simple search, the results are ordered by MQT number and pagination as at the bottom of the page.
+As with the simple search, the results are ordered by MQT number and pagination is at the bottom of the page.
 To modify your search, edit the fields and click "Search" again.
-(TODO add image)

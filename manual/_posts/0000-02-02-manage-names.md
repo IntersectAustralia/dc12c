@@ -13,7 +13,7 @@ When you are viewing a papyrus, you will have the following options:
 ## Add a Name
 Click "Add Name"
 
-(TODO add image)
+{% pic addname Add Name%}
 
 You can describe:
 * names
@@ -33,7 +33,7 @@ Click "Save" or "Cancel" once you are done.
 ## Edit a Name
 Click "Edit" near the name you wish to edit.
 
-(TODO add image)
+{% pic editname Edit Name %}
 
 The fields are the same as on the new name page.
 Update them as you wish.
@@ -44,4 +44,4 @@ Click "Save" or "Cancel" once you are done.
 Once you are on an edit name page, you can click delete to remove a name.
 Be careful, as there is no undo when deleting a name.
 
-(TODO add image)
+{% pic deletename Delete Name %}

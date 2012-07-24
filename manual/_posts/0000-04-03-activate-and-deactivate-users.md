@@ -10,12 +10,7 @@ Only users who have active accounts can login to the system.
 
 From the admin tab, click "List Users".
 
-(TODO image)
+1. Click "View Details" next to the user you wish to activate/deactivate.
+2. Click "Activate" or "Deactivate" as appropriate.
 
-Click "View Details" next to the user you wish to activate/deactivate.
-
-(TODO image)
-
-Click "Activate" or "Deactivate" as appropriate.
-
-(TODO image)
+{% pic viewuser View User %}

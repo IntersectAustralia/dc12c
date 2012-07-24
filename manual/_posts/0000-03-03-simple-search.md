@@ -6,7 +6,7 @@ group: manual
 ---
 
 From the top navigation bar, click "Search".
-(TODO add image)
+{% pic search %}
 
 The search will return results that match any term you mention (separate your terms with spaces).
 
@@ -37,6 +37,3 @@ The fields that are searched are:
 * Type of Text
 
 Once you have pressed Search, the list of results displayed is similar to the list page.
-
-(TODO add image)
-

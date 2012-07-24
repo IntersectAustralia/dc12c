@@ -9,4 +9,4 @@ group: manual
 
 The link to the zip file is available from the admin page.
 
-(TODO image)
+{% pic externalinterfaces papyri.info %}

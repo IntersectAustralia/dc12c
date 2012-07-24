@@ -8,12 +8,7 @@ group: manual
 
 To update your details, click your email in the navigation bar.
 
-(TODO image)
+1. Click "Edit My Details"
+2. Fill in your new details and press "Save".
 
-Click "Edit My Details"
-
-(TODO image)
-
-Then fill in your new details and press "Save".
-
-(TODO image)
+{% pic editdetails Edit My Details %}

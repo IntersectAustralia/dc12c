@@ -13,7 +13,7 @@ When you are viewing a papyrus, you will have the following options:
 ## Add an Image
 Click "Upload"
 
-(TODO add image)
+{% pic newimage New Image %}
 
 A image has three fields: the image itself, a caption, and an ordering.
 
@@ -29,7 +29,7 @@ Click "Save" or "Cancel" once you are done.
 ## Edit an Image
 Click "Edit" near the image you wish to edit.
 
-(TODO add image)
+{% pic editimage Edit Image %}
 
 You can fill in a new caption or change the ordering.
 
@@ -39,4 +39,4 @@ Click "Save" or "Cancel" once you are done.
 Once you are on an edit image page, you can click delete to remove the image.
 Be careful, as there is no undo when deleting an image.
 
-(TODO add image)
+{% pic deleteimage Delete Image %}

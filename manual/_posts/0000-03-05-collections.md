@@ -9,12 +9,10 @@ group: manual
 ## Listing Collections
 Click "Collections" in the top navigation bar.
 
-(TODO add image)
+{% pic collections Collections %}
 
 ## Viewing a Collection
 From the collection list, you can click the title of a collection to view its details.
-
-(TODO add image)
 
 ## Research Data Australia
 [Research Data Australia (RDA)](http://researchdata.ands.org.au/) is a discovery service for Australian research data.
