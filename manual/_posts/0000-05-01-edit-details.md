@@ -6,5 +6,14 @@ group: manual
 ---
 {% include JB/setup %}
 
-edit details
-change password
+To update your details, click your email in the navigation bar.
+
+(TODO image)
+
+Click "Edit My Details"
+
+(TODO image)
+
+Then fill in your new details and press "Save".
+
+(TODO image)

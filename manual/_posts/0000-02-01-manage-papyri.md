@@ -29,7 +29,7 @@ Of particular note are the date fields.
 
 Fill in the date from to specify an exact date. Alternatively, you can fill in both the date from and date to to specify a range.
 
-[Names]({{BASE_PATH}}{% post_url 0000-02-02-manage-names %}), [Connections]({{BASE_PATH}}{% post_url 0000-02-03-manage-connections%}) and [Images]({{BASE_PATH}}{% post_url 0000-02-04-manage-images %}) are covered in the following sections.
+{% link_to_post manage-names Names %}, {% link_to_post manage-connections Connections %} and {% link_to_post manage-images Images %} are covered in the following sections.
 
 Once on the edit page, fill in any updated information, and click "Save" at the bottom of the page.
 If you have made changes and wish to cancel, click "Cancel" at the bottom of the page.
