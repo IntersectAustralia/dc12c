@@ -21,3 +21,4 @@ coverage/
 dc21.ids
 
 public/manual
+manual/_site/*
