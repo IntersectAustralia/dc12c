@@ -84,6 +84,7 @@ Dc12c::Application.routes.draw do
     collection do
       get :home
       get :about
+      get :legal
     end
   end
     

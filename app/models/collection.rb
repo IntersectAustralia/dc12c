@@ -50,11 +50,11 @@ class Collection < ActiveRecord::Base
       {
         rights_statement: {
           value: 'Owned by the Museum of Ancient Cultures, Macquarie University.  Permission must be sought before publishing images of this collection.',
-          rights_uri: 'tbc'
+          rights_uri: collection_originating_source + 'pages/legal'
         },
         access_rights: {
           value: 'Low resolution images are available via the website below for downloading.  Researchers may apply to Trevor Evans, the chair of the Macquarie Papyri R&D Committee to request access to high-resolution versions of the images. Please apply via the website or email shown below.  Physical access rights only by permission of the director of the Ancient Cultures Museum AND the chair of Macquarie Papyri R&D Committee.  Please Apply via the website or email shown below.',
-          rights_uri: 'tbc'
+          rights_uri: collection_originating_source + 'pages/about'
         }
       }
     ]
@@ -76,7 +76,7 @@ class Collection < ActiveRecord::Base
   def collection_descriptions
     [
       {
-        value: description,
+        value: description + '<p>Temporal coverage: ' + temporal_coverage + '</p>',
         type: 'full'
       }
     ]
@@ -118,6 +118,11 @@ class Collection < ActiveRecord::Base
       is_owned_by: [
         {
           key: 'http://nla.gov.au/nla.party-1460842'
+        }
+      ],
+      is_managed_by: [
+        {
+          key: 'http://nla.gov.au/nla.party-549541'
         }
       ]
     }
