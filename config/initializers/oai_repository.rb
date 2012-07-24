@@ -71,6 +71,8 @@ OaiRepository.setup do |config|
     }
   ]
 
+  config.models = [Collection]
+
   # By default, an OAI repository must emit its records in OAI_DC (Dublin Core)
   # format. If you want to provide other output formats for your repository
   # (and those formats are subclasses of OAI::Provider::Metadata.Format) then
@@ -81,5 +83,5 @@ OaiRepository.setup do |config|
   config.additional_formats = [
     OAI::Provider::Metadata::RIFCS
   ]
-
+  config.limit = 100
 end
