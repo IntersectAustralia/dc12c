@@ -76,7 +76,7 @@ class Collection < ActiveRecord::Base
   def collection_descriptions
     [
       {
-        value: description + '<p>Temporal coverage: ' + temporal_coverage + '</p>',
+        value: "#{description}<p>Temporal coverage: #{temporal_coverage}</p>",
         type: 'full'
       }
     ]

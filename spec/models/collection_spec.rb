@@ -120,6 +120,9 @@ describe Collection do
         }
       ]
     end
+    it "should work with nils appropriately" do
+      Collection.new(description: nil, temporal_coverage: nil).collection_descriptions
+    end
     it "should return the collection_locations appropriately" do
       subject.collection_locations.should eq [
         {
