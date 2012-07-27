@@ -20,9 +20,9 @@ test: &test
 
 production: &production
   adapter: oracle_enhanced
-  database: //localhost/XE
-  username: ruby
-  password: placeholdertext
+  database: <%= ENV['PAPYRI_DATABASE_NAME'] %>
+  username: <%= ENV['PAPYRI_DATABASE_USER'] %>
+  password: <%= ENV['PAPYRI_DATABASE_PASS'] %>
 
 cucumber:
   <<: *test

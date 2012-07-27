@@ -2,6 +2,14 @@ Dc12c::Application.configure do
 
   config.action_mailer.default_url_options = { :host => 'papyri.mq.edu.au' }
 
+  config.action_mailer.smtp_settings = {
+    :address              => "mail.mq.edu.au",
+    :port                 => 25,
+    :domain               => "localhost",
+    :authentication       => "plain",
+    :enable_starttls_auto => true
+  }
+
   # Settings specified here will take precedence over those in config/application.rb
 
   # Code is not reloaded between requests

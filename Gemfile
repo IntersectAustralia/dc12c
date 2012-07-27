@@ -15,7 +15,7 @@ gem 'paperclip'
 gem 'bundler'
 gem 'rubygems-bundler'
 gem 'rubyzip', require: 'zip/zip'
-gem 'jekyll', git: 'https://github.com/mojombo/jekyll.git', require: false
+gem 'jekyll', git: 'http://github.com/mojombo/jekyll.git', require: false
 gem 'google-analytics-rails'
 
 gem 'rif-cs'
@@ -57,7 +57,7 @@ gem 'devise_ldap_authenticatable', git: 'http://github.com/ryanbraganza/devise_l
 gem "net-ldap", git: 'http://github.com/ryanbraganza/ruby-net-ldap.git'
     
 gem "therubyracer" # TODO should this be in group :assets ?
-group :development, :test, :jenkins, :qa, :staging do
+group :development, :test, :jenkins, :qa, :staging, :production do
   gem "rspec-rails"
   gem "factory_girl", '= 3.1.1'
   gem "factory_girl_rails", '= 3.1.0'

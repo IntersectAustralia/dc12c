@@ -19,6 +19,14 @@ test:
 
 production:
   <<: *defaults
+  password_reset_email_sender: noreply@papyri.mq.edu.au
+  papyrus_access_request_email_sender: noreply@papyri.mq.edu.au
+  papyrus_created_email_sender: noreply@papyri.mq.edu.au
+  account_contact: trevor.evans@mq.edu.au
+  rifcs_collection_location_email: todo@papyri.mq.edu.au
+  oai_admin_email: todo@papyri.mq.edu.au
+  devise_email: noreply@papyri.mq.edu.au
+  image_root: /var/papyri/images
 
 qa:
   <<: *defaults
