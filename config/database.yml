@@ -27,7 +27,7 @@ production: &production
 cucumber:
   <<: *test
 
-qa:
+qa: &qa
   adapter: oracle_enhanced
   database: //localhost/XE
   username: ruby
