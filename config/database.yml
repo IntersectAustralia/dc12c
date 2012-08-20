@@ -28,10 +28,14 @@ cucumber:
   <<: *test
 
 qa:
-  <<: *production
+  adapter: oracle_enhanced
+  database: //localhost/XE
+  username: ruby
+  password: placeholdertext
+
 
 staging:
-  <<: *production
+  <<: *qa
 
 # using localhost - reverse tunneling from knt1-int-oracle-xe-vm
 jenkins:
