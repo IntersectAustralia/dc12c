@@ -115,16 +115,8 @@ class Collection < ActiveRecord::Base
   end
   def collection_related_objects
     {
-      is_owned_by: [
-        {
-          key: 'http://nla.gov.au/nla.party-1460842'
-        }
-      ],
-      is_managed_by: [
-        {
-          key: 'http://nla.gov.au/nla.party-549541'
-        }
-      ]
+      is_owned_by: ::Party.all.map { |party| { key:  party.oai_dc_identifier } },
+      is_managed_by: ::Party.all.map { |party| { key:  party.oai_dc_identifier } },
     }
   end
   def collection_subjects

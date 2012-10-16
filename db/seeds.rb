@@ -10,3 +10,4 @@ require File.dirname(__FILE__) + '/seed_helper.rb'
 create_roles_and_permissions
 create_languages
 create_genres
+create_parties

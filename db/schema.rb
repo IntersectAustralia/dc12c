@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120712073204) do
+ActiveRecord::Schema.define(:version => 20121005043320) do
 
   create_table "access_requests", :force => true do |t|
     t.integer  "user_id",        :precision => 38, :scale => 0
@@ -25,8 +25,8 @@ ActiveRecord::Schema.define(:version => 20120712073204) do
     t.string   "title"
     t.string   "description",       :limit => 512
     t.string   "keywords"
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "spatial_coverage"
     t.string   "temporal_coverage"
   end
@@ -91,9 +91,13 @@ ActiveRecord::Schema.define(:version => 20120712073204) do
     t.integer "genre_id",                                 :precision => 38, :scale => 0
     t.string  "visibility",                                                              :default => "HIDDEN"
     t.string  "dimensions",               :limit => 511
+    t.integer "mqt_number",                               :precision => 38, :scale => 0,                       :null => false
     t.integer "date_from",                                :precision => 38, :scale => 0
     t.integer "date_to",                                  :precision => 38, :scale => 0
-    t.integer "mqt_number",                               :precision => 38, :scale => 0,                       :null => false
+    t.string  "mqt_note",                 :limit => 2048
+    t.string  "apis_id",                  :limit => 32
+    t.integer "trismegistos_id",                          :precision => 38, :scale => 0
+    t.string  "physical_location"
     t.string  "date_note",                :limit => 511
     t.string  "material"
     t.string  "conservation_note",        :limit => 1023
@@ -102,14 +106,22 @@ ActiveRecord::Schema.define(:version => 20120712073204) do
     t.string  "type_of_text"
     t.string  "modern_textual_dates",     :limit => 511
     t.string  "publications",             :limit => 511
-    t.string  "mqt_note",                 :limit => 2048
-    t.string  "apis_id",                  :limit => 32
-    t.integer "trismegistos_id",                          :precision => 38, :scale => 0
-    t.string  "physical_location"
     t.string  "volume_number",            :limit => 4
     t.integer "item_number",                              :precision => 38, :scale => 0
     t.string  "keywords",                 :limit => 511
     t.integer "search_date_to",                           :precision => 38, :scale => 0
+  end
+
+  create_table "parties", :force => true do |t|
+    t.string   "title",          :limit => 10
+    t.string   "given_name",     :limit => 50
+    t.string   "family_name",    :limit => 50
+    t.string   "email",          :limit => 100
+    t.string   "description",    :limit => 1000
+    t.string   "homepage",       :limit => 250
+    t.string   "nla_identifier", :limit => 200
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
   end
 
   create_table "roles", :force => true do |t|

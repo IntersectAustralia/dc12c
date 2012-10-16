@@ -147,4 +147,6 @@ Dc12c::Application.routes.draw do
   # match ':controller(/:action(/:id))(.:format)'
 
   mount OaiRepository::Engine => "/oai"
+
+  match 'party/:id', :to => redirect {|env, params| Rails.application.routes.url_helpers.root_path }, :as => :party
 end

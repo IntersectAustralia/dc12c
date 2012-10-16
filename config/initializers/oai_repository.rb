@@ -68,10 +68,15 @@ OaiRepository.setup do |config|
       spec: 'class:collection',
       name: 'Collections',
       model: Collection
-    }
+    },
+    {
+      spec: 'class:party',
+      name: 'Parties',
+      model: Party,
+    },
   ]
 
-  config.models = [Collection]
+  config.models = [Collection, Party]
 
   # By default, an OAI repository must emit its records in OAI_DC (Dublin Core)
   # format. If you want to provide other output formats for your repository
