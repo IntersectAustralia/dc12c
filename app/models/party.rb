@@ -1,9 +1,7 @@
 class Party < ActiveRecord::Base
   include RIFCS::Party
 
-  FOR_CODES = ['210105', '200305', '210306']
-
-  attr_accessible :title, :given_name, :family_name, :email, :description, :homepage, :nla_identifier
+  attr_accessible :title, :given_name, :family_name, :email, :description, :homepage, :nla_identifier, :for_codes
 
   def oai_dc_identifier
     view_url
@@ -104,7 +102,7 @@ class Party < ActiveRecord::Base
   end
 
   def party_subjects
-    FOR_CODES.map do |code|
+    for_codes.split(',').map do |code|
       {
         value: code,
         type: 'anzsrc-for'
