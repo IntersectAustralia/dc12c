@@ -1,4 +1,18 @@
 GIT
+  remote: http://github.com/IntersectAustralia/devise_ldap_authenticatable.git
+  revision: 64ee8a455fb62cba9148550ef73df3541a621694
+  specs:
+    devise_ldap_authenticatable (0.4.6)
+      devise (~> 2.0.4)
+      net-ldap (~> 0.2.2)
+
+GIT
+  remote: http://github.com/IntersectAustralia/ruby-net-ldap.git
+  revision: b66d69526c5edf287d6d58eb2d2c56a421251da5
+  specs:
+    net-ldap (0.2.20110317223538)
+
+GIT
   remote: http://github.com/mojombo/jekyll.git
   revision: fa8400ab61cb8df176f9fb2ec52d85f93c7418a7
   specs:
@@ -9,20 +23,6 @@ GIT
       liquid (~> 2.3)
       maruku (~> 0.5)
       pygments.rb (~> 0.2.12)
-
-GIT
-  remote: http://github.com/ryanbraganza/devise_ldap_authenticatable.git
-  revision: 64ee8a455fb62cba9148550ef73df3541a621694
-  specs:
-    devise_ldap_authenticatable (0.4.6)
-      devise (~> 2.0.4)
-      net-ldap (~> 0.2.2)
-
-GIT
-  remote: http://github.com/ryanbraganza/ruby-net-ldap.git
-  revision: b66d69526c5edf287d6d58eb2d2c56a421251da5
-  specs:
-    net-ldap (0.2.20110317223538)
 
 GEM
   remote: https://rubygems.org/
