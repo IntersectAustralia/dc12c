@@ -1,6 +1,7 @@
 Dc12c::Application.configure do
 
   config.action_mailer.default_url_options = { :host => 'papyri.mq.edu.au' }
+  config.action_controller.default_url_options = { :host => 'papyri.mq.edu.au' }
 
   config.action_mailer.smtp_settings = {
     :address              => "mail.mq.edu.au",
