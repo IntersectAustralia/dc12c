@@ -56,10 +56,10 @@ Feature: Collections
     Then I should see collection
       | title             | description           | keywords | spatial_coverage | temporal_coverage | mqts    |
       | MyOtherCollection | My other description. | other    | 2nd spatial      | 2nd temporal      | 3, 4, 5 |
-    Examples:
-      | user       |
-      | researcher |
-      | admin      |
+  Examples:
+    | user       |
+    | researcher |
+    | admin      |
 
   Scenario: Researcher/Anonymous can't create collection
     Given I am on the new collection page
@@ -79,7 +79,6 @@ Feature: Collections
       | ttle  | dcription   | kwords   | sptial           | tmporal           | 3    |
     And I press "Save"
     Then I should see "The collection was successfully created."
-
     When I am on the collections page
     And I follow "ttle"
     Then I should see collection
@@ -125,3 +124,31 @@ Feature: Collections
 
   @wip
   Scenario: XML checking
+
+  @urlhack
+  Scenario: Admin creates collection with large description
+    Given I am logged in as "admin@intersect.org.au"
+    And I am on the collections page
+    And I follow "New Collection"
+    And I fill in collection details
+      | title | description | keywords | spatial_coverage | temporal_coverage | mqts |
+      | ttle  | %LONG_TEXT% | kwords   | sptial           | tmporal           | 3    |
+    And I press "Save"
+    Then I should see "The collection was successfully created."
+    When I am on the collections page
+    And I follow "ttle"
+    Then I should see collection
+      | title | description | keywords | spatial_coverage | temporal_coverage | mqts |
+      | ttle  | %LONG_TEXT% | kwords   | sptial           | tmporal           | 3    |
+
+  @urlhack
+  Scenario: Admin edits collection with large description
+    Given I am logged in as "admin@intersect.org.au"
+    And I am on the "MyCollection" collection page
+    When I follow "Edit"
+    And I fill in description "collection_description" with "%LONG_TEXT%"
+    And I press "Save"
+    Then I should see "The collection was successfully updated."
+    And I should see collection
+      | title     | description | keywords | spatial_coverage | temporal_coverage | mqts    |
+      | New Title | %LONG_TEXT% | first    | first spatial    | first temporal    | 3, 4, 5 |

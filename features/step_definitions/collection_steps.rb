@@ -27,6 +27,9 @@ Then /^I should see collection$/ do |expected_table|
 
   title = hash.fetch 'title'
   description = hash.fetch 'description'
+
+  description = description.gsub("%LONG_TEXT%", get_long_text)
+
   keywords = hash.fetch 'keywords'
   spatial_coverage = hash.fetch 'spatial_coverage'
   temporal_coverage = hash.fetch 'temporal_coverage'
@@ -57,6 +60,8 @@ Given /^I fill in collection details$/ do |table|
       papyri.each do |p|
         find("#collection_papyrus_ids_#{p.id}").set 'checked'
       end
+    elsif field_name == 'description'
+      find("#collection_#{field_name}").set value.gsub("%LONG_TEXT%", get_long_text)
     else
       find("#collection_#{field_name}").set value
     end
@@ -66,4 +71,12 @@ end
 When /^I follow edit for collection "([^"]*)"$/ do |title|
   c = Collection.find_by_title! title
   find("#edit_collection_#{c.id}").click
+end
+
+def get_long_text
+  (0..10000).map { |x| "Hello World! " }.join
+end
+
+And /^(?:|I )fill in description "([^"]*)" with "([^"]*)"$/ do |field, value|
+  fill_in(field, :with => value.gsub("%LONG_TEXT%", get_long_text))
 end

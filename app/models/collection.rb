@@ -14,7 +14,6 @@ class Collection < ActiveRecord::Base
   validates_presence_of :keywords
 
   validates_length_of :title, maximum: 255
-  validates_length_of :description, maximum: 512
   validates_length_of :keywords, maximum: 255
   validates_length_of :spatial_coverage, maximum: 255
   validates_length_of :temporal_coverage, maximum: 255
