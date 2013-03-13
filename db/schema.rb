@@ -95,9 +95,6 @@ ActiveRecord::Schema.define(:version => 20121005043320) do
     t.integer "date_from",                                :precision => 38, :scale => 0
     t.integer "date_to",                                  :precision => 38, :scale => 0
     t.string  "mqt_note",                 :limit => 2048
-    t.string  "apis_id",                  :limit => 32
-    t.integer "trismegistos_id",                          :precision => 38, :scale => 0
-    t.string  "physical_location"
     t.string  "date_note",                :limit => 511
     t.string  "material"
     t.string  "conservation_note",        :limit => 1023
@@ -106,6 +103,9 @@ ActiveRecord::Schema.define(:version => 20121005043320) do
     t.string  "type_of_text"
     t.string  "modern_textual_dates",     :limit => 511
     t.string  "publications",             :limit => 511
+    t.string  "apis_id",                  :limit => 32
+    t.integer "trismegistos_id",                          :precision => 38, :scale => 0
+    t.string  "physical_location"
     t.string  "volume_number",            :limit => 4
     t.integer "item_number",                              :precision => 38, :scale => 0
     t.string  "keywords",                 :limit => 511
@@ -117,9 +117,10 @@ ActiveRecord::Schema.define(:version => 20121005043320) do
     t.string   "given_name",     :limit => 50
     t.string   "family_name",    :limit => 50
     t.string   "email",          :limit => 100
-    t.string   "description",    :limit => 1000
+    t.string   "description",    :limit => 2000
     t.string   "homepage",       :limit => 250
     t.string   "nla_identifier", :limit => 200
+    t.string   "for_codes",      :limit => 40
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
   end

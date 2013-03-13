@@ -87,6 +87,7 @@ def create_parties
       for_codes: '210105',
     },
   ]
+  Party.delete_all
   party_hashes.each do |attrs|
     Party.create!(attrs)
   end

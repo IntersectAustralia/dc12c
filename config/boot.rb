@@ -1,4 +1,5 @@
 require 'rubygems'
+require 'yaml'
 
 ENV['NLS_LANG'] = 'American_America.UTF8'
 # Set up gems listed in the Gemfile.
