@@ -366,7 +366,7 @@ DEPENDENCIES
   launchy
   metrical
   net-ldap!
-  oai_repository
+  oai_repository (= 0.9.0)
   paperclip
   rails (~> 3.2)
   rif-cs

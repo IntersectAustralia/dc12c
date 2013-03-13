@@ -19,7 +19,7 @@ gem 'jekyll', git: 'http://github.com/mojombo/jekyll.git', require: false
 gem 'google-analytics-rails'
 
 gem 'rif-cs'
-gem 'oai_repository'
+gem 'oai_repository', '= 0.9.0'
 
 # Gems used only for assets and not required
 # in production environments by default.
