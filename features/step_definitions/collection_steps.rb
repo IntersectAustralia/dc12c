@@ -13,7 +13,7 @@ Then /^I should see collections$/ do |expected_table|
   collections = all('#collections li')
   actual = collections.map do |elem|
     title = elem.find('a.title').text
-    description = elem.find('.description').text
+    description = elem.find('.description').text.gsub(/^(\n)/, "")
     {
       "title" => title,
       "description" => description
@@ -48,7 +48,7 @@ Then /^I should see collection$/ do |expected_table|
 
   actual.should eq expected
 
-  find('p.description').text.should eq description
+  find('p.description').text.gsub(/^(\n)/, "").should eq description
   find('p.keywords').text.should eq keywords
   find('p.spatial_coverage').text.should eq spatial_coverage
   find('p.temporal_coverage').text.should eq temporal_coverage
