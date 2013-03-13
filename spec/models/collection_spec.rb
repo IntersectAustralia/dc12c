@@ -18,7 +18,6 @@ describe Collection do
     it { should validate_presence_of :description }
     it { should validate_presence_of :keywords }
     it { should ensure_length_of(:title).is_at_most(255) }
-    it { should ensure_length_of(:description).is_at_most(512) }
     it { should ensure_length_of(:keywords).is_at_most(255) }
     it { should ensure_length_of(:temporal_coverage).is_at_most(255) }
     it { should ensure_length_of(:spatial_coverage).is_at_most(255) }
