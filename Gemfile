@@ -92,3 +92,4 @@ gem "capistrano_colors"
 gem "metrical"
 gem "simplecov", ">=0.3.8", :require => false, :groups => [:test, :jenkins]
 gem 'colorize'
+gem "rvm-capistrano"

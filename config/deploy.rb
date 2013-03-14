@@ -1,4 +1,4 @@
-$:.unshift(File.expand_path('./lib', ENV['rvm_path']))
+#$:.unshift(File.expand_path('./lib', ENV['rvm_path']))
 require 'bundler/capistrano'
 require 'capistrano/ext/multistage'
 require 'capistrano_colors'
@@ -125,20 +125,20 @@ namespace :deploy do
   # Load the schema
   desc "Load the schema into the database (WARNING: destructive!)"
   task :schema_load, :roles => :db do
-    run("cd #{current_path} && rake db:schema:load", :env => {'RAILS_ENV' => "#{stage}"})
+    run("cd #{current_path} && bundle exec rake db:schema:load", :env => {'RAILS_ENV' => "#{stage}"})
   end
 
   # Run the sample data populator
   desc "Run the test data populator script to load test data into the db (WARNING: destructive!)"
   task :populate, :roles => :db do
     generate_populate_yml
-    run("cd #{current_path} && rake db:populate", :env => {'RAILS_ENV' => "#{stage}"})
+    run("cd #{current_path} && bundle exec rake db:populate", :env => {'RAILS_ENV' => "#{stage}"})
   end
 
   # Seed the db
   desc "Run the seeds script to load seed data into the db (WARNING: destructive!)"
   task :seed, :roles => :db do
-    run("cd #{current_path} && rake db:seed", :env => {'RAILS_ENV' => "#{stage}"})
+    run("cd #{current_path} && bundle exec rake db:seed", :env => {'RAILS_ENV' => "#{stage}"})
   end
 
   desc "Full redepoyment, it runs deploy:update and deploy:refresh_db"
