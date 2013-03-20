@@ -101,6 +101,7 @@ describe Collection do
     it "should return the title in collection_names" do
       subject.collection_names.should eq [
         {
+          type: 'primary',
           xmllang: 'en',
           name_parts: [
             {
