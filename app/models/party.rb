@@ -96,7 +96,7 @@ class Party < ActiveRecord::Base
       {
         value: description,
         type: 'brief',
-        'xml:lang' => nil
+        'xml:lang' => 'en'
       },
     ]
   end
