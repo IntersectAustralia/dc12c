@@ -142,15 +142,15 @@ class Collection < ActiveRecord::Base
             value: spatial_coverage,
             type: 'text'
           }
-        ],
+        ].select { |x| !x[:value].blank? },
         temporals: [
           {
             dates: [
             ],
-            text: [temporal_coverage]
+            text: temporal_coverage.blank? ? [] : [temporal_coverage]
           }
-        ]
-      }
+        ].select { |x| !x[:text].empty? }
+      }.select { |k,v| !v.empty? }
     ]
   end
   def sets
