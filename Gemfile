@@ -18,8 +18,8 @@ gem 'rubyzip', require: 'zip/zip'
 gem 'jekyll', git: 'http://github.com/mojombo/jekyll.git', require: false
 gem 'google-analytics-rails'
 
-gem 'rif-cs'
-gem 'oai_repository', '= 0.9.0'
+gem 'oai_repository', :git => 'http://github.com/IntersectAustralia/oai_repository.git'
+gem 'rif-cs', :git => 'http://github.com/IntersectAustralia/ruby_rif-cs.git'
 
 # Gems used only for assets and not required
 # in production environments by default.
