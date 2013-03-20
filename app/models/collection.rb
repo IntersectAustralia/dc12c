@@ -61,6 +61,7 @@ class Collection < ActiveRecord::Base
   def collection_names
     [
       {
+        type: 'primary',
         xmllang: 'en',
         name_parts: [
           {
