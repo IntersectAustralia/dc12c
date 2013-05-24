@@ -106,7 +106,6 @@ describe Collection do
           name_parts: [
             {
               value: @title,
-              type: 'type'
             }
           ]
         }
@@ -115,7 +114,7 @@ describe Collection do
     it "should return the description in collection_descriptions" do
       subject.collection_descriptions.should eq [
         {
-          value: @description + '<p>Temporal coverage: ' + @temporal_coverage + '</p>' ,
+          value: @description,
           type: 'full'
         }
       ]
@@ -143,7 +142,7 @@ describe Collection do
                   type: 'streetAddress',
                   address_parts: [
                     {
-                      type: 'addressLine',
+                      type: 'text',
                       value: 'Building X5B Level 3<br /> Macquarie University<br /> NSW 2109<br /> Australia'
                     }
                   ]

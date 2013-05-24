@@ -18,4 +18,4 @@
     %p.description= @collection.description
     = render partial: 'papyri/table', locals: {table_id: 'collection_papyri', papyri: @collection.papyri.accessible_by(current_ability)}
     .form-actions
-      = link_to 'Back', papyri_path, class: "btn"
+      = link_to 'Back', collections_path, class: "btn"

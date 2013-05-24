@@ -33,46 +33,56 @@ class Party < ActiveRecord::Base
   end
   def party_identifiers
     [   
-      { value: "mailto:#{email}", type: 'uri' },
       { value: "party-#{id}", type: 'local' },
       { value: nla_identifier, type: 'AU-ANL:PEAU' },
     ].select{|hsh| hsh[:value].present? }
-  end 
+  end
+
   def party_names
+    # title component is now optional as it is only used for honorific such as Prof, Dr, etc.
+    nameParts = []
+    if !title.nil? and !title.empty?
+      nameParts.append ({ type: 'title', value: title})
+    end
+    nameParts.append ({ type: 'given', value: given_name})
+    nameParts.append ({ type: 'family', value: family_name})
+
     [   
       {   
         type: 'primary',
-        name_parts: [
-          { type: 'title', value: title},
-          { type: 'given', value: given_name},
-          { type: 'family', value: family_name}
-        ]   
+        name_parts: nameParts
       },  
     ]   
   end 
 
   def party_locations
+    electronicAddress = [
+        {
+            type: 'email',
+            value: email,
+        }
+    ]
+    #Homepage is now an optional component
+    if !homepage.nil? and !homepage.empty?
+      electronicAddress.append (
+          {
+              type: 'uri',
+              value: homepage,
+          })
+    end
+
     [
       {
         addresses: [
           {
-            electronic: [
-              {
-                type: 'email',
-                value: email,
-              },
-              {
-                type: 'uri',
-                value: homepage,
-              }
-            ],
+            electronic: electronicAddress,
             physical: [
               {
                 type: 'postalAddress',
                 address_parts: [
                   {
-                    type: 'country',
-                    value: 'Australia'
+                    type: 'text',
+                    value: 'Building X5B Level 3<br /> Macquarie University<br /> NSW 2109<br /> Australia'
                   },
                 ]
               },

@@ -66,7 +66,6 @@ class Collection < ActiveRecord::Base
         name_parts: [
           {
             value: title,
-            type: 'type'
           }
         ]
       }
@@ -76,7 +75,7 @@ class Collection < ActiveRecord::Base
   def collection_descriptions
     [
       {
-        value: "#{description}<p>Temporal coverage: #{temporal_coverage}</p>",
+        value: "#{description}",
         type: 'full'
       }
     ]
@@ -102,7 +101,7 @@ class Collection < ActiveRecord::Base
                 type: 'streetAddress',
                 address_parts: [
                   {
-                    type: 'addressLine',
+                    type: 'text',
                     value: 'Building X5B Level 3<br /> Macquarie University<br /> NSW 2109<br /> Australia'
                   }
                 ]
