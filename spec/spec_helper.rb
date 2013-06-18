@@ -1,3 +1,9 @@
+require 'simplecov'
+require 'simplecov-rcov'
+ 
+SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
+SimpleCov.start 'rails'
+
 require 'rubygems'
 require 'spork'
 #uncomment the following line to use spork with the debugger

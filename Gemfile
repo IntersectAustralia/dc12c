@@ -78,6 +78,8 @@ end
 group :test, :jenkins do
   gem "cucumber-rails", require: false
   gem "shoulda"
+  gem "simplecov", ">=0.3.8", :require => false
+  gem 'simplecov-rcov'
 end
 
 gem "haml"
