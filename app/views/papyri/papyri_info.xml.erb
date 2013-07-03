@@ -21,13 +21,13 @@
                </msIdentifier>
                <institution>Macquarie Museum</institution>
                <msContents>
-                  <summary><%= h papyrus.summary %></summary>
+                  <summary><%= h (papyrus.summary.nil?)?"":papyrus.summary.html_safe %></summary>
                   <msItemStruct>
                      <note type="general">Location: Macquarie Museum<%= papyrus.physical_location.present? ? ", #{h papyrus.physical_location}" : '' %></note>
-                     <% if papyrus.languages.count == 1 %>
+                     <% if papyrus.languages.length == 1 %>
                        <% lang = papyrus.languages.first %>
                        <textLang mainLang="<%= lang.code %>"><%= lang.name %></textLang>
-                     <% elsif papyrus.languages.count > 1%>
+                     <% elsif papyrus.languages.length > 1%>
                        <textLang otherLangs="<%= papyrus.language_codes_space_separated %>"><%= papyrus.languages_csv %></textLang>
                      <% end %>
                   </msItemStruct>
