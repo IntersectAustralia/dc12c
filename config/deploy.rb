@@ -3,6 +3,7 @@ require 'bundler/capistrano'
 require 'capistrano/ext/multistage'
 require 'capistrano_colors'
 require 'rvm/capistrano'
+require 'colorize'
 
 set :application, 'dc12c'
 set :stages, %w(qa staging production)
@@ -18,6 +19,17 @@ set :scm, 'git'
 set :repository, 'git@github.com:IntersectAustralia/dc12c.git'
 set :deploy_via, :copy
 set :copy_exclude, [".git/*"]
+
+set :branch do
+  default_tag = 'HEAD'
+
+  puts "Availible tags:".yellow
+  puts `git tag`
+  tag = Capistrano::CLI.ui.ask "Tag to deploy (make sure to push the branch/tag first) or HEAD?: [#{default_tag}] ".yellow
+  tag = default_tag if tag.empty?
+  tag
+end
+
 
 set(:user) { "#{defined?(user) ? user : 'devel'}" }
 set(:group) { "#{defined?(group) ? group : user}" }
