@@ -19,7 +19,7 @@ gem 'jekyll', git: 'http://github.com/mojombo/jekyll.git', require: false
 gem 'google-analytics-rails'
 
 gem 'oai_repository', :git => 'http://github.com/IntersectAustralia/oai_repository.git'
-gem 'rif-cs', :git => 'http://github.com/IntersectAustralia/ruby_rif-cs.git', :tag => 'v1.2.3'
+gem 'rif-cs', :git => 'http://github.com/IntersectAustralia/ruby_rif-cs.git', :tag => 'v1.2.4'
 
 # Gems used only for assets and not required
 # in production environments by default.
